@@ -14,19 +14,38 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-        body: SafeArea(
-      child: new Container(
-          width: 316,
-          height: 631,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(
-                color: Colors.black,
-                width: 1,
-              )),
-          child: Center(
-            child: Text('Home'),
-          )),
-    ));
+      body: SafeArea(
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Container(
+            decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border.all(
+                  color: Colors.black,
+                  width: 1,
+                )),
+            padding: EdgeInsets.all(12),
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.topLeft,
+                  width: 265,
+                  height: 239,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1,
+                      )),
+                  child: new Image.asset(
+                    "assets/images/logolanding.png",
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
