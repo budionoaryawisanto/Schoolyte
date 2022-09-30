@@ -16,7 +16,14 @@ class _LandingPageState extends State<LandingPage> {
     return new Scaffold(
         body: SafeArea(
       child: new Container(
-          color: Colors.white,
+          width: 316,
+          height: 631,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(
+                color: Colors.black,
+                width: 1,
+              )),
           child: Center(
             child: Text('Home'),
           )),
