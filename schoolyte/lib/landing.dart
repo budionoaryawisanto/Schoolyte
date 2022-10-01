@@ -11,6 +11,11 @@ class _LandingPageState extends State<LandingPage> {
     super.initState();
   }
 
+  _logIn() async {
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -101,6 +106,35 @@ class _LandingPageState extends State<LandingPage> {
                 alignment: Alignment(0.0, 0.0),
                 child: new Image.asset(
                   "assets/images/hi1.png",
+                ),
+              ),
+              Align(
+                alignment: Alignment(0.0, 0.5),
+                child: TextButton(
+                  onPressed: () => _logIn(),
+                  child: Container(
+                    width: 143,
+                    height: 41,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Mulai",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
