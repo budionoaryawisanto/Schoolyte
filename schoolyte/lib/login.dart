@@ -9,10 +9,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController userNameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  bool visible = false;
-  final String sUrl = "https://mysimrs.com/api/";
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -23,13 +20,135 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Text(
-            'Ini Login Page',
-            style: TextStyle(
-              fontSize: 40,
-              fontWeight: FontWeight.bold,
-            ),
+        child: Container(
+          // padding: EdgeInsets.all(12),
+          // margin: EdgeInsets.symmetric(vertical: 50),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment(0.0, 0.0),
+                child: Container(
+                  width: 384,
+                  height: 771,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1,
+                      color: Colors.black,
+                    ),
+                  ),
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: new Image.asset(
+                          "assets/images/logolanding.png",
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment(-1.0, -0.6),
+                        child: Text(
+                          'Masukkan akun anda',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-ExtraBold',
+                            fontSize: 32,
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment(-1.0, -0.5),
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 6),
+                          child: Text(
+                            'Kamu dapat menggunakan akun yang diberikan pihak sekolah!',
+                            style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 22,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment(0.0, -0.2),
+                        child: Container(
+                          width: 384,
+                          height: 136,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1,
+                              color: Colors.black,
+                            ),
+                          ),
+                          margin: EdgeInsets.symmetric(vertical: 6),
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  'ID/NIS/NIP',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment(0.0, -0.2),
+                                child: Form(
+                                  key: _formKey,
+                                  child: TextFormField(
+                                    decoration: new InputDecoration(
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              new BorderRadius.circular(10)),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'ID/NIS/NIP tidak boleh kosong';
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment(0.0, 0.3),
+                child: TextButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {}
+                  },
+                  child: Container(
+                    width: 384,
+                    height: 47,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      border: Border.all(
+                        color: Colors.black,
+                        width: 1,
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Masuk",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

@@ -22,44 +22,43 @@ class _LandingPageState extends State<LandingPage> {
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(12),
-          margin: EdgeInsets.symmetric(vertical: 50),
           child: Stack(
             children: [
               Align(
-                alignment: Alignment.topCenter,
+                alignment: Alignment(-0.7, -0.9),
+                child: new Image.asset(
+                  "assets/images/logolanding.png",
+                ),
+              ),
+              Align(
+                alignment: Alignment(0.0, -0.7),
                 child: Container(
-                  width: 265,
-                  height: 239,
+                  width: 376,
+                  height: 202,
                   child: Stack(
                     children: [
                       Align(
-                        alignment: Alignment.topLeft,
-                        child: new Image.asset(
-                          "assets/images/logolanding.png",
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment(-1.0, -0.1),
+                        alignment: Alignment(-1.0, -1.0),
                         child: Text(
                           "WELCOME",
                           style: TextStyle(
                             fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 46,
+                            fontSize: 64,
                           ),
                         ),
                       ),
                       Align(
-                        alignment: Alignment(-1.0, 0.5),
+                        alignment: Alignment(-1.0, 0.0),
                         child: Text(
                           "To",
                           style: TextStyle(
                             fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 36,
+                            fontSize: 48,
                           ),
                         ),
                       ),
                       Align(
-                        alignment: Alignment(-0.1, 0.5),
+                        alignment: Alignment(-0.4, 0.0),
                         child: Container(
                           decoration: BoxDecoration(
                             color: Color.fromRGBO(255, 199, 0, 1),
@@ -73,7 +72,7 @@ class _LandingPageState extends State<LandingPage> {
                             "Schoolyte",
                             style: TextStyle(
                               fontFamily: 'Gilroy-Light',
-                              fontSize: 36,
+                              fontSize: 40,
                             ),
                           ),
                         ),
@@ -84,7 +83,7 @@ class _LandingPageState extends State<LandingPage> {
                           "!",
                           style: TextStyle(
                             fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 40,
+                            fontSize: 48,
                           ),
                         ),
                       ),
@@ -94,7 +93,7 @@ class _LandingPageState extends State<LandingPage> {
                           "Kami akan memberikan layanan sesuai yang kalian butuhkan",
                           style: TextStyle(
                             fontFamily: 'Gilroy-Light',
-                            fontSize: 16,
+                            fontSize: 22,
                           ),
                         ),
                       ),
@@ -103,18 +102,18 @@ class _LandingPageState extends State<LandingPage> {
                 ),
               ),
               Align(
-                alignment: Alignment(0.0, 0.0),
+                alignment: Alignment(0.0, 0.2),
                 child: new Image.asset(
                   "assets/images/hi1.png",
                 ),
               ),
               Align(
-                alignment: Alignment(0.0, 0.5),
+                alignment: Alignment(0.0, 0.7),
                 child: TextButton(
                   onPressed: () => _logIn(),
                   child: Container(
-                    width: 143,
-                    height: 41,
+                    width: 384,
+                    height: 55,
                     decoration: BoxDecoration(
                       color: Colors.black,
                       border: Border.all(
