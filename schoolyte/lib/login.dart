@@ -10,6 +10,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -30,12 +31,6 @@ class _LoginPageState extends State<LoginPage> {
                 child: Container(
                   width: 384,
                   height: 771,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                      color: Colors.black,
-                    ),
-                  ),
                   child: Stack(
                     children: [
                       Align(
@@ -68,17 +63,10 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       Align(
-                        alignment: Alignment(0.0, -0.2),
+                        alignment: Alignment(0.0, -0.1),
                         child: Container(
                           width: 384,
-                          height: 136,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1,
-                              color: Colors.black,
-                            ),
-                          ),
-                          margin: EdgeInsets.symmetric(vertical: 6),
+                          height: 140,
                           child: Stack(
                             children: [
                               Align(
@@ -92,21 +80,69 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                               Align(
-                                alignment: Alignment(0.0, -0.2),
-                                child: Form(
-                                  key: _formKey,
-                                  child: TextFormField(
-                                    decoration: new InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              new BorderRadius.circular(10)),
+                                alignment: Alignment(0.0, -0.3),
+                                child: Container(
+                                  margin: EdgeInsetsDirectional.only(top: 3),
+                                  child: Form(
+                                    key: _formKey,
+                                    child: TextFormField(
+                                      decoration: new InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(10)),
+                                      ),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'ID/NIS/NIP tidak boleh kosong';
+                                        }
+                                        return null;
+                                      },
                                     ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'ID/NIS/NIP tidak boleh kosong';
-                                      }
-                                      return null;
-                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment(0.0, 0.2),
+                        child: Container(
+                          width: 384,
+                          height: 140,
+                          margin: EdgeInsetsDirectional.only(top: 30),
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  'Password',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 20,
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment(0.0, -0.3),
+                                child: Container(
+                                  margin: EdgeInsetsDirectional.only(top: 3),
+                                  child: Form(
+                                    key: _formKey2,
+                                    child: TextFormField(
+                                      obscureText: true,
+                                      decoration: new InputDecoration(
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                new BorderRadius.circular(10)),
+                                      ),
+                                      validator: (value) {
+                                        if (value!.isEmpty) {
+                                          return 'Password tidak boleh kosong';
+                                        }
+                                        return null;
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
@@ -119,10 +155,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Align(
-                alignment: Alignment(0.0, 0.3),
+                alignment: Alignment(0.0, 0.4),
                 child: TextButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {}
+                    if (_formKey2.currentState!.validate()) {}
                   },
                   child: Container(
                     width: 384,
