@@ -22,8 +22,6 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          // padding: EdgeInsets.all(12),
-          // margin: EdgeInsets.symmetric(vertical: 50),
           child: Stack(
             children: [
               Align(
