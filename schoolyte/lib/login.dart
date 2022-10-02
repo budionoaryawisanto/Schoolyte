@@ -158,6 +158,8 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment(0.0, 0.4),
                 child: TextButton(
                   onPressed: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/home', (Route<dynamic> route) => false);
                     if (_formKey.currentState!.validate()) {}
                     if (_formKey2.currentState!.validate()) {}
                   },
