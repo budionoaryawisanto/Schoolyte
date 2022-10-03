@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             elevation: 1,
             iconTheme: IconThemeData(color: Color.fromARGB(255, 66, 65, 65)),
@@ -86,6 +87,56 @@ class _HomePageState extends State<HomePage> {
               height: 1184,
               child: Stack(
                 children: [
+                  Align(
+                    alignment: Alignment(-0.9, -1.0),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/landing', (Route<dynamic> route) => false);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        fixedSize: Size(273, 77),
+                        backgroundColor: Colors.white,
+                        side: BorderSide(
+                          width: 1,
+                          color: Colors.black,
+                        ),
+                      ),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment(-1.0, 0.0),
+                            child: Container(
+                              width: 55,
+                              height: 55,
+                              child: ClipOval(
+                                child: new Image.asset(
+                                  'assets/images/profil.png',
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                          ),
+                          //  Align(
+                          //   alignment: Alignment(-0.9, 0.0),
+                          //   child: Container(
+                          //     width: 270,
+                          //     height: 44,
+                          //     child: Text(
+                          //       "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                          //       style: TextStyle(
+                          //         fontFamily: 'Gilroy-ExtraBold',
+                          //         fontSize: 16,
+                          //         color: Color.fromRGBO(76, 81, 97, 1),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                    ),
+                  ),
                   Align(
                     alignment: Alignment(0.0, 0.8),
                     child: Container(

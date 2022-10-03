@@ -19,6 +19,7 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.all(12),

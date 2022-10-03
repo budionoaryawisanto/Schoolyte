@@ -30,6 +30,7 @@ class _LauncherPageState extends State<LauncherPage> {
       statusBarColor: Colors.white,
     ));
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
         height: MediaQuery.of(context).size.height,
