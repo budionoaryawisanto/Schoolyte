@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
               child: Stack(
                 children: [
                   Align(
-                    alignment: Alignment(0.0, 0.0),
+                    alignment: Alignment(0.0, 0.8),
                     child: Container(
                       width: 403,
                       height: 375,
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                           Align(
                             child: Container(
                               margin: EdgeInsets.only(top: 10),
-                              alignment: Alignment(-1.0, -0.9),
+                              alignment: Alignment(-1.0, -1.0),
                               child: Text(
                                 'Berita Sekolah',
                                 style: TextStyle(
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Align(
-                            alignment: Alignment(1.0, -0.9),
+                            alignment: Alignment(1.0, -1.0),
                             child: TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Align(
-                            alignment: Alignment(0.0, -0.5),
+                            alignment: Alignment(0.0, -0.6),
                             child: ElevatedButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
@@ -167,12 +167,116 @@ class _HomePageState extends State<HomePage> {
                                     child: Container(
                                       width: 270,
                                       height: 44,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.black,
+                                      child: Text(
+                                        "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-ExtraBold',
+                                          fontSize: 16,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
                                         ),
                                       ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment(1.0, 0.0),
+                                    child: Container(
+                                      width: 67,
+                                      height: 67,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: 1,
+                                            color: Colors.white,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(7)),
+                                      child: new Image.asset(
+                                        'assets/images/hi1.png',
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment(0.0, 0.1),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    '/landing',
+                                    (Route<dynamic> route) => false);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                fixedSize: Size(403, 89),
+                                side: BorderSide(
+                                  width: 2,
+                                  color: Color.fromARGB(255, 240, 236, 236),
+                                ),
+                                backgroundColor: Colors.white,
+                              ),
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: Alignment(-0.9, 0.0),
+                                    child: Container(
+                                      width: 270,
+                                      height: 44,
+                                      child: Text(
+                                        "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-ExtraBold',
+                                          fontSize: 16,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment(1.0, 0.0),
+                                    child: Container(
+                                      width: 67,
+                                      height: 67,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: 1,
+                                            color: Colors.white,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(7)),
+                                      child: new Image.asset(
+                                        'assets/images/hi1.png',
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment(0.0, 0.8),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    '/landing',
+                                    (Route<dynamic> route) => false);
+                              },
+                              style: ElevatedButton.styleFrom(
+                                fixedSize: Size(403, 89),
+                                side: BorderSide(
+                                  width: 2,
+                                  color: Color.fromARGB(255, 240, 236, 236),
+                                ),
+                                backgroundColor: Colors.white,
+                              ),
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: Alignment(-0.9, 0.0),
+                                    child: Container(
+                                      width: 270,
+                                      height: 44,
                                       child: Text(
                                         "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
                                         style: TextStyle(
