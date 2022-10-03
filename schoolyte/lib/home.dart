@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'dart:math';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +13,17 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  int _currentIndex = 0;
+  List<int> cardList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  List<T> map<T>(List list, Function handler) {
+    List<T> result = [];
+    for (var i = 0; i < list.length; i++) {
+      result.add(handler(i, list[i]));
+    }
+    return result;
   }
 
   _logOut() async {
@@ -96,12 +109,8 @@ class _HomePageState extends State<HomePage> {
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
-                        fixedSize: Size(273, 77),
+                        fixedSize: Size(490, 77),
                         backgroundColor: Colors.white,
-                        side: BorderSide(
-                          width: 1,
-                          color: Colors.black,
-                        ),
                       ),
                       child: Stack(
                         children: [
@@ -118,23 +127,82 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                           ),
-                          //  Align(
-                          //   alignment: Alignment(-0.9, 0.0),
-                          //   child: Container(
-                          //     width: 270,
-                          //     height: 44,
-                          //     child: Text(
-                          //       "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
-                          //       style: TextStyle(
-                          //         fontFamily: 'Gilroy-ExtraBold',
-                          //         fontSize: 16,
-                          //         color: Color.fromRGBO(76, 81, 97, 1),
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                          Align(
+                            alignment: Alignment(-0.6, -0.6),
+                            child: Text(
+                              'Selamat Datang',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 16,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment(-0.5, 0.3),
+                            child: Container(
+                              margin: EdgeInsets.only(left: 9),
+                              child: Text(
+                                'Rendy Pratama Putra',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-ExtraBold',
+                                  fontSize: 22,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Align(
+                              alignment: Alignment(0.0, 0.0),
+                              child: new Image.asset(
+                                'assets/images/tangan.png',
+                              )),
                         ],
                       ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment(0.0, 1.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CarouselSlider(
+                          options: CarouselOptions(
+                              autoPlay: true,
+                              autoPlayInterval: Duration(seconds: 3),
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 800),
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              pauseAutoPlayOnTouch: true,
+                              enlargeCenterPage: true,
+                              viewportFraction: 0.8,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _currentIndex = index;
+                                });
+                              }),
+                          items: cardList.map((item) {
+                            return ItemCard();
+                          }).toList(),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: map<Widget>(cardList, (index, url) {
+                            return Container(
+                              width: _currentIndex == index ? 30 : 10.0,
+                              height: 10.0,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 2.0),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: _currentIndex == index
+                                    ? Colors.blue
+                                    : Colors.blue.withOpacity(0.3),
+                              ),
+                            );
+                          }),
+                        ),
+                      ],
                     ),
                   ),
                   Align(
@@ -369,6 +437,24 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ItemCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      height: MediaQuery.of(context).size.height * 0.6,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color:
+            Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 2),
+        ],
       ),
     );
   }

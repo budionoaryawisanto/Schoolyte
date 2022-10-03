@@ -9,13 +9,46 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController useridController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
+  bool visible = false;
+  final String sUrl = "https://mysimrs.com/api/";
 
   @override
   void initState() {
     super.initState();
   }
+
+  // _cekLogin() async {
+  //   setState(() {
+  //     visible = true;
+  //   });
+  //   final prefs = await SharedPreferences.getInstance();
+  //   var params = "slogin.php?username=$_formKey&password=$_formKey2";
+
+  //   try {
+  //     var res = await http.get(sUrl + params);
+  //     if (res.statusCode == 200) {
+  //       var response = json.decode(res.body);
+  //       if (response['response_status'] == "OK") {
+  //         prefs.setBool('slogin', true);
+  //         setState(() {
+  //           visible = false;
+  //         });
+
+  //         Navigator.of(context).pushNamedAndRemoveUntil(
+  //             '/landing', (Route<dynamic> route) => false);
+  //       } else {
+  //         setState(() {
+  //           visible = false;
+  //         });
+  //         _showAlertDialog(context, response['response_message']);
+  //       }
+  //     }
+  //   } catch (e) {}
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +119,8 @@ class _LoginPageState extends State<LoginPage> {
                                   child: Form(
                                     key: _formKey,
                                     child: TextFormField(
+                                      keyboardType: TextInputType.number,
+                                      controller: useridController,
                                       decoration: new InputDecoration(
                                         border: OutlineInputBorder(
                                             borderRadius:
@@ -94,6 +129,8 @@ class _LoginPageState extends State<LoginPage> {
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'ID/NIS/NIP tidak boleh kosong';
+                                        } else if (value != '20051214078') {
+                                          return 'ID/NIS/NIP Anda salah';
                                         }
                                         return null;
                                       },
@@ -130,6 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                                   child: Form(
                                     key: _formKey2,
                                     child: TextFormField(
+                                      controller: passwordController,
                                       obscureText: true,
                                       decoration: new InputDecoration(
                                         border: OutlineInputBorder(
@@ -139,6 +177,8 @@ class _LoginPageState extends State<LoginPage> {
                                       validator: (value) {
                                         if (value!.isEmpty) {
                                           return 'Password tidak boleh kosong';
+                                        } else if (value != 'aryagtg') {
+                                          return 'Password Anda salah';
                                         }
                                         return null;
                                       },
@@ -158,10 +198,14 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment(0.0, 0.4),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/home', (Route<dynamic> route) => false);
+                    String userid = useridController.text;
+                    String password = passwordController.text;
                     if (_formKey.currentState!.validate()) {}
                     if (_formKey2.currentState!.validate()) {}
+                    if (userid == '20051214078' && password == 'aryagtg') {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/home', (Route<dynamic> route) => false);
+                    } else {}
                   },
                   child: Container(
                     width: 384,
