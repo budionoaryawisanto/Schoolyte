@@ -16,16 +16,19 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  int _currentIndex = 0;
-  List<int> cardList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  // int _currentIndex = 0;
+  // List cardList = [
+  //   'assets/images/autoslide.png',
+  //   'assets/images/hi1.png',
+  // ];
 
-  List<T> map<T>(List list, Function handler) {
-    List<T> result = [];
-    for (var i = 0; i < list.length; i++) {
-      result.add(handler(i, list[i]));
-    }
-    return result;
-  }
+  // List<T> map<T>(List list, Function handler) {
+  //   List<T> result = [];
+  //   for (var i = 0; i < list.length; i++) {
+  //     result.add(handler(i, list[i]));
+  //   }
+  //   return result;
+  // }
 
   _logOut() async {
     final prefs = await SharedPreferences.getInstance();
@@ -165,55 +168,23 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Align(
                     alignment: Alignment(0.0, -0.8),
-                    child: Container(
-                      width: 490,
-                      height: 340,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 1,
-                          color: Colors.black,
+                    child: TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/landing', (Route<dynamic> route) => false);
+                      },
+                      child: Container(
+                        width: 462,
+                        height: 216,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
                         ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CarouselSlider(
-                            options: CarouselOptions(
-                                autoPlay: true,
-                                autoPlayInterval: Duration(seconds: 3),
-                                autoPlayAnimationDuration:
-                                    Duration(milliseconds: 800),
-                                autoPlayCurve: Curves.fastOutSlowIn,
-                                pauseAutoPlayOnTouch: true,
-                                enlargeCenterPage: true,
-                                viewportFraction: 0.8,
-                                onPageChanged: (index, reason) {
-                                  setState(() {
-                                    _currentIndex = index;
-                                  });
-                                }),
-                            items: cardList.map((item) {
-                              return ItemCard();
-                            }).toList(),
+                        child: Center(
+                          child: new Image.asset(
+                            'assets/images/autoslide1.png',
+                            fit: BoxFit.cover,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: map<Widget>(cardList, (index, url) {
-                              return Container(
-                                width: _currentIndex == index ? 30 : 10.0,
-                                height: 10.0,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 2.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: _currentIndex == index
-                                      ? Colors.blue
-                                      : Colors.blue.withOpacity(0.3),
-                                ),
-                              );
-                            }),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
@@ -449,24 +420,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-}
-
-class ItemCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width * 0.8,
-      height: MediaQuery.of(context).size.height * 0.6,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color:
-            Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
-        boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 2),
-        ],
       ),
     );
   }
