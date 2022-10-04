@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:schoolyte/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:math';
@@ -101,7 +102,7 @@ class _HomePageState extends State<HomePage> {
               child: Stack(
                 children: [
                   Align(
-                    alignment: Alignment(-0.9, -1.0),
+                    alignment: Alignment(0.0, -1.0),
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pushNamedAndRemoveUntil(
@@ -109,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                       },
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
-                        fixedSize: Size(490, 77),
+                        fixedSize: Size(490, 104),
                         backgroundColor: Colors.white,
                       ),
                       child: Stack(
@@ -119,6 +120,7 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               width: 55,
                               height: 55,
+                              margin: EdgeInsets.only(left: 7),
                               child: ClipOval(
                                 child: new Image.asset(
                                   'assets/images/profil.png',
@@ -128,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Align(
-                            alignment: Alignment(-0.6, -0.6),
+                            alignment: Alignment(-0.6, -0.4),
                             child: Text(
                               'Selamat Datang',
                               style: TextStyle(
@@ -139,7 +141,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Align(
-                            alignment: Alignment(-0.5, 0.3),
+                            alignment: Alignment(-0.5, 0.2),
                             child: Container(
                               margin: EdgeInsets.only(left: 9),
                               child: Text(
@@ -153,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           Align(
-                              alignment: Alignment(0.0, 0.0),
+                              alignment: Alignment(-0.1, -0.5),
                               child: new Image.asset(
                                 'assets/images/tangan.png',
                               )),
@@ -162,47 +164,57 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Align(
-                    alignment: Alignment(0.0, 1.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CarouselSlider(
-                          options: CarouselOptions(
-                              autoPlay: true,
-                              autoPlayInterval: Duration(seconds: 3),
-                              autoPlayAnimationDuration:
-                                  Duration(milliseconds: 800),
-                              autoPlayCurve: Curves.fastOutSlowIn,
-                              pauseAutoPlayOnTouch: true,
-                              enlargeCenterPage: true,
-                              viewportFraction: 0.8,
-                              onPageChanged: (index, reason) {
-                                setState(() {
-                                  _currentIndex = index;
-                                });
-                              }),
-                          items: cardList.map((item) {
-                            return ItemCard();
-                          }).toList(),
+                    alignment: Alignment(0.0, -0.8),
+                    child: Container(
+                      width: 490,
+                      height: 340,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 1,
+                          color: Colors.black,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: map<Widget>(cardList, (index, url) {
-                            return Container(
-                              width: _currentIndex == index ? 30 : 10.0,
-                              height: 10.0,
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 2.0),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: _currentIndex == index
-                                    ? Colors.blue
-                                    : Colors.blue.withOpacity(0.3),
-                              ),
-                            );
-                          }),
-                        ),
-                      ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CarouselSlider(
+                            options: CarouselOptions(
+                                autoPlay: true,
+                                autoPlayInterval: Duration(seconds: 3),
+                                autoPlayAnimationDuration:
+                                    Duration(milliseconds: 800),
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                pauseAutoPlayOnTouch: true,
+                                enlargeCenterPage: true,
+                                viewportFraction: 0.8,
+                                onPageChanged: (index, reason) {
+                                  setState(() {
+                                    _currentIndex = index;
+                                  });
+                                }),
+                            items: cardList.map((item) {
+                              return ItemCard();
+                            }).toList(),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: map<Widget>(cardList, (index, url) {
+                              return Container(
+                                width: _currentIndex == index ? 30 : 10.0,
+                                height: 10.0,
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 2.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: _currentIndex == index
+                                      ? Colors.blue
+                                      : Colors.blue.withOpacity(0.3),
+                                ),
+                              );
+                            }),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Align(
