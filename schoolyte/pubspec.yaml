@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.15
   carousel_slider: ^4.1.1
+  dropdown_search: ^5.0.3
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +73,14 @@ flutter:
     - assets/images/profil.png
     - assets/images/tangan.png
     - assets/images/autoslide1.png
+    - assets/images/Frame 125.png
+    - assets/images/Frame 126.png
+    - assets/images/Frame 127.png
+    - assets/images/Frame 128.png
+    - assets/images/Frame 129.png
+    - assets/images/Frame 130.png
+    - assets/images/Frame 131.png
+    - assets/images/Frame 132.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
