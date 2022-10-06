@@ -18,20 +18,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  // int _currentIndex = 0;
-  // List cardList = [
-  //   'assets/images/autoslide.png',
-  //   'assets/images/hi1.png',
-  // ];
-
-  // List<T> map<T>(List list, Function handler) {
-  //   List<T> result = [];
-  //   for (var i = 0; i < list.length; i++) {
-  //     result.add(handler(i, list[i]));
-  //   }
-  //   return result;
-  // }
-
   _logOut() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('slogin', false);
@@ -152,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                          '/jadwal', (Route<dynamic> route) => false);
                     },
                   ),
                 ),
@@ -461,19 +447,14 @@ class _HomePageState extends State<HomePage> {
                   title: Text(
                     'Profil',
                     style: TextStyle(
-                      fontFamily: (profilClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
+                      fontFamily: 'Gilroy-Light',
                       fontSize: 16,
-                      color: (profilClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
+                      color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
                   onTap: () {
-                    setState(() {
-                      profilClick = !profilClick;
-                    });
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/landing', (Route<dynamic> route) => false);
                   },
                 ),
                 Visibility(
@@ -494,6 +475,32 @@ class _HomePageState extends State<HomePage> {
                       Navigator.of(context).pushNamedAndRemoveUntil(
                           '/landing', (Route<dynamic> route) => false);
                     },
+                  ),
+                ),
+                Container(
+                  child: Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: Column(
+                      children: <Widget>[
+                        Divider(),
+                        ListTile(
+                          leading: Icon(
+                            Icons.logout_rounded,
+                          ),
+                          title: Text(
+                            'Log Out',
+                            style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 14,
+                                color: Color.fromRGBO(76, 81, 91, 1)),
+                          ),
+                          onTap: () {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                '/landing', (Route<dynamic> route) => false);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
