@@ -39,6 +39,8 @@ class _HomePageState extends State<HomePage> {
         .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
   }
 
+  bool click = true;
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -76,7 +78,7 @@ class _HomePageState extends State<HomePage> {
             width: 257,
             child: ListView(
               padding: EdgeInsets.zero,
-              children: const <Widget>[
+              children: <Widget>[
                 DrawerHeader(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -86,12 +88,46 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.message),
-                  title: Text('Messages'),
+                  leading: Icon(
+                    Icons.home,
+                    color: Color.fromRGBO(255, 199, 0, 1),
+                  ),
+                  title: Text(
+                    'Beranda',
+                    style: TextStyle(
+                      fontFamily: 'Gilroy-Light',
+                      fontSize: 16,
+                      color: Color.fromRGBO(76, 81, 97, 1),
+                    ),
+                  ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.account_circle),
-                  title: Text('Profile'),
+                  tileColor: (click == false)
+                      ? Color.fromRGBO(255, 199, 0, 1)
+                      : Colors.white,
+                  leading: Icon(
+                    Icons.school_rounded,
+                    color: (click == false)
+                        ? Colors.white
+                        : Color.fromRGBO(255, 199, 0, 1),
+                  ),
+                  title: Text(
+                    'Akademik',
+                    style: TextStyle(
+                      fontFamily: (click == false)
+                          ? 'Gilroy-ExtraBold'
+                          : 'Gilroy-Light',
+                      fontSize: 16,
+                      color: (click == false)
+                          ? Colors.white
+                          : Color.fromRGBO(76, 81, 97, 1),
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      click = !click;
+                    });
+                  },
                 ),
                 ListTile(
                   leading: Icon(Icons.settings),
