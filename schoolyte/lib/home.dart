@@ -39,7 +39,12 @@ class _HomePageState extends State<HomePage> {
         .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
   }
 
-  bool click = true;
+  bool akademikClick = true;
+  bool peminjamanClick = true;
+  bool pembelianClick = true;
+  bool keuanganClick = true;
+  bool kegiatanClick = true;
+  bool profilClick = true;
 
   @override
   Widget build(BuildContext context) {
@@ -100,38 +105,396 @@ class _HomePageState extends State<HomePage> {
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
+                  onTap: () {
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/home', (Route<dynamic> route) => false);
+                  },
                 ),
                 ListTile(
-                  tileColor: (click == false)
+                  tileColor: (akademikClick == false)
                       ? Color.fromRGBO(255, 199, 0, 1)
                       : Colors.white,
                   leading: Icon(
                     Icons.school_rounded,
-                    color: (click == false)
+                    color: (akademikClick == false)
                         ? Colors.white
                         : Color.fromRGBO(255, 199, 0, 1),
                   ),
                   title: Text(
                     'Akademik',
                     style: TextStyle(
-                      fontFamily: (click == false)
+                      fontFamily: (akademikClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
                       fontSize: 16,
-                      color: (click == false)
+                      color: (akademikClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
                   onTap: () {
                     setState(() {
-                      click = !click;
+                      akademikClick = !akademikClick;
                     });
                   },
                 ),
+                Visibility(
+                  visible: (akademikClick == false) ? true : false,
+                  child: ListTile(
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'Jadwal Kelas',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/landing', (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),
+                Visibility(
+                  visible: (akademikClick == false) ? true : false,
+                  maintainAnimation: false,
+                  maintainState: false,
+                  child: ListTile(
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'Rapor',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/landing', (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),
+                Visibility(
+                  visible: (akademikClick == false) ? true : false,
+                  maintainAnimation: false,
+                  maintainState: false,
+                  child: ListTile(
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'Absensi',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/landing', (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),
                 ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
+                  tileColor: (peminjamanClick == false)
+                      ? Color.fromRGBO(255, 199, 0, 1)
+                      : Colors.white,
+                  leading: Icon(
+                    Icons.book,
+                    color: (peminjamanClick == false)
+                        ? Colors.white
+                        : Color.fromRGBO(255, 199, 0, 1),
+                  ),
+                  title: Text(
+                    'Peminjaman',
+                    style: TextStyle(
+                      fontFamily: (peminjamanClick == false)
+                          ? 'Gilroy-ExtraBold'
+                          : 'Gilroy-Light',
+                      fontSize: 16,
+                      color: (peminjamanClick == false)
+                          ? Colors.white
+                          : Color.fromRGBO(76, 81, 97, 1),
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      peminjamanClick = !peminjamanClick;
+                    });
+                  },
+                ),
+                Visibility(
+                  visible: (peminjamanClick == false) ? true : false,
+                  maintainAnimation: false,
+                  maintainState: false,
+                  child: ListTile(
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'Perpustakaan',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/landing', (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),
+                Visibility(
+                  visible: (peminjamanClick == false) ? true : false,
+                  maintainAnimation: false,
+                  maintainState: false,
+                  child: ListTile(
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'Fasilitas',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/landing', (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),
+                ListTile(
+                  tileColor: (pembelianClick == false)
+                      ? Color.fromRGBO(255, 199, 0, 1)
+                      : Colors.white,
+                  leading: Icon(
+                    Icons.payment_rounded,
+                    color: (pembelianClick == false)
+                        ? Colors.white
+                        : Color.fromRGBO(255, 199, 0, 1),
+                  ),
+                  title: Text(
+                    'Pembelian',
+                    style: TextStyle(
+                      fontFamily: (pembelianClick == false)
+                          ? 'Gilroy-ExtraBold'
+                          : 'Gilroy-Light',
+                      fontSize: 16,
+                      color: (pembelianClick == false)
+                          ? Colors.white
+                          : Color.fromRGBO(76, 81, 97, 1),
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      pembelianClick = !pembelianClick;
+                    });
+                  },
+                ),
+                Visibility(
+                  visible: (pembelianClick == false) ? true : false,
+                  maintainAnimation: false,
+                  maintainState: false,
+                  child: ListTile(
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'Koperasi',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/landing', (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),
+                Visibility(
+                  visible: (pembelianClick == false) ? true : false,
+                  maintainAnimation: false,
+                  maintainState: false,
+                  child: ListTile(
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'Kantin',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/landing', (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),
+                ListTile(
+                  tileColor: (keuanganClick == false)
+                      ? Color.fromRGBO(255, 199, 0, 1)
+                      : Colors.white,
+                  leading: Icon(
+                    Icons.point_of_sale,
+                    color: (keuanganClick == false)
+                        ? Colors.white
+                        : Color.fromRGBO(255, 199, 0, 1),
+                  ),
+                  title: Text(
+                    'Administrasi Keuangan',
+                    style: TextStyle(
+                      fontFamily: (keuanganClick == false)
+                          ? 'Gilroy-ExtraBold'
+                          : 'Gilroy-Light',
+                      fontSize: 16,
+                      color: (keuanganClick == false)
+                          ? Colors.white
+                          : Color.fromRGBO(76, 81, 97, 1),
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      keuanganClick = !keuanganClick;
+                    });
+                  },
+                ),
+                Visibility(
+                  visible: (keuanganClick == false) ? true : false,
+                  maintainAnimation: false,
+                  maintainState: false,
+                  child: ListTile(
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'Pembayaran SPP',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/landing', (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),
+                ListTile(
+                  tileColor: (kegiatanClick == false)
+                      ? Color.fromRGBO(255, 199, 0, 1)
+                      : Colors.white,
+                  leading: Icon(
+                    Icons.people_rounded,
+                    color: (kegiatanClick == false)
+                        ? Colors.white
+                        : Color.fromRGBO(255, 199, 0, 1),
+                  ),
+                  title: Text(
+                    'Kegiatan Sekolah',
+                    style: TextStyle(
+                      fontFamily: (kegiatanClick == false)
+                          ? 'Gilroy-ExtraBold'
+                          : 'Gilroy-Light',
+                      fontSize: 16,
+                      color: (kegiatanClick == false)
+                          ? Colors.white
+                          : Color.fromRGBO(76, 81, 97, 1),
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      kegiatanClick = !kegiatanClick;
+                    });
+                  },
+                ),
+                Visibility(
+                  visible: (kegiatanClick == false) ? true : false,
+                  maintainAnimation: false,
+                  maintainState: false,
+                  child: ListTile(
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'OSIS',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/landing', (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),
+                Visibility(
+                  visible: (kegiatanClick == false) ? true : false,
+                  maintainAnimation: false,
+                  maintainState: false,
+                  child: ListTile(
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'Ekstrakulikuler',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/landing', (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),
+                ListTile(
+                  tileColor: (profilClick == false)
+                      ? Color.fromRGBO(255, 199, 0, 1)
+                      : Colors.white,
+                  leading: Icon(
+                    Icons.person_rounded,
+                    color: (profilClick == false)
+                        ? Colors.white
+                        : Color.fromRGBO(255, 199, 0, 1),
+                  ),
+                  title: Text(
+                    'Profil',
+                    style: TextStyle(
+                      fontFamily: (profilClick == false)
+                          ? 'Gilroy-ExtraBold'
+                          : 'Gilroy-Light',
+                      fontSize: 16,
+                      color: (profilClick == false)
+                          ? Colors.white
+                          : Color.fromRGBO(76, 81, 97, 1),
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      profilClick = !profilClick;
+                    });
+                  },
+                ),
+                Visibility(
+                  visible: (profilClick == false) ? true : false,
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.logout_rounded,
+                    ),
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'Log Out',
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/landing', (Route<dynamic> route) => false);
+                    },
+                  ),
                 ),
               ],
             ),
