@@ -32,6 +32,15 @@ class _HomePageState extends State<HomePage> {
   bool kegiatanClick = true;
   bool profilClick = true;
 
+  closeDrawer() {
+    akademikClick = true;
+    peminjamanClick = true;
+    pembelianClick = true;
+    keuanganClick = true;
+    kegiatanClick = true;
+    profilClick = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -119,6 +128,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
+                    closeDrawer();
                     setState(() {
                       akademikClick = !akademikClick;
                     });
@@ -205,6 +215,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
+                    closeDrawer();
                     setState(() {
                       peminjamanClick = !peminjamanClick;
                     });
@@ -273,6 +284,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
+                    closeDrawer();
                     setState(() {
                       pembelianClick = !pembelianClick;
                     });
@@ -341,6 +353,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
+                    closeDrawer();
                     setState(() {
                       keuanganClick = !keuanganClick;
                     });
@@ -389,6 +402,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
+                    closeDrawer();
                     setState(() {
                       kegiatanClick = !kegiatanClick;
                     });

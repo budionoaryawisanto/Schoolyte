@@ -18,6 +18,13 @@ class _JadwalPageState extends State<JadwalPage> {
     super.initState();
   }
 
+  _logOut() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('slogin', false);
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+  }
+
   bool akademikClick = true;
   bool peminjamanClick = true;
   bool pembelianClick = true;
@@ -25,13 +32,36 @@ class _JadwalPageState extends State<JadwalPage> {
   bool kegiatanClick = true;
   bool profilClick = true;
 
+  bool senClick = true;
+  bool selClick = true;
+  bool rabClick = true;
+  bool kamClick = true;
+  bool jumClick = true;
+
+  closeDrawer() {
+    akademikClick = true;
+    peminjamanClick = true;
+    pembelianClick = true;
+    keuanganClick = true;
+    kegiatanClick = true;
+    profilClick = true;
+  }
+
+  close() {
+    senClick = true;
+    selClick = true;
+    rabClick = true;
+    kamClick = true;
+    jumClick = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Color.fromRGBO(229, 229, 229, 1),
           appBar: AppBar(
             title: Align(
               alignment: Alignment(-0.7, 0.0),
@@ -109,7 +139,9 @@ class _JadwalPageState extends State<JadwalPage> {
                     ),
                   ),
                   onTap: () {
+                    closeDrawer();
                     setState(() {
+                      closeDrawer();
                       akademikClick = !akademikClick;
                     });
                   },
@@ -196,6 +228,7 @@ class _JadwalPageState extends State<JadwalPage> {
                   ),
                   onTap: () {
                     setState(() {
+                      closeDrawer();
                       peminjamanClick = !peminjamanClick;
                     });
                   },
@@ -264,6 +297,7 @@ class _JadwalPageState extends State<JadwalPage> {
                   ),
                   onTap: () {
                     setState(() {
+                      closeDrawer();
                       pembelianClick = !pembelianClick;
                     });
                   },
@@ -332,6 +366,7 @@ class _JadwalPageState extends State<JadwalPage> {
                   ),
                   onTap: () {
                     setState(() {
+                      closeDrawer();
                       keuanganClick = !keuanganClick;
                     });
                   },
@@ -380,6 +415,7 @@ class _JadwalPageState extends State<JadwalPage> {
                   ),
                   onTap: () {
                     setState(() {
+                      closeDrawer();
                       kegiatanClick = !kegiatanClick;
                     });
                   },
@@ -447,29 +483,216 @@ class _JadwalPageState extends State<JadwalPage> {
                     ),
                   ),
                   onTap: () {
-                    setState(() {
-                      profilClick = !profilClick;
-                    });
+                    print('clicked');
                   },
                 ),
-                Visibility(
-                  visible: (profilClick == false) ? true : false,
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.logout_rounded,
+                Container(
+                  child: Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: Column(
+                      children: <Widget>[
+                        Divider(),
+                        ListTile(
+                          leading: Icon(
+                            Icons.logout_rounded,
+                          ),
+                          title: Text(
+                            'Log Out',
+                            style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 14,
+                                color: Color.fromRGBO(76, 81, 91, 1)),
+                          ),
+                          onTap: () {
+                            _logOut();
+                          },
+                        ),
+                      ],
                     ),
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Log Out',
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment(0.0, 0.0),
+                  child: Container(
+                    width: 400,
+                    height: 64,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.black,
+                      ),
                     ),
-                    onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
-                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            close();
+                            setState(() {
+                              senClick = !senClick;
+                            });
+                          },
+                          child: Container(
+                            width: 55,
+                            height: 39,
+                            decoration: BoxDecoration(
+                              color: (senClick == false)
+                                  ? Color.fromRGBO(242, 78, 26, 1)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Sen',
+                                style: TextStyle(
+                                  fontFamily: (senClick == false)
+                                      ? 'Gilroy-ExtraBold'
+                                      : 'Gilroy-Light',
+                                  fontSize: 14,
+                                  color: (senClick == false)
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            close();
+                            setState(() {
+                              selClick = !selClick;
+                            });
+                          },
+                          child: Container(
+                            width: 51,
+                            height: 39,
+                            decoration: BoxDecoration(
+                              color: (selClick == false)
+                                  ? Color.fromRGBO(242, 78, 26, 1)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Sel',
+                                style: TextStyle(
+                                  fontFamily: (selClick == false)
+                                      ? 'Gilroy-ExtraBold'
+                                      : 'Gilroy-Light',
+                                  fontSize: 14,
+                                  color: (selClick == false)
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            close();
+                            setState(() {
+                              rabClick = !rabClick;
+                            });
+                          },
+                          child: Container(
+                            width: 57,
+                            height: 39,
+                            decoration: BoxDecoration(
+                              color: (rabClick == false)
+                                  ? Color.fromRGBO(242, 78, 26, 1)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Rab',
+                                style: TextStyle(
+                                  fontFamily: (rabClick == false)
+                                      ? 'Gilroy-ExtraBold'
+                                      : 'Gilroy-Light',
+                                  fontSize: 14,
+                                  color: (rabClick == false)
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            close();
+                            setState(() {
+                              kamClick = !kamClick;
+                            });
+                          },
+                          child: Container(
+                            width: 58,
+                            height: 39,
+                            decoration: BoxDecoration(
+                              color: (kamClick == false)
+                                  ? Color.fromRGBO(242, 78, 26, 1)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Kam',
+                                style: TextStyle(
+                                  fontFamily: (kamClick == false)
+                                      ? 'Gilroy-ExtraBold'
+                                      : 'Gilroy-Light',
+                                  fontSize: 14,
+                                  color: (kamClick == false)
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            close();
+                            setState(() {
+                              jumClick = !jumClick;
+                            });
+                          },
+                          child: Container(
+                            width: 58,
+                            height: 39,
+                            decoration: BoxDecoration(
+                              color: (jumClick == false)
+                                  ? Color.fromRGBO(242, 78, 26, 1)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Jum',
+                                style: TextStyle(
+                                  fontFamily: (jumClick == false)
+                                      ? 'Gilroy-ExtraBold'
+                                      : 'Gilroy-Light',
+                                  fontSize: 14,
+                                  color: (jumClick == false)
+                                      ? Colors.white
+                                      : Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
