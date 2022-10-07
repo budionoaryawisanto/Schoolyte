@@ -11,7 +11,7 @@ class _LandingPageState extends State<LandingPage> {
     super.initState();
   }
 
-  _logIn() async {
+  _start() async {
     Navigator.of(context)
         .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
   }
@@ -111,7 +111,7 @@ class _LandingPageState extends State<LandingPage> {
               Align(
                 alignment: Alignment(0.0, 0.7),
                 child: TextButton(
-                  onPressed: () => _logIn(),
+                  onPressed: () => _start(),
                   child: Container(
                     width: 384,
                     height: 55,

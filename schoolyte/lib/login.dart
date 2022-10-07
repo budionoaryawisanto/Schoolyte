@@ -21,34 +21,19 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
   }
 
-  // _cekLogin() async {
-  //   setState(() {
-  //     visible = true;
-  //   });
-  //   final prefs = await SharedPreferences.getInstance();
-  //   var params = "slogin.php?username=$_formKey&password=$_formKey2";
-
-  //   try {
-  //     var res = await http.get(sUrl + params);
-  //     if (res.statusCode == 200) {
-  //       var response = json.decode(res.body);
-  //       if (response['response_status'] == "OK") {
-  //         prefs.setBool('slogin', true);
-  //         setState(() {
-  //           visible = false;
-  //         });
-
-  //         Navigator.of(context).pushNamedAndRemoveUntil(
-  //             '/landing', (Route<dynamic> route) => false);
-  //       } else {
-  //         setState(() {
-  //           visible = false;
-  //         });
-  //         _showAlertDialog(context, response['response_message']);
-  //       }
-  //     }
-  //   } catch (e) {}
-  // }
+  _cekLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    String userid = useridController.text;
+    String password = passwordController.text;
+    if (_formKey.currentState!.validate()) {}
+    if (_formKey2.currentState!.validate()) {}
+    if (userid == '20051214078' && password == 'aryagtg') {
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setBool('slogin', true);
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+    } else {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -198,14 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                 alignment: Alignment(0.0, 0.4),
                 child: TextButton(
                   onPressed: () {
-                    String userid = useridController.text;
-                    String password = passwordController.text;
-                    if (_formKey.currentState!.validate()) {}
-                    if (_formKey2.currentState!.validate()) {}
-                    if (userid == '20051214078' && password == 'aryagtg') {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/home', (Route<dynamic> route) => false);
-                    } else {}
+                    _cekLogin();
                   },
                   child: Container(
                     width: 384,

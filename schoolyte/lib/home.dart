@@ -457,26 +457,6 @@ class _HomePageState extends State<HomePage> {
                         '/landing', (Route<dynamic> route) => false);
                   },
                 ),
-                Visibility(
-                  visible: (profilClick == false) ? true : false,
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.logout_rounded,
-                    ),
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Log Out',
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
-                    },
-                  ),
-                ),
                 Container(
                   child: Align(
                     alignment: FractionalOffset.bottomCenter,
@@ -495,8 +475,7 @@ class _HomePageState extends State<HomePage> {
                                 color: Color.fromRGBO(76, 81, 91, 1)),
                           ),
                           onTap: () {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/landing', (Route<dynamic> route) => false);
+                            _logOut();
                           },
                         ),
                       ],

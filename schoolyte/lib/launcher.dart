@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:schoolyte/landing.dart';
 import 'dart:async';
-import './landing.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import './login.dart';
+import './home.dart';
 
 class LauncherPage extends StatefulWidget {
   @override
@@ -16,10 +19,14 @@ class _LauncherPageState extends State<LauncherPage> {
   }
 
   startLaunching() async {
+    final prefs = await SharedPreferences.getInstance();
+    bool slogin;
+    slogin = prefs.getBool('slogin') ?? false;
+
     var duration = const Duration(seconds: 3);
     return new Timer(duration, () {
       Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (_) {
-        return new LandingPage();
+        return slogin ? new HomePage() : new LandingPage();
       }));
     });
   }
