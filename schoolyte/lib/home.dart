@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                          '/rapor', (Route<dynamic> route) => false);
                     },
                   ),
                 ),
@@ -601,8 +601,7 @@ class _HomePageState extends State<HomePage> {
                             child: TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/landing',
-                                    (Route<dynamic> route) => false);
+                                    '/rapor', (Route<dynamic> route) => false);
                               },
                               child: Container(
                                 width: 56,
@@ -640,8 +639,7 @@ class _HomePageState extends State<HomePage> {
                             child: TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/landing',
-                                    (Route<dynamic> route) => false);
+                                    '/rapor', (Route<dynamic> route) => false);
                               },
                               child: Container(
                                 width: 56,
