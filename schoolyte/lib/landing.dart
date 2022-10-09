@@ -21,25 +21,27 @@ class _LandingPageState extends State<LandingPage> {
     return new Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.all(12),
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment(-0.7, -0.9),
-                child: new Image.asset(
-                  "assets/images/logolanding.png",
+        child: Center(
+          child: Container(
+            width: 384,
+            height: 771,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  child: new Image.asset(
+                    "assets/images/logolanding.png",
+                  ),
                 ),
-              ),
-              Align(
-                alignment: Alignment(0.0, -0.7),
-                child: Container(
+                Container(
                   width: 376,
                   height: 202,
-                  child: Stack(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Align(
-                        alignment: Alignment(-1.0, -1.0),
+                      Container(
                         child: Text(
                           "WELCOME",
                           style: TextStyle(
@@ -48,48 +50,51 @@ class _LandingPageState extends State<LandingPage> {
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment(-1.0, 0.0),
-                        child: Text(
-                          "To",
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 48,
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment(-0.4, 0.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(255, 199, 0, 1),
-                            border: Border.all(
-                              color: Color.fromRGBO(255, 199, 0, 1),
-                              width: 1,
+                      Container(
+                        width: 280,
+                        height: 59,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              child: Text(
+                                "To",
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-ExtraBold',
+                                  fontSize: 48,
+                                ),
+                              ),
                             ),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            "Schoolyte",
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-Light',
-                              fontSize: 40,
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(255, 199, 0, 1),
+                                border: Border.all(
+                                  color: Color.fromRGBO(255, 199, 0, 1),
+                                  width: 1,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                "Schoolyte",
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 40,
+                                ),
+                              ),
                             ),
-                          ),
+                            Container(
+                              child: Text(
+                                "!",
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-ExtraBold',
+                                  fontSize: 48,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      Align(
-                        alignment: Alignment(0.4, 0.0),
-                        child: Text(
-                          "!",
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 48,
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment(-1.0, 1.0),
+                      Container(
                         child: Text(
                           "Kami akan memberikan layanan sesuai yang kalian butuhkan",
                           style: TextStyle(
@@ -101,43 +106,41 @@ class _LandingPageState extends State<LandingPage> {
                     ],
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment(0.0, 0.2),
-                child: new Image.asset(
-                  "assets/images/hi1.png",
+                Container(
+                  child: new Image.asset(
+                    "assets/images/hi1.png",
+                  ),
                 ),
-              ),
-              Align(
-                alignment: Alignment(0.0, 0.7),
-                child: TextButton(
-                  onPressed: () => _start(),
-                  child: Container(
-                    width: 384,
-                    height: 55,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      border: Border.all(
+                Container(
+                  child: TextButton(
+                    onPressed: () => _start(),
+                    child: Container(
+                      width: 384,
+                      height: 55,
+                      decoration: BoxDecoration(
                         color: Colors.black,
-                        width: 1,
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Mulai",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 20,
-                          color: Colors.white,
+                      child: Center(
+                        child: Text(
+                          "Mulai",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Light',
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

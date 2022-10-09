@@ -503,10 +503,12 @@ class _HomePageState extends State<HomePage> {
             child: Container(
               width: 490,
               height: 1100,
-              child: Stack(
+              color: Color.fromRGBO(243, 243, 243, 1),
+              child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment(0.0, -1.0),
+                  Container(
+                    width: 490,
+                    height: 104,
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pushNamedAndRemoveUntil(
@@ -517,58 +519,65 @@ class _HomePageState extends State<HomePage> {
                         fixedSize: Size(490, 104),
                         backgroundColor: Colors.white,
                       ),
-                      child: Stack(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Align(
-                            alignment: Alignment(-1.0, 0.0),
-                            child: Container(
-                              width: 55,
-                              height: 55,
-                              margin: EdgeInsets.only(left: 7),
-                              child: ClipOval(
-                                child: new Image.asset(
-                                  'assets/images/profil.png',
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
+                          Container(
+                            width: 55,
+                            height: 55,
+                            margin: EdgeInsets.only(
+                              left: 7,
+                              right: 14,
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment(-0.6, -0.4),
-                            child: Text(
-                              'Selamat Datang',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 16,
-                                color: Color.fromRGBO(76, 81, 97, 1),
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment(-0.5, 0.2),
-                            child: Container(
-                              margin: EdgeInsets.only(left: 9),
-                              child: Text(
-                                'Rendy Pratama Putra',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-ExtraBold',
-                                  fontSize: 22,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Align(
-                              alignment: Alignment(-0.1, -0.5),
+                            child: ClipOval(
                               child: new Image.asset(
-                                'assets/images/tangan.png',
-                              )),
+                                'assets/images/profil.png',
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 350,
+                            height: 59,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Selamat Datang',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 16,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: new Image.asset(
+                                        'assets/images/tangan.png',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Container(
+                                  child: Text(
+                                    'Rendy Pratama Putra',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-ExtraBold',
+                                      fontSize: 22,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment(0.0, -0.8),
+                  Container(
                     child: TextButton(
                       onPressed: () {
                         Navigator.of(context).pushNamedAndRemoveUntil(
@@ -577,9 +586,6 @@ class _HomePageState extends State<HomePage> {
                       child: Container(
                         width: 490,
                         height: 216,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(247, 247, 247, 1),
-                        ),
                         child: Center(
                           child: new Image.asset(
                             'assets/images/autoslide1.png',
@@ -589,16 +595,19 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment(0.0, -0.2),
-                    child: Container(
-                      width: 410,
-                      height: 190,
-                      child: Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment(-0.9, -1.0),
-                            child: TextButton(
+                  Container(
+                    width: 490,
+                    height: 260,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     '/rapor', (Route<dynamic> route) => false);
@@ -633,10 +642,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment(-0.3, -1.0),
-                            child: TextButton(
+                            TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     '/rapor', (Route<dynamic> route) => false);
@@ -671,10 +677,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment(0.3, -1.0),
-                            child: TextButton(
+                            TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     '/landing',
@@ -710,10 +713,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment(0.9, -1.0),
-                            child: TextButton(
+                            TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     '/landing',
@@ -749,10 +749,12 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment(-0.9, 1.0),
-                            child: TextButton(
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     '/landing',
@@ -788,10 +790,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment(-0.2, 1.0),
-                            child: TextButton(
+                            TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     '/landing',
@@ -827,10 +826,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment(0.4, 0.9),
-                            child: TextButton(
+                            TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     '/landing',
@@ -866,10 +862,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment(1.0, 1.0),
-                            child: TextButton(
+                            TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     '/landing',
@@ -905,22 +898,31 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  Align(
-                    alignment: Alignment(0.0, 0.7),
-                    child: Container(
-                      width: 403,
-                      height: 375,
-                      child: Stack(
-                        children: [
-                          Align(
-                            child: Container(
-                              margin: EdgeInsets.only(top: 10),
-                              alignment: Alignment(-1.0, -1.0),
+                  Container(
+                    width: 489,
+                    height: 446,
+                    padding: EdgeInsets.only(
+                      left: 40,
+                      right: 40,
+                    ),
+                    margin: EdgeInsets.only(top: 15),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: 5),
                               child: Text(
                                 'Berita Sekolah',
                                 style: TextStyle(
@@ -929,10 +931,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment(1.0, -1.0),
-                            child: TextButton(
+                            TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     '/landing',
@@ -961,174 +960,166 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                          ),
-                          Align(
-                            alignment: Alignment(0.0, -0.6),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/landing',
-                                    (Route<dynamic> route) => false);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: Size(403, 89),
-                                side: BorderSide(
-                                  width: 2,
-                                  color: Color.fromARGB(255, 240, 236, 236),
+                          ],
+                        ),
+                        Container(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  '/landing', (Route<dynamic> route) => false);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: Size(403, 89),
+                              side: BorderSide(
+                                width: 2,
+                                color: Color.fromARGB(255, 240, 236, 236),
+                              ),
+                              backgroundColor: Colors.white,
+                            ),
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment(-0.9, 0.0),
+                                  child: Container(
+                                    width: 270,
+                                    height: 44,
+                                    child: Text(
+                                      "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 16,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                backgroundColor: Colors.white,
-                              ),
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment(-0.9, 0.0),
-                                    child: Container(
-                                      width: 270,
-                                      height: 44,
-                                      child: Text(
-                                        "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 16,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                Align(
+                                  alignment: Alignment(1.0, 0.0),
+                                  child: Container(
+                                    width: 67,
+                                    height: 67,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          width: 1,
+                                          color: Colors.white,
                                         ),
-                                      ),
+                                        borderRadius: BorderRadius.circular(7)),
+                                    child: new Image.asset(
+                                      'assets/images/hi1.png',
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
-                                  Align(
-                                    alignment: Alignment(1.0, 0.0),
-                                    child: Container(
-                                      width: 67,
-                                      height: 67,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.white,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(7)),
-                                      child: new Image.asset(
-                                        'assets/images/hi1.png',
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                          Align(
-                            alignment: Alignment(0.0, 0.1),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/landing',
-                                    (Route<dynamic> route) => false);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: Size(403, 89),
-                                side: BorderSide(
-                                  width: 2,
-                                  color: Color.fromARGB(255, 240, 236, 236),
+                        ),
+                        Container(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  '/landing', (Route<dynamic> route) => false);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: Size(403, 89),
+                              side: BorderSide(
+                                width: 2,
+                                color: Color.fromARGB(255, 240, 236, 236),
+                              ),
+                              backgroundColor: Colors.white,
+                            ),
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment(-0.9, 0.0),
+                                  child: Container(
+                                    width: 270,
+                                    height: 44,
+                                    child: Text(
+                                      "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 16,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                backgroundColor: Colors.white,
-                              ),
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment(-0.9, 0.0),
-                                    child: Container(
-                                      width: 270,
-                                      height: 44,
-                                      child: Text(
-                                        "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 16,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                Align(
+                                  alignment: Alignment(1.0, 0.0),
+                                  child: Container(
+                                    width: 67,
+                                    height: 67,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          width: 1,
+                                          color: Colors.white,
                                         ),
-                                      ),
+                                        borderRadius: BorderRadius.circular(7)),
+                                    child: new Image.asset(
+                                      'assets/images/hi1.png',
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
-                                  Align(
-                                    alignment: Alignment(1.0, 0.0),
-                                    child: Container(
-                                      width: 67,
-                                      height: 67,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.white,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(7)),
-                                      child: new Image.asset(
-                                        'assets/images/hi1.png',
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                          Align(
-                            alignment: Alignment(0.0, 0.8),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/landing',
-                                    (Route<dynamic> route) => false);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: Size(403, 89),
-                                side: BorderSide(
-                                  width: 2,
-                                  color: Color.fromARGB(255, 240, 236, 236),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(bottom: 60),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  '/landing', (Route<dynamic> route) => false);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              fixedSize: Size(403, 89),
+                              side: BorderSide(
+                                width: 2,
+                                color: Color.fromARGB(255, 240, 236, 236),
+                              ),
+                              backgroundColor: Colors.white,
+                            ),
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment(-0.9, 0.0),
+                                  child: Container(
+                                    width: 270,
+                                    height: 44,
+                                    child: Text(
+                                      "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 16,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                backgroundColor: Colors.white,
-                              ),
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: Alignment(-0.9, 0.0),
-                                    child: Container(
-                                      width: 270,
-                                      height: 44,
-                                      child: Text(
-                                        "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 16,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                Align(
+                                  alignment: Alignment(1.0, 0.0),
+                                  child: Container(
+                                    width: 67,
+                                    height: 67,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                          width: 1,
+                                          color: Colors.white,
                                         ),
-                                      ),
+                                        borderRadius: BorderRadius.circular(7)),
+                                    child: new Image.asset(
+                                      'assets/images/hi1.png',
+                                      fit: BoxFit.fill,
                                     ),
                                   ),
-                                  Align(
-                                    alignment: Alignment(1.0, 0.0),
-                                    child: Container(
-                                      width: 67,
-                                      height: 67,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.white,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(7)),
-                                      child: new Image.asset(
-                                        'assets/images/hi1.png',
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

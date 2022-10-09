@@ -41,24 +41,26 @@ class _LoginPageState extends State<LoginPage> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Container(
-          child: Stack(
-            children: [
-              Align(
-                alignment: Alignment(0.0, 0.0),
-                child: Container(
-                  width: 384,
-                  height: 771,
-                  child: Stack(
+        child: Center(
+          child: Container(
+            width: 384,
+            height: 627,
+            margin: EdgeInsets.only(bottom: 100),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: new Image.asset(
+                    "assets/images/logolanding.png",
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 100),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: new Image.asset(
-                          "assets/images/logolanding.png",
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment(-1.0, -0.6),
+                      Container(
                         child: Text(
                           'Masukkan akun anda',
                           style: TextStyle(
@@ -67,121 +69,111 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment(-1.0, -0.5),
-                        child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 6),
-                          child: Text(
-                            'Kamu dapat menggunakan akun yang diberikan pihak sekolah!',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-Light',
-                              fontSize: 22,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment(0.0, -0.1),
-                        child: Container(
-                          width: 384,
-                          height: 140,
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  'ID/NIS/NIP',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment(0.0, -0.3),
-                                child: Container(
-                                  margin: EdgeInsetsDirectional.only(top: 3),
-                                  child: Form(
-                                    key: _formKey,
-                                    child: TextFormField(
-                                      keyboardType: TextInputType.number,
-                                      controller: useridController,
-                                      decoration: new InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(10)),
-                                      ),
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'ID/NIS/NIP tidak boleh kosong';
-                                        } else if (value != '20051214078') {
-                                          return 'ID/NIS/NIP Anda salah';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment(0.0, 0.2),
-                        child: Container(
-                          width: 384,
-                          height: 140,
-                          margin: EdgeInsetsDirectional.only(top: 30),
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  'Password',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment(0.0, -0.3),
-                                child: Container(
-                                  margin: EdgeInsetsDirectional.only(top: 3),
-                                  child: Form(
-                                    key: _formKey2,
-                                    child: TextFormField(
-                                      controller: passwordController,
-                                      obscureText: true,
-                                      decoration: new InputDecoration(
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(10)),
-                                      ),
-                                      validator: (value) {
-                                        if (value!.isEmpty) {
-                                          return 'Password tidak boleh kosong';
-                                        } else if (value != 'aryagtg') {
-                                          return 'Password Anda salah';
-                                        }
-                                        return null;
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                      Container(
+                        child: Text(
+                          'Kamu dapat menggunakan akun yang diberikan pihak sekolah!',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Light',
+                            fontSize: 22,
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment(0.0, 0.4),
-                child: TextButton(
+                Container(
+                  width: 384,
+                  height: 338,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 384,
+                        height: 136,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              child: Text(
+                                'ID/NIS/NIP',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              child: Form(
+                                key: _formKey,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  controller: useridController,
+                                  decoration: new InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(10)),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'ID/NIS/NIP tidak boleh kosong';
+                                    } else if (value != '20051214078') {
+                                      return 'ID/NIS/NIP Anda salah';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 384,
+                        height: 136,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              child: Text(
+                                'Password',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsetsDirectional.only(top: 3),
+                              child: Form(
+                                key: _formKey2,
+                                child: TextFormField(
+                                  controller: passwordController,
+                                  obscureText: true,
+                                  decoration: new InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(10)),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return 'Password tidak boleh kosong';
+                                    } else if (value != 'aryagtg') {
+                                      return 'Password Anda salah';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                TextButton(
                   onPressed: () {
                     _cekLogin();
                   },
@@ -208,8 +200,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
