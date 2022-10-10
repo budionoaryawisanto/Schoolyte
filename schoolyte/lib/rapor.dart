@@ -1084,25 +1084,25 @@ class _RaporPageState extends State<RaporPage> {
                   ),
                 ),
                 Container(
-                  width: 450,
-                  height: 2252,
-                  margin: EdgeInsets.only(top: 10),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                      color: Colors.black,
-                    ),
-                  ),
+                  width: MediaQuery.of(context).size.width,
+                  height: 2440,
+                  margin: EdgeInsets.only(bottom: 10),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         width: 428,
                         height: 377,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: Colors.black,
-                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 0,
+                              blurRadius: 1.5,
+                              offset: Offset(0, 0),
+                            )
+                          ],
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
                         ),
@@ -1137,6 +1137,1111 @@ class _RaporPageState extends State<RaporPage> {
                                     margin: EdgeInsets.only(left: 15),
                                     child: Text(
                                       'Semester Gasal Tahun Ajaran 2020/2021',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 428,
+                              height: 294,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 428,
+                        height: 377,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 0,
+                              blurRadius: 1.5,
+                              offset: Offset(0, 0),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 428,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(255, 217, 102, 1),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      'Kelas X',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      'Semester Genap Tahun Ajaran 2020/2021',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 428,
+                              height: 294,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 428,
+                        height: 377,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 0,
+                              blurRadius: 1.5,
+                              offset: Offset(0, 0),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 428,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(220, 218, 255, 1),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      'Kelas XI',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      'Semester Gasal Tahun Ajaran 2020/2021',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 428,
+                              height: 294,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 428,
+                        height: 377,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 0,
+                              blurRadius: 1.5,
+                              offset: Offset(0, 0),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 428,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(255, 217, 102, 1),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      'Kelas XI',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      'Semester Genap Tahun Ajaran 2020/2021',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 428,
+                              height: 294,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 428,
+                        height: 377,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 0,
+                              blurRadius: 1.5,
+                              offset: Offset(0, 0),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 428,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(220, 218, 255, 1),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      'Kelas XII',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      'Semester Gasal Tahun Ajaran 2020/2021',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 12,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 428,
+                              height: 294,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(10),
+                                  bottomRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          'Bahasa Indonesia',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(right: 15),
+                                        child: Text(
+                                          '88',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: 428,
+                        height: 377,
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 0,
+                              blurRadius: 1.5,
+                              offset: Offset(0, 0),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 428,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(255, 217, 102, 1),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      'Kelas XII',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 15),
+                                    child: Text(
+                                      'Semester Genap Tahun Ajaran 2020/2021',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
                                         fontSize: 12,

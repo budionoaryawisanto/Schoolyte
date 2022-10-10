@@ -507,7 +507,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 children: [
                   Container(
-                    width: 490,
+                    width: MediaQuery.of(context).size.width,
                     height: 104,
                     child: ElevatedButton(
                       onPressed: () {
