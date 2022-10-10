@@ -6,6 +6,7 @@ import './login.dart';
 import './home.dart';
 import './jadwal.dart';
 import './rapor.dart';
+import './absensi.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         '/home': (BuildContext context) => new HomePage(),
         '/jadwal': (BuildContext context) => new JadwalPage(),
         '/rapor': (BuildContext context) => new RaporPage(),
+        '/absensi': (BuildContext context) => new AbsensiPage(),
       },
     );
   }

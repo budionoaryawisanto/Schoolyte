@@ -74,7 +74,7 @@ class _RaporPageState extends State<RaporPage> {
                 ),
               ),
             ),
-            elevation: 1,
+            elevation: 0,
             iconTheme: IconThemeData(color: Color.fromARGB(255, 66, 65, 65)),
             backgroundColor: Colors.white,
             systemOverlayStyle: const SystemUiOverlayStyle(
@@ -200,7 +200,7 @@ class _RaporPageState extends State<RaporPage> {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                          '/absensi', (Route<dynamic> route) => false);
                     },
                   ),
                 ),

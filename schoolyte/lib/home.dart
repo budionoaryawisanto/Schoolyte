@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            elevation: 1,
+            elevation: 0,
             iconTheme: IconThemeData(color: Color.fromARGB(255, 66, 65, 65)),
             backgroundColor: Colors.white,
             systemOverlayStyle: const SystemUiOverlayStyle(
@@ -188,7 +188,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                          '/absensi', (Route<dynamic> route) => false);
                     },
                   ),
                 ),
@@ -680,7 +680,7 @@ class _HomePageState extends State<HomePage> {
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/landing',
+                                    '/absensi',
                                     (Route<dynamic> route) => false);
                               },
                               child: Container(
