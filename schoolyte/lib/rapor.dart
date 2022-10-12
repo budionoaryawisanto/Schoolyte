@@ -60,7 +60,7 @@ class _RaporPageState extends State<RaporPage> {
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
-          backgroundColor: Color.fromRGBO(229, 229, 229, 1),
+          backgroundColor: Color.fromRGBO(243, 243, 243, 1),
           appBar: AppBar(
             title: Align(
               alignment: Alignment(-0.7, 0.0),
@@ -248,7 +248,7 @@ class _RaporPageState extends State<RaporPage> {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                          '/perpustakaan', (Route<dynamic> route) => false);
                     },
                   ),
                 ),
@@ -1083,8 +1083,7 @@ class _RaporPageState extends State<RaporPage> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 2650,
-                 
+                  height: 2600,
                   margin: EdgeInsets.only(bottom: 10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -1093,7 +1092,7 @@ class _RaporPageState extends State<RaporPage> {
                       Container(
                         width: 428,
                         height: 400,
-                        margin: EdgeInsets.only(top: 30),
+                        margin: EdgeInsets.only(top: 10),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -1511,7 +1510,7 @@ class _RaporPageState extends State<RaporPage> {
                       Container(
                         width: 428,
                         height: 400,
-                        margin: EdgeInsets.only(top: 30),
+                        margin: EdgeInsets.only(top: 10),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -1929,7 +1928,7 @@ class _RaporPageState extends State<RaporPage> {
                       Container(
                         width: 428,
                         height: 400,
-                        margin: EdgeInsets.only(top: 30),
+                        margin: EdgeInsets.only(top: 10),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -2347,7 +2346,7 @@ class _RaporPageState extends State<RaporPage> {
                       Container(
                         width: 428,
                         height: 400,
-                        margin: EdgeInsets.only(top: 30),
+                        margin: EdgeInsets.only(top: 10),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -2765,7 +2764,7 @@ class _RaporPageState extends State<RaporPage> {
                       Container(
                         width: 428,
                         height: 400,
-                        margin: EdgeInsets.only(top: 30),
+                        margin: EdgeInsets.only(top: 10),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -3183,7 +3182,7 @@ class _RaporPageState extends State<RaporPage> {
                       Container(
                         width: 428,
                         height: 400,
-                        margin: EdgeInsets.only(top: 30),
+                        margin: EdgeInsets.only(top: 10),
                         decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
@@ -3215,7 +3214,7 @@ class _RaporPageState extends State<RaporPage> {
                                   Container(
                                     margin: EdgeInsets.only(left: 15),
                                     child: Text(
-                                      'Kelas X',
+                                      'Kelas XII',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-ExtraBold',
                                         fontSize: 20,

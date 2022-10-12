@@ -1,19 +1,17 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:schoolyte/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:math';
 import 'package:dropdown_search/dropdown_search.dart';
 
-class AbsensiPage extends StatefulWidget {
+class PerpustakaanPage extends StatefulWidget {
   @override
-  _AbsensiPageState createState() => new _AbsensiPageState();
+  _PerpustakaanPageState createState() => new _PerpustakaanPageState();
 }
 
-class _AbsensiPageState extends State<AbsensiPage> {
+class _PerpustakaanPageState extends State<PerpustakaanPage> {
   @override
   void initState() {
     super.initState();
@@ -56,35 +54,18 @@ class _AbsensiPageState extends State<AbsensiPage> {
     jumClick = true;
   }
 
-  List<String> listBulan = [
-    "Januari",
-    "Februari",
-    "Maret",
-    "April",
-    "Mei",
-    "Juni",
-    "Juli",
-    "Agustus",
-    "September",
-    "Oktober",
-    "November",
-    "Desember"
-  ];
-
-  String bulan = '';
-
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
-          backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+          backgroundColor: Colors.white,
           appBar: AppBar(
             title: Align(
               alignment: Alignment(-0.7, 0.0),
               child: Text(
-                'Absensi',
+                'Perpustakaan',
                 style: TextStyle(
                   fontFamily: 'Gilroy-ExtraBold',
                   fontSize: 24,
@@ -92,7 +73,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                 ),
               ),
             ),
-            elevation: 0.0,
+            elevation: 1,
             iconTheme: IconThemeData(color: Color.fromARGB(255, 66, 65, 65)),
             backgroundColor: Colors.white,
             systemOverlayStyle: const SystemUiOverlayStyle(
@@ -212,7 +193,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                       'Absensi',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-ExtraBold',
+                          fontFamily: 'Gilroy-Light',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
@@ -261,13 +242,13 @@ class _AbsensiPageState extends State<AbsensiPage> {
                       'Perpustakaan',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
+                          fontFamily: 'Gilroy-ExtraBold',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/perpustakaan', (Route<dynamic> route) => false);
+                          '/landing', (Route<dynamic> route) => false);
                     },
                   ),
                 ),
@@ -532,58 +513,9 @@ class _AbsensiPageState extends State<AbsensiPage> {
               ],
             ),
           ),
-          body: Container(
-            width: 490,
-            height: MediaQuery.of(context).size.height,
+          body: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(right: 15),
-                        child: Icon(
-                          Icons.tune_rounded,
-                          color: Color.fromRGBO(76, 81, 97, 1),
-                        ),
-                      ),
-                      Container(
-                        width: 291,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Colors.white,
-                        ),
-                        child: DropdownSearch<String>(
-                            popupProps: PopupProps.menu(
-                              showSelectedItems: true,
-                            ),
-                            items: listBulan,
-                            dropdownDecoratorProps: DropDownDecoratorProps(
-                              dropdownSearchDecoration: InputDecoration(
-                                hintText: "Pilih Bulan",
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 15,
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                                iconColor: Color.fromRGBO(76, 81, 97, 1),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                            ),
-                            onChanged: (value) {
-                              print(value);
-                            }),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              children: [],
             ),
           ),
         ),
