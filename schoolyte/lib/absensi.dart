@@ -73,6 +73,198 @@ class _AbsensiPageState extends State<AbsensiPage> {
 
   String bulan = '';
 
+  getJanuariList() {
+    List<Widget> listItems = [];
+
+    for (var i = 1; i <= 10; i++) {
+      var newItems = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            margin: EdgeInsets.only(
+              left: 15,
+              top: 10,
+              bottom: 10,
+            ),
+            child: Row(
+              children: [
+                Text(
+                  'Senin,',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-ExtraBold',
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  ' $i Januari 2022',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-Light',
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 50,
+            height: 22,
+            margin: EdgeInsets.only(
+              right: 15,
+              top: 10,
+              bottom: 10,
+            ),
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(255, 217, 102, 0.38),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Center(
+              child: Text(
+                'Hadir',
+                style: TextStyle(
+                  fontFamily: 'Gilroy-Light',
+                  fontSize: 16,
+                  color: Color.fromRGBO(76, 81, 97, 1),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+      listItems.add(newItems);
+    }
+    return listItems;
+  }
+
+  getFebruariList() {
+    List<Widget> listItems = [];
+
+    for (var i = 1; i <= 10; i++) {
+      var newItems = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            margin: EdgeInsets.only(
+              left: 15,
+              top: 10,
+              bottom: 10,
+            ),
+            child: Row(
+              children: [
+                Text(
+                  'Senin,',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-ExtraBold',
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  ' $i Februari 2022',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-Light',
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 50,
+            height: 22,
+            margin: EdgeInsets.only(
+              right: 15,
+              top: 10,
+              bottom: 10,
+            ),
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(255, 217, 102, 0.38),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Center(
+              child: Text(
+                'Hadir',
+                style: TextStyle(
+                  fontFamily: 'Gilroy-Light',
+                  fontSize: 16,
+                  color: Color.fromRGBO(76, 81, 97, 1),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+      listItems.add(newItems);
+    }
+    return listItems;
+  }
+
+  getMaretList() {
+    List<Widget> listItems = [];
+
+    for (var i = 1; i <= 10; i++) {
+      var newItems = Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            margin: EdgeInsets.only(
+              left: 15,
+              top: 10,
+              bottom: 10,
+            ),
+            child: Row(
+              children: [
+                Text(
+                  'Senin,',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-ExtraBold',
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
+                Text(
+                  ' $i Maret 2022',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-Light',
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            width: 50,
+            height: 22,
+            margin: EdgeInsets.only(
+              right: 15,
+              top: 10,
+              bottom: 10,
+            ),
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(255, 217, 102, 0.38),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Center(
+              child: Text(
+                'Hadir',
+                style: TextStyle(
+                  fontFamily: 'Gilroy-Light',
+                  fontSize: 16,
+                  color: Color.fromRGBO(76, 81, 97, 1),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+      listItems.add(newItems);
+    }
+    return listItems;
+  }
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -532,58 +724,214 @@ class _AbsensiPageState extends State<AbsensiPage> {
               ],
             ),
           ),
-          body: Container(
-            width: 490,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(right: 15),
-                        child: Icon(
-                          Icons.tune_rounded,
-                          color: Color.fromRGBO(76, 81, 97, 1),
-                        ),
-                      ),
-                      Container(
-                        width: 291,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Colors.white,
-                        ),
-                        child: DropdownSearch<String>(
-                            popupProps: PopupProps.menu(
-                              showSelectedItems: true,
+          body: SingleChildScrollView(
+            child: Container(
+              width: 490,
+              height: MediaQuery.of(context).size.height,
+              margin: EdgeInsets.only(bottom: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 428,
+                    height: 313,
+                    margin: EdgeInsets.only(top: 25),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          spreadRadius: 0,
+                          blurRadius: 1.5,
+                          offset: Offset(0, 0),
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 428,
+                          height: 53,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(255, 199, 0, 1),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
                             ),
-                            items: listBulan,
-                            dropdownDecoratorProps: DropDownDecoratorProps(
-                              dropdownSearchDecoration: InputDecoration(
-                                hintText: "Pilih Bulan",
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 15,
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                                iconColor: Color.fromRGBO(76, 81, 97, 1),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 15),
+                                child: Text(
+                                  'Januari 2022',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-ExtraBold',
+                                    fontSize: 24,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: 428,
+                          height: 260,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
                             ),
-                            onChanged: (value) {
-                              print(value);
-                            }),
-                      ),
-                    ],
+                          ),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: getJanuariList(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  Container(
+                    width: 428,
+                    height: 313,
+                    margin: EdgeInsets.only(top: 25),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          spreadRadius: 0,
+                          blurRadius: 1.5,
+                          offset: Offset(0, 0),
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 428,
+                          height: 53,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(255, 199, 0, 1),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 15),
+                                child: Text(
+                                  'Februari 2022',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-ExtraBold',
+                                    fontSize: 24,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: 428,
+                          height: 260,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                            ),
+                          ),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: getFebruariList(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 428,
+                    height: 313,
+                    margin: EdgeInsets.only(top: 25),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.3),
+                          spreadRadius: 0,
+                          blurRadius: 1.5,
+                          offset: Offset(0, 0),
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 428,
+                          height: 53,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(255, 199, 0, 1),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(left: 15),
+                                child: Text(
+                                  'Maret 2022',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-ExtraBold',
+                                    fontSize: 24,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: 428,
+                          height: 260,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(10),
+                              bottomRight: Radius.circular(10),
+                            ),
+                          ),
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: getMaretList(),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
