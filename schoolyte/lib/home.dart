@@ -43,6 +43,14 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        systemNavigationBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
@@ -52,12 +60,6 @@ class _HomePageState extends State<HomePage> {
             elevation: 0,
             iconTheme: IconThemeData(color: Color.fromARGB(255, 66, 65, 65)),
             backgroundColor: Colors.white,
-            systemOverlayStyle: const SystemUiOverlayStyle(
-              systemNavigationBarDividerColor: Color.fromRGBO(98, 103, 117, 1),
-              statusBarColor: Colors.white,
-              statusBarBrightness: Brightness.dark,
-              statusBarIconBrightness: Brightness.dark,
-            ),
             actions: <Widget>[
               Container(
                 margin: EdgeInsetsDirectional.only(end: 10),
@@ -501,7 +503,7 @@ class _HomePageState extends State<HomePage> {
           ),
           body: SingleChildScrollView(
             child: Container(
-              width: 490,
+              width: MediaQuery.of(context).size.width,
               height: 1100,
               color: Color.fromRGBO(243, 243, 243, 1),
               child: Column(
@@ -610,7 +612,7 @@ class _HomePageState extends State<HomePage> {
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/rapor', (Route<dynamic> route) => false);
+                                    '/jadwal', (Route<dynamic> route) => false);
                               },
                               child: Container(
                                 width: 56,

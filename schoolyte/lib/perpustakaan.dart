@@ -5,6 +5,7 @@ import 'package:schoolyte/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:sizer/sizer.dart';
 
 class PerpustakaanPage extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class PerpustakaanPage extends StatefulWidget {
 }
 
 class _PerpustakaanPageState extends State<PerpustakaanPage> {
+  final TextEditingController searchController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -54,33 +56,66 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
     jumClick = true;
   }
 
+  List<Tab> myTabs = <Tab>[
+    Tab(text: 'Buku'),
+    Tab(text: 'Dipinjam'),
+    Tab(text: 'Selesai'),
+  ];
+
+  _getDataBuku() {
+    return Container(
+      child: Text('ini Buku'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Color.fromRGBO(119, 119, 205, 1),
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Colors.white,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeArea(
+      home: DefaultTabController(
+        length: myTabs.length,
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: Align(
-              alignment: Alignment(-0.7, 0.0),
-              child: Text(
-                'Perpustakaan',
-                style: TextStyle(
-                  fontFamily: 'Gilroy-ExtraBold',
-                  fontSize: 24,
-                  color: Color.fromRGBO(76, 81, 97, 1),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(168),
+            child: AppBar(
+              backgroundColor: Color.fromRGBO(119, 115, 205, 1),
+              title: Align(
+                alignment: Alignment(-0.7, 0.0),
+                child: Text(
+                  'Perpustakaan',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-ExtraBold',
+                    fontSize: 24,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
-            elevation: 1,
-            iconTheme: IconThemeData(color: Color.fromARGB(255, 66, 65, 65)),
-            backgroundColor: Colors.white,
-            systemOverlayStyle: const SystemUiOverlayStyle(
-              systemNavigationBarDividerColor: Color.fromRGBO(98, 103, 117, 1),
-              statusBarColor: Colors.white,
-              statusBarBrightness: Brightness.dark,
-              statusBarIconBrightness: Brightness.dark,
+              elevation: 0.0,
+              iconTheme: IconThemeData(color: Colors.white),
+              bottom: TabBar(
+                padding: EdgeInsets.only(bottom: 10),
+                indicatorColor: Colors.white,
+                indicatorSize: TabBarIndicatorSize.label,
+                indicatorPadding: EdgeInsets.only(top: 0),
+                labelStyle: TextStyle(
+                  fontFamily: 'Gilroy-ExtraBold',
+                  fontSize: 20,
+                ),
+                unselectedLabelStyle: TextStyle(
+                  fontFamily: 'Gilroy-Light',
+                  fontSize: 20,
+                ),
+                tabs: myTabs,
+              ),
             ),
           ),
           drawer: Drawer(
@@ -513,10 +548,107 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
               ],
             ),
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [],
-            ),
+          body: TabBarView(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 800,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 419,
+                        height: 50,
+                        margin: EdgeInsets.only(top: 20),
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(243, 243, 243, 1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 350,
+                              height: 46,
+                              child: Form(
+                                child: TextFormField(
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 16,
+                                    letterSpacing: 1,
+                                  ),
+                                  controller: searchController,
+                                  decoration: new InputDecoration(
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    hintText: '   Search Here',
+                                    hintStyle: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                Icons.search,
+                                size: 24,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                              onPressed: () {
+                                print('click');
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 1,
+                            color: Colors.black,
+                          ),
+                        ),
+                        child: GridView.count(
+                          crossAxisCount: 3,
+                          children: [
+                            FlutterLogo(),
+                            FlutterLogo(),
+                            FlutterLogo(),
+                            FlutterLogo(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 800,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: Colors.black,
+                  ),
+                ),
+                child: Text('ini Dipinjam'),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 800,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: Colors.black,
+                  ),
+                ),
+                child: Text('ini Selesai'),
+              ),
+            ],
           ),
         ),
       ),

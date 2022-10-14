@@ -267,6 +267,14 @@ class _AbsensiPageState extends State<AbsensiPage> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        systemNavigationBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
@@ -287,12 +295,6 @@ class _AbsensiPageState extends State<AbsensiPage> {
             elevation: 0.0,
             iconTheme: IconThemeData(color: Color.fromARGB(255, 66, 65, 65)),
             backgroundColor: Colors.white,
-            systemOverlayStyle: const SystemUiOverlayStyle(
-              systemNavigationBarDividerColor: Color.fromRGBO(98, 103, 117, 1),
-              statusBarColor: Colors.white,
-              statusBarBrightness: Brightness.dark,
-              statusBarIconBrightness: Brightness.dark,
-            ),
           ),
           drawer: Drawer(
             backgroundColor: Colors.white,

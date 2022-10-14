@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^2.0.15
   carousel_slider: ^4.1.1
   dropdown_search: ^5.0.3
+  sizer: ^2.0.15
 
 dev_dependencies:
   flutter_test:
@@ -83,6 +84,7 @@ flutter:
     - assets/images/Frame 132.png
     - assets/images/ppguru.png
     - assets/images/garis.png
+    - assets/images/header.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -35,6 +35,7 @@ class _LauncherPageState extends State<LauncherPage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.light,
     ));
     return Scaffold(
       backgroundColor: Colors.white,
