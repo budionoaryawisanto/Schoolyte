@@ -1,21 +1,27 @@
-class Posts {
-  final int userId;
+class Users {
   final int id;
-  final String title;
-  final String body;
+  final String name;
+  final String username;
+  final String email;
+  final String phone;
+  final String website;
 
-  Posts(
-      {required this.userId,
-      required this.id,
-      required this.title,
-      required this.body});
+  Users(
+      {required this.id,
+      required this.name,
+      required this.username,
+      required this.email,
+      required this.phone,
+      required this.website});
 
-  factory Posts.formJson(Map<String, dynamic> json) {
-    return new Posts(
-      userId: json['userId'],
+  factory Users.formJson(Map<String, dynamic> json) {
+    return new Users(
       id: json['id'],
-      title: json['title'],
-      body: json['body'],
+      name: json['name'],
+      username: json['username'],
+      email: json['email'],
+      phone: json['phone'],
+      website: json['website'],
     );
   }
 }
