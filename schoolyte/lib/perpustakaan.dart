@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:sizer/sizer.dart';
+import 'package:http/http.dart' as http;
+import 'model.dart';
 
 class PerpustakaanPage extends StatefulWidget {
   @override
@@ -13,10 +16,32 @@ class PerpustakaanPage extends StatefulWidget {
 }
 
 class _PerpustakaanPageState extends State<PerpustakaanPage> {
-  final TextEditingController searchController = TextEditingController();
+  List<Posts> _list = [];
+  List<Posts> _search = [];
+  var loading = false;
+
+  Future<Null> fetchData() async {
+    setState(() {
+      loading = true;
+    });
+    _list.clear();
+    final response =
+        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _list.add(Posts.formJson(i));
+          loading = false;
+        }
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    fetchData();
   }
 
   _logOut() async {
@@ -62,10 +87,21 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
     Tab(text: 'Selesai'),
   ];
 
-  _getDataBuku() {
-    return Container(
-      child: Text('ini Buku'),
-    );
+  final TextEditingController searchController = TextEditingController();
+
+  onSearch(String text) async {
+    _search.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+
+    _list.forEach((e) {
+      if (e.title.toLowerCase().contains(text.toLowerCase()) ||
+          e.id.toString().contains(text)) {
+        _search.add(e);
+      }
+    });
   }
 
   @override
@@ -578,10 +614,15 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                     letterSpacing: 1,
                                   ),
                                   controller: searchController,
+                                  onChanged: onSearch,
                                   decoration: new InputDecoration(
+                                    icon: Icon(
+                                      Icons.search,
+                                      size: 24,
+                                    ),
                                     enabledBorder: InputBorder.none,
                                     focusedBorder: InputBorder.none,
-                                    hintText: '   Search Here',
+                                    hintText: 'Search Here',
                                     hintStyle: TextStyle(
                                       fontFamily: 'Gilroy-Light',
                                       fontSize: 16,
@@ -592,34 +633,71 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                             ),
                             IconButton(
                               icon: Icon(
-                                Icons.search,
+                                Icons.cancel,
                                 size: 24,
-                                color: Color.fromRGBO(76, 81, 97, 1),
+                                color: Colors.red,
                               ),
                               onPressed: () {
-                                print('click');
+                                searchController.clear();
+                                onSearch('');
                               },
                             ),
                           ],
                         ),
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 1,
-                            color: Colors.black,
+                      SingleChildScrollView(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 700,
+                          margin: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                        child: GridView.count(
-                          crossAxisCount: 3,
-                          children: [
-                            FlutterLogo(),
-                            FlutterLogo(),
-                            FlutterLogo(),
-                            FlutterLogo(),
-                          ],
+                          child: loading
+                              ? Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : _search.length != 0 ||
+                                      searchController.text.isNotEmpty
+                                  ? GridView.builder(
+                                      itemCount: _search.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 3),
+                                      itemBuilder: (context, i) {
+                                        final b = _search[i];
+                                        return Container(
+                                          width: 139,
+                                          height: 268,
+                                          padding: EdgeInsets.all(10),
+                                          child: Column(
+                                            children: [
+                                              Text(b.title),
+                                            ],
+                                          ),
+                                        );
+                                      })
+                                  : GridView.builder(
+                                      itemCount: _list.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 3),
+                                      itemBuilder: (context, i) {
+                                        final a = _list[i];
+                                        return Container(
+                                          width: 139,
+                                          height: 268,
+                                          padding: EdgeInsets.all(10),
+                                          child: Column(
+                                            children: [
+                                              Text(a.title),
+                                            ],
+                                          ),
+                                        );
+                                      }),
                         ),
                       ),
                     ],
