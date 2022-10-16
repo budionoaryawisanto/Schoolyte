@@ -55,6 +55,51 @@ class _JadwalPageState extends State<JadwalPage> {
     jumClick = true;
   }
 
+  List<Tab> myTabs = <Tab>[
+    Tab(
+      child: Text(
+        'Sen',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    ),
+    Tab(
+      child: Text(
+        'Sel',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    ),
+    Tab(
+      child: Text(
+        'Rab',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    ),
+    Tab(
+      child: Text(
+        'Kam',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    ),
+    Tab(
+      child: Text(
+        'Jum',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    ),
+  ];
+
+  var loading = false;
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -68,24 +113,44 @@ class _JadwalPageState extends State<JadwalPage> {
 
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeArea(
+      home: DefaultTabController(
+        length: myTabs.length,
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: Align(
-              alignment: Alignment(-0.7, 0.0),
-              child: Text(
-                'Jadwal Kelas',
-                style: TextStyle(
-                  fontFamily: 'Gilroy-ExtraBold',
-                  fontSize: 24,
-                  color: Color.fromRGBO(76, 81, 97, 1),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(138),
+            child: AppBar(
+              backgroundColor: Colors.white,
+              title: Align(
+                alignment: Alignment(-0.7, 0.0),
+                child: Text(
+                  'Jadwal Kelas',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-ExtraBold',
+                    fontSize: 24,
+                    color: Colors.black,
+                  ),
                 ),
               ),
+              elevation: 0.0,
+              iconTheme: IconThemeData(color: Colors.black),
+              bottom: TabBar(
+                padding: EdgeInsets.only(bottom: 10),
+                indicatorColor: Colors.black,
+                indicatorSize: TabBarIndicatorSize.label,
+                indicatorPadding: EdgeInsets.only(top: 0),
+                labelStyle: TextStyle(
+                  fontFamily: 'Gilroy-ExtraBold',
+                  fontSize: 20,
+                  color: Colors.black,
+                ),
+                unselectedLabelStyle: TextStyle(
+                  fontFamily: 'Gilroy-Light',
+                  fontSize: 20,
+                ),
+                tabs: myTabs,
+              ),
             ),
-            elevation: 0,
-            iconTheme: IconThemeData(color: Color.fromARGB(255, 66, 65, 65)),
-            backgroundColor: Colors.white,
           ),
           drawer: Drawer(
             backgroundColor: Colors.white,
@@ -517,1292 +582,269 @@ class _JadwalPageState extends State<JadwalPage> {
               ],
             ),
           ),
-          body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment(0.0, 0.0),
-                  child: Container(
-                    width: 490,
-                    height: 64,
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(229, 229, 229, 1),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            close();
-                            setState(() {
-                              senClick = !senClick;
-                            });
-                          },
-                          child: Container(
-                            width: 55,
-                            height: 39,
-                            decoration: BoxDecoration(
-                              color: (senClick == false)
-                                  ? Color.fromRGBO(242, 78, 26, 1)
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Sen',
-                                style: TextStyle(
-                                  fontFamily: (senClick == false)
-                                      ? 'Gilroy-ExtraBold'
-                                      : 'Gilroy-Light',
-                                  fontSize: 14,
-                                  color: (senClick == false)
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
-                            ),
+          body: TabBarView(
+            children: [
+              SingleChildScrollView(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 800,
+                  margin: EdgeInsets.all(20),
+                  child: loading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : GridView.builder(
+                          itemCount: 9,
+                          padding: EdgeInsets.all(10),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            mainAxisExtent: 93,
+                            mainAxisSpacing: 15,
                           ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            close();
-                            setState(() {
-                              selClick = !selClick;
-                            });
-                          },
-                          child: Container(
-                            width: 51,
-                            height: 39,
-                            decoration: BoxDecoration(
-                              color: (selClick == false)
-                                  ? Color.fromRGBO(242, 78, 26, 1)
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Sel',
-                                style: TextStyle(
-                                  fontFamily: (selClick == false)
-                                      ? 'Gilroy-ExtraBold'
-                                      : 'Gilroy-Light',
-                                  fontSize: 14,
-                                  color: (selClick == false)
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
+                          itemBuilder: (context, i) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 0,
+                                    blurRadius: 1.5,
+                                    offset: Offset(0, 0),
+                                  )
+                                ],
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            close();
-                            setState(() {
-                              rabClick = !rabClick;
-                            });
-                          },
-                          child: Container(
-                            width: 57,
-                            height: 39,
-                            decoration: BoxDecoration(
-                              color: (rabClick == false)
-                                  ? Color.fromRGBO(242, 78, 26, 1)
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Rab',
-                                style: TextStyle(
-                                  fontFamily: (rabClick == false)
-                                      ? 'Gilroy-ExtraBold'
-                                      : 'Gilroy-Light',
-                                  fontSize: 14,
-                                  color: (rabClick == false)
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                      child: new Image.asset(
+                                    'assets/images/garis.png',
+                                  )),
+                                  Container(
+                                    width: 147,
+                                    height: 54,
+                                    decoration: BoxDecoration(),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Matematika',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 24,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              '07.00',
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Text(
+                                              '-',
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Text(
+                                              '08.00',
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 91,
+                                    height: 66.75,
+                                    decoration: BoxDecoration(),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 1,
+                                              color: Colors.black,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(180),
+                                          ),
+                                          child: ClipOval(
+                                            child: new Image.asset(
+                                              'assets/images/ppguru.png',
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Drs. Andi Sanjaya',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            close();
-                            setState(() {
-                              kamClick = !kamClick;
-                            });
+                            );
                           },
-                          child: Container(
-                            width: 58,
-                            height: 39,
-                            decoration: BoxDecoration(
-                              color: (kamClick == false)
-                                  ? Color.fromRGBO(242, 78, 26, 1)
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Kam',
-                                style: TextStyle(
-                                  fontFamily: (kamClick == false)
-                                      ? 'Gilroy-ExtraBold'
-                                      : 'Gilroy-Light',
-                                  fontSize: 14,
-                                  color: (kamClick == false)
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
                         ),
-                        TextButton(
-                          onPressed: () {
-                            close();
-                            setState(() {
-                              jumClick = !jumClick;
-                            });
-                          },
-                          child: Container(
-                            width: 58,
-                            height: 39,
-                            decoration: BoxDecoration(
-                              color: (jumClick == false)
-                                  ? Color.fromRGBO(242, 78, 26, 1)
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Jum',
-                                style: TextStyle(
-                                  fontFamily: (jumClick == false)
-                                      ? 'Gilroy-ExtraBold'
-                                      : 'Gilroy-Light',
-                                  fontSize: 14,
-                                  color: (jumClick == false)
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
-                Align(
-                  child: Container(
-                    width: 490,
-                    height: 860,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            width: 378,
-                            height: 93,
-                            margin: EdgeInsets.only(top: 30),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 0,
-                                  blurRadius: 1.5,
-                                  offset: Offset(0, 0),
-                                )
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                    child: new Image.asset(
-                                  'assets/images/garis.png',
-                                )),
-                                Container(
-                                  width: 147,
-                                  height: 54,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Matematika',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '07.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '-',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '08.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 91,
-                                  height: 66.75,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(180),
-                                        ),
-                                        child: ClipOval(
-                                          child: new Image.asset(
-                                            'assets/images/ppguru.png',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Drs. Andi Sanjaya',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
+              ),
+              SingleChildScrollView(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 800,
+                  margin: EdgeInsets.all(20),
+                  child: loading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : GridView.builder(
+                          itemCount: 9,
+                          padding: EdgeInsets.all(10),
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 1,
+                            mainAxisExtent: 93,
+                            mainAxisSpacing: 15,
                           ),
-                          Container(
-                            width: 378,
-                            height: 93,
-                            margin: EdgeInsets.only(top: 30),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 0,
-                                  blurRadius: 1.5,
-                                  offset: Offset(0, 0),
-                                )
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                    child: new Image.asset(
-                                  'assets/images/garis.png',
-                                )),
-                                Container(
-                                  width: 147,
-                                  height: 54,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Matematika',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '07.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '-',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '08.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 91,
-                                  height: 66.75,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
+                          itemBuilder: (context, i) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.2),
+                                    spreadRadius: 0,
+                                    blurRadius: 1.5,
+                                    offset: Offset(0, 0),
+                                  )
+                                ],
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Container(
+                                      child: new Image.asset(
+                                    'assets/images/garis.png',
+                                  )),
+                                  Container(
+                                    width: 147,
+                                    height: 54,
+                                    decoration: BoxDecoration(),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Matematika',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 24,
                                             color: Colors.black,
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(180),
                                         ),
-                                        child: ClipOval(
-                                          child: new Image.asset(
-                                            'assets/images/ppguru.png',
-                                            fit: BoxFit.fill,
-                                          ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              '07.00',
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Text(
+                                              '-',
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            Text(
+                                              '08.00',
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
-                                      Text(
-                                        'Drs. Andi Sanjaya',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 378,
-                            height: 93,
-                            margin: EdgeInsets.only(top: 30),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 0,
-                                  blurRadius: 1.5,
-                                  offset: Offset(0, 0),
-                                )
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                    child: new Image.asset(
-                                  'assets/images/garis.png',
-                                )),
-                                Container(
-                                  width: 147,
-                                  height: 54,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Matematika',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 24,
-                                          color: Colors.black,
+                                  Container(
+                                    width: 91,
+                                    height: 66.75,
+                                    decoration: BoxDecoration(),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 1,
+                                              color: Colors.black,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(180),
+                                          ),
+                                          child: ClipOval(
+                                            child: new Image.asset(
+                                              'assets/images/ppguru.png',
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
                                         ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '07.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
+                                        Text(
+                                          'Drs. Andi Sanjaya',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 10,
                                           ),
-                                          Text(
-                                            '-',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '08.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Container(
-                                  width: 91,
-                                  height: 66.75,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.black,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(180),
-                                        ),
-                                        child: ClipOval(
-                                          child: new Image.asset(
-                                            'assets/images/ppguru.png',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Drs. Andi Sanjaya',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 378,
-                            height: 93,
-                            margin: EdgeInsets.only(top: 30),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 0,
-                                  blurRadius: 1.5,
-                                  offset: Offset(0, 0),
-                                )
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                    child: new Image.asset(
-                                  'assets/images/garis.png',
-                                )),
-                                Container(
-                                  width: 147,
-                                  height: 54,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Matematika',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '07.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '-',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '08.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 91,
-                                  height: 66.75,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.black,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(180),
-                                        ),
-                                        child: ClipOval(
-                                          child: new Image.asset(
-                                            'assets/images/ppguru.png',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Drs. Andi Sanjaya',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 378,
-                            height: 93,
-                            margin: EdgeInsets.only(
-                              top: 30,
-                            ),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 0,
-                                  blurRadius: 1.5,
-                                  offset: Offset(0, 0),
-                                )
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                    child: new Image.asset(
-                                  'assets/images/garis.png',
-                                )),
-                                Container(
-                                  width: 147,
-                                  height: 54,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Matematika',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '07.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '-',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '08.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 91,
-                                  height: 66.75,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.black,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(180),
-                                        ),
-                                        child: ClipOval(
-                                          child: new Image.asset(
-                                            'assets/images/ppguru.png',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Drs. Andi Sanjaya',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 378,
-                            height: 93,
-                            margin: EdgeInsets.only(top: 30),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 0,
-                                  blurRadius: 1.5,
-                                  offset: Offset(0, 0),
-                                )
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                    child: new Image.asset(
-                                  'assets/images/garis.png',
-                                )),
-                                Container(
-                                  width: 147,
-                                  height: 54,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Matematika',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '07.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '-',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '08.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 91,
-                                  height: 66.75,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.black,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(180),
-                                        ),
-                                        child: ClipOval(
-                                          child: new Image.asset(
-                                            'assets/images/ppguru.png',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Drs. Andi Sanjaya',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 378,
-                            height: 93,
-                            margin: EdgeInsets.only(top: 30),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 0,
-                                  blurRadius: 1.5,
-                                  offset: Offset(0, 0),
-                                )
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                    child: new Image.asset(
-                                  'assets/images/garis.png',
-                                )),
-                                Container(
-                                  width: 147,
-                                  height: 54,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Matematika',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '07.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '-',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '08.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 91,
-                                  height: 66.75,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.black,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(180),
-                                        ),
-                                        child: ClipOval(
-                                          child: new Image.asset(
-                                            'assets/images/ppguru.png',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Drs. Andi Sanjaya',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 378,
-                            height: 93,
-                            margin: EdgeInsets.only(top: 30),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 0,
-                                  blurRadius: 1.5,
-                                  offset: Offset(0, 0),
-                                )
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                    child: new Image.asset(
-                                  'assets/images/garis.png',
-                                )),
-                                Container(
-                                  width: 147,
-                                  height: 54,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Matematika',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '07.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '-',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '08.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 91,
-                                  height: 66.75,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.black,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(180),
-                                        ),
-                                        child: ClipOval(
-                                          child: new Image.asset(
-                                            'assets/images/ppguru.png',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Drs. Andi Sanjaya',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 378,
-                            height: 93,
-                            margin: EdgeInsets.only(top: 30),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 0,
-                                  blurRadius: 1.5,
-                                  offset: Offset(0, 0),
-                                )
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                    child: new Image.asset(
-                                  'assets/images/garis.png',
-                                )),
-                                Container(
-                                  width: 147,
-                                  height: 54,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Matematika',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '07.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '-',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '08.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 91,
-                                  height: 66.75,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.black,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(180),
-                                        ),
-                                        child: ClipOval(
-                                          child: new Image.asset(
-                                            'assets/images/ppguru.png',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Drs. Andi Sanjaya',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            width: 378,
-                            height: 93,
-                            margin: EdgeInsets.only(
-                              top: 30,
-                              bottom: 30,
-                            ),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2),
-                                  spreadRadius: 0,
-                                  blurRadius: 1.5,
-                                  offset: Offset(0, 0),
-                                )
-                              ],
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Container(
-                                    child: new Image.asset(
-                                  'assets/images/garis.png',
-                                )),
-                                Container(
-                                  width: 147,
-                                  height: 54,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Matematika',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 24,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '07.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '-',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '08.00',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 91,
-                                  height: 66.75,
-                                  decoration: BoxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.black,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(180),
-                                        ),
-                                        child: ClipOval(
-                                          child: new Image.asset(
-                                            'assets/images/ppguru.png',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Drs. Andi Sanjaya',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

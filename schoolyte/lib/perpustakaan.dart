@@ -27,7 +27,6 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
     _list.clear();
     final response =
         await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
-    print(response);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
@@ -38,6 +37,8 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
       });
     }
   }
+
+
 
   @override
   void initState() {
@@ -64,8 +65,6 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
   bool rabClick = true;
   bool kamClick = true;
   bool jumClick = true;
-
-  bool closeColour = false;
 
   closeDrawer() {
     akademikClick = true;
@@ -104,23 +103,6 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
         _search.add(e);
       }
     });
-    if (_search.isEmpty) {
-      setState(() {
-        return emptyData();
-      });
-    }
-  }
-
-  emptyData() {
-    Center(
-      child: Text(
-        'Maaf data yang kamu cari tidak ada...',
-        style: TextStyle(
-          fontFamily: 'Gilroy-ExtraBold',
-          fontSize: 20,
-        ),
-      ),
-    );
   }
 
   @override
@@ -140,7 +122,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(168),
+            preferredSize: Size.fromHeight(138),
             child: AppBar(
               backgroundColor: Color.fromRGBO(119, 115, 205, 1),
               title: Align(
@@ -607,7 +589,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 800,
+                height: 750,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -631,8 +613,14 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                     fontFamily: 'Gilroy-Light',
                                     fontSize: 16,
                                   ),
+                                  textInputAction: TextInputAction.done,
                                   controller: searchController,
-                                  onChanged: onSearch,
+                                  autocorrect: true,
+                                  onChanged: ((value) {
+                                    setState(() {
+                                      onSearch(value);
+                                    });
+                                  }),
                                   decoration: new InputDecoration(
                                     icon: Icon(
                                       Icons.search,
@@ -650,13 +638,11 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                               ),
                             ),
                             IconButton(
-                              icon: Icon(
-                                Icons.cancel,
-                                size: 24,
-                                  color: searchController.text.isNotEmpty
+                              icon: Icon(Icons.cancel,
+                                  size: 24,
+                                  color: searchController.text.length != 0
                                       ? Colors.red
-                                      : Color.fromRGBO(76, 81, 97, 58)
-                              ),
+                                      : Color.fromRGBO(76, 81, 97, 58)),
                               onPressed: () {
                                 searchController.clear();
                                 onSearch('');
@@ -668,7 +654,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                       SingleChildScrollView(
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 700,
+                          height: 750,
                           margin: EdgeInsets.all(20),
                           child: loading
                               ? Center(
@@ -681,7 +667,6 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                       padding: EdgeInsets.all(10),
                                       gridDelegate:
                                           SliverGridDelegateWithMaxCrossAxisExtent(
-                                        childAspectRatio: 1 / 1.5,
                                         maxCrossAxisExtent: 139,
                                         mainAxisExtent: 268,
                                         crossAxisSpacing: 15,
@@ -905,7 +890,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
               SingleChildScrollView(
                 child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 800,
+                    height: 750,
                     padding: EdgeInsets.all(10),
                     color: Color.fromRGBO(243, 243, 243, 1),
                     child: GridView.builder(
@@ -992,16 +977,104 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                           );
                         }))),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 800,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1,
-                    color: Colors.black,
-                  ),
-                ),
-                child: Text('ini Selesai'),
+              SingleChildScrollView(
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 750,
+                    padding: EdgeInsets.all(10),
+                    color: Color.fromRGBO(243, 243, 243, 1),
+                    child: GridView.builder(
+                        itemCount: 5,
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 490,
+                          mainAxisExtent: 138,
+                          mainAxisSpacing: 6,
+                        ),
+                        itemBuilder: ((context, i) {
+                          final a = _list[i];
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 74,
+                                  height: 100,
+                                  margin: EdgeInsets.only(left: 40),
+                                  child: Image.asset(
+                                    'assets/images/samplebook.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Container(
+                                  width: 279,
+                                  height: 100,
+                                  margin: EdgeInsets.only(left: 40),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Ilmu Pengetahuan Alam',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-ExtraBold',
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Berakhir : 11 September 2022',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Text(
+                                        a.id % 2 == 0
+                                            ? 'Kembali : 12 September 2022'
+                                            : 'Kembali : 11 September 2022',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 126,
+                                        height: 15,
+                                        decoration: BoxDecoration(
+                                          color: a.id % 2 == 0
+                                              ? Color.fromRGBO(242, 78, 26, 1)
+                                              : Color.fromRGBO(
+                                                  217, 217, 217, 1),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            a.id % 2 == 0
+                                                ? 'Telat Pengembalian'
+                                                : 'Sudah Dikembalikan',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 13,
+                                              color: a.id % 2 == 0
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }))),
               ),
             ],
           ),
