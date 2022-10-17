@@ -259,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                          '/fasilitas', (Route<dynamic> route) => false);
                     },
                   ),
                 ),
@@ -718,7 +718,7 @@ class _HomePageState extends State<HomePage> {
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/landing',
+                                    '/fasilitas',
                                     (Route<dynamic> route) => false);
                               },
                               child: Container(

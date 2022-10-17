@@ -481,7 +481,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                          '/fasilitas', (Route<dynamic> route) => false);
                     },
                   ),
                 ),

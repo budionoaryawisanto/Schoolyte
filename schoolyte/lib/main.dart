@@ -8,6 +8,7 @@ import './jadwal.dart';
 import './rapor.dart';
 import './absensi.dart';
 import './perpustakaan.dart';
+import './fasilitas.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         '/rapor': (BuildContext context) => new RaporPage(),
         '/absensi': (BuildContext context) => new AbsensiPage(),
         '/perpustakaan': (BuildContext context) => new PerpustakaanPage(),
+        '/fasilitas': (BuildContext context) => new FasilitasPage(),
       },
     );
   }

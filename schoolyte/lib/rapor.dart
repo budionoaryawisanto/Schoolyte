@@ -270,7 +270,7 @@ class _RaporPageState extends State<RaporPage> {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                          '/fasilitas', (Route<dynamic> route) => false);
                     },
                   ),
                 ),

@@ -337,7 +337,7 @@ class _JadwalPageState extends State<JadwalPage> {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                          '/fasilitas', (Route<dynamic> route) => false);
                     },
                   ),
                 ),
