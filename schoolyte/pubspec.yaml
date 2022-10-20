@@ -41,6 +41,9 @@ dependencies:
   dropdown_search: ^5.0.3
   sizer: ^2.0.15
   http: ^0.13.5 
+  intl: ^0.17.0
+  image_picker: ^0.8.6
+
 
 dev_dependencies:
   flutter_test:
@@ -88,6 +91,7 @@ flutter:
     - assets/images/header.png
     - assets/images/samplebook.png
     - assets/images/fasilitas.png
+    - assets/images/infoabsen.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

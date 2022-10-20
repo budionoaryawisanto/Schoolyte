@@ -887,7 +887,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 750,
+                height: MediaQuery.of(context).size.height,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -952,7 +952,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                       SingleChildScrollView(
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 750,
+                          height: MediaQuery.of(context).size.height * 0.73,
                           margin: EdgeInsets.all(20),
                           child: loading
                               ? Center(
@@ -1162,8 +1162,11 @@ class _FasilitasPageState extends State<FasilitasPage> {
               SingleChildScrollView(
                 child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 800,
-                    color: Color.fromRGBO(243, 243, 243, 1),
+                    height: MediaQuery.of(context).size.height,
+                    padding: EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(243, 243, 243, 1),
+                    ),
                     child: GridView.builder(
                         itemCount: _list.length,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(

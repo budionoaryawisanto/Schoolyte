@@ -520,7 +520,7 @@ class _RaporPageState extends State<RaporPage> {
               children: [
                 Container(
                   margin: EdgeInsets.only(top: 10),
-                  width: 490,
+                  width: MediaQuery.of(context).size.width,
                   height: 168,
                   decoration: BoxDecoration(
                     color: Colors.white,
