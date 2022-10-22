@@ -7,12 +7,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'dart:math';
 import 'package:dropdown_search/dropdown_search.dart';
 
-class JadwalPage extends StatefulWidget {
+class NilaiBelajarPage extends StatefulWidget {
   @override
-  _JadwalPageState createState() => new _JadwalPageState();
+  _NilaiBelajarState createState() => new _NilaiBelajarState();
 }
 
-class _JadwalPageState extends State<JadwalPage> {
+class _NilaiBelajarState extends State<NilaiBelajarPage> {
   @override
   void initState() {
     super.initState();
@@ -32,12 +32,6 @@ class _JadwalPageState extends State<JadwalPage> {
   bool kegiatanClick = true;
   bool profilClick = true;
 
-  bool senClick = true;
-  bool selClick = true;
-  bool rabClick = true;
-  bool kamClick = true;
-  bool jumClick = true;
-
   closeDrawer() {
     akademikClick = true;
     peminjamanClick = true;
@@ -47,110 +41,40 @@ class _JadwalPageState extends State<JadwalPage> {
     profilClick = true;
   }
 
-  close() {
-    senClick = true;
-    selClick = true;
-    rabClick = true;
-    kamClick = true;
-    jumClick = true;
-  }
-
-  List<Tab> myTabs = <Tab>[
-    Tab(
-      child: Text(
-        'Sen',
-        style: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    ),
-    Tab(
-      child: Text(
-        'Sel',
-        style: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    ),
-    Tab(
-      child: Text(
-        'Rab',
-        style: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    ),
-    Tab(
-      child: Text(
-        'Kam',
-        style: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    ),
-    Tab(
-      child: Text(
-        'Jum',
-        style: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    ),
-  ];
-
   var loading = false;
+
+  var mapel = ['Matematika', 'Bahasa Indonesia', 'Bahasa Inggris'];
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: Color.fromRGBO(255, 217, 102, 1),
         systemNavigationBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarIconBrightness: Brightness.light,
       ),
     );
-
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DefaultTabController(
-        length: myTabs.length,
+      home: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(138),
-            child: AppBar(
-              backgroundColor: Colors.white,
-              title: Align(
-                alignment: Alignment(-0.7, 0.0),
-                child: Text(
-                  'Jadwal Kelas',
-                  style: TextStyle(
-                    fontFamily: 'Gilroy-ExtraBold',
-                    fontSize: 24,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              elevation: 0.0,
-              iconTheme: IconThemeData(color: Colors.black),
-              bottom: TabBar(
-                padding: EdgeInsets.only(bottom: 10),
-                indicatorColor: Colors.black,
-                indicatorSize: TabBarIndicatorSize.label,
-                indicatorPadding: EdgeInsets.only(top: 0),
-                labelStyle: TextStyle(
+          backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+          appBar: AppBar(
+            title: Align(
+              alignment: Alignment(-0.7, 0.0),
+              child: Text(
+                'Nilai Belajar',
+                style: TextStyle(
                   fontFamily: 'Gilroy-ExtraBold',
-                  fontSize: 20,
-                  color: Colors.black,
+                  fontSize: 24,
+                  color: Colors.white,
                 ),
-                unselectedLabelStyle: TextStyle(
-                  fontFamily: 'Gilroy-Light',
-                  fontSize: 20,
-                ),
-                tabs: myTabs,
               ),
             ),
+            elevation: 0,
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Color.fromRGBO(255, 217, 102, 1),
           ),
           drawer: Drawer(
             backgroundColor: Colors.white,
@@ -222,13 +146,13 @@ class _JadwalPageState extends State<JadwalPage> {
                       'Jadwal Kelas',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-ExtraBold',
+                          fontFamily: 'Gilroy-Light',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                          '/jadwal', (Route<dynamic> route) => false);
                     },
                   ),
                 ),
@@ -282,7 +206,7 @@ class _JadwalPageState extends State<JadwalPage> {
                       'Nilai Belajar',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
+                          fontFamily: 'Gilroy-ExtraBold',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
@@ -602,25 +526,40 @@ class _JadwalPageState extends State<JadwalPage> {
               ],
             ),
           ),
-          body: TabBarView(
-            children: [
-              SingleChildScrollView(
-                child: Container(
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 800,
+                  child: new Image.asset(
+                    'assets/images/infonilai.png',
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.65,
                   margin: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 1,
+                      color: Colors.black,
+                    ),
+                  ),
                   child: loading
                       ? Center(
                           child: CircularProgressIndicator(),
                         )
                       : GridView.builder(
-                          itemCount: 9,
+                          itemCount: mapel.length,
                           padding: EdgeInsets.all(10),
                           gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            mainAxisExtent: 93,
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 462,
+                            mainAxisExtent: 292,
                             mainAxisSpacing: 15,
+                            crossAxisSpacing: 10,
                           ),
                           itemBuilder: (context, i) {
                             return Container(
@@ -636,235 +575,13 @@ class _JadwalPageState extends State<JadwalPage> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                      child: new Image.asset(
-                                    'assets/images/garis.png',
-                                  )),
-                                  Container(
-                                    width: 147,
-                                    height: 54,
-                                    decoration: BoxDecoration(),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Matematika',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy-ExtraBold',
-                                            fontSize: 24,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              '07.00',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Text(
-                                              '-',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Text(
-                                              '08.00',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 91,
-                                    height: 66.75,
-                                    decoration: BoxDecoration(),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              width: 1,
-                                              color: Colors.black,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(180),
-                                          ),
-                                          child: ClipOval(
-                                            child: new Image.asset(
-                                              'assets/images/ppguru.png',
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Drs. Andi Sanjaya',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy-Light',
-                                            fontSize: 10,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              child: Text('$i'),
                             );
                           },
                         ),
                 ),
-              ),
-              SingleChildScrollView(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 800,
-                  margin: EdgeInsets.all(20),
-                  child: loading
-                      ? Center(
-                          child: CircularProgressIndicator(),
-                        )
-                      : GridView.builder(
-                          itemCount: 9,
-                          padding: EdgeInsets.all(10),
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 1,
-                            mainAxisExtent: 93,
-                            mainAxisSpacing: 15,
-                          ),
-                          itemBuilder: (context, i) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.2),
-                                    spreadRadius: 0,
-                                    blurRadius: 1.5,
-                                    offset: Offset(0, 0),
-                                  )
-                                ],
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Container(
-                                      child: new Image.asset(
-                                    'assets/images/garis.png',
-                                  )),
-                                  Container(
-                                    width: 147,
-                                    height: 54,
-                                    decoration: BoxDecoration(),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Matematika',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy-ExtraBold',
-                                            fontSize: 24,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              '07.00',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Text(
-                                              '-',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            Text(
-                                              '08.00',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 14,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 91,
-                                    height: 66.75,
-                                    decoration: BoxDecoration(),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                              width: 1,
-                                              color: Colors.black,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(180),
-                                          ),
-                                          child: ClipOval(
-                                            child: new Image.asset(
-                                              'assets/images/ppguru.png',
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          'Drs. Andi Sanjaya',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy-Light',
-                                            fontSize: 10,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

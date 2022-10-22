@@ -92,6 +92,7 @@ flutter:
     - assets/images/samplebook.png
     - assets/images/fasilitas.png
     - assets/images/infoabsen.png
+    - assets/images/infonilai.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

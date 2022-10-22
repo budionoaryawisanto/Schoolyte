@@ -348,6 +348,26 @@ class _AbsensiPageState extends State<AbsensiPage> {
                     },
                   ),
                 ),
+                Visibility(
+                  visible: (akademikClick == false) ? true : false,
+                  maintainAnimation: false,
+                  maintainState: false,
+                  child: ListTile(
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'Nilai Belajar',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/nilaiBelajar', (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),
                 ListTile(
                   tileColor: (peminjamanClick == false)
                       ? Color.fromRGBO(255, 199, 0, 1)
@@ -716,7 +736,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               child: Row(
@@ -854,6 +874,36 @@ class _AbsensiPageState extends State<AbsensiPage> {
                                       : Container(),
                                 ],
                               ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(),
+                                Container(
+                                  width: 118.12,
+                                  height: 30.14,
+                                  margin: EdgeInsets.only(right: 15),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(9),
+                                    color: Colors.black,
+                                  ),
+                                  child: Center(
+                                    child: TextButton(
+                                      onPressed: () {
+                                        print('clicked');
+                                      },
+                                      child: Text(
+                                        'Selesai',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 15,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

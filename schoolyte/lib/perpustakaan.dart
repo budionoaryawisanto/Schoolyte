@@ -275,6 +275,26 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                     },
                   ),
                 ),
+                Visibility(
+                  visible: (akademikClick == false) ? true : false,
+                  maintainAnimation: false,
+                  maintainState: false,
+                  child: ListTile(
+                    tileColor: Color.fromRGBO(237, 237, 237, 1),
+                    title: Text(
+                      'Nilai Belajar',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 14,
+                          color: Color.fromRGBO(76, 81, 91, 1)),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/nilaiBelajar', (Route<dynamic> route) => false);
+                    },
+                  ),
+                ),
                 ListTile(
                   tileColor: (peminjamanClick == false)
                       ? Color.fromRGBO(255, 199, 0, 1)
