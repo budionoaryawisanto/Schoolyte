@@ -502,7 +502,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                          '/kantin', (Route<dynamic> route) => false);
                     },
                   ),
                 ),

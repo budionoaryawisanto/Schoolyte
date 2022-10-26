@@ -727,7 +727,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                     ),
                     onTap: () {
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                          '/kantin', (Route<dynamic> route) => false);
                     },
                   ),
                 ),

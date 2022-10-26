@@ -10,6 +10,7 @@ import './absensi.dart';
 import './perpustakaan.dart';
 import './fasilitas.dart';
 import './nilaiBelajar.dart';
+import './kantin.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/perpustakaan': (BuildContext context) => new PerpustakaanPage(),
         '/fasilitas': (BuildContext context) => new FasilitasPage(),
         '/nilaiBelajar': (BuildContext context) => new NilaiBelajarPage(),
+        '/kantin': (BuildContext context) => new KantinPage(),
       },
     );
   }
