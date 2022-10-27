@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                   title: Text(
                     'Beranda',
                     style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
+                      fontFamily: 'Gilroy-ExtraBold',
                       fontSize: 16,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
@@ -351,6 +351,27 @@ class _HomePageState extends State<HomePage> {
                           '/kantin', (Route<dynamic> route) => false);
                     },
                   ),
+                ),
+                ListTile(
+                  tileColor: Colors.white,
+                  leading: Icon(
+                    Icons.newspaper_rounded,
+                    color: Color.fromRGBO(255, 199, 0, 1),
+                  ),
+                  title: Text(
+                    'Berita',
+                    style: TextStyle(
+                      fontFamily: 'Gilroy-Light',
+                      fontSize: 16,
+                      color: Color.fromRGBO(76, 81, 97, 1),
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/berita', (Route<dynamic> route) => false);
+                    });
+                  },
                 ),
                 ListTile(
                   tileColor: (keuanganClick == false)

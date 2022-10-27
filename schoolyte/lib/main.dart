@@ -11,6 +11,7 @@ import './perpustakaan.dart';
 import './fasilitas.dart';
 import './nilaiBelajar.dart';
 import './kantin.dart';
+import './berita.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         '/fasilitas': (BuildContext context) => new FasilitasPage(),
         '/nilaiBelajar': (BuildContext context) => new NilaiBelajarPage(),
         '/kantin': (BuildContext context) => new KantinPage(),
+        '/berita': (BuildContext context) => new BeritaPage(),
       },
     );
   }
