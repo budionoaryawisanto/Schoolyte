@@ -104,306 +104,6 @@ class _BeritaPageState extends State<BeritaPage> {
     });
   }
 
-  showDialogFunc(context, a) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Material(
-              type: MaterialType.transparency,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: 757,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: 339,
-                      height: 226,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: new Image.asset(
-                        'assets/images/fasilitas.png',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    Container(
-                      width: 261,
-                      child: Center(
-                        child: Text(
-                          'Lapangan Depan',
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 32,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 339,
-                      height: 88,
-                      child: Text(
-                        'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 15,
-                          color: Color.fromRGBO(76, 81, 97, 1),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 0.5,
-                          color: Color.fromRGBO(237, 237, 237, 1),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 268,
-                      height: 128,
-                      margin: EdgeInsets.only(right: 50),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Jadwal Peminjaman',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-Light',
-                              fontSize: 16,
-                              color: Color.fromRGBO(119, 115, 205, 1),
-                            ),
-                          ),
-                          Text(
-                            'Lebih Nyaman & Teratur dalam Penjadwalan Peminjaman',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-ExtraBold',
-                              fontSize: 24,
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 356,
-                      height: 61,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color.fromRGBO(237, 237, 237, 1),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'Senin, 17 Oktober 2022',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-ExtraBold',
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  '13.30 - 15.30',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 14,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3),
-                                color: Color.fromRGBO(255, 217, 102, 0.38)),
-                            child: Center(
-                              child: Text(
-                                'Oleh: ' + a.name,
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 10,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
-  }
-
-  showDialogFuncSearch(context, b) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return Center(
-            child: Material(
-              type: MaterialType.transparency,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: 757,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: 339,
-                      height: 226,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: new Image.asset(
-                        'assets/images/fasilitas.png',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    Container(
-                      width: 261,
-                      child: Center(
-                        child: Text(
-                          'Lapangan Depan',
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 32,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 339,
-                      height: 88,
-                      child: Text(
-                        'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 15,
-                          color: Color.fromRGBO(76, 81, 97, 1),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 0.5,
-                          color: Color.fromRGBO(237, 237, 237, 1),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 268,
-                      height: 128,
-                      margin: EdgeInsets.only(right: 50),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Jadwal Peminjaman',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-Light',
-                              fontSize: 16,
-                              color: Color.fromRGBO(119, 115, 205, 1),
-                            ),
-                          ),
-                          Text(
-                            'Lebih Nyaman & Teratur dalam Penjadwalan Peminjaman',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-ExtraBold',
-                              fontSize: 24,
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 356,
-                      height: 61,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color.fromRGBO(237, 237, 237, 1),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'Senin, 17 Oktober 2022',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-ExtraBold',
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  '13.30 - 15.30',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 14,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3),
-                                color: Color.fromRGBO(255, 217, 102, 0.38)),
-                            child: Center(
-                              child: Text(
-                                'Oleh: ' + b.name,
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 10,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        });
-  }
-
   var imgList = [
     'assets/images/berita.jpg',
     'assets/images/infonilai.png',
@@ -926,15 +626,141 @@ class _BeritaPageState extends State<BeritaPage> {
                       ),
                       items: imgList.map(
                         (i) {
+                          List<Widget> carousel = [];
                           return Builder(
                             builder: (BuildContext context) {
                               return TextButton(
                                 onPressed: () {
-                                  print('clicked $i');
+                                  showModalBottomSheet<void>(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(15),
+                                        topRight: Radius.circular(15),
+                                      ),
+                                    ),
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height: 850,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(15),
+                                            topRight: Radius.circular(15),
+                                          ),
+                                          color: Colors.white,
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                ),
+                                                Container(
+                                                  width: 50,
+                                                  height: 5,
+                                                  decoration: BoxDecoration(
+                                                    color: Color.fromRGBO(
+                                                        0, 0, 0, 0.25),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Icon(
+                                                    Icons.close,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              width: 354,
+                                              height: 161.21,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(9),
+                                              ),
+                                              child: new Image.asset(
+                                                i,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 348,
+                                              margin: EdgeInsets.only(top: 10),
+                                              child: Text(
+                                                'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan SMAN 28 | DBL ID',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 24,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 216,
+                                              height: 31,
+                                              margin: EdgeInsets.only(top: 15),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(16),
+                                                color: Color.fromRGBO(
+                                                    242, 78, 26, 1),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'Harir Ataki - 12/12/2022',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 16,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 340,
+                                              height: 480,
+                                              margin: EdgeInsets.only(top: 15),
+                                              child: SingleChildScrollView(
+                                                child: Text(
+                                                  'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 15,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                    letterSpacing: 1.3,
+                                                    wordSpacing: 3,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
                                 },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
-                                  margin: EdgeInsets.only(top: 5),
                                   child: Stack(
                                     children: [
                                       Align(
@@ -966,6 +792,23 @@ class _BeritaPageState extends State<BeritaPage> {
                                                     87, 92, 107, 0.78),
                                               ],
                                             ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment(0.0, 0.5),
+                                        child: Container(
+                                          width: 358,
+                                          height: 58,
+                                          child: Text(
+                                            'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan Lawan',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 24,
+                                              color: Colors.white,
+                                            ),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
                                       ),
