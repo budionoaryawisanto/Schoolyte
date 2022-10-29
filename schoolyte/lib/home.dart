@@ -947,19 +947,16 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Container(
-                    width: 489,
+                    width: MediaQuery.of(context).size.width,
                     height: 446,
-                    padding: EdgeInsets.only(
-                      left: 40,
-                      right: 40,
-                    ),
+                    padding: EdgeInsets.all(40),
                     margin: EdgeInsets.only(top: 15),
                     decoration: BoxDecoration(
                       color: Colors.white,
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -977,7 +974,7 @@ class _HomePageState extends State<HomePage> {
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/landing',
+                                    '/berita',
                                     (Route<dynamic> route) => false);
                               },
                               child: Container(
@@ -1005,40 +1002,168 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ],
                         ),
-                        Container(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  '/landing', (Route<dynamic> route) => false);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: Size(403, 89),
-                              side: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(255, 240, 236, 236),
+                        TextButton(
+                          onPressed: () {
+                            showModalBottomSheet<void>(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15),
+                                ),
                               ),
-                              backgroundColor: Colors.white,
-                            ),
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment(-0.9, 0.0),
-                                  child: Container(
-                                    width: 270,
-                                    height: 44,
-                                    child: Text(
-                                      "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  height: 850,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: 50,
+                                          ),
+                                          Container(
+                                            width: 50,
+                                            height: 5,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 0.25),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Icon(
+                                              Icons.close,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
                                       ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.7,
+                                        height: 161.21,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(9),
+                                        ),
+                                        child: new Image.asset(
+                                          'assets/images/logoberita.png',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.7,
+                                        margin: EdgeInsets.only(top: 10),
+                                        child: Text(
+                                          '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 24,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.4,
+                                        height: 31,
+                                        margin: EdgeInsets.only(top: 15),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          color: Color.fromRGBO(242, 78, 26, 1),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Arya - 12/12/2022',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.7,
+                                        height: 480,
+                                        margin: EdgeInsets.only(top: 15),
+                                        child: SingleChildScrollView(
+                                          child: Text(
+                                            'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 15,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Container(
+                            width: 403,
+                            height: 89,
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 0,
+                                  blurRadius: 1.5,
+                                  offset: Offset(0, 0),
+                                )
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 270,
+                                  height: 44,
+                                  child: Text(
+                                    "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-ExtraBold',
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
                                     ),
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment(1.0, 0.0),
-                                  child: Container(
+                                Container(
                                     width: 67,
                                     height: 67,
                                     decoration: BoxDecoration(
@@ -1048,49 +1173,176 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         borderRadius: BorderRadius.circular(7)),
                                     child: new Image.asset(
-                                      'assets/images/hi1.png',
-                                      fit: BoxFit.fill,
-                                    ),
+                                    'assets/images/logoberita.png',
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
                               ],
                             ),
                           ),
                         ),
-                        Container(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  '/landing', (Route<dynamic> route) => false);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: Size(403, 89),
-                              side: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(255, 240, 236, 236),
+                        TextButton(
+                          onPressed: () {
+                            showModalBottomSheet<void>(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15),
+                                ),
                               ),
-                              backgroundColor: Colors.white,
-                            ),
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment(-0.9, 0.0),
-                                  child: Container(
-                                    width: 270,
-                                    height: 44,
-                                    child: Text(
-                                      "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  height: 850,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: 50,
+                                          ),
+                                          Container(
+                                            width: 50,
+                                            height: 5,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 0.25),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Icon(
+                                              Icons.close,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
                                       ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.7,
+                                        height: 161.21,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(9),
+                                        ),
+                                        child: new Image.asset(
+                                          'assets/images/logoberita.png',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.7,
+                                        margin: EdgeInsets.only(top: 10),
+                                        child: Text(
+                                          '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 24,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.4,
+                                        height: 31,
+                                        margin: EdgeInsets.only(top: 15),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          color: Color.fromRGBO(242, 78, 26, 1),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Arya - 12/12/2022',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.7,
+                                        height: 480,
+                                        margin: EdgeInsets.only(top: 15),
+                                        child: SingleChildScrollView(
+                                          child: Text(
+                                            'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 15,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Container(
+                            width: 403,
+                            height: 89,
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 0,
+                                  blurRadius: 1.5,
+                                  offset: Offset(0, 0),
+                                )
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 270,
+                                  height: 44,
+                                  child: Text(
+                                    "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-ExtraBold',
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
                                     ),
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment(1.0, 0.0),
-                                  child: Container(
+                                Container(
                                     width: 67,
                                     height: 67,
                                     decoration: BoxDecoration(
@@ -1100,50 +1352,176 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         borderRadius: BorderRadius.circular(7)),
                                     child: new Image.asset(
-                                      'assets/images/hi1.png',
-                                      fit: BoxFit.fill,
-                                    ),
+                                    'assets/images/logoberita.png',
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
                               ],
                             ),
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.only(bottom: 60),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.of(context).pushNamedAndRemoveUntil(
-                                  '/landing', (Route<dynamic> route) => false);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              fixedSize: Size(403, 89),
-                              side: BorderSide(
-                                width: 2,
-                                color: Color.fromARGB(255, 240, 236, 236),
+                        TextButton(
+                          onPressed: () {
+                            showModalBottomSheet<void>(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(15),
+                                  topRight: Radius.circular(15),
+                                ),
                               ),
-                              backgroundColor: Colors.white,
-                            ),
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment(-0.9, 0.0),
-                                  child: Container(
-                                    width: 270,
-                                    height: 44,
-                                    child: Text(
-                                      "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Container(
+                                  height: 850,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: 50,
+                                          ),
+                                          Container(
+                                            width: 50,
+                                            height: 5,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 0.25),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Icon(
+                                              Icons.close,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
                                       ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.7,
+                                        height: 161.21,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(9),
+                                        ),
+                                        child: new Image.asset(
+                                          'assets/images/logoberita.png',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.7,
+                                        margin: EdgeInsets.only(top: 10),
+                                        child: Text(
+                                          '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 24,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.4,
+                                        height: 31,
+                                        margin: EdgeInsets.only(top: 15),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(16),
+                                          color: Color.fromRGBO(242, 78, 26, 1),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Arya - 12/12/2022',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 16,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.7,
+                                        height: 480,
+                                        margin: EdgeInsets.only(top: 15),
+                                        child: SingleChildScrollView(
+                                          child: Text(
+                                            'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 15,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Container(
+                            width: 403,
+                            height: 89,
+                            padding: EdgeInsets.symmetric(horizontal: 20),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 0,
+                                  blurRadius: 1.5,
+                                  offset: Offset(0, 0),
+                                )
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width: 270,
+                                  height: 44,
+                                  child: Text(
+                                    "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-ExtraBold',
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
                                     ),
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment(1.0, 0.0),
-                                  child: Container(
+                                Container(
                                     width: 67,
                                     height: 67,
                                     decoration: BoxDecoration(
@@ -1153,9 +1531,8 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                         borderRadius: BorderRadius.circular(7)),
                                     child: new Image.asset(
-                                      'assets/images/hi1.png',
-                                      fit: BoxFit.fill,
-                                    ),
+                                    'assets/images/logoberita.png',
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
                               ],
