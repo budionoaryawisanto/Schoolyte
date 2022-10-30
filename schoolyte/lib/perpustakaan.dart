@@ -120,6 +120,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
       home: DefaultTabController(
         length: myTabs.length,
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(138),

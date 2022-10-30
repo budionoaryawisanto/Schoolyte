@@ -94,6 +94,9 @@ flutter:
     - assets/images/infoabsen.png
     - assets/images/infonilai.png
     - assets/images/berita.jpg
+    - assets/images/menu.png
+    - assets/images/esteh.png
+    - assets/images/mieayam.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

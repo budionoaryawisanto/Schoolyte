@@ -14,7 +14,6 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
   bool visible = false;
-  final String sUrl = "https://mysimrs.com/api/";
 
   @override
   void initState() {

@@ -418,6 +418,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
       home: DefaultTabController(
         length: myTabs.length,
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(138),

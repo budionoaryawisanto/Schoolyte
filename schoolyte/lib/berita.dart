@@ -696,14 +696,9 @@ class _BeritaPageState extends State<BeritaPage> {
                                                             10),
                                                   ),
                                                 ),
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Icon(
-                                                    Icons.close,
-                                                    color: Colors.black,
-                                                  ),
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
                                                 ),
                                               ],
                                             ),
@@ -1159,14 +1154,9 @@ class _BeritaPageState extends State<BeritaPage> {
                                                             10),
                                                   ),
                                                 ),
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Icon(
-                                                    Icons.close,
-                                                    color: Colors.black,
-                                                  ),
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
                                                 ),
                                               ],
                                             ),
