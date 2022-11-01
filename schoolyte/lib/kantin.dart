@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:schoolyte/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:math';
@@ -1501,6 +1502,164 @@ class _KantinPageState extends State<KantinPage> {
                                                                     205,
                                                                     1),
                                                           ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Container(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        left:
+                                                                            20),
+                                                                child: Text(
+                                                                  'Total Bayar',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Gilroy-ExtraBold',
+                                                                    fontSize:
+                                                                        16,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Container(
+                                                                    margin: EdgeInsets.only(
+                                                                        right:
+                                                                            20),
+                                                                    child: Text(
+                                                                      'Rp.20.000',
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontFamily:
+                                                                            'Gilroy-ExtraBold',
+                                                                        fontSize:
+                                                                            16,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      showModalBottomSheet<
+                                                                          void>(
+                                                                        isScrollControlled:
+                                                                            true,
+                                                                        enableDrag:
+                                                                            false,
+                                                                        isDismissible:
+                                                                            false,
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (BuildContext
+                                                                                context) {
+                                                                          return Container(
+                                                                            width:
+                                                                                MediaQuery.of(context).size.width,
+                                                                            height:
+                                                                                MediaQuery.of(context).size.height * 0.97,
+                                                                            color:
+                                                                                Colors.white,
+                                                                            child:
+                                                                                Column(
+                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                Container(
+                                                                                  width: MediaQuery.of(context).size.width * 0.9,
+                                                                                  height: 50,
+                                                                                  margin: EdgeInsets.only(top: 20),
+                                                                                  child: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    children: [
+                                                                                      TextButton(
+                                                                                        onPressed: () {
+                                                                                          Navigator.pop(context);
+                                                                                        },
+                                                                                        child: Icon(
+                                                                                          Icons.chevron_left,
+                                                                                          color: Colors.black,
+                                                                                          size: 40,
+                                                                                        ),
+                                                                                      ),
+                                                                                      Column(
+                                                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          Text(
+                                                                                            'Dapur ' + b.name + ', Kode: ' + b.id.toString(),
+                                                                                            style: TextStyle(
+                                                                                              fontFamily: 'Gilroy-ExtraBold',
+                                                                                              fontSize: 20,
+                                                                                              color: Colors.black,
+                                                                                            ),
+                                                                                          ),
+                                                                                          Text(
+                                                                                            'Makanan, Minuman, Gorengan, Snack',
+                                                                                            style: TextStyle(
+                                                                                              fontFamily: 'Gilroy-Light',
+                                                                                              fontSize: 16,
+                                                                                              color: Colors.black,
+                                                                                            ),
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      );
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width: 99,
+                                                                      height:
+                                                                          35,
+                                                                      margin: EdgeInsets.only(
+                                                                          right:
+                                                                              10),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10),
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Text(
+                                                                          'Bayar',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontFamily:
+                                                                                'Gilroy-ExtraBold',
+                                                                            fontSize:
+                                                                                16,
+                                                                            color: Color.fromRGBO(
+                                                                                119,
+                                                                                115,
+                                                                                205,
+                                                                                1),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -1637,7 +1796,7 @@ class _KantinPageState extends State<KantinPage> {
                                           showModalBottomSheet<void>(
                                             isScrollControlled: true,
                                             enableDrag: false,
-                                            isDismissible: false,                                   
+                                            isDismissible: false,
                                             context: context,
                                             builder: (BuildContext context) {
                                               return Container(
@@ -1738,32 +1897,35 @@ class _KantinPageState extends State<KantinPage> {
                                                         child: Column(
                                                           children: [
                                                             Container(
-                                                      width: 150,
-                                                      height: 29,
-                                                      margin: EdgeInsets.only(
-                                                        top: 25,
-                                                        left: 65,
-                                                      ),
-                                                      child: Text(
-                                                        'Makanan',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-ExtraBold',
+                                                              width: 150,
+                                                              height: 29,
+                                                              margin: EdgeInsets
+                                                                  .only(
+                                                                top: 25,
+                                                                left: 65,
+                                                              ),
+                                                              child: Text(
+                                                                'Makanan',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-ExtraBold',
                                                                   fontSize: 20,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                              .size
-                                                              .width,
-                                                      height: 250,
-                                                      padding:
-                                                          EdgeInsets.symmetric(
-                                                        horizontal: 20,
-                                                        vertical: 5,
-                                                      ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              width:
+                                                                  MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
+                                                              height: 250,
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                horizontal: 20,
+                                                                vertical: 5,
+                                                              ),
                                                               child: loading
                                                                   ? Center(
                                                                       child:
@@ -2166,54 +2328,47 @@ class _KantinPageState extends State<KantinPage> {
                                                                 horizontal: 20,
                                                                 vertical: 5,
                                                               ),
-                                                  
-                                                      child: loading
-                                                          ? Center(
-                                                              child:
-                                                                  CircularProgressIndicator(),
-                                                            )
-                                                          : GridView.builder(
-                                                              itemCount: 6,
-                                                              gridDelegate:
-                                                                  SliverGridDelegateWithMaxCrossAxisExtent(
-                                                                maxCrossAxisExtent:
-                                                                    217,
-                                                                mainAxisExtent:
-                                                                    116,
-                                                                mainAxisSpacing:
-                                                                    5,
-                                                                crossAxisSpacing:
-                                                                    10,
-                                                              ),
-                                                              itemBuilder:
-                                                                  (context, i) {
-                                                                return Container(
-                                                                  margin:
-                                                                      EdgeInsets
-                                                                          .all(
-                                                                              5),
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    boxShadow: [
-                                                                      BoxShadow(
-                                                                        color: Colors
-                                                                            .black
-                                                                            .withOpacity(0.3),
-                                                                        spreadRadius:
-                                                                            0,
-                                                                        blurRadius:
-                                                                            1.5,
-                                                                        offset: Offset(
-                                                                            0,
-                                                                            0),
-                                                                      )
-                                                                    ],
-                                                                    color: Colors
-                                                                        .white,
-                                                                    borderRadius:
-                                                                        BorderRadius
-                                                                            .circular(7),
-                                                                  ),
+                                                              child: loading
+                                                                  ? Center(
+                                                                      child:
+                                                                          CircularProgressIndicator(),
+                                                                    )
+                                                                  : GridView
+                                                                      .builder(
+                                                                      itemCount:
+                                                                          6,
+                                                                      gridDelegate:
+                                                                          SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                        maxCrossAxisExtent:
+                                                                            217,
+                                                                        mainAxisExtent:
+                                                                            116,
+                                                                        mainAxisSpacing:
+                                                                            5,
+                                                                        crossAxisSpacing:
+                                                                            10,
+                                                                      ),
+                                                                      itemBuilder:
+                                                                          (context,
+                                                                              i) {
+                                                                        return Container(
+                                                                          margin:
+                                                                              EdgeInsets.all(5),
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            boxShadow: [
+                                                                              BoxShadow(
+                                                                                color: Colors.black.withOpacity(0.3),
+                                                                                spreadRadius: 0,
+                                                                                blurRadius: 1.5,
+                                                                                offset: Offset(0, 0),
+                                                                              )
+                                                                            ],
+                                                                            color:
+                                                                                Colors.white,
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(7),
+                                                                          ),
                                                                           child:
                                                                               Row(
                                                                             children: [
@@ -2340,11 +2495,10 @@ class _KantinPageState extends State<KantinPage> {
                                                                               ),
                                                                             ],
                                                                           ),
-                                                                );
-                                                              },
+                                                                        );
+                                                                      },
+                                                                    ),
                                                             ),
-                                                    ),
-                                                
                                                           ],
                                                         ),
                                                       ),
@@ -2375,6 +2529,164 @@ class _KantinPageState extends State<KantinPage> {
                                                                     115,
                                                                     205,
                                                                     1),
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Container(
+                                                                margin: EdgeInsets
+                                                                    .only(
+                                                                        left:
+                                                                            20),
+                                                                child: Text(
+                                                                  'Total Bayar',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Gilroy-ExtraBold',
+                                                                    fontSize:
+                                                                        16,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Container(
+                                                                    margin: EdgeInsets.only(
+                                                                        right:
+                                                                            20),
+                                                                    child: Text(
+                                                                      'Rp.20.000',
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontFamily:
+                                                                            'Gilroy-ExtraBold',
+                                                                        fontSize:
+                                                                            16,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      showModalBottomSheet<
+                                                                          void>(
+                                                                        isScrollControlled:
+                                                                            true,
+                                                                        enableDrag:
+                                                                            false,
+                                                                        isDismissible:
+                                                                            false,
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (BuildContext
+                                                                                context) {
+                                                                          return Container(
+                                                                            width:
+                                                                                MediaQuery.of(context).size.width,
+                                                                            height:
+                                                                                MediaQuery.of(context).size.height * 0.97,
+                                                                            color:
+                                                                                Colors.white,
+                                                                            child:
+                                                                                Column(
+                                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                                                              children: [
+                                                                                Container(
+                                                                                  width: MediaQuery.of(context).size.width * 0.9,
+                                                                                  height: 50,
+                                                                                  margin: EdgeInsets.only(top: 20),
+                                                                                  child: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    children: [
+                                                                                      TextButton(
+                                                                                        onPressed: () {
+                                                                                          Navigator.pop(context);
+                                                                                        },
+                                                                                        child: Icon(
+                                                                                          Icons.chevron_left,
+                                                                                          color: Colors.black,
+                                                                                          size: 40,
+                                                                                        ),
+                                                                                      ),
+                                                                                      Column(
+                                                                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                        children: [
+                                                                                          Text(
+                                                                                            'Dapur ' + a.name + ', Kode: ' + a.id.toString(),
+                                                                                            style: TextStyle(
+                                                                                              fontFamily: 'Gilroy-ExtraBold',
+                                                                                              fontSize: 20,
+                                                                                              color: Colors.black,
+                                                                                            ),
+                                                                                          ),
+                                                                                          Text(
+                                                                                            'Makanan, Minuman, Gorengan, Snack',
+                                                                                            style: TextStyle(
+                                                                                              fontFamily: 'Gilroy-Light',
+                                                                                              fontSize: 16,
+                                                                                              color: Colors.black,
+                                                                                            ),
+                                                                                          ),
+                                                                                        ],
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          );
+                                                                        },
+                                                                      );
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width: 99,
+                                                                      height:
+                                                                          35,
+                                                                      margin: EdgeInsets.only(
+                                                                          right:
+                                                                              10),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10),
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Text(
+                                                                          'Bayar',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontFamily:
+                                                                                'Gilroy-ExtraBold',
+                                                                            fontSize:
+                                                                                16,
+                                                                            color: Color.fromRGBO(
+                                                                                119,
+                                                                                115,
+                                                                                205,
+                                                                                1),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
                                                       ),
@@ -2503,38 +2815,51 @@ class _KantinPageState extends State<KantinPage> {
               SingleChildScrollView(
                 child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    padding: EdgeInsets.only(bottom: 25),
+                    height: MediaQuery.of(context).size.height * 0.84,
+                    padding: EdgeInsets.all(25),
                     color: Color.fromRGBO(243, 243, 243, 1),
                     child: GridView.builder(
                         itemCount: _list.length,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 491,
-                          mainAxisExtent: 138,
-                          mainAxisSpacing: 6,
+                          maxCrossAxisExtent: 407,
+                          mainAxisExtent: 116,
+                          mainAxisSpacing: 15,
+                          crossAxisSpacing: 50,
                         ),
                         itemBuilder: ((context, i) {
+                          var a = _list[i];
                           return Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 0,
+                                  blurRadius: 1.5,
+                                  offset: Offset(0, 0),
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(7),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  width: 74,
-                                  height: 100,
-                                  margin: EdgeInsets.only(left: 40),
+                                  width: 89,
+                                  height: 97,
                                   child: Image.asset(
-                                    'assets/images/samplebook.png',
+                                    'assets/images/menu.png',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                                 Container(
                                   width: 279,
                                   height: 100,
-                                  margin: EdgeInsets.only(left: 40),
+                                  margin: EdgeInsets.only(left: 20),
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -2542,21 +2867,24 @@ class _KantinPageState extends State<KantinPage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'Ilmu Pengetahuan Alam',
+                                        'Dapur ' +
+                                            a.name +
+                                            ', kode: ' +
+                                            a.id.toString(),
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 20,
+                                          fontSize: 16,
                                         ),
                                       ),
                                       Text(
-                                        'Mulai : 07 September 2022',
+                                        '2x Mie ayam, 2x Es teh, 2x Tahu Isi',
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
                                           fontSize: 14,
                                         ),
                                       ),
                                       Text(
-                                        'Berakhir : 11 September 2022',
+                                        'Rp.30.000',
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
                                           fontSize: 14,
@@ -2567,13 +2895,18 @@ class _KantinPageState extends State<KantinPage> {
                                         height: 19,
                                         decoration: BoxDecoration(
                                           color:
-                                              Color.fromRGBO(255, 217, 102, 1),
+                                              a.id % 2 == 0
+                                              ? Colors.lightGreen
+                                              : Color.fromRGBO(
+                                                  255, 217, 102, 1),
                                           borderRadius:
                                               BorderRadius.circular(4),
                                         ),
                                         child: Center(
                                           child: Text(
-                                            'Sedang Dipinjam',
+                                            a.id % 2 == 0
+                                                ? 'Siap Diambil'
+                                                : 'Sedang Diproses',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
                                               fontSize: 13,
@@ -2593,92 +2926,143 @@ class _KantinPageState extends State<KantinPage> {
               SingleChildScrollView(
                 child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    padding: EdgeInsets.only(bottom: 25),
+                    height: MediaQuery.of(context).size.height * 0.84,
+                    padding: EdgeInsets.all(25),
                     color: Color.fromRGBO(243, 243, 243, 1),
                     child: GridView.builder(
                         itemCount: _list.length,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 491,
-                          mainAxisExtent: 138,
-                          mainAxisSpacing: 6,
+                          maxCrossAxisExtent: 407,
+                          mainAxisExtent: 116,
+                          mainAxisSpacing: 15,
+                          crossAxisSpacing: 50,
                         ),
                         itemBuilder: ((context, i) {
-                          final a = _list[i];
+                          var a = _list[i];
                           return Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
                             decoration: BoxDecoration(
                               color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 0,
+                                  blurRadius: 1.5,
+                                  offset: Offset(0, 0),
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(7),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  width: 74,
-                                  height: 100,
-                                  margin: EdgeInsets.only(left: 40),
+                                  width: 89,
+                                  height: 97,
                                   child: Image.asset(
-                                    'assets/images/samplebook.png',
+                                    'assets/images/menu.png',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                                 Container(
                                   width: 279,
                                   height: 100,
-                                  margin: EdgeInsets.only(left: 40),
+                                  margin: EdgeInsets.only(left: 20),
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'No. Pesanan : 221010-25',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 10,
+                                              color: Color.fromRGBO(
+                                                  119, 115, 205, 1),
+                                            ),
+                                          ),
+                                          Text(
+                                            DateTime.now().day.toString() +
+                                                ' ' +
+                                                DateFormat.MMMM()
+                                                    .format(DateTime.now()) +
+                                                ' ' +
+                                                DateTime.now().year.toString(),
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 10,
+                                              color: Color.fromRGBO(
+                                                  119, 115, 205, 1),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       Text(
-                                        'Ilmu Pengetahuan Alam',
+                                        'Dapur ' +
+                                            a.name +
+                                            ', kode: ' +
+                                            a.id.toString(),
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 20,
+                                          fontSize: 16,
                                         ),
                                       ),
                                       Text(
-                                        'Berakhir : 11 September 2022',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      Text(
-                                        a.id % 2 == 0
-                                            ? 'Kembali : 12 September 2022'
-                                            : 'Kembali : 11 September 2022',
+                                        '2x Mie ayam, 2x Es teh, 2x Tahu Isi',
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
                                           fontSize: 14,
                                         ),
                                       ),
                                       Container(
-                                        width: 126,
-                                        height: 15,
-                                        decoration: BoxDecoration(
-                                          color: a.id % 2 == 0
-                                              ? Color.fromRGBO(242, 78, 26, 1)
-                                              : Color.fromRGBO(
-                                                  217, 217, 217, 1),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            a.id % 2 == 0
-                                                ? 'Telat Pengembalian'
-                                                : 'Sudah Dikembalikan',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 13,
-                                              color: a.id % 2 == 0
-                                                  ? Colors.white
-                                                  : Colors.black,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(),
+                                            Container(
+                                              width: 110,
+                                              height: 20,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Color.fromRGBO(
+                                                    243, 243, 243, 1),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Icon(
+                                                    Icons.wallet,
+                                                    size: 16,
+                                                    color: Color.fromRGBO(
+                                                        98, 103, 117, 1),
+                                                  ),
+                                                  Text(
+                                                    '-Rp.20.000',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-ExtraBold',
+                                                      fontSize: 13,
+                                                      color: Color.fromRGBO(
+                                                          242, 78, 26, 1),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
+                                          ],
                                         ),
                                       ),
                                     ],
