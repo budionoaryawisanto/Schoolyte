@@ -74,21 +74,14 @@ class _KantinPageState extends State<KantinPage> {
     profilClick = true;
   }
 
-  close() {
-    senClick = true;
-    selClick = true;
-    rabClick = true;
-    kamClick = true;
-    jumClick = true;
-  }
-
   List<Tab> myTabs = <Tab>[
     Tab(text: 'Menu'),
     Tab(text: 'Pesanan'),
     Tab(text: 'Riwayat'),
   ];
 
-  final TextEditingController searchController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
+  TextEditingController catatanController = TextEditingController();
 
   onSearch(String text) async {
     _search.clear();
@@ -2761,6 +2754,52 @@ class _KantinPageState extends State<KantinPage> {
                                                                                             );
                                                                                           },
                                                                                         ),
+                                                                                ),
+                                                                                Container(
+                                                                                  width: MediaQuery.of(context).size.width,
+                                                                                  height: 100,
+                                                                                  color: Colors.white,
+                                                                                  child: Row(
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                                                    children: [
+                                                                                      Container(
+                                                                                        width: MediaQuery.of(context).size.width * 0.2,
+                                                                                        margin: EdgeInsets.only(
+                                                                                          left: 10,
+                                                                                        ),
+                                                                                        child: Text(
+                                                                                          'Catatan: ',
+                                                                                          style: TextStyle(
+                                                                                            fontFamily: 'Gilroy-Light',
+                                                                                            fontSize: 18,
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                      Container(
+                                                                                        width: MediaQuery.of(context).size.width * 0.7,
+                                                                                        margin: EdgeInsets.only(left: 10),
+                                                                                        child: TextFormField(
+                                                                                          style: TextStyle(
+                                                                                            fontFamily: 'Gilroy-Light',
+                                                                                            fontSize: 18,
+                                                                                          ),
+                                                                                          textInputAction: TextInputAction.done,
+                                                                                          controller: catatanController,
+                                                                                          autocorrect: true,
+                                                                                          decoration: new InputDecoration(
+                                                                                            // enabledBorder: InputBorder.none,
+                                                                                            focusedBorder: InputBorder.none,
+                                                                                            hintText: 'Masukan pesan disini..',
+                                                                                            hintStyle: TextStyle(
+                                                                                              fontFamily: 'Gilroy-Light',
+                                                                                              fontSize: 18,
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
                                                                                 ),
                                                                               ],
                                                                             ),

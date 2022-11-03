@@ -716,10 +716,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                   margin: EdgeInsets.only(top: 25),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(9),
-                      border: Border.all(
-                        width: 1,
-                        color: Colors.black,
-                      )),
+                  ),
                   child: Column(
                     children: [
                       Container(
