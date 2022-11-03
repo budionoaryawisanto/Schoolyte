@@ -1600,19 +1600,49 @@ class _KantinPageState extends State<KantinPage> {
                                                                                               fontSize: 20,
                                                                                               color: Colors.black,
                                                                                             ),
-                                                                                          ),
-                                                                                          Text(
-                                                                                            'Makanan, Minuman, Gorengan, Snack',
-                                                                                            style: TextStyle(
-                                                                                              fontFamily: 'Gilroy-Light',
-                                                                                              fontSize: 16,
-                                                                                              color: Colors.black,
-                                                                                            ),
-                                                                                          ),
+                                                                                          ),                                                                                        
                                                                                         ],
                                                                                       ),
                                                                                     ],
                                                                                   ),
+                                                                                ),
+                                                                                Container(
+                                                                                  width: MediaQuery.of(context).size.width,
+                                                                                  height: 396,
+                                                                                  child: loading
+                                                                                      ? Center(
+                                                                                          child: CircularProgressIndicator(),
+                                                                                        )
+                                                                                      : GridView.builder(
+                                                                                          itemCount: 3,
+                                                                                          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                                            maxCrossAxisExtent: 400,
+                                                                                            mainAxisExtent: 105,
+                                                                                            mainAxisSpacing: 15,
+                                                                                            crossAxisSpacing: 15,
+                                                                                          ),
+                                                                                          itemBuilder: (context, i) {
+                                                                                            return Container(
+                                                                                              decoration: BoxDecoration(
+                                                                                                border: Border.all(
+                                                                                                  width: 1,
+                                                                                                  color: Colors.black,
+                                                                                                ),
+                                                                                                boxShadow: [
+                                                                                                  BoxShadow(
+                                                                                                    color: Colors.black.withOpacity(0.3),
+                                                                                                    spreadRadius: 0,
+                                                                                                    blurRadius: 1.5,
+                                                                                                    offset: Offset(0, 0),
+                                                                                                  )
+                                                                                                ],
+                                                                                                color: Colors.white,
+                                                                                                borderRadius: BorderRadius.circular(10),
+                                                                                              ),
+                                                                                              child: Text('p'),
+                                                                                            );
+                                                                                          },
+                                                                                        ),
                                                                                 ),
                                                                               ],
                                                                             ),
@@ -2593,16 +2623,20 @@ class _KantinPageState extends State<KantinPage> {
                                                                             height:
                                                                                 MediaQuery.of(context).size.height * 0.97,
                                                                             color:
-                                                                                Colors.white,
+                                                                                Color.fromRGBO(
+                                                                                243,
+                                                                                243,
+                                                                                243,
+                                                                                1),
                                                                             child:
                                                                                 Column(
                                                                               mainAxisAlignment: MainAxisAlignment.start,
                                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                                               children: [
                                                                                 Container(
-                                                                                  width: MediaQuery.of(context).size.width * 0.9,
-                                                                                  height: 50,
-                                                                                  margin: EdgeInsets.only(top: 20),
+                                                                                  width: MediaQuery.of(context).size.width,
+                                                                                  height: 100,
+                                                                                  color: Colors.white,
                                                                                   child: Row(
                                                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                                                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -2629,18 +2663,104 @@ class _KantinPageState extends State<KantinPage> {
                                                                                               color: Colors.black,
                                                                                             ),
                                                                                           ),
-                                                                                          Text(
-                                                                                            'Makanan, Minuman, Gorengan, Snack',
-                                                                                            style: TextStyle(
-                                                                                              fontFamily: 'Gilroy-Light',
-                                                                                              fontSize: 16,
-                                                                                              color: Colors.black,
-                                                                                            ),
-                                                                                          ),
                                                                                         ],
                                                                                       ),
                                                                                     ],
                                                                                   ),
+                                                                                ),
+                                                                                Container(
+                                                                                  width: MediaQuery.of(context).size.width,
+                                                                                  height: MediaQuery.of(context).size.height * 0.40,
+                                                                                  padding: EdgeInsets.symmetric(
+                                                                                    horizontal: 40,
+                                                                                    vertical: 25,
+                                                                                  ),
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: Color.fromRGBO(243, 243, 243, 1),
+                                                                                  ),
+                                                                                  child: loading
+                                                                                      ? Center(
+                                                                                          child: CircularProgressIndicator(),
+                                                                                        )
+                                                                                      : GridView.builder(
+                                                                                          itemCount: 5,
+                                                                                          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                                            maxCrossAxisExtent: 400,
+                                                                                            mainAxisExtent: 105,
+                                                                                            mainAxisSpacing: 15,
+                                                                                            crossAxisSpacing: 15,
+                                                                                          ),
+                                                                                          itemBuilder: (context, i) {
+                                                                                            return Container(
+                                                                                              padding: EdgeInsets.all(10),
+                                                                                              decoration: BoxDecoration(
+                                                                                                boxShadow: [
+                                                                                                  BoxShadow(
+                                                                                                    color: Colors.black.withOpacity(0.3),
+                                                                                                    spreadRadius: 0,
+                                                                                                    blurRadius: 1.5,
+                                                                                                    offset: Offset(0, 0),
+                                                                                                  )
+                                                                                                ],
+                                                                                                color: Colors.white,
+                                                                                                borderRadius: BorderRadius.circular(7),
+                                                                                              ),
+                                                                                              child: Row(
+                                                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                children: [
+                                                                                                  Container(
+                                                                                                    width: 82,
+                                                                                                    height: 83,
+                                                                                                    child: new Image.asset(
+                                                                                                      'assets/images/mieayam.png',
+                                                                                                      fit: BoxFit.fill,
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  Container(
+                                                                                                    width: MediaQuery.of(context).size.width * 0.60,
+                                                                                                    height: MediaQuery.of(context).size.height,
+                                                                                                    margin: EdgeInsets.only(left: 10),
+                                                                                                    child: Column(
+                                                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                      children: [
+                                                                                                        Container(
+                                                                                                          child: Text(
+                                                                                                            '1x Mie Ayam Jakarta',
+                                                                                                            style: TextStyle(
+                                                                                                              fontFamily: 'Gilroy-ExtraBold',
+                                                                                                              fontSize: 16,
+                                                                                                              color: Color.fromRGBO(76, 81, 97, 1),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                        Container(
+                                                                                                          child: Row(
+                                                                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                                            children: [
+                                                                                                              Container(),
+                                                                                                              Container(
+                                                                                                                margin: EdgeInsets.only(left: 10),
+                                                                                                                child: Text(
+                                                                                                                  'Rp.10.000',
+                                                                                                                  style: TextStyle(
+                                                                                                                    fontFamily: 'Gilroy-Light',
+                                                                                                                    fontSize: 16,
+                                                                                                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                                                                                                  ),
+                                                                                                                ),
+                                                                                                              ),
+                                                                                                            ],
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ],
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                ],
+                                                                                              ),
+                                                                                            );
+                                                                                          },
+                                                                                        ),
                                                                                 ),
                                                                               ],
                                                                             ),
