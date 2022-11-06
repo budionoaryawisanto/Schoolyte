@@ -65,6 +65,8 @@ class _KantinPageState extends State<KantinPage> {
   bool kamClick = true;
   bool jumClick = true;
 
+  int saldo = 40000;
+
   closeDrawer() {
     akademikClick = true;
     peminjamanClick = true;
@@ -1593,7 +1595,7 @@ class _KantinPageState extends State<KantinPage> {
                                                                                               fontSize: 20,
                                                                                               color: Colors.black,
                                                                                             ),
-                                                                                          ),                                                                                        
+                                                                                          ),
                                                                                         ],
                                                                                       ),
                                                                                     ],
@@ -2615,8 +2617,7 @@ class _KantinPageState extends State<KantinPage> {
                                                                                 MediaQuery.of(context).size.width,
                                                                             height:
                                                                                 MediaQuery.of(context).size.height * 0.97,
-                                                                            color:
-                                                                                Color.fromRGBO(
+                                                                            color: Color.fromRGBO(
                                                                                 243,
                                                                                 243,
                                                                                 243,
@@ -2799,6 +2800,24 @@ class _KantinPageState extends State<KantinPage> {
                                                                                         ),
                                                                                       ),
                                                                                     ],
+                                                                                  ),
+                                                                                ),
+                                                                                Container(
+                                                                                  alignment: Alignment.centerLeft,
+                                                                                  width: MediaQuery.of(context).size.width,
+                                                                                  height: 100,
+                                                                                  color: Colors.white,
+                                                                                  margin: EdgeInsets.only(top: 15),
+                                                                                  padding: EdgeInsets.symmetric(horizontal: 30),
+                                                                                  child: Container(
+                                                                                    child: Text(
+                                                                                      'Saldo Anda:  ' + saldo.toString(),
+                                                                                      style: TextStyle(
+                                                                                        fontFamily: 'Gilroy-ExtraBold',
+                                                                                        fontSize: 20,
+                                                                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                                                                      ),
+                                                                                    ),
                                                                                   ),
                                                                                 ),
                                                                               ],
@@ -3053,8 +3072,7 @@ class _KantinPageState extends State<KantinPage> {
                                         width: 114,
                                         height: 19,
                                         decoration: BoxDecoration(
-                                          color:
-                                              a.id % 2 == 0
+                                          color: a.id % 2 == 0
                                               ? Colors.lightGreen
                                               : Color.fromRGBO(
                                                   255, 217, 102, 1),

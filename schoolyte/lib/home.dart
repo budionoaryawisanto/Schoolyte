@@ -1,11 +1,10 @@
-import 'dart:ui';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:schoolyte/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'dart:math';
-import 'package:dropdown_search/dropdown_search.dart';
+import 'model.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,9 +12,44 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Users> _user = [];
+  List<Users> _userActive = [];
+  var loading = false;
+
+  Future<Null> fetchData() async {
+    setState(() {
+      loading = true;
+    });
+    _user.clear();
+    final response =
+        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      getUsername();
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _user.add(Users.formJson(i));
+          loading = false;
+        }
+      });
+    }
+  }
+
+  getUsername() async {
+    final prefs = await SharedPreferences.getInstance();
+    var username = prefs.getString('username');
+    _user.forEach((e) {
+      if (e.id.toString().contains(username.toString())) {
+        _userActive.add(e);
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+    fetchData();
+    getUsername();
   }
 
   _logOut() async {
@@ -65,8 +99,7 @@ class _HomePageState extends State<HomePage> {
                 margin: EdgeInsetsDirectional.only(end: 10),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/landing', (Route<dynamic> route) => false);
+                    print(_userActive[0].name);
                   },
                   child: Image.asset(
                     'assets/images/lonceng.png',
@@ -542,7 +575,11 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          body: SingleChildScrollView(
+          body: loading
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : SingleChildScrollView(
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: 1100,
@@ -605,7 +642,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Container(
                                   child: Text(
-                                    'Rendy Pratama Putra',
+                                          _userActive[0].name,
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-ExtraBold',
                                       fontSize: 22,
@@ -873,7 +910,7 @@ class _HomePageState extends State<HomePage> {
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     '/kantin',
-                                    (Route<dynamic> route) => false);
+                                              (Route<dynamic> route) => false);
                               },
                               child: Container(
                                 width: 57,
@@ -975,7 +1012,7 @@ class _HomePageState extends State<HomePage> {
                               onPressed: () {
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                     '/berita',
-                                    (Route<dynamic> route) => false);
+                                              (Route<dynamic> route) => false);
                               },
                               child: Container(
                                 width: 87,
@@ -1164,15 +1201,16 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Container(
-                                    width: 67,
-                                    height: 67,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.white,
-                                        ),
-                                        borderRadius: BorderRadius.circular(7)),
-                                    child: new Image.asset(
+                                        width: 67,
+                                        height: 67,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 1,
+                                              color: Colors.white,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(7)),
+                                        child: new Image.asset(
                                     'assets/images/logoberita.png',
                                     fit: BoxFit.fill,
                                   ),
@@ -1343,15 +1381,16 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Container(
-                                    width: 67,
-                                    height: 67,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.white,
-                                        ),
-                                        borderRadius: BorderRadius.circular(7)),
-                                    child: new Image.asset(
+                                        width: 67,
+                                        height: 67,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 1,
+                                              color: Colors.white,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(7)),
+                                        child: new Image.asset(
                                     'assets/images/logoberita.png',
                                     fit: BoxFit.fill,
                                   ),
@@ -1522,15 +1561,16 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 Container(
-                                    width: 67,
-                                    height: 67,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.white,
-                                        ),
-                                        borderRadius: BorderRadius.circular(7)),
-                                    child: new Image.asset(
+                                        width: 67,
+                                        height: 67,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              width: 1,
+                                              color: Colors.white,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(7)),
+                                        child: new Image.asset(
                                     'assets/images/logoberita.png',
                                     fit: BoxFit.fill,
                                   ),

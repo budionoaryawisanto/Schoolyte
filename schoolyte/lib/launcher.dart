@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:schoolyte/landing.dart';
 import 'dart:async';
 import 'package:shared_preferences/shared_preferences.dart';
-import './login.dart';
 import './home.dart';
 
 class LauncherPage extends StatefulWidget {
@@ -26,7 +25,7 @@ class _LauncherPageState extends State<LauncherPage> {
     var duration = const Duration(seconds: 3);
     return new Timer(duration, () {
       Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (_) {
-        return slogin ? new HomePage() : new LandingPage();
+        return slogin ? HomePage() : LandingPage();
       }));
     });
   }

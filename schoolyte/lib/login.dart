@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:schoolyte/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
+import 'model.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   @override
@@ -15,10 +18,34 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey2 = GlobalKey<FormState>();
   bool visible = false;
 
+  List<Users> _list = [];
+  var loading = false;
+
+  Future<Null> fetchData() async {
+    setState(() {
+      loading = true;
+    });
+    _list.clear();
+    final response =
+        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _list.add(Users.formJson(i));
+          loading = false;
+        }
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    fetchData();
   }
+
+  var info = '';
 
   _cekLogin() async {
     final prefs = await SharedPreferences.getInstance();
@@ -26,12 +53,19 @@ class _LoginPageState extends State<LoginPage> {
     String password = passwordController.text;
     if (_formKey.currentState!.validate()) {}
     if (_formKey2.currentState!.validate()) {}
-    if (userid == '20051214078' && password == 'aryagtg') {
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setBool('slogin', true);
-      Navigator.of(context)
-          .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
-    } else {}
+    for (var i = 0; i < _list.length; i++) {
+      if (userid == '20051214078' && password == 'aryagtg' ||
+          userid == _list[i].id.toString() &&
+              password.toLowerCase() == _list[i].username.toLowerCase()) {
+        final prefs = await SharedPreferences.getInstance();
+        prefs.setBool('slogin', true);
+        prefs.setString('username', _list[i].id.toString());
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+      } else if (i == _list.length - 1) {
+        return info = 'Data yang Anda masukan salah !';
+      }
+    }
   }
 
   @override
@@ -126,10 +160,14 @@ class _LoginPageState extends State<LoginPage> {
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return 'ID/NIS/NIP tidak boleh kosong';
-                                      } else if (value != '20051214078') {
-                                        return 'ID/NIS/NIP Anda salah';
+                                      } else if (info.isNotEmpty) {
+                                        return info;
                                       }
-                                      return null;
+                                      for (var i = 0; i < _list.length; i++) {
+                                        if (value == _list[i].id.toString()) {
+                                          return null;
+                                        }
+                                      }
                                     },
                                   ),
                                 ),
@@ -160,18 +198,23 @@ class _LoginPageState extends State<LoginPage> {
                                   child: TextFormField(
                                     controller: passwordController,
                                     obscureText: true,
-                                    decoration: new InputDecoration(
+                                    decoration: InputDecoration(
                                       border: OutlineInputBorder(
                                           borderRadius:
-                                              new BorderRadius.circular(10)),
+                                              BorderRadius.circular(10)),
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return 'Password tidak boleh kosong';
-                                      } else if (value != 'aryagtg') {
-                                        return 'Password Anda salah';
+                                      } else if (info.isNotEmpty) {
+                                        return info;
                                       }
-                                      return null;
+                                      for (var i = 0; i < _list.length; i++) {
+                                        if (value.toLowerCase() ==
+                                            _list[i].username.toLowerCase()) {
+                                          return null;
+                                        }
+                                      }
                                     },
                                   ),
                                 ),
@@ -184,7 +227,20 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   TextButton(
                     onPressed: () {
-                      _cekLogin();
+                      loading
+                          ? showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Center(
+                                  child: Material(
+                                    type: MaterialType.transparency,
+                                    child: Container(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  ),
+                                );
+                              })
+                          : _cekLogin();
                     },
                     child: Container(
                       width: 384,
