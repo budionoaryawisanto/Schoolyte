@@ -20,6 +20,7 @@ class _LoginPageState extends State<LoginPage> {
 
   List<Users> _list = [];
   var loading = false;
+  var obscure = true;
 
   Future<Null> fetchData() async {
     setState(() {
@@ -55,11 +56,11 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey2.currentState!.validate()) {}
     for (var i = 0; i < _list.length; i++) {
       if (userid == '20051214078' && password == 'aryagtg' ||
-          userid == _list[i].id.toString() &&
+          userid == _list[i].email.toLowerCase() &&
               password.toLowerCase() == _list[i].username.toLowerCase()) {
         final prefs = await SharedPreferences.getInstance();
         prefs.setBool('slogin', true);
-        prefs.setString('username', _list[i].id.toString());
+        prefs.setString('username', _list[i].email.toLowerCase());
         Navigator.of(context)
             .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
       } else if (i == _list.length - 1) {
@@ -139,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                             children: [
                               Container(
                                 child: Text(
-                                  'ID/NIS/NIP',
+                                  'Email',
                                   style: TextStyle(
                                     fontFamily: 'Gilroy-Light',
                                     fontSize: 20,
@@ -150,7 +151,6 @@ class _LoginPageState extends State<LoginPage> {
                                 child: Form(
                                   key: _formKey,
                                   child: TextFormField(
-                                    keyboardType: TextInputType.number,
                                     controller: useridController,
                                     decoration: new InputDecoration(
                                       border: OutlineInputBorder(
@@ -193,30 +193,58 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               Container(
                                 margin: EdgeInsetsDirectional.only(top: 3),
-                                child: Form(
-                                  key: _formKey2,
-                                  child: TextFormField(
-                                    controller: passwordController,
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
+                                child: Stack(
+                                  children: [
+                                    Form(
+                                      key: _formKey2,
+                                      child: TextFormField(
+                                        controller: passwordController,
+                                        obscureText: obscure,
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return 'Password tidak boleh kosong';
+                                          } else if (info.isNotEmpty) {
+                                            return info;
+                                          }
+                                          for (var i = 0;
+                                              i < _list.length;
+                                              i++) {
+                                            if (value.toLowerCase() ==
+                                                _list[i]
+                                                    .username
+                                                    .toLowerCase()) {
+                                              return null;
+                                            }
+                                          }
+                                        },
+                                      ),
                                     ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Password tidak boleh kosong';
-                                      } else if (info.isNotEmpty) {
-                                        return info;
-                                      }
-                                      for (var i = 0; i < _list.length; i++) {
-                                        if (value.toLowerCase() ==
-                                            _list[i].username.toLowerCase()) {
-                                          return null;
-                                        }
-                                      }
-                                    },
-                                  ),
+                                    Align(
+                                      alignment: Alignment(0.88, 0.0),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            obscure = !obscure;
+                                          });
+                                        },
+                                        child: Container(
+                                          margin: EdgeInsets.only(top: 17),
+                                          child: Icon(
+                                            obscure
+                                                ? Icons.visibility
+                                                : Icons.visibility_off,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],

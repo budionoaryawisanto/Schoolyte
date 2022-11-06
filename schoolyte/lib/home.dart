@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     final prefs = await SharedPreferences.getInstance();
     var username = prefs.getString('username');
     _user.forEach((e) {
-      if (e.id.toString().contains(username.toString())) {
+      if (e.email.toLowerCase().contains(username.toString())) {
         _userActive.add(e);
       }
     });
