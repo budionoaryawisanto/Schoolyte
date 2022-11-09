@@ -16,8 +16,8 @@ class FasilitasPage extends StatefulWidget {
 }
 
 class _FasilitasPageState extends State<FasilitasPage> {
-  List<Users> _list = [];
-  List<Users> _search = [];
+  List<Test> _list = [];
+  List<Test> _search = [];
   var loading = false;
 
   Future<Null> fetchData() async {
@@ -31,7 +31,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _list.add(Users.formJson(i));
+          _list.add(Test.formJson(i));
           loading = false;
         }
       });

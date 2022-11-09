@@ -28,7 +28,8 @@ class _LoginPageState extends State<LoginPage> {
     });
     _list.clear();
     final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+        await http
+        .get(Uri.parse('https://schoolyte.000webhostapp.com/api/siswas'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {

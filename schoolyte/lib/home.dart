@@ -22,7 +22,8 @@ class _HomePageState extends State<HomePage> {
     });
     _user.clear();
     final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+        await http
+        .get(Uri.parse('https://schoolyte.000webhostapp.com/api/siswas'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       getUsername();
@@ -610,14 +611,15 @@ class _HomePageState extends State<HomePage> {
                               right: 14,
                             ),
                             child: ClipOval(
-                              child: new Image.asset(
-                                'assets/images/profil.png',
+                                    child: new Image.network(
+                                      _userActive[0].image_url,
                                 fit: BoxFit.fill,
                               ),
                             ),
                           ),
                           Container(
-                            width: 350,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
                             height: 59,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1110,7 +1112,7 @@ class _HomePageState extends State<HomePage> {
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.7,
+                                                  0.5,
                                         margin: EdgeInsets.only(top: 10),
                                         child: Text(
                                           '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
@@ -1189,8 +1191,9 @@ class _HomePageState extends State<HomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  width: 270,
-                                  height: 44,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
                                   child: Text(
                                     "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
                                     style: TextStyle(
@@ -1290,7 +1293,7 @@ class _HomePageState extends State<HomePage> {
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.7,
+                                                  0.5,
                                         margin: EdgeInsets.only(top: 10),
                                         child: Text(
                                           '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
@@ -1369,8 +1372,9 @@ class _HomePageState extends State<HomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  width: 270,
-                                  height: 44,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
                                   child: Text(
                                     "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
                                     style: TextStyle(
@@ -1470,7 +1474,7 @@ class _HomePageState extends State<HomePage> {
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.7,
+                                                  0.5,
                                         margin: EdgeInsets.only(top: 10),
                                         child: Text(
                                           '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
@@ -1549,8 +1553,9 @@ class _HomePageState extends State<HomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  width: 270,
-                                  height: 44,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.5,
                                   child: Text(
                                     "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
                                     style: TextStyle(
