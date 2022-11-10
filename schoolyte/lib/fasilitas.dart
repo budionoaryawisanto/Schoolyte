@@ -107,150 +107,154 @@ class _FasilitasPageState extends State<FasilitasPage> {
   }
 
   showDialogFunc(context, a) {
-    return showDialog(
+    return showModalBottomSheet<void>(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+        ),
+        isScrollControlled: true,
         context: context,
         builder: (context) {
-          return Center(
-            child: Material(
-              type: MaterialType.transparency,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: 757,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
+          return Container(
+            height: 800,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+              ),
+              color: Colors.white,
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: 339,
+                  height: 226,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: new Image.asset(
+                    'assets/images/fasilitas.png',
+                    fit: BoxFit.fill,
+                  ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: 339,
-                      height: 226,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: new Image.asset(
-                        'assets/images/fasilitas.png',
-                        fit: BoxFit.fill,
+                Container(
+                  width: 261,
+                  child: Center(
+                    child: Text(
+                      'Lapangan Depan',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy-ExtraBold',
+                        fontSize: 32,
+                        color: Colors.black,
                       ),
                     ),
-                    Container(
-                      width: 261,
-                      child: Center(
-                        child: Text(
-                          'Lapangan Depan',
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 32,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
+                  ),
+                ),
+                Container(
+                  width: 339,
+                  height: 88,
+                  child: Text(
+                    'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
+                    style: TextStyle(
+                      fontFamily: 'Gilroy-Light',
+                      fontSize: 15,
+                      color: Color.fromRGBO(76, 81, 97, 1),
                     ),
-                    Container(
-                      width: 339,
-                      height: 88,
-                      child: Text(
-                        'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 0.5,
+                      color: Color.fromRGBO(237, 237, 237, 1),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: 268,
+                  height: 128,
+                  margin: EdgeInsets.only(right: 50),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Jadwal Peminjaman',
                         style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 15,
+                          fontSize: 16,
+                          color: Color.fromRGBO(119, 115, 205, 1),
+                        ),
+                      ),
+                      Text(
+                        'Lebih Nyaman & Teratur dalam Penjadwalan Peminjaman',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-ExtraBold',
+                          fontSize: 24,
                           color: Color.fromRGBO(76, 81, 97, 1),
                         ),
                       ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 0.5,
-                          color: Color.fromRGBO(237, 237, 237, 1),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 268,
-                      height: 128,
-                      margin: EdgeInsets.only(right: 50),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Jadwal Peminjaman',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-Light',
-                              fontSize: 16,
-                              color: Color.fromRGBO(119, 115, 205, 1),
-                            ),
-                          ),
-                          Text(
-                            'Lebih Nyaman & Teratur dalam Penjadwalan Peminjaman',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-ExtraBold',
-                              fontSize: 24,
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 356,
-                      height: 61,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color.fromRGBO(237, 237, 237, 1),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'Senin, 17 Oktober 2022',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-ExtraBold',
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  '13.30 - 15.30',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            height: 14,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3),
-                                color: Color.fromRGBO(255, 217, 102, 0.38)),
-                            child: Center(
-                              child: Text(
-                                'Oleh: ' + a.name,
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 10,
-                                  color: Colors.black,
-                                ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: 356,
+                  height: 61,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Color.fromRGBO(237, 237, 237, 1),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Senin, 17 Oktober 2022',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-ExtraBold',
+                                fontSize: 16,
+                                color: Colors.black,
                               ),
                             ),
-                          ),
-                        ],
+                            Text(
+                              '13.30 - 15.30',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        height: 14,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(3),
+                            color: Color.fromRGBO(255, 217, 102, 0.38)),
+                        child: Center(
+                          child: Text(
+                            'Oleh: ' + a.name,
+                            style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 10,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
           );
         });
