@@ -1,14 +1,17 @@
 import 'dart:convert';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:schoolyte/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:math';
-import 'package:dropdown_search/dropdown_search.dart';
-import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 import 'model.dart';
+import 'package:schoolyte/absensi.dart';
+import 'package:schoolyte/berita.dart';
+import 'package:schoolyte/jadwal.dart';
+import 'package:schoolyte/nilaiBelajar.dart';
+import 'package:schoolyte/perpustakaan.dart';
+import 'package:schoolyte/rapor.dart';
+import 'package:schoolyte/kantin.dart';
+import 'package:schoolyte/home.dart';
 
 class FasilitasPage extends StatefulWidget {
   @override
@@ -482,8 +485,8 @@ class _FasilitasPageState extends State<FasilitasPage> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/home', (Route<dynamic> route) => false);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   },
                 ),
                 ListTile(
@@ -529,8 +532,10 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/jadwal', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => JadwalPage()));
                     },
                   ),
                 ),
@@ -549,8 +554,8 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/rapor', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => RaporPage()));
                     },
                   ),
                 ),
@@ -569,8 +574,10 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/absensi', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AbsensiPage()));
                     },
                   ),
                 ),
@@ -589,8 +596,10 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/nilaiBelajar', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NilaiBelajarPage()));
                     },
                   ),
                 ),
@@ -638,8 +647,10 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/perpustakaan', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PerpustakaanPage()));
                     },
                   ),
                 ),
@@ -658,8 +669,10 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/fasilitas', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FasilitasPage()));
                     },
                   ),
                 ),
@@ -707,8 +720,8 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -727,8 +740,10 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/kantin', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => KantinPage()));
                     },
                   ),
                 ),
@@ -748,8 +763,10 @@ class _FasilitasPageState extends State<FasilitasPage> {
                   ),
                   onTap: () {
                     setState(() {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/berita', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BeritaPage()));
                     });
                   },
                 ),
@@ -797,8 +814,8 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -846,8 +863,8 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -866,8 +883,8 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),

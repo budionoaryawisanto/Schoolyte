@@ -23,7 +23,7 @@ class _ScannerState extends State<Scanner> {
               borderColor: Colors.white,
             ),
             onQRViewCreated: (QRViewController controller) {
-              this._controller = controller;
+              _controller = controller;
               controller.scannedDataStream.listen((value) {
                 if (mounted) {
                   _controller.dispose();

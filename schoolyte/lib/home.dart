@@ -1,10 +1,17 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:schoolyte/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'model.dart';
 import 'package:http/http.dart' as http;
+import 'package:schoolyte/absensi.dart';
+import 'package:schoolyte/berita.dart';
+import 'package:schoolyte/fasilitas.dart';
+import 'package:schoolyte/jadwal.dart';
+import 'package:schoolyte/nilaiBelajar.dart';
+import 'package:schoolyte/perpustakaan.dart';
+import 'package:schoolyte/rapor.dart';
+import 'package:schoolyte/kantin.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -100,7 +107,8 @@ class _HomePageState extends State<HomePage> {
                 margin: EdgeInsetsDirectional.only(end: 10),
                 child: TextButton(
                   onPressed: () {
-                    print(_userActive[0].name);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/pembayaran', (Route<dynamic> route) => false);
                   },
                   child: Image.asset(
                     'assets/images/lonceng.png',
@@ -137,8 +145,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/home', (Route<dynamic> route) => false);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   },
                 ),
                 ListTile(
@@ -166,6 +174,7 @@ class _HomePageState extends State<HomePage> {
                   onTap: () {
                     closeDrawer();
                     setState(() {
+                      closeDrawer();
                       akademikClick = !akademikClick;
                     });
                   },
@@ -183,8 +192,10 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/jadwal', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => JadwalPage()));
                     },
                   ),
                 ),
@@ -203,8 +214,8 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/rapor', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => RaporPage()));
                     },
                   ),
                 ),
@@ -223,8 +234,10 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/absensi', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AbsensiPage()));
                     },
                   ),
                 ),
@@ -243,8 +256,10 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/nilaiBelajar', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NilaiBelajarPage()));
                     },
                   ),
                 ),
@@ -271,8 +286,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
-                    closeDrawer();
                     setState(() {
+                      closeDrawer();
                       peminjamanClick = !peminjamanClick;
                     });
                   },
@@ -292,8 +307,10 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/perpustakaan', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PerpustakaanPage()));
                     },
                   ),
                 ),
@@ -312,8 +329,10 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/fasilitas', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FasilitasPage()));
                     },
                   ),
                 ),
@@ -340,8 +359,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
-                    closeDrawer();
                     setState(() {
+                      closeDrawer();
                       pembelianClick = !pembelianClick;
                     });
                   },
@@ -361,8 +380,8 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -381,8 +400,10 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/kantin', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => KantinPage()));
                     },
                   ),
                 ),
@@ -402,8 +423,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                   onTap: () {
                     setState(() {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/berita', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BeritaPage()));
                     });
                   },
                 ),
@@ -430,8 +453,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
-                    closeDrawer();
                     setState(() {
+                      closeDrawer();
                       keuanganClick = !keuanganClick;
                     });
                   },
@@ -451,8 +474,8 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -479,8 +502,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
-                    closeDrawer();
                     setState(() {
+                      closeDrawer();
                       kegiatanClick = !kegiatanClick;
                     });
                   },
@@ -500,8 +523,8 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -520,8 +543,8 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -538,14 +561,17 @@ class _HomePageState extends State<HomePage> {
                   title: Text(
                     'Profil',
                     style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
+                      fontFamily: (profilClick == false)
+                          ? 'Gilroy-ExtraBold'
+                          : 'Gilroy-Light',
                       fontSize: 16,
-                      color: Color.fromRGBO(76, 81, 97, 1),
+                      color: (profilClick == false)
+                          ? Colors.white
+                          : Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
                   onTap: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/landing', (Route<dynamic> route) => false);
+                    print('clicked');
                   },
                 ),
                 Container(
@@ -691,8 +717,11 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/jadwal', (Route<dynamic> route) => false);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  JadwalPage()));
                               },
                               child: Container(
                                 width: 56,
@@ -726,8 +755,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/rapor', (Route<dynamic> route) => false);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RaporPage()));
                               },
                               child: Container(
                                 width: 56,
@@ -761,9 +793,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/absensi',
-                                    (Route<dynamic> route) => false);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AbsensiPage()));
                               },
                               child: Container(
                                 width: 56,
@@ -797,9 +831,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/fasilitas',
-                                    (Route<dynamic> route) => false);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FasilitasPage()));
                               },
                               child: Container(
                                 width: 56,
@@ -838,9 +874,11 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/perpustakaan',
-                                    (Route<dynamic> route) => false);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PerpustakaanPage()));
                               },
                               child: Container(
                                 width: 71,
@@ -874,9 +912,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/landing',
-                                    (Route<dynamic> route) => false);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomePage()));
                               },
                               child: Container(
                                 width: 77,
@@ -910,9 +950,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/kantin',
-                                              (Route<dynamic> route) => false);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  KantinPage()));
                               },
                               child: Container(
                                 width: 57,
@@ -946,9 +988,11 @@ class _HomePageState extends State<HomePage> {
                             ),
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                    '/landing',
-                                    (Route<dynamic> route) => false);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomePage()));
                               },
                               child: Container(
                                 width: 85,

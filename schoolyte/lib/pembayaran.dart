@@ -66,9 +66,11 @@ class _PembayaranState extends State<Pembayaran> {
   String? _result;
 
   Future openScanner(BuildContext context) async {
-    final result = Navigator.of(context)
-        .pushNamedAndRemoveUntil('/scanner', (Route<dynamic> route) => false);
-    _result = result as String?;
+    final result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Scanner()));
+    setState(() {
+      _result = result;
+    });
   }
 
   Widget build(BuildContext context) {
@@ -108,9 +110,13 @@ class _PembayaranState extends State<Pembayaran> {
                               children: [
                                 TextButton(
                                   onPressed: () {
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil('/kantin',
-                                            (Route<dynamic> route) => false);
+                                    _result != null
+                                        ? Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    KantinPage()))
+                                        : Navigator.pop(context);
                                   },
                                   child: Icon(
                                     Icons.chevron_left,

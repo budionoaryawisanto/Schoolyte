@@ -1,15 +1,18 @@
 import 'dart:convert';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:schoolyte/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:math';
-import 'package:dropdown_search/dropdown_search.dart';
-import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 import 'model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:schoolyte/absensi.dart';
+import 'package:schoolyte/fasilitas.dart';
+import 'package:schoolyte/jadwal.dart';
+import 'package:schoolyte/nilaiBelajar.dart';
+import 'package:schoolyte/perpustakaan.dart';
+import 'package:schoolyte/rapor.dart';
+import 'package:schoolyte/kantin.dart';
+import 'package:schoolyte/home.dart';
 
 class BeritaPage extends StatefulWidget {
   @override
@@ -17,8 +20,8 @@ class BeritaPage extends StatefulWidget {
 }
 
 class _BeritaPageState extends State<BeritaPage> {
-  List<Users> _list = [];
-  List<Users> _search = [];
+  List<Test> _list = [];
+  List<Test> _search = [];
   var loading = false;
 
   Future<Null> fetchData() async {
@@ -32,7 +35,7 @@ class _BeritaPageState extends State<BeritaPage> {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _list.add(Users.formJson(i));
+          _list.add(Test.formJson(i));
           loading = false;
         }
       });
@@ -188,8 +191,8 @@ class _BeritaPageState extends State<BeritaPage> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/home', (Route<dynamic> route) => false);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   },
                 ),
                 ListTile(
@@ -235,8 +238,10 @@ class _BeritaPageState extends State<BeritaPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/jadwal', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => JadwalPage()));
                     },
                   ),
                 ),
@@ -255,8 +260,8 @@ class _BeritaPageState extends State<BeritaPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/rapor', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => RaporPage()));
                     },
                   ),
                 ),
@@ -275,8 +280,10 @@ class _BeritaPageState extends State<BeritaPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/absensi', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AbsensiPage()));
                     },
                   ),
                 ),
@@ -295,8 +302,10 @@ class _BeritaPageState extends State<BeritaPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/nilaiBelajar', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NilaiBelajarPage()));
                     },
                   ),
                 ),
@@ -344,8 +353,10 @@ class _BeritaPageState extends State<BeritaPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/perpustakaan', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PerpustakaanPage()));
                     },
                   ),
                 ),
@@ -359,13 +370,15 @@ class _BeritaPageState extends State<BeritaPage> {
                       'Fasilitas',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-ExtraBold',
+                          fontFamily: 'Gilroy-Light',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/fasilitas', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FasilitasPage()));
                     },
                   ),
                 ),
@@ -413,8 +426,8 @@ class _BeritaPageState extends State<BeritaPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -433,8 +446,10 @@ class _BeritaPageState extends State<BeritaPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/kantin', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => KantinPage()));
                     },
                   ),
                 ),
@@ -454,8 +469,10 @@ class _BeritaPageState extends State<BeritaPage> {
                   ),
                   onTap: () {
                     setState(() {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/berita', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BeritaPage()));
                     });
                   },
                 ),
@@ -503,8 +520,8 @@ class _BeritaPageState extends State<BeritaPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -552,8 +569,8 @@ class _BeritaPageState extends State<BeritaPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -572,8 +589,8 @@ class _BeritaPageState extends State<BeritaPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -650,8 +667,8 @@ class _BeritaPageState extends State<BeritaPage> {
                           List<Widget> carousel = [];
                           return Builder(
                             builder: (BuildContext context) {
-                              return TextButton(
-                                onPressed: () {
+                              return GestureDetector(
+                                onTap: () {
                                   showModalBottomSheet<void>(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.only(
@@ -853,6 +870,8 @@ class _BeritaPageState extends State<BeritaPage> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: 600,
+                      margin: EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: loading
                           ? Center(
                               child: CircularProgressIndicator(),
@@ -862,13 +881,14 @@ class _BeritaPageState extends State<BeritaPage> {
                               gridDelegate:
                                   SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent:
-                                    MediaQuery.of(context).size.width * 0.9,
+                                    MediaQuery.of(context).size.width * 0.85,
                                 mainAxisExtent: 100,
-                                mainAxisSpacing: 0,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
                               ),
                               itemBuilder: (context, i) {
-                                return TextButton(
-                                  onPressed: () {
+                                return GestureDetector(
+                                  onTap: () {
                                     showModalBottomSheet<void>(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.only(
@@ -901,6 +921,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                                 children: [
                                                   Container(
                                                     width: 50,
+                                                    height: 50,
                                                   ),
                                                   Container(
                                                     width: 50,
@@ -913,14 +934,9 @@ class _BeritaPageState extends State<BeritaPage> {
                                                               10),
                                                     ),
                                                   ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Icon(
-                                                      Icons.close,
-                                                      color: Colors.black,
-                                                    ),
+                                                  Container(
+                                                    width: 50,
+                                                    height: 50,
                                                   ),
                                                 ],
                                               ),
@@ -1108,8 +1124,8 @@ class _BeritaPageState extends State<BeritaPage> {
                           List<Widget> carousel = [];
                           return Builder(
                             builder: (BuildContext context) {
-                              return TextButton(
-                                onPressed: () {
+                              return GestureDetector(
+                                onTap: () {
                                   showModalBottomSheet<void>(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.only(
@@ -1311,6 +1327,8 @@ class _BeritaPageState extends State<BeritaPage> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.9,
                       height: 600,
+                      margin: EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: loading
                           ? Center(
                               child: CircularProgressIndicator(),
@@ -1320,13 +1338,14 @@ class _BeritaPageState extends State<BeritaPage> {
                               gridDelegate:
                                   SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent:
-                                    MediaQuery.of(context).size.width * 0.9,
+                                    MediaQuery.of(context).size.width * 0.85,
                                 mainAxisExtent: 100,
-                                mainAxisSpacing: 0,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
                               ),
                               itemBuilder: (context, i) {
-                                return TextButton(
-                                  onPressed: () {
+                                return GestureDetector(
+                                  onTap: () {
                                     showModalBottomSheet<void>(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.only(
@@ -1359,6 +1378,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                                 children: [
                                                   Container(
                                                     width: 50,
+                                                    height: 50,
                                                   ),
                                                   Container(
                                                     width: 50,
@@ -1371,14 +1391,9 @@ class _BeritaPageState extends State<BeritaPage> {
                                                               10),
                                                     ),
                                                   ),
-                                                  TextButton(
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                    child: Icon(
-                                                      Icons.close,
-                                                      color: Colors.black,
-                                                    ),
+                                                  Container(
+                                                    width: 50,
+                                                    height: 50,
                                                   ),
                                                 ],
                                               ),

@@ -1,15 +1,17 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
-import 'package:schoolyte/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'dart:math';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:schoolyte/berita.dart';
+import 'package:schoolyte/fasilitas.dart';
+import 'package:schoolyte/jadwal.dart';
+import 'package:schoolyte/nilaiBelajar.dart';
+import 'package:schoolyte/perpustakaan.dart';
+import 'package:schoolyte/rapor.dart';
+import 'package:schoolyte/kantin.dart';
+import 'package:schoolyte/home.dart';
 
 class AbsensiPage extends StatefulWidget {
   @override
@@ -256,8 +258,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/home', (Route<dynamic> route) => false);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
                   },
                 ),
                 ListTile(
@@ -303,8 +305,10 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/jadwal', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => JadwalPage()));
                     },
                   ),
                 ),
@@ -323,8 +327,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/rapor', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => RaporPage()));
                     },
                   ),
                 ),
@@ -343,8 +347,10 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/absensi', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AbsensiPage()));
                     },
                   ),
                 ),
@@ -363,8 +369,10 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/nilaiBelajar', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NilaiBelajarPage()));
                     },
                   ),
                 ),
@@ -412,8 +420,10 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/perpustakaan', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PerpustakaanPage()));
                     },
                   ),
                 ),
@@ -432,8 +442,10 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/fasilitas', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FasilitasPage()));
                     },
                   ),
                 ),
@@ -481,8 +493,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -501,8 +513,10 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/kantin', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => KantinPage()));
                     },
                   ),
                 ),
@@ -522,8 +536,10 @@ class _AbsensiPageState extends State<AbsensiPage> {
                   ),
                   onTap: () {
                     setState(() {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/berita', (Route<dynamic> route) => false);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BeritaPage()));
                     });
                   },
                 ),
@@ -571,8 +587,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -620,8 +636,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -640,8 +656,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/landing', (Route<dynamic> route) => false);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),

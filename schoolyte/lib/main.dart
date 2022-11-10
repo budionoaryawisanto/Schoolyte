@@ -14,6 +14,7 @@ import './kantin.dart';
 import './berita.dart';
 import './scanner.dart';
 import './pembayaran.dart';
+import './menu.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,6 +47,7 @@ class MyApp extends StatelessWidget {
         '/berita': (BuildContext context) => BeritaPage(),
         '/scanner': (BuildContext context) => Scanner(),
         '/pembayaran': (BuildContext context) => Pembayaran(),
+        '/menu': (BuildContext context) => Menu(),
       },
     );
   }
