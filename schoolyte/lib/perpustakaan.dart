@@ -763,17 +763,18 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                         (BuildContext context) {
                                                       return SafeArea(
                                                         child:
-                                                            SingleChildScrollView(
-                                                          child: Container(
-                                                            height: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .height *
-                                                                0.964,
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                              horizontal: 30,
-                                                            ),
+                                                            Container(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              0.964,
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                            horizontal: 30,
+                                                          ),
+                                                          child:
+                                                              SingleChildScrollView(
                                                             child: Column(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
@@ -1107,6 +1108,109 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                               (val) {
                                                                             return null;
                                                                           },
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      0.9,
+                                                                  height: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
+                                                                      0.033,
+                                                                  margin: EdgeInsets
+                                                                      .only(
+                                                                          top:
+                                                                              20),
+                                                                  child: Row(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Text(
+                                                                        'Jumlah Buku : ',
+                                                                        style:
+                                                                            TextStyle(
+                                                                          fontFamily:
+                                                                              'Gilroy-Light',
+                                                                          fontSize:
+                                                                              16,
+                                                                          color:
+                                                                              Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                      Container(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            0.17,
+                                                                        height: MediaQuery.of(context).size.height *
+                                                                            0.026,
+                                                                        margin: EdgeInsets.only(
+                                                                            left:
+                                                                                20),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceAround,
+                                                                          children: [
+                                                                            GestureDetector(
+                                                                              onTap: () => setState(() {
+                                                                                count != 1 ? count-- : null;
+                                                                              }),
+                                                                              child: Container(
+                                                                                width: MediaQuery.of(context).size.width * 0.052,
+                                                                                height: MediaQuery.of(context).size.height * 0.0240,
+                                                                                decoration: BoxDecoration(
+                                                                                  borderRadius: BorderRadius.circular(180),
+                                                                                  border: Border.all(
+                                                                                    width: 1,
+                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
+                                                                                  ),
+                                                                                ),
+                                                                                child: Center(
+                                                                                  child: Icon(
+                                                                                    Icons.remove,
+                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            Text(
+                                                                              count.toString(),
+                                                                              style: TextStyle(
+                                                                                fontFamily: 'Gilroy-Light',
+                                                                                fontSize: 16,
+                                                                                color: Colors.black,
+                                                                              ),
+                                                                            ),
+                                                                            GestureDetector(
+                                                                              onTap: () => setState(() {
+                                                                                count++;
+                                                                              }),
+                                                                              child: Container(
+                                                                                width: MediaQuery.of(context).size.width * 0.052,
+                                                                                height: MediaQuery.of(context).size.height * 0.0240,
+                                                                                decoration: BoxDecoration(
+                                                                                  borderRadius: BorderRadius.circular(180),
+                                                                                  border: Border.all(
+                                                                                    width: 1,
+                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
+                                                                                  ),
+                                                                                ),
+                                                                                child: Center(
+                                                                                  child: Icon(
+                                                                                    Icons.add,
+                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
                                                                         ),
                                                                       ),
                                                                     ],
@@ -1752,20 +1856,25 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                           mainAxisAlignment:
                                                                               MainAxisAlignment.spaceAround,
                                                                           children: [
-                                                                            Container(
-                                                                              width: MediaQuery.of(context).size.width * 0.052,
-                                                                              height: MediaQuery.of(context).size.height * 0.0240,
-                                                                              decoration: BoxDecoration(
-                                                                                borderRadius: BorderRadius.circular(180),
-                                                                                border: Border.all(
-                                                                                  width: 1,
-                                                                                  color: Color.fromRGBO(119, 115, 205, 1),
+                                                                            GestureDetector(
+                                                                              onTap: () => setState(() {
+                                                                                count != 1 ? count-- : null;
+                                                                              }),
+                                                                              child: Container(
+                                                                                width: MediaQuery.of(context).size.width * 0.052,
+                                                                                height: MediaQuery.of(context).size.height * 0.0240,
+                                                                                decoration: BoxDecoration(
+                                                                                  borderRadius: BorderRadius.circular(180),
+                                                                                  border: Border.all(
+                                                                                    width: 1,
+                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
+                                                                                  ),
                                                                                 ),
-                                                                              ),
-                                                                              child: Center(
-                                                                                child: Icon(
-                                                                                  Icons.remove,
-                                                                                  color: Color.fromRGBO(119, 115, 205, 1),
+                                                                                child: Center(
+                                                                                  child: Icon(
+                                                                                    Icons.remove,
+                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
+                                                                                  ),
                                                                                 ),
                                                                               ),
                                                                             ),
@@ -1777,20 +1886,25 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                                 color: Colors.black,
                                                                               ),
                                                                             ),
-                                                                            Container(
-                                                                              width: MediaQuery.of(context).size.width * 0.052,
-                                                                              height: MediaQuery.of(context).size.height * 0.0240,
-                                                                              decoration: BoxDecoration(
-                                                                                borderRadius: BorderRadius.circular(180),
-                                                                                border: Border.all(
-                                                                                  width: 1,
-                                                                                  color: Color.fromRGBO(119, 115, 205, 1),
+                                                                            GestureDetector(
+                                                                              onTap: () => setState(() {
+                                                                                count++;
+                                                                              }),
+                                                                              child: Container(
+                                                                                width: MediaQuery.of(context).size.width * 0.052,
+                                                                                height: MediaQuery.of(context).size.height * 0.0240,
+                                                                                decoration: BoxDecoration(
+                                                                                  borderRadius: BorderRadius.circular(180),
+                                                                                  border: Border.all(
+                                                                                    width: 1,
+                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
+                                                                                  ),
                                                                                 ),
-                                                                              ),
-                                                                              child: Center(
-                                                                                child: Icon(
-                                                                                  Icons.add,
-                                                                                  color: Color.fromRGBO(119, 115, 205, 1),
+                                                                                child: Center(
+                                                                                  child: Icon(
+                                                                                    Icons.add,
+                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
+                                                                                  ),
                                                                                 ),
                                                                               ),
                                                                             ),
