@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:schoolyte/kantin.dart';
-import 'package:schoolyte/main.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:http/http.dart' as http;
 import 'package:schoolyte/scanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -120,7 +117,7 @@ class _PembayaranState extends State<Pembayaran> {
                                   },
                                   child: Icon(
                                     Icons.chevron_left,
-                                    color: Colors.black,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
                                     size: 40,
                                   ),
                                 ),
@@ -137,7 +134,7 @@ class _PembayaranState extends State<Pembayaran> {
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-ExtraBold',
                                         fontSize: 20,
-                                        color: Colors.black,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
                                       ),
                                     ),
                                   ],

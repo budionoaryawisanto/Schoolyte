@@ -113,7 +113,7 @@ class _MenuState extends State<Menu> {
                                 },
                                 child: Icon(
                                   Icons.chevron_left,
-                                  color: Colors.black,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
                                   size: 40,
                                 ),
                               ),
@@ -130,7 +130,7 @@ class _MenuState extends State<Menu> {
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-ExtraBold',
                                       fontSize: 20,
-                                      color: Colors.black,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
                                     ),
                                   ),
                                   Text(
@@ -138,7 +138,7 @@ class _MenuState extends State<Menu> {
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
                                       fontSize: 16,
-                                      color: Colors.black,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
                                     ),
                                   ),
                                 ],
@@ -164,6 +164,7 @@ class _MenuState extends State<Menu> {
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-ExtraBold',
                                       fontSize: 20,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
                                     ),
                                   ),
                                 ),
@@ -239,7 +240,12 @@ class _MenuState extends State<Menu> {
                                                             fontFamily:
                                                                 'Gilroy-ExtraBold',
                                                             fontSize: 13,
-                                                            color: Colors.black,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    1),
                                                           ),
                                                         ),
                                                       ),
@@ -294,16 +300,24 @@ class _MenuState extends State<Menu> {
                                                                         Border
                                                                             .all(
                                                                       width: 1,
-                                                                      color: Colors
-                                                                          .black,
+                                                                      color: Color
+                                                                          .fromRGBO(
+                                                                              76,
+                                                                              81,
+                                                                              97,
+                                                                              1),
                                                                     ),
                                                                   ),
                                                                   child: Center(
                                                                     child: Icon(
                                                                       Icons
                                                                           .remove,
-                                                                      color: Colors
-                                                                          .black,
+                                                                      color: Color
+                                                                          .fromRGBO(
+                                                                              76,
+                                                                              81,
+                                                                              97,
+                                                                              1),
                                                                       size: 18,
                                                                     ),
                                                                   ),
@@ -341,15 +355,23 @@ class _MenuState extends State<Menu> {
                                                                         Border
                                                                             .all(
                                                                       width: 1,
-                                                                      color: Colors
-                                                                          .black,
+                                                                      color: Color
+                                                                          .fromRGBO(
+                                                                              76,
+                                                                              81,
+                                                                              97,
+                                                                              1),
                                                                     ),
                                                                   ),
                                                                   child: Center(
                                                                     child: Icon(
                                                                       Icons.add,
-                                                                      color: Colors
-                                                                          .black,
+                                                                      color: Color
+                                                                          .fromRGBO(
+                                                                              76,
+                                                                              81,
+                                                                              97,
+                                                                              1),
                                                                       size: 18,
                                                                     ),
                                                                   ),
@@ -379,6 +401,7 @@ class _MenuState extends State<Menu> {
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-ExtraBold',
                                       fontSize: 20,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
                                     ),
                                   ),
                                 ),
@@ -454,7 +477,12 @@ class _MenuState extends State<Menu> {
                                                             fontFamily:
                                                                 'Gilroy-ExtraBold',
                                                             fontSize: 13,
-                                                            color: Colors.black,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    1),
                                                           ),
                                                         ),
                                                       ),
@@ -594,6 +622,7 @@ class _MenuState extends State<Menu> {
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-ExtraBold',
                                       fontSize: 20,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
                                     ),
                                   ),
                                 ),
@@ -669,7 +698,12 @@ class _MenuState extends State<Menu> {
                                                             fontFamily:
                                                                 'Gilroy-ExtraBold',
                                                             fontSize: 13,
-                                                            color: Colors.black,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    1),
                                                           ),
                                                         ),
                                                       ),
@@ -724,16 +758,24 @@ class _MenuState extends State<Menu> {
                                                                         Border
                                                                             .all(
                                                                       width: 1,
-                                                                      color: Colors
-                                                                          .black,
+                                                                      color: Color
+                                                                          .fromRGBO(
+                                                                              76,
+                                                                              81,
+                                                                              97,
+                                                                              1),
                                                                     ),
                                                                   ),
                                                                   child: Center(
                                                                     child: Icon(
                                                                       Icons
                                                                           .remove,
-                                                                      color: Colors
-                                                                          .black,
+                                                                      color: Color
+                                                                          .fromRGBO(
+                                                                              76,
+                                                                              81,
+                                                                              97,
+                                                                              1),
                                                                       size: 18,
                                                                     ),
                                                                   ),
@@ -771,15 +813,23 @@ class _MenuState extends State<Menu> {
                                                                         Border
                                                                             .all(
                                                                       width: 1,
-                                                                      color: Colors
-                                                                          .black,
+                                                                      color: Color
+                                                                          .fromRGBO(
+                                                                              76,
+                                                                              81,
+                                                                              97,
+                                                                              1),
                                                                     ),
                                                                   ),
                                                                   child: Center(
                                                                     child: Icon(
                                                                       Icons.add,
-                                                                      color: Colors
-                                                                          .black,
+                                                                      color: Color
+                                                                          .fromRGBO(
+                                                                              76,
+                                                                              81,
+                                                                              97,
+                                                                              1),
                                                                       size: 18,
                                                                     ),
                                                                   ),
