@@ -91,8 +91,9 @@ class _KantinPageState extends State<KantinPage> {
 
   List<Tab> myTabs = <Tab>[
     Tab(text: 'Menu'),
-    Tab(text: 'Pesanan'),
-    Tab(text: 'Riwayat'),
+    Tab(text: 'Pesanan Saya'),
+    Tab(text: 'Diambil'),
+    Tab(text: 'Selesai'),
   ];
 
   TextEditingController searchController = TextEditingController();
@@ -151,6 +152,7 @@ class _KantinPageState extends State<KantinPage> {
                 indicatorColor: Colors.white,
                 indicatorSize: TabBarIndicatorSize.label,
                 indicatorPadding: EdgeInsets.only(top: 0),
+                isScrollable: true,
                 labelStyle: TextStyle(
                   fontFamily: 'Gilroy-ExtraBold',
                   fontSize: 20,
@@ -1082,7 +1084,7 @@ class _KantinPageState extends State<KantinPage> {
                                   height: 97,
                                   child: Image.asset(
                                     'assets/images/menu.png',
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill,
                                   ),
                                 ),
                                 Container(
@@ -1119,28 +1121,90 @@ class _KantinPageState extends State<KantinPage> {
                                           fontSize: 14,
                                         ),
                                       ),
-                                      Container(
-                                        width: 114,
-                                        height: 19,
-                                        decoration: BoxDecoration(
-                                          color: a.id % 2 == 0
-                                              ? Colors.lightGreen
-                                              : Color.fromRGBO(
-                                                  255, 217, 102, 1),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }))),
+              ),
+              SingleChildScrollView(
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.84,
+                    padding: EdgeInsets.all(25),
+                    color: Color.fromRGBO(243, 243, 243, 1),
+                    child: GridView.builder(
+                        itemCount: _list.length,
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 407,
+                          mainAxisExtent: 116,
+                          mainAxisSpacing: 15,
+                          crossAxisSpacing: 50,
+                        ),
+                        itemBuilder: ((context, i) {
+                          var a = _list[i];
+                          return Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 15,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 0,
+                                  blurRadius: 1.5,
+                                  offset: Offset(0, 0),
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(7),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 89,
+                                  height: 97,
+                                  child: Image.asset(
+                                    'assets/images/menu.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Container(
+                                  width: 279,
+                                  height: 100,
+                                  margin: EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Dapur ' +
+                                            a.name +
+                                            ', kode: ' +
+                                            a.id.toString(),
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-ExtraBold',
+                                          fontSize: 16,
                                         ),
-                                        child: Center(
-                                          child: Text(
-                                            a.id % 2 == 0
-                                                ? 'Siap Diambil'
-                                                : 'Sedang Diproses',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 13,
-                                              color: Colors.black,
-                                            ),
-                                          ),
+                                      ),
+                                      Text(
+                                        '2x Mie ayam, 2x Es teh, 2x Tahu Isi',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Rp.30.000',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 14,
                                         ),
                                       ),
                                     ],

@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'model.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SumbangBuku extends StatefulWidget {
   @override
@@ -49,6 +51,21 @@ class _SumbangBukuState extends State<SumbangBuku> {
     super.initState();
     fetchData();
   }
+
+  File? image;
+  Future getImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? imagePicked =
+        await _picker.pickImage(source: ImageSource.gallery);
+
+    image = File(imagePicked!.path);
+    setState(() {});
+  }
+
+  List<Tab> myTabs = <Tab>[
+    Tab(text: 'Menunggu'),
+    Tab(text: 'Dikonfirmasi'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +133,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                         ),
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.866,
+                          height: MediaQuery.of(context).size.height * 0.566,
                           padding: EdgeInsets.symmetric(
                               horizontal:
                                   MediaQuery.of(context).size.width * 0.09),
@@ -644,7 +661,209 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                     ],
                                   ),
                                 ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.6,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.042,
+                                  margin: EdgeInsets.only(top: 22),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.15,
+                                        child: Text(
+                                          'Tambah Foto',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 18,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        '  :',
+                                        style: TextStyle(
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
+                                      ),
+                                      image != null
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return Center(
+                                                        child: Material(
+                                                          type: MaterialType
+                                                              .transparency,
+                                                          child: new Image.file(
+                                                              image!),
+                                                        ),
+                                                      );
+                                                    });
+                                              },
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.27,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.04,
+                                                margin:
+                                                    EdgeInsets.only(left: 25),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.3),
+                                                      spreadRadius: 0,
+                                                      blurRadius: 1.5,
+                                                      offset: Offset(0, 1),
+                                                    )
+                                                  ],
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    'Lihat Foto',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-Light',
+                                                      fontSize: 16,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 0.54),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          : GestureDetector(
+                                              onTap: () async {
+                                                await getImage();
+                                              },
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.27,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.04,
+                                                margin:
+                                                    EdgeInsets.only(left: 25),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.3),
+                                                      spreadRadius: 0,
+                                                      blurRadius: 1.5,
+                                                      offset: Offset(0, 1),
+                                                    )
+                                                  ],
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    'Pilih foto',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-Light',
+                                                      fontSize: 16,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 0.54),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                      Visibility(
+                                        visible: image != null ? true : false,
+                                        child: GestureDetector(
+                                          onTap: () => setState(() {
+                                            image = null;
+                                          }),
+                                          child: Container(
+                                            margin: EdgeInsets.only(left: 10),
+                                            child: Icon(
+                                              Icons.delete,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment(1.0, 0.0),
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      print('Clicked');
+                                    },
+                                    child: Container(
+                                      width: 119,
+                                      height: 36,
+                                      margin: EdgeInsets.only(top: 30),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: Colors.black,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          'Selesai',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 15,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
+                            ),
+                          ),
+                        ),
+                        DefaultTabController(
+                          length: myTabs.length,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.06,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1,
+                                color: Colors.black,
+                              ),
+                            ),
+                            child: TabBar(
+                              padding: EdgeInsets.only(bottom: 10),
+                              indicatorColor: Color.fromRGBO(76, 81, 97, 1),
+                              indicatorSize: TabBarIndicatorSize.label,
+                              labelColor: Color.fromRGBO(76, 81, 97, 1),
+                              unselectedLabelColor:
+                                  Color.fromRGBO(76, 81, 97, 1),
+                              labelStyle: TextStyle(
+                                fontFamily: 'Gilroy-ExtraBold',
+                                fontSize: 20,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                              unselectedLabelStyle: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 20,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                              tabs: myTabs,
                             ),
                           ),
                         ),

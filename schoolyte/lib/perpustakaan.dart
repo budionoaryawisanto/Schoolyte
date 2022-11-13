@@ -1015,7 +1015,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                         child:
                                                                             DateTimePicker(
                                                                           type:
-                                                                              DateTimePickerType.date,
+                                                                              DateTimePickerType.dateTimeSeparate,
                                                                           dateMask:
                                                                               'd MMMM yyyy',
                                                                           initialValue:
@@ -1081,7 +1081,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                         child:
                                                                             DateTimePicker(
                                                                           type:
-                                                                              DateTimePickerType.date,
+                                                                              DateTimePickerType.dateTimeSeparate,
                                                                           dateMask:
                                                                               'd MMMM yyyy',
                                                                           initialValue:
@@ -1713,7 +1713,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                         child:
                                                                             DateTimePicker(
                                                                           type:
-                                                                              DateTimePickerType.date,
+                                                                              DateTimePickerType.dateTimeSeparate,
                                                                           dateMask:
                                                                               'd MMMM yyyy',
                                                                           initialValue:
@@ -1724,8 +1724,8 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                               DateTime(DateTime.now().year + 1),
                                                                           selectableDayPredicate:
                                                                               (date) {
-                                                                            if (date.weekday == 6 ||
-                                                                                date.weekday == 7) {
+                                                                            if (date.weekday == 3 ||
+                                                                                date.weekday == 4) {
                                                                               return false;
                                                                             }
 
@@ -1779,7 +1779,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                         child:
                                                                             DateTimePicker(
                                                                           type:
-                                                                              DateTimePickerType.date,
+                                                                              DateTimePickerType.dateTimeSeparate,
                                                                           dateMask:
                                                                               'd MMMM yyyy',
                                                                           initialValue:
@@ -1790,8 +1790,8 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                               DateTime(DateTime.now().year + 1),
                                                                           selectableDayPredicate:
                                                                               (date) {
-                                                                            if (date.weekday == 6 ||
-                                                                                date.weekday == 7) {
+                                                                            if (date.weekday == 3 ||
+                                                                                date.weekday == 4) {
                                                                               return false;
                                                                             }
 
