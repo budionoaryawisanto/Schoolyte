@@ -1724,8 +1724,8 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                               DateTime(DateTime.now().year + 1),
                                                                           selectableDayPredicate:
                                                                               (date) {
-                                                                            if (date.weekday == 3 ||
-                                                                                date.weekday == 4) {
+                                                                            if (date.weekday == 6 ||
+                                                                                date.weekday == 7) {
                                                                               return false;
                                                                             }
 
@@ -1790,8 +1790,8 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                               DateTime(DateTime.now().year + 1),
                                                                           selectableDayPredicate:
                                                                               (date) {
-                                                                            if (date.weekday == 3 ||
-                                                                                date.weekday == 4) {
+                                                                            if (date.weekday == 6 ||
+                                                                                date.weekday == 7) {
                                                                               return false;
                                                                             }
 
@@ -2159,7 +2159,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
               SingleChildScrollView(
                 child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                    height: MediaQuery.of(context).size.height * 0.85,
                     padding: EdgeInsets.only(bottom: 25),
                     color: Color.fromRGBO(243, 243, 243, 1),
                     child: GridView.builder(
@@ -2267,7 +2267,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
               SingleChildScrollView(
                 child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                    height: MediaQuery.of(context).size.height * 0.85,
                     padding: EdgeInsets.only(bottom: 25),
                     color: Color.fromRGBO(243, 243, 243, 1),
                     child: GridView.builder(
@@ -2375,7 +2375,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
               SingleChildScrollView(
                 child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                    height: MediaQuery.of(context).size.height * 0.85,
                     padding: EdgeInsets.only(bottom: 25),
                     color: Color.fromRGBO(243, 243, 243, 1),
                     child: GridView.builder(

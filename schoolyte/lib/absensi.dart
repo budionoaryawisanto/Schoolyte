@@ -71,6 +71,9 @@ class _AbsensiPageState extends State<AbsensiPage> {
     setState(() {});
   }
 
+  var status = ['Hadir', 'Alpha', 'Izin'];
+  var dropdownvalue = 'Hadir';
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -600,16 +603,17 @@ class _AbsensiPageState extends State<AbsensiPage> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width * 0.9,
-                  height: 205,
+                  height: MediaQuery.of(context).size.height * 0.23,
                   margin: EdgeInsets.only(top: 25),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(9),
+                    borderRadius: BorderRadius.circular(9),
+                    color: Colors.white,
                   ),
                   child: Column(
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 64,
+                        height: MediaQuery.of(context).size.height * 0.064,
                         alignment: AlignmentDirectional.centerStart,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -631,188 +635,226 @@ class _AbsensiPageState extends State<AbsensiPage> {
                         ),
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 139,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(9),
-                            bottomRight: Radius.circular(9),
-                          ),
-                          color: Colors.white,
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        margin: EdgeInsets.only(
+                          left: 30,
+                          top: 15,
                         ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      'Bukti Kehadiran  : ',
-                                      style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 16),
-                                    ),
-                                  ),
-                                  image != null
-                                      ? TextButton(
-                                          onPressed: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return Center(
-                                                    child: Material(
-                                                      type: MaterialType
-                                                          .transparency,
-                                                      child: new Image.file(
-                                                          image!),
-                                                    ),
-                                                  );
-                                                });
-                                          },
-                                          child: Container(
-                                            width: 145,
-                                            height: 33,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black
-                                                      .withOpacity(0.3),
-                                                  spreadRadius: 0,
-                                                  blurRadius: 1.5,
-                                                  offset: Offset(0, 0),
-                                                )
-                                              ],
-                                              color: Colors.white,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.done,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                  size: 20,
-                                                ),
-                                                Text(
-                                                  'Lihat Foto',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Gilroy-Light',
-                                                    fontSize: 15,
-                                                    color: Color.fromRGBO(
-                                                        76, 81, 97, 1),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        )
-                                      : TextButton(
-                                          onPressed: () async {
-                                            await getImage();
-                                          },
-                                          child: Container(
-                                            width: 145,
-                                            height: 33,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black
-                                                      .withOpacity(0.3),
-                                                  spreadRadius: 0,
-                                                  blurRadius: 1.5,
-                                                  offset: Offset(0, 0),
-                                                )
-                                              ],
-                                              color: Colors.white,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Icon(
-                                                  Icons.photo_camera,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                  size: 20,
-                                                ),
-                                                Text(
-                                                  'Tambah Foto',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Gilroy-Light',
-                                                    fontSize: 15,
-                                                    color: Color.fromRGBO(
-                                                        76, 81, 97, 1),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                  image != null
-                                      ? Container(
-                                          child: TextButton(
-                                            child: Icon(
-                                              Icons.delete,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                              size: 20,
-                                            ),
-                                            onPressed: () {
-                                              setState(() {
-                                                image = null;
-                                              });
-                                            },
-                                          ),
-                                        )
-                                      : Container(),
-                                ],
+                              child: Text(
+                                'Bukti Kehadiran  : ',
+                                style: TextStyle(
+                                    fontFamily: 'Gilroy-Light', fontSize: 16),
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(),
-                                Container(
-                                  width: 118.12,
-                                  height: 30.14,
-                                  margin: EdgeInsets.only(right: 15),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(9),
-                                    color: Colors.black,
-                                  ),
-                                  child: Center(
-                                    child: TextButton(
-                                      onPressed: () {
-                                        print('clicked');
-                                      },
-                                      child: Text(
-                                        'Selesai',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 15,
-                                          color: Colors.white,
-                                        ),
+                            image != null
+                                ? TextButton(
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return Center(
+                                              child: Material(
+                                                type: MaterialType.transparency,
+                                                child: new Image.file(image!),
+                                              ),
+                                            );
+                                          });
+                                    },
+                                    child: Container(
+                                      width: 145,
+                                      height: 33,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.3),
+                                            spreadRadius: 0,
+                                            blurRadius: 1.5,
+                                            offset: Offset(0, 0),
+                                          )
+                                        ],
+                                        color: Colors.white,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.done,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                            size: 20,
+                                          ),
+                                          Text(
+                                            'Lihat Foto',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 15,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                : TextButton(
+                                    onPressed: () async {
+                                      await getImage();
+                                    },
+                                    child: Container(
+                                      width: 145,
+                                      height: 33,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.3),
+                                            spreadRadius: 0,
+                                            blurRadius: 1.5,
+                                            offset: Offset(0, 0),
+                                          )
+                                        ],
+                                        color: Colors.white,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.photo_camera,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                            size: 20,
+                                          ),
+                                          Text(
+                                            'Tambah Foto',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 15,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
+                            image != null
+                                ? Container(
+                                    child: TextButton(
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                        size: 20,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          image = null;
+                                        });
+                                      },
+                                    ),
+                                  )
+                                : Container(),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        margin: EdgeInsets.only(
+                          left: 30,
+                          top: 10,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Pilih Kehadiran    :  ',
+                              style: TextStyle(
+                                  fontFamily: 'Gilroy-Light', fontSize: 16),
+                            ),
+                            Container(
+                              width: 90,
+                              height: 26,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 0,
+                                    blurRadius: 1.5,
+                                    offset: Offset(0, 0),
+                                  )
+                                ],
+                                color: Color.fromRGBO(243, 243, 243, 1),
+                              ),
+                              child: Center(
+                                child: DropdownButton(
+                                  value: dropdownvalue,
+                                  elevation: 0,
+                                  underline: SizedBox(),
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                  ),
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                                  items: status.map((String items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      dropdownvalue = newValue!;
+                                    });
+                                  },
                                 ),
-                              ],
+                              ),
                             ),
                           ],
                         ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(),
+                          Container(
+                            width: 118.12,
+                            height: 30.14,
+                            margin: EdgeInsets.only(right: 15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(9),
+                              color: Colors.black,
+                            ),
+                            child: Center(
+                              child: TextButton(
+                                onPressed: () {
+                                  print('clicked');
+                                },
+                                child: Text(
+                                  'Selesai',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

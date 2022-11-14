@@ -657,14 +657,13 @@ class _BeritaPageState extends State<BeritaPage> {
                   children: [
                     CarouselSlider(
                       options: CarouselOptions(
-                        height: 224,
+                        height: MediaQuery.of(context).size.height * 0.22,
                         viewportFraction: 1,
                         autoPlay: true,
                         autoPlayInterval: Duration(seconds: 2),
                       ),
                       items: imgList.map(
                         (i) {
-                          List<Widget> carousel = [];
                           return Builder(
                             builder: (BuildContext context) {
                               return GestureDetector(
@@ -680,7 +679,9 @@ class _BeritaPageState extends State<BeritaPage> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return Container(
-                                        height: 850,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.87,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(15),
@@ -703,7 +704,10 @@ class _BeritaPageState extends State<BeritaPage> {
                                                   width: 50,
                                                 ),
                                                 Container(
-                                                  width: 50,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.1,
                                                   height: 5,
                                                   decoration: BoxDecoration(
                                                     color: Color.fromRGBO(
@@ -723,8 +727,11 @@ class _BeritaPageState extends State<BeritaPage> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.7,
-                                              height: 161.21,
+                                                  0.8,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.16,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(9),
@@ -738,7 +745,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.7,
+                                                  0.8,
                                               margin: EdgeInsets.only(top: 10),
                                               child: Text(
                                                 'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan SMAN 28 | DBL ID',
@@ -781,8 +788,11 @@ class _BeritaPageState extends State<BeritaPage> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.7,
-                                              height: 480,
+                                                  0.8,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.5,
                                               margin: EdgeInsets.only(top: 15),
                                               child: SingleChildScrollView(
                                                 child: Text(
@@ -804,6 +814,8 @@ class _BeritaPageState extends State<BeritaPage> {
                                 },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.22,
                                   child: Stack(
                                     children: [
                                       Align(
@@ -868,10 +880,10 @@ class _BeritaPageState extends State<BeritaPage> {
                       ).toList(),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: 600,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.588,
                       margin: EdgeInsets.only(top: 10),
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 15),
                       child: loading
                           ? Center(
                               child: CircularProgressIndicator(),
@@ -881,10 +893,10 @@ class _BeritaPageState extends State<BeritaPage> {
                               gridDelegate:
                                   SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent:
-                                    MediaQuery.of(context).size.width * 0.85,
-                                mainAxisExtent: 100,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
+                                    MediaQuery.of(context).size.width * 0.95,
+                                mainAxisExtent:
+                                    MediaQuery.of(context).size.height * 0.095,
+                                crossAxisSpacing: 20,
                               ),
                               itemBuilder: (context, i) {
                                 return GestureDetector(
@@ -900,7 +912,10 @@ class _BeritaPageState extends State<BeritaPage> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return Container(
-                                          height: 850,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.87,
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(15),
@@ -924,7 +939,11 @@ class _BeritaPageState extends State<BeritaPage> {
                                                     height: 50,
                                                   ),
                                                   Container(
-                                                    width: 50,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.1,
                                                     height: 5,
                                                     decoration: BoxDecoration(
                                                       color: Color.fromRGBO(
@@ -944,8 +963,11 @@ class _BeritaPageState extends State<BeritaPage> {
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.7,
-                                                height: 161.21,
+                                                    0.8,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.16,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(9),
@@ -959,7 +981,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.7,
+                                                    0.8,
                                                 margin:
                                                     EdgeInsets.only(top: 10),
                                                 child: Text(
@@ -1004,8 +1026,11 @@ class _BeritaPageState extends State<BeritaPage> {
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.7,
-                                                height: 480,
+                                                    0.8,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.5,
                                                 margin:
                                                     EdgeInsets.only(top: 15),
                                                 child: SingleChildScrollView(
@@ -1028,11 +1053,9 @@ class _BeritaPageState extends State<BeritaPage> {
                                     );
                                   },
                                   child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.9,
-                                    height: 89,
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 20),
+                                    margin: EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(10),
@@ -1050,8 +1073,14 @@ class _BeritaPageState extends State<BeritaPage> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                          width: 270,
-                                          height: 60,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.6,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.064,
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
@@ -1083,13 +1112,15 @@ class _BeritaPageState extends State<BeritaPage> {
                                           ),
                                         ),
                                         Container(
-                                          width: 67,
-                                          height: 67,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
                                           decoration: BoxDecoration(
-                                              border: Border.all(
-                                                width: 1,
-                                                color: Colors.white,
-                                              ),
                                               borderRadius:
                                                   BorderRadius.circular(7)),
                                           child: new Image.asset(
@@ -1114,14 +1145,13 @@ class _BeritaPageState extends State<BeritaPage> {
                   children: [
                     CarouselSlider(
                       options: CarouselOptions(
-                        height: 224,
+                        height: MediaQuery.of(context).size.height * 0.22,
                         viewportFraction: 1,
                         autoPlay: true,
                         autoPlayInterval: Duration(seconds: 2),
                       ),
                       items: imgList.map(
                         (i) {
-                          List<Widget> carousel = [];
                           return Builder(
                             builder: (BuildContext context) {
                               return GestureDetector(
@@ -1137,7 +1167,9 @@ class _BeritaPageState extends State<BeritaPage> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return Container(
-                                        height: 850,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.87,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.only(
                                             topLeft: Radius.circular(15),
@@ -1160,7 +1192,10 @@ class _BeritaPageState extends State<BeritaPage> {
                                                   width: 50,
                                                 ),
                                                 Container(
-                                                  width: 50,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.1,
                                                   height: 5,
                                                   decoration: BoxDecoration(
                                                     color: Color.fromRGBO(
@@ -1180,8 +1215,11 @@ class _BeritaPageState extends State<BeritaPage> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.7,
-                                              height: 161.21,
+                                                  0.8,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.16,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(9),
@@ -1195,10 +1233,10 @@ class _BeritaPageState extends State<BeritaPage> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.7,
+                                                  0.8,
                                               margin: EdgeInsets.only(top: 10),
                                               child: Text(
-                                                'Pemenang Cabor Futsal Terdapat 3 Kelas Pemenangnya',
+                                                'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan SMAN 28 | DBL ID',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontFamily:
@@ -1238,8 +1276,11 @@ class _BeritaPageState extends State<BeritaPage> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  0.7,
-                                              height: 480,
+                                                  0.8,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.5,
                                               margin: EdgeInsets.only(top: 15),
                                               child: SingleChildScrollView(
                                                 child: Text(
@@ -1261,6 +1302,8 @@ class _BeritaPageState extends State<BeritaPage> {
                                 },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.22,
                                   child: Stack(
                                     children: [
                                       Align(
@@ -1304,7 +1347,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                               0.75,
                                           height: 58,
                                           child: Text(
-                                            'Pemenang Cabor Futsal Terdapat 3 Kelas Pemenangnya',
+                                            'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan Lawan',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-ExtraBold',
                                               fontSize: 24,
@@ -1325,10 +1368,10 @@ class _BeritaPageState extends State<BeritaPage> {
                       ).toList(),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: 600,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.588,
                       margin: EdgeInsets.only(top: 10),
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 15),
                       child: loading
                           ? Center(
                               child: CircularProgressIndicator(),
@@ -1338,10 +1381,10 @@ class _BeritaPageState extends State<BeritaPage> {
                               gridDelegate:
                                   SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent:
-                                    MediaQuery.of(context).size.width * 0.85,
-                                mainAxisExtent: 100,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
+                                    MediaQuery.of(context).size.width * 0.95,
+                                mainAxisExtent:
+                                    MediaQuery.of(context).size.height * 0.095,
+                                crossAxisSpacing: 20,
                               ),
                               itemBuilder: (context, i) {
                                 return GestureDetector(
@@ -1357,7 +1400,10 @@ class _BeritaPageState extends State<BeritaPage> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return Container(
-                                          height: 850,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.87,
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(15),
@@ -1381,7 +1427,11 @@ class _BeritaPageState extends State<BeritaPage> {
                                                     height: 50,
                                                   ),
                                                   Container(
-                                                    width: 50,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.1,
                                                     height: 5,
                                                     decoration: BoxDecoration(
                                                       color: Color.fromRGBO(
@@ -1401,8 +1451,11 @@ class _BeritaPageState extends State<BeritaPage> {
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.7,
-                                                height: 161.21,
+                                                    0.8,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.16,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(9),
@@ -1416,7 +1469,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.7,
+                                                    0.8,
                                                 margin:
                                                     EdgeInsets.only(top: 10),
                                                 child: Text(
@@ -1461,8 +1514,11 @@ class _BeritaPageState extends State<BeritaPage> {
                                                 width: MediaQuery.of(context)
                                                         .size
                                                         .width *
-                                                    0.7,
-                                                height: 480,
+                                                    0.8,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.5,
                                                 margin:
                                                     EdgeInsets.only(top: 15),
                                                 child: SingleChildScrollView(
@@ -1485,11 +1541,9 @@ class _BeritaPageState extends State<BeritaPage> {
                                     );
                                   },
                                   child: Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.9,
-                                    height: 89,
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 20),
+                                    margin: EdgeInsets.all(5),
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(10),
@@ -1507,8 +1561,14 @@ class _BeritaPageState extends State<BeritaPage> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
-                                          width: 270,
-                                          height: 60,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.6,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.064,
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
@@ -1540,13 +1600,15 @@ class _BeritaPageState extends State<BeritaPage> {
                                           ),
                                         ),
                                         Container(
-                                          width: 67,
-                                          height: 67,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.15,
                                           decoration: BoxDecoration(
-                                              border: Border.all(
-                                                width: 1,
-                                                color: Colors.white,
-                                              ),
                                               borderRadius:
                                                   BorderRadius.circular(7)),
                                           child: new Image.asset(
