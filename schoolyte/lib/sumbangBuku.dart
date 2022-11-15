@@ -67,6 +67,14 @@ class _SumbangBukuState extends State<SumbangBuku> {
     Tab(text: 'Dikonfirmasi'),
   ];
 
+  sendData() {
+    if (_formKey.currentState!.validate()) {}
+    if (_formKey2.currentState!.validate()) {}
+    if (_formKey3.currentState!.validate()) {}
+    if (_formKey4.currentState!.validate()) {}
+    if (_formKey5.currentState!.validate()) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -138,7 +146,13 @@ class _SumbangBukuState extends State<SumbangBuku> {
                             Container(
                               width: MediaQuery.of(context).size.width,
                               height:
-                                  MediaQuery.of(context).size.height * 0.566,
+                                  MediaQuery.of(context).size.height * 0.7,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  width: 1,
+                                  color: Colors.black,
+                                ),
+                              ),
                               padding: EdgeInsets.symmetric(
                                   horizontal:
                                       MediaQuery.of(context).size.width * 0.09),
@@ -151,7 +165,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                     width: MediaQuery.of(context).size.width *
                                         0.85,
                                     height: MediaQuery.of(context).size.height *
-                                        0.05,
+                                        0.06,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -185,16 +199,6 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   .size
                                                   .width *
                                               0.6,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.038,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: Color.fromRGBO(
-                                                243, 243, 243, 1),
-                                          ),
                                           child: Form(
                                             key: _formKey,
                                             child: TextFormField(
@@ -235,7 +239,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                     width: MediaQuery.of(context).size.width *
                                         0.85,
                                     height: MediaQuery.of(context).size.height *
-                                        0.05,
+                                        0.06,
                                     margin: EdgeInsets.only(top: 22),
                                     child: Row(
                                       mainAxisAlignment:
@@ -270,16 +274,6 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   .size
                                                   .width *
                                               0.6,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.038,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: Color.fromRGBO(
-                                                243, 243, 243, 1),
-                                          ),
                                           child: Form(
                                             key: _formKey2,
                                             child: TextFormField(
@@ -320,7 +314,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                     width: MediaQuery.of(context).size.width *
                                         0.85,
                                     height: MediaQuery.of(context).size.height *
-                                        0.05,
+                                        0.06,
                                     margin: EdgeInsets.only(top: 22),
                                     child: Row(
                                       mainAxisAlignment:
@@ -355,16 +349,6 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   .size
                                                   .width *
                                               0.6,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.038,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: Color.fromRGBO(
-                                                243, 243, 243, 1),
-                                          ),
                                           child: Form(
                                             key: _formKey3,
                                             child: TextFormField(
@@ -392,7 +376,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                               ),
                                               validator: (value) {
                                                 if (value!.isEmpty) {
-                                                  return 'Tahun terbit tidak boleh kosong ! ';
+                                                  return 'Nama penulis tidak boleh kosong ! ';
                                                 }
                                               },
                                             ),
@@ -405,7 +389,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                     width: MediaQuery.of(context).size.width *
                                         0.85,
                                     height: MediaQuery.of(context).size.height *
-                                        0.05,
+                                        0.06,
                                     margin: EdgeInsets.only(top: 22),
                                     child: Row(
                                       mainAxisAlignment:
@@ -440,16 +424,6 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   .size
                                                   .width *
                                               0.6,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.038,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: Color.fromRGBO(
-                                                243, 243, 243, 1),
-                                          ),
                                           child: Form(
                                             key: _formKey4,
                                             child: TextFormField(
@@ -477,7 +451,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                               ),
                                               validator: (value) {
                                                 if (value!.isEmpty) {
-                                                  return 'Tahun terbit tidak boleh kosong ! ';
+                                                  return 'Kategori buku tidak boleh kosong ! ';
                                                 }
                                               },
                                             ),
@@ -490,7 +464,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                     width: MediaQuery.of(context).size.width *
                                         0.85,
                                     height: MediaQuery.of(context).size.height *
-                                        0.07,
+                                        0.11,
                                     margin: EdgeInsets.only(top: 22),
                                     child: Row(
                                       mainAxisAlignment:
@@ -525,24 +499,19 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   .size
                                                   .width *
                                               0.6,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            color: Color.fromRGBO(
-                                                243, 243, 243, 1),
-                                          ),
                                           child: Form(
                                             key: _formKey5,
                                             child: TextFormField(
                                               controller: rincianController,
+                                              keyboardType:
+                                                  TextInputType.multiline,
+                                              maxLines: 400,
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-Light',
                                                 fontSize: 16,
                                                 color: Color.fromRGBO(
                                                     76, 81, 97, 1),
                                               ),
-                                              textAlignVertical:
-                                                  TextAlignVertical(y: -0.7),
                                               decoration: InputDecoration(
                                                 labelText: 'Keterangan Buku',
                                                 labelStyle: TextStyle(
@@ -558,7 +527,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                               ),
                                               validator: (value) {
                                                 if (value!.isEmpty) {
-                                                  return 'Tahun terbit tidak boleh kosong ! ';
+                                                  return 'Deskripsi tidak boleh kosong ! ';
                                                 }
                                               },
                                             ),
@@ -841,7 +810,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                     alignment: Alignment(1.0, 0.0),
                                     child: GestureDetector(
                                       onTap: () {
-                                        print('Clicked');
+                                        sendData();
                                       },
                                       child: Container(
                                         width: 119,
@@ -869,28 +838,28 @@ class _SumbangBukuState extends State<SumbangBuku> {
                               ),
                             ),
                             Container(
-                            width: MediaQuery.of(context).size.width,
+                              width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height * 0.06,
                               margin: EdgeInsets.only(top: 25),
-                            child: TabBar(
-                              padding: EdgeInsets.only(bottom: 10),
+                              child: TabBar(
+                                padding: EdgeInsets.only(bottom: 10),
                                 indicatorColor: Color.fromRGBO(76, 81, 97, 1),
-                              indicatorSize: TabBarIndicatorSize.label,
-                              labelColor: Color.fromRGBO(76, 81, 97, 1),
-                              unselectedLabelColor:
-                                  Color.fromRGBO(76, 81, 97, 1),
-                              labelStyle: TextStyle(
-                                fontFamily: 'Gilroy-ExtraBold',
-                                fontSize: 20,
-                                color: Color.fromRGBO(76, 81, 97, 1),
+                                indicatorSize: TabBarIndicatorSize.label,
+                                labelColor: Color.fromRGBO(76, 81, 97, 1),
+                                unselectedLabelColor:
+                                    Color.fromRGBO(76, 81, 97, 1),
+                                labelStyle: TextStyle(
+                                  fontFamily: 'Gilroy-ExtraBold',
+                                  fontSize: 20,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                                unselectedLabelStyle: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 20,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                                tabs: myTabs,
                               ),
-                              unselectedLabelStyle: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 20,
-                                color: Color.fromRGBO(76, 81, 97, 1),
-                              ),
-                              tabs: myTabs,
-                            ),
                             ),
                             Container(
                               width: MediaQuery.of(context).size.width,

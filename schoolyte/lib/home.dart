@@ -1102,14 +1102,9 @@ class _HomePageState extends State<HomePage> {
                                 width: MediaQuery.of(context).size.width * 0.85,
                                 height:
                                     MediaQuery.of(context).size.height * 0.35,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    width: 1,
-                                    color: Colors.black,
-                                  ),
-                                ),
+                                margin: EdgeInsets.only(top: 10),
                                 child: GridView.builder(
-                                  itemCount: 6,
+                                  itemCount: 3,
                                   gridDelegate:
                                       SliverGridDelegateWithMaxCrossAxisExtent(
                                     maxCrossAxisExtent:
@@ -1262,6 +1257,8 @@ class _HomePageState extends State<HomePage> {
                                       child: Container(
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 20),
+                                        margin:
+                                            EdgeInsets.symmetric(horizontal: 5),
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius:

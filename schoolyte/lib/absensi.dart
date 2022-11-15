@@ -71,7 +71,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
     setState(() {});
   }
 
-  var status = ['Hadir', 'Alpha', 'Izin'];
+  var status = ['Hadir', 'Alpha', 'Izin', 'Sakit'];
   var dropdownvalue = 'Hadir';
 
   @override
