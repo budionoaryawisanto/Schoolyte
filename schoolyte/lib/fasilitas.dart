@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -86,7 +87,9 @@ class _FasilitasPageState extends State<FasilitasPage> {
 
   List<Tab> myTabs = <Tab>[
     Tab(text: 'Fasilitas'),
+    Tab(text: 'Menunggu'),
     Tab(text: 'Dipinjam'),
+    Tab(text: 'Selesai'),
   ];
 
   final TextEditingController searchController = TextEditingController();
@@ -106,6 +109,11 @@ class _FasilitasPageState extends State<FasilitasPage> {
     });
   }
 
+  var tglPeminjaman;
+  var startPeminjaman;
+  var endPeminjaman;
+  var filterPeminjaman;
+
   showDialogFunc(context, a) {
     return showModalBottomSheet<void>(
         shape: RoundedRectangleBorder(
@@ -118,7 +126,8 @@ class _FasilitasPageState extends State<FasilitasPage> {
         context: context,
         builder: (context) {
           return Container(
-            height: 800,
+            height: MediaQuery.of(context).size.height * 0.85,
+            padding: EdgeInsets.only(top: 30),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(15),
@@ -126,284 +135,745 @@ class _FasilitasPageState extends State<FasilitasPage> {
               ),
               color: Colors.white,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  width: 339,
-                  height: 226,
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                  child: new Image.asset(
-                    'assets/images/fasilitas.png',
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                Container(
-                  width: 261,
-                  child: Center(
-                    child: Text(
-                      'Lapangan Depan',
-                      style: TextStyle(
-                        fontFamily: 'Gilroy-ExtraBold',
-                        fontSize: 32,
-                        color: Colors.black,
-                      ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.23,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                    child: new Image.asset(
+                      'assets/images/fasilitas.png',
+                      fit: BoxFit.fill,
                     ),
                   ),
-                ),
-                Container(
-                  width: 339,
-                  height: 88,
-                  child: Text(
-                    'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
-                      fontSize: 15,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 0.5,
-                      color: Color.fromRGBO(237, 237, 237, 1),
-                    ),
-                  ),
-                ),
-                Container(
-                  width: 268,
-                  height: 128,
-                  margin: EdgeInsets.only(right: 50),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Jadwal Peminjaman',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 16,
-                          color: Color.fromRGBO(119, 115, 205, 1),
-                        ),
-                      ),
-                      Text(
-                        'Lebih Nyaman & Teratur dalam Penjadwalan Peminjaman',
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: EdgeInsets.only(top: 15),
+                    child: Center(
+                      child: Text(
+                        'Lapangan Depan',
                         style: TextStyle(
                           fontFamily: 'Gilroy-ExtraBold',
-                          fontSize: 24,
-                          color: Color.fromRGBO(76, 81, 97, 1),
+                          fontSize: 32,
+                          color: Colors.black,
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
-                Container(
-                  width: 356,
-                  height: 61,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color.fromRGBO(237, 237, 237, 1),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text(
-                              'Senin, 17 Oktober 2022',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-ExtraBold',
-                                fontSize: 16,
-                                color: Colors.black,
-                              ),
-                            ),
-                            Text(
-                              '13.30 - 15.30',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 14,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    margin: EdgeInsets.only(top: 15),
+                    child: Text(
+                      'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 15,
+                        color: Color.fromRGBO(76, 81, 97, 1),
                       ),
-                      Container(
-                        height: 14,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(3),
-                            color: Color.fromRGBO(255, 217, 102, 0.38)),
-                        child: Center(
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.04,
+                    margin: EdgeInsets.only(top: 15),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.2,
                           child: Text(
-                            'Oleh: ' + a.name,
+                            'Tanggal Peminjaman',
                             style: TextStyle(
                               fontFamily: 'Gilroy-Light',
-                              fontSize: 10,
-                              color: Colors.black,
+                              fontSize: 16,
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          margin: EdgeInsets.only(left: 15),
+                          child: DateTimePicker(
+                            type: DateTimePickerType.date,
+                            dateMask: 'EEEE, d MMMM yyyy',
+                            initialValue: '',
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(DateTime.now().year + 1),
+                            onChanged: (val) => setState(() {
+                              tglPeminjaman = val;
+                            }),
+                            validator: (val) {
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.04,
+                    margin: EdgeInsets.only(top: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          child: Text(
+                            'Waktu mulai Peminjaman',
+                            style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          margin: EdgeInsets.only(left: 15),
+                          child: DateTimePicker(
+                            type: DateTimePickerType.time,
+                            onChanged: (val) => setState(() {
+                              startPeminjaman = val;
+                            }),
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return 'Waktu mulai tidak boleh kosong';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    margin: EdgeInsets.only(top: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          child: Text(
+                            'Waktu berakhir Peminjaman',
+                            style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          margin: EdgeInsets.only(left: 15),
+                          child: DateTimePicker(
+                            type: DateTimePickerType.time,
+                            onChanged: (val) => setState(() {
+                              endPeminjaman = val;
+                            }),
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return 'Waktu berakhir tidak boleh kosong';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.046,
+                    margin: EdgeInsets.only(
+                      top: 15,
+                      bottom: 30,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.35,
+                            height: MediaQuery.of(context).size.height * 0.04,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color.fromRGBO(217, 217, 217, 1),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Batal',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            print(tglPeminjaman);
+                            print(startPeminjaman);
+                            print(endPeminjaman);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.35,
+                            height: MediaQuery.of(context).size.height * 0.04,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.black,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Pinjam Fasilitas',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.12,
+                    margin: EdgeInsets.only(top: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Jadwal Peminjaman',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Light',
+                            fontSize: 16,
+                            color: Color.fromRGBO(119, 115, 205, 1),
+                          ),
+                        ),
+                        Text(
+                          'Lebih Nyaman & Teratur dalam Penjadwalan Peminjaman',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-ExtraBold',
+                            fontSize: 24,
+                            color: Color.fromRGBO(76, 81, 97, 1),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          margin: EdgeInsets.only(top: 15),
+                          child: DateTimePicker(
+                            type: DateTimePickerType.date,
+                            dateMask: 'EEEE, d MMMM yyyy',
+                            icon: Icon(Icons.date_range_rounded),
+                            initialValue: '',
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(DateTime.now().year + 1),
+                            onChanged: (val) => setState(() {
+                              filterPeminjaman = val;
+                            }),
+                            validator: (val) {
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.30,
+                    margin: EdgeInsets.only(
+                      top: 15,
+                    ),
+                    child: loading
+                        ? Center(child: CircularProgressIndicator())
+                        : GridView.builder(
+                            itemCount: 6,
+                            gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent:
+                                  MediaQuery.of(context).size.width * 0.8,
+                              mainAxisExtent:
+                                  MediaQuery.of(context).size.height * 0.064,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 9,
+                            ),
+                            itemBuilder: (context, i) {
+                              return Container(
+                                margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color.fromRGBO(237, 237, 237, 1),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      spreadRadius: 0,
+                                      blurRadius: 1.5,
+                                      offset: Offset(0, 1),
+                                    )
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                            'Senin, 17 Oktober 2022',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 16,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          Text(
+                                            '13.30 - 15.30',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 14,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(3),
+                                          color: Color.fromRGBO(
+                                              255, 217, 102, 0.38)),
+                                      child: Center(
+                                        child: Text(
+                                          'Oleh: ' + a.name,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 10,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                  ),
+                ],
+              ),
             ),
           );
         });
   }
 
   showDialogFuncSearch(context, b) {
-    return showDialog(
+    return showModalBottomSheet<void>(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+        ),
+        isScrollControlled: true,
         context: context,
         builder: (context) {
-          return Center(
-            child: Material(
-              type: MaterialType.transparency,
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.9,
-                height: 757,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      width: 339,
-                      height: 226,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10)),
-                      child: new Image.asset(
-                        'assets/images/fasilitas.png',
-                        fit: BoxFit.fill,
-                      ),
+          return Container(
+            height: MediaQuery.of(context).size.height * 0.85,
+            padding: EdgeInsets.only(top: 30),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+              ),
+              color: Colors.white,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.23,
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                    child: new Image.asset(
+                      'assets/images/fasilitas.png',
+                      fit: BoxFit.fill,
                     ),
-                    Container(
-                      width: 261,
-                      child: Center(
-                        child: Text(
-                          'Lapangan Depan',
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 32,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: 339,
-                      height: 88,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    margin: EdgeInsets.only(top: 15),
+                    child: Center(
                       child: Text(
-                        'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
+                        'Lapangan Depan',
                         style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 15,
-                          color: Color.fromRGBO(76, 81, 97, 1),
+                          fontFamily: 'Gilroy-ExtraBold',
+                          fontSize: 32,
+                          color: Colors.black,
                         ),
                       ),
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          width: 0.5,
-                          color: Color.fromRGBO(237, 237, 237, 1),
-                        ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.08,
+                    margin: EdgeInsets.only(top: 15),
+                    child: Text(
+                      'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 15,
+                        color: Color.fromRGBO(76, 81, 97, 1),
                       ),
                     ),
-                    Container(
-                      width: 268,
-                      height: 128,
-                      margin: EdgeInsets.only(right: 50),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Jadwal Peminjaman',
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.04,
+                    margin: EdgeInsets.only(top: 15),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          child: Text(
+                            'Tanggal Peminjaman',
                             style: TextStyle(
                               fontFamily: 'Gilroy-Light',
                               fontSize: 16,
-                              color: Color.fromRGBO(119, 115, 205, 1),
                             ),
                           ),
-                          Text(
-                            'Lebih Nyaman & Teratur dalam Penjadwalan Peminjaman',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-ExtraBold',
-                              fontSize: 24,
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          margin: EdgeInsets.only(left: 15),
+                          child: DateTimePicker(
+                            type: DateTimePickerType.date,
+                            dateMask: 'EEEE, d MMMM yyyy',
+                            initialValue: '',
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(DateTime.now().year + 1),
+                            onChanged: (val) => setState(() {
+                              tglPeminjaman = val;
+                            }),
+                            validator: (val) {
+                              return null;
+                            },
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Container(
-                      width: 356,
-                      height: 61,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Color.fromRGBO(237, 237, 237, 1),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Text(
-                                  'Senin, 17 Oktober 2022',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-ExtraBold',
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                Text(
-                                  '13.30 - 15.30',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 14,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.04,
+                    margin: EdgeInsets.only(top: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          child: Text(
+                            'Waktu mulai Peminjaman',
+                            style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 16,
                             ),
                           ),
-                          Container(
-                            height: 14,
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          margin: EdgeInsets.only(left: 15),
+                          child: DateTimePicker(
+                            type: DateTimePickerType.time,
+                            onChanged: (val) => setState(() {
+                              startPeminjaman = val;
+                            }),
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return 'Waktu mulai tidak boleh kosong';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    margin: EdgeInsets.only(top: 5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          child: Text(
+                            'Waktu berakhir Peminjaman',
+                            style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          margin: EdgeInsets.only(left: 15),
+                          child: DateTimePicker(
+                            type: DateTimePickerType.time,
+                            onChanged: (val) => setState(() {
+                              endPeminjaman = val;
+                            }),
+                            validator: (val) {
+                              if (val!.isEmpty) {
+                                return 'Waktu berakhir tidak boleh kosong';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.046,
+                    margin: EdgeInsets.only(
+                      top: 15,
+                      bottom: 30,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.35,
+                            height: MediaQuery.of(context).size.height * 0.04,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(3),
-                                color: Color.fromRGBO(255, 217, 102, 0.38)),
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color.fromRGBO(217, 217, 217, 1),
+                            ),
                             child: Center(
                               child: Text(
-                                'Oleh: ' + b.name,
+                                'Batal',
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
-                                  fontSize: 10,
-                                  color: Colors.black,
+                                  fontSize: 16,
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            print(tglPeminjaman);
+                            print(startPeminjaman);
+                            print(endPeminjaman);
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.35,
+                            height: MediaQuery.of(context).size.height * 0.04,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.black,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Pinjam Fasilitas',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Divider(),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.12,
+                    margin: EdgeInsets.only(top: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Jadwal Peminjaman',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Light',
+                            fontSize: 16,
+                            color: Color.fromRGBO(119, 115, 205, 1),
+                          ),
+                        ),
+                        Text(
+                          'Lebih Nyaman & Teratur dalam Penjadwalan Peminjaman',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-ExtraBold',
+                            fontSize: 24,
+                            color: Color.fromRGBO(76, 81, 97, 1),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          margin: EdgeInsets.only(top: 15),
+                          child: DateTimePicker(
+                            type: DateTimePickerType.date,
+                            dateMask: 'EEEE, d MMMM yyyy',
+                            icon: Icon(Icons.date_range_rounded),
+                            initialValue: '',
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(DateTime.now().year + 1),
+                            onChanged: (val) => setState(() {
+                              filterPeminjaman = val;
+                            }),
+                            validator: (val) {
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.30,
+                    margin: EdgeInsets.only(
+                      top: 15,
+                    ),
+                    child: loading
+                        ? Center(child: CircularProgressIndicator())
+                        : GridView.builder(
+                            itemCount: 6,
+                            gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent:
+                                  MediaQuery.of(context).size.width * 0.8,
+                              mainAxisExtent:
+                                  MediaQuery.of(context).size.height * 0.064,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 9,
+                            ),
+                            itemBuilder: (context, i) {
+                              return Container(
+                                margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Color.fromRGBO(237, 237, 237, 1),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      spreadRadius: 0,
+                                      blurRadius: 1.5,
+                                      offset: Offset(0, 1),
+                                    )
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                            'Senin, 17 Oktober 2022',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 16,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                          Text(
+                                            '13.30 - 15.30',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 14,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(3),
+                                          color: Color.fromRGBO(
+                                              255, 217, 102, 0.38)),
+                                      child: Center(
+                                        child: Text(
+                                          'Oleh: ' + b.name,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 10,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                  ),
+                ],
               ),
             ),
           );
@@ -445,6 +915,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
               elevation: 0.0,
               iconTheme: IconThemeData(color: Colors.white),
               bottom: TabBar(
+                isScrollable: true,
                 padding: EdgeInsets.only(bottom: 10),
                 indicatorColor: Colors.white,
                 indicatorSize: TabBarIndicatorSize.label,
@@ -1225,7 +1696,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
               SingleChildScrollView(
                 child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
+                    height: MediaQuery.of(context).size.height * 0.85,
                     padding: EdgeInsets.only(bottom: 20),
                     decoration: BoxDecoration(
                       color: Color.fromRGBO(243, 243, 243, 1),
@@ -1233,8 +1704,9 @@ class _FasilitasPageState extends State<FasilitasPage> {
                     child: GridView.builder(
                         itemCount: _list.length,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: 491,
-                          mainAxisExtent: 141,
+                          maxCrossAxisExtent: MediaQuery.of(context).size.width,
+                          mainAxisExtent:
+                              MediaQuery.of(context).size.height * 0.137,
                           mainAxisSpacing: 10,
                         ),
                         itemBuilder: ((context, i) {
@@ -1248,8 +1720,10 @@ class _FasilitasPageState extends State<FasilitasPage> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Container(
-                                  width: 155,
-                                  height: 103,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
                                   margin: EdgeInsets.only(left: 40),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
@@ -1260,8 +1734,10 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                   ),
                                 ),
                                 Container(
-                                  width: 177,
-                                  height: 94,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
                                   margin: EdgeInsets.only(left: 10),
                                   child: Column(
                                     mainAxisAlignment:
@@ -1269,6 +1745,14 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      Text(
+                                        'ID Peminjaman : ' + a.id.toString(),
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 15,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
+                                      ),
                                       Text(
                                         'Lapangan Depan',
                                         style: TextStyle(
@@ -1281,6 +1765,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
                                           fontSize: 14,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
                                         ),
                                       ),
                                       Text(
@@ -1288,24 +1773,246 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
                                           fontSize: 14,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
                                         ),
                                       ),
                                       Container(
-                                        width: a.id % 2 == 0 ? 114 : 53,
-                                        height: 19,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.3,
                                         decoration: BoxDecoration(
-                                          color: a.id % 2 == 0
-                                              ? Color.fromRGBO(255, 217, 102, 1)
-                                              : Color.fromRGBO(
-                                                  217, 217, 217, 1),
+                                          color:
+                                              Color.fromRGBO(217, 217, 217, 1),
                                           borderRadius:
                                               BorderRadius.circular(4),
                                         ),
                                         child: Center(
                                           child: Text(
-                                            a.id % 2 == 0
-                                                ? 'Sedang Dipinjam'
-                                                : 'Selesai',
+                                            'Menunggu Konfirmasi',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 13,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }))),
+              ),
+              SingleChildScrollView(
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.85,
+                    padding: EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(243, 243, 243, 1),
+                    ),
+                    child: GridView.builder(
+                        itemCount: _list.length,
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: MediaQuery.of(context).size.width,
+                          mainAxisExtent:
+                              MediaQuery.of(context).size.height * 0.137,
+                          mainAxisSpacing: 10,
+                        ),
+                        itemBuilder: ((context, i) {
+                          final a = _list[i];
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  margin: EdgeInsets.only(left: 40),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/fasilitas.png',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'ID Peminjaman : ' + a.id.toString(),
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 15,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
+                                      ),
+                                      Text(
+                                        'Lapangan Depan',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-ExtraBold',
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Selasa, 18 Oktober 2022',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 14,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
+                                      ),
+                                      Text(
+                                        '13.30 - 15.00',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 14,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.24,
+                                        decoration: BoxDecoration(
+                                          color:
+                                              Color.fromRGBO(255, 217, 102, 1),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Sedang Dipinjam',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 13,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }))),
+              ),
+              SingleChildScrollView(
+                child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.85,
+                    padding: EdgeInsets.only(bottom: 20),
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(243, 243, 243, 1),
+                    ),
+                    child: GridView.builder(
+                        itemCount: _list.length,
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: MediaQuery.of(context).size.width,
+                          mainAxisExtent:
+                              MediaQuery.of(context).size.height * 0.137,
+                          mainAxisSpacing: 10,
+                        ),
+                        itemBuilder: ((context, i) {
+                          final a = _list[i];
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.3,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  margin: EdgeInsets.only(left: 40),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/fasilitas.png',
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.1,
+                                  margin: EdgeInsets.only(left: 10),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'ID Peminjaman : ' + a.id.toString(),
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 15,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
+                                      ),
+                                      Text(
+                                        'Lapangan Depan',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-ExtraBold',
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Selasa, 18 Oktober 2022',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 14,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
+                                      ),
+                                      Text(
+                                        '13.30 - 15.00',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 14,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.13,
+                                        decoration: BoxDecoration(
+                                          color:
+                                              Color.fromRGBO(217, 217, 217, 1),
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Selesai',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
                                               fontSize: 13,
