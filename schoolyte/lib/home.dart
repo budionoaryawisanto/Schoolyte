@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'koperasi.dart';
 import 'model.dart';
 import 'package:http/http.dart' as http;
 import 'package:schoolyte/absensi.dart';
@@ -380,7 +381,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(
+                              builder: (context) => KoperasiPage()));
                     },
                   ),
                 ),

@@ -1,12 +1,12 @@
-import 'dart:ui';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'fasilitas.dart';
+import 'model.dart';
+import 'package:schoolyte/absensi.dart';
 import 'package:schoolyte/berita.dart';
-import 'package:schoolyte/fasilitas.dart';
 import 'package:schoolyte/jadwal.dart';
 import 'package:schoolyte/nilaiBelajar.dart';
 import 'package:schoolyte/perpustakaan.dart';
@@ -14,15 +14,38 @@ import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 
-class AbsensiPage extends StatefulWidget {
+class KoperasiPage extends StatefulWidget {
   @override
-  _AbsensiPageState createState() => new _AbsensiPageState();
+  _KoperasiPageState createState() => new _KoperasiPageState();
 }
 
-class _AbsensiPageState extends State<AbsensiPage> {
+class _KoperasiPageState extends State<KoperasiPage> {
+  List<Test> _list = [];
+  List<Test> _search = [];
+  var loading = false;
+
+  Future<Null> fetchData() async {
+    setState(() {
+      loading = true;
+    });
+    _list.clear();
+    final response =
+        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _list.add(Test.formJson(i));
+          loading = false;
+        }
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    fetchData();
   }
 
   _logOut() async {
@@ -62,50 +85,81 @@ class _AbsensiPageState extends State<AbsensiPage> {
     jumClick = true;
   }
 
-  File? image;
-  Future getImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked =
-        await _picker.pickImage(source: ImageSource.camera);
+  List<Tab> myTabs = <Tab>[
+    Tab(text: 'Produk'),
+    Tab(text: 'Pesanan Saya'),
+    Tab(text: 'Diambil'),
+    Tab(text: 'Selesai'),
+  ];
 
-    image = File(imagePicked!.path);
-    setState(() {});
+  final TextEditingController searchController = TextEditingController();
+
+  onSearch(String text) async {
+    _search.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+    _list.forEach((e) {
+      if (e.name.toLowerCase().contains(text.toLowerCase()) ||
+          e.id.toString().contains(text) ||
+          e.username.toLowerCase().contains(text.toLowerCase())) {
+        _search.add(e);
+      }
+    });
   }
-
-  var status = ['Hadir', 'Alpha', 'Izin', 'Sakit'];
-  var dropdownvalue = 'Hadir';
-  var waktuAbsen;
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Color.fromRGBO(180, 176, 255, 1),
+        statusBarColor: Color.fromRGBO(255, 204, 47, 1),
+        statusBarIconBrightness: Brightness.light,
         systemNavigationBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
-    return new MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeArea(
+      home: DefaultTabController(
+        length: myTabs.length,
         child: Scaffold(
-          backgroundColor: Color.fromRGBO(243, 243, 243, 1),
-          appBar: AppBar(
-            title: Align(
-              alignment: Alignment(-0.7, 0.0),
-              child: Text(
-                'Absensi',
-                style: TextStyle(
-                  fontFamily: 'Gilroy-ExtraBold',
-                  fontSize: 24,
-                  color: Colors.white,
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Color.fromRGBO(247, 247, 247, 1),
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(138),
+            child: AppBar(
+              backgroundColor: Color.fromRGBO(255, 204, 47, 1),
+              title: Align(
+                alignment: Alignment(-0.7, 0.0),
+                child: Text(
+                  'Koperasi',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-ExtraBold',
+                    fontSize: 24,
+                    color: Colors.white,
+                  ),
                 ),
               ),
+              elevation: 0.0,
+              iconTheme: IconThemeData(color: Colors.white),
+              bottom: TabBar(
+                isScrollable: true,
+                padding: EdgeInsets.only(bottom: 10),
+                indicatorColor: Colors.white,
+                indicatorSize: TabBarIndicatorSize.label,
+                indicatorPadding: EdgeInsets.only(top: 0),
+                labelStyle: TextStyle(
+                  fontFamily: 'Gilroy-ExtraBold',
+                  fontSize: 20,
+                ),
+                unselectedLabelStyle: TextStyle(
+                  fontFamily: 'Gilroy-Light',
+                  fontSize: 20,
+                ),
+                tabs: myTabs,
+              ),
             ),
-            elevation: 0.0,
-            iconTheme: IconThemeData(color: Colors.white),
-            backgroundColor: Color.fromRGBO(180, 176, 255, 1),
           ),
           drawer: Drawer(
             backgroundColor: Colors.white,
@@ -219,7 +273,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                       'Absensi',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-ExtraBold',
+                          fontFamily: 'Gilroy-Light',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
@@ -314,7 +368,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                       'Fasilitas',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
+                          fontFamily: 'Gilroy-ExtraBold',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
@@ -592,313 +646,273 @@ class _AbsensiPageState extends State<AbsensiPage> {
               ],
             ),
           ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: new Image.asset(
-                    'assets/images/infoabsen.png',
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                  margin: EdgeInsets.only(top: 25),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(9),
-                    color: Colors.white,
-                  ),
+          body: TabBarView(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.064,
-                        alignment: AlignmentDirectional.centerStart,
+                        width: MediaQuery.of(context).size.width * 0.84,
+                        margin: EdgeInsets.only(top: 20),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(9),
-                            topRight: Radius.circular(9),
-                          ),
-                          color: Color.fromRGBO(119, 115, 205, 1),
-                        ),
-                        child: Container(
-                          margin: EdgeInsets.only(left: 25),
-                          child: Text(
-                            'Upload Bukti Kehadiran Hari ini !',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-ExtraBold',
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        margin: EdgeInsets.only(
-                          left: 40,
-                          top: 15,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              child: Text(
-                                'Bukti Kehadiran  : ',
-                                style: TextStyle(
-                                    fontFamily: 'Gilroy-Light', fontSize: 16),
-                              ),
-                            ),
-                            image != null
-                                ? TextButton(
-                                    onPressed: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return Center(
-                                              child: Material(
-                                                type: MaterialType.transparency,
-                                                child: new Image.file(image!),
-                                              ),
-                                            );
-                                          });
-                                    },
-                                    child: Container(
-                                      width: 145,
-                                      height: 33,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.3),
-                                            spreadRadius: 0,
-                                            blurRadius: 1.5,
-                                            offset: Offset(0, 0),
-                                          )
-                                        ],
-                                        color: Colors.white,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.done,
-                                            color:
-                                                Color.fromRGBO(76, 81, 97, 1),
-                                            size: 20,
-                                          ),
-                                          Text(
-                                            'Lihat Foto',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 15,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  )
-                                : TextButton(
-                                    onPressed: () async {
-                                      await getImage();
-                                    },
-                                    child: Container(
-                                      width: 145,
-                                      height: 33,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(4),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.3),
-                                            spreadRadius: 0,
-                                            blurRadius: 1.5,
-                                            offset: Offset(0, 0),
-                                          )
-                                        ],
-                                        color: Colors.white,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.photo_camera,
-                                            color:
-                                                Color.fromRGBO(76, 81, 97, 1),
-                                            size: 20,
-                                          ),
-                                          Text(
-                                            'Tambah Foto',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 15,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                            image != null
-                                ? Container(
-                                    child: TextButton(
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                        size: 20,
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          image = null;
-                                        });
-                                      },
-                                    ),
-                                  )
-                                : Container(),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 0,
+                              blurRadius: 1.5,
+                              offset: Offset(0, 0),
+                            )
                           ],
                         ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        margin: EdgeInsets.only(
-                          left: 40,
-                          top: 10,
-                        ),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'Pilih Kehadiran    :  ',
-                              style: TextStyle(
-                                  fontFamily: 'Gilroy-Light', fontSize: 16),
-                            ),
                             Container(
-                              width: 90,
-                              height: 26,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.3),
-                                    spreadRadius: 0,
-                                    blurRadius: 1.5,
-                                    offset: Offset(0, 0),
-                                  )
-                                ],
-                                color: Color.fromRGBO(243, 243, 243, 1),
-                              ),
-                              child: Center(
-                                child: DropdownButton(
-                                  value: dropdownvalue,
-                                  elevation: 0,
-                                  underline: SizedBox(),
+                              width: MediaQuery.of(context).size.width * 0.71,
+                              height: 46,
+                              child: Form(
+                                child: TextFormField(
                                   style: TextStyle(
                                     fontFamily: 'Gilroy-Light',
                                     fontSize: 16,
-                                    color: Color.fromRGBO(76, 81, 97, 1),
                                   ),
-                                  icon: const Icon(Icons.keyboard_arrow_down),
-                                  items: status.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
-                                    );
-                                  }).toList(),
-                                  onChanged: (String? newValue) {
+                                  textInputAction: TextInputAction.done,
+                                  controller: searchController,
+                                  autocorrect: true,
+                                  onChanged: ((value) {
                                     setState(() {
-                                      dropdownvalue = newValue!;
+                                      onSearch(value);
                                     });
-                                  },
+                                  }),
+                                  decoration: new InputDecoration(
+                                    icon: Icon(
+                                      Icons.search,
+                                      size: 24,
+                                    ),
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    hintText: 'Mau cari produk apa hari ini?',
+                                    hintStyle: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 16,
+                                    ),
+                                  ),
                                 ),
                               ),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.cancel,
+                                  size: 24,
+                                  color: searchController.text.length != 0
+                                      ? Colors.red
+                                      : Color.fromRGBO(76, 81, 97, 58)),
+                              onPressed: () {
+                                searchController.clear();
+                                onSearch('');
+                              },
                             ),
                           ],
                         ),
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.56,
-                        margin: EdgeInsets.only(
-                          left: 40,
-                          top: 10,
-                          bottom: 15,
+                      SingleChildScrollView(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.73,
+                          margin: EdgeInsets.all(20),
+                          child: loading
+                              ? Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : _search.length != 0 ||
+                                      searchController.text.isNotEmpty
+                                  ? Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      child: GridView.builder(
+                                          itemCount: _search.length,
+                                          padding: EdgeInsets.all(10),
+                                          gridDelegate:
+                                              SliverGridDelegateWithMaxCrossAxisExtent(
+                                            maxCrossAxisExtent: 183,
+                                            mainAxisExtent: 212,
+                                            crossAxisSpacing: 23,
+                                            mainAxisSpacing: 5,
+                                          ),
+                                          itemBuilder: (context, i) {
+                                            final b = _search[i];
+                                            return Container(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 12,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.3),
+                                                    spreadRadius: 0,
+                                                    blurRadius: 1.5,
+                                                    offset: Offset(0, 0),
+                                                  )
+                                                ],
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    width: 162,
+                                                    height: 108,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: new Image.asset(
+                                                      'assets/images/fasilitas.png',
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 131,
+                                                    child: Text(
+                                                      'Lapangan Depan',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 162,
+                                                    child: Text(
+                                                      b.username +
+                                                          b.name +
+                                                          b.email +
+                                                          b.website +
+                                                          b.phone,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-Light',
+                                                        fontSize: 10,
+                                                        color: Color.fromRGBO(
+                                                            76, 81, 97, 1),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          }),
+                                    )
+                                  : Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      child: GridView.builder(
+                                          itemCount: _list.length,
+                                          padding: EdgeInsets.all(10),
+                                          gridDelegate:
+                                              SliverGridDelegateWithMaxCrossAxisExtent(
+                                            maxCrossAxisExtent: 183,
+                                            mainAxisExtent: 212,
+                                            crossAxisSpacing: 23,
+                                            mainAxisSpacing: 5,
+                                          ),
+                                          itemBuilder: (context, i) {
+                                            final a = _list[i];
+                                            return Container(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 12,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.3),
+                                                    spreadRadius: 0,
+                                                    blurRadius: 1.5,
+                                                    offset: Offset(0, 0),
+                                                  )
+                                                ],
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    width: 162,
+                                                    height: 108,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: new Image.asset(
+                                                      'assets/images/fasilitas.png',
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 131,
+                                                    child: Text(
+                                                      'Lapangan Depan',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16,
+                                                        color: Colors.black,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 162,
+                                                    child: Text(
+                                                      a.username +
+                                                          a.name +
+                                                          a.email +
+                                                          a.website +
+                                                          a.phone,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-Light',
+                                                        fontSize: 10,
+                                                        color: Color.fromRGBO(
+                                                            76, 81, 97, 1),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          }),
+                                    ),
                         ),
-                        child: DateTimePicker(
-                          type: DateTimePickerType.dateTime,
-                          icon: Icon(Icons.date_range_rounded),
-                          dateMask: 'EEEE, d MMMM yyyy   H:m',
-                          initialValue: '',
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime.now(),
-                          selectableDayPredicate: (date) {
-                            if (date.weekday == 6 || date.weekday == 7) {
-                              return false;
-                            }
-                            return true;
-                          },
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-Light',
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                          onChanged: (val) => setState(() {
-                            waktuAbsen = val;
-                          }),
-                          validator: (val) {
-                            return null;
-                          },
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.215,
-                            height: MediaQuery.of(context).size.height * 0.031,
-                            margin: EdgeInsets.only(right: 15),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(9),
-                              color: Colors.black,
-                            ),
-                            child: Center(
-                              child: GestureDetector(
-                                onTap: () {
-                                  print(image);
-                                  print(dropdownvalue);
-                                  print(waktuAbsen);
-                                },
-                                child: Text(
-                                  'Selesai',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
