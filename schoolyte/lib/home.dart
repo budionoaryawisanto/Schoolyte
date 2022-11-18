@@ -20,8 +20,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Users> _user = [];
-  List<Users> _userActive = [];
+  List<Test> _user = [];
+  List<Test> _userActive = [];
   var loading = false;
 
   Future<Null> fetchData() async {
@@ -30,13 +30,13 @@ class _HomePageState extends State<HomePage> {
     });
     _user.clear();
     final response = await http
-        .get(Uri.parse('https://schoolyte.000webhostapp.com/api/siswas'));
+        .get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       getUsername();
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _user.add(Users.formJson(i));
+          _user.add(Test.formJson(i));
           loading = false;
         }
       });
@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
     final prefs = await SharedPreferences.getInstance();
     var username = prefs.getString('username');
     _user.forEach((e) {
-      if (e.email.toLowerCase().contains(username.toString())) {
+      if (e.email.toLowerCase() == username.toString()) {
         _userActive.add(e);
       }
     });
@@ -638,8 +638,8 @@ class _HomePageState extends State<HomePage> {
                                     right: 14,
                                   ),
                                   child: ClipOval(
-                                    child: new Image.network(
-                                      _userActive[0].image_url,
+                                    child: Image.asset(
+                                      'assets/images/profil.png',
                                       fit: BoxFit.fill,
                                     ),
                                   ),

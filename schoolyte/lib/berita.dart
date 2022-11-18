@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'koperasi.dart';
 import 'model.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:schoolyte/absensi.dart';
@@ -427,7 +428,8 @@ class _BeritaPageState extends State<BeritaPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(
+                              builder: (context) => KoperasiPage()));
                     },
                   ),
                 ),

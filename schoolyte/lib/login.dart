@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey2 = GlobalKey<FormState>();
   bool visible = false;
 
-  List<Users> _list = [];
+  List<Test> _list = [];
   var loading = false;
   var obscure = true;
 
@@ -29,12 +29,12 @@ class _LoginPageState extends State<LoginPage> {
     _list.clear();
     final response =
         await http
-        .get(Uri.parse('https://schoolyte.000webhostapp.com/api/siswas'));
+        .get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _list.add(Users.formJson(i));
+          _list.add(Test.formJson(i));
           loading = false;
         }
       });

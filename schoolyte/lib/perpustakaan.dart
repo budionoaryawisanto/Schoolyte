@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'koperasi.dart';
 import 'model.dart';
 import 'package:schoolyte/absensi.dart';
 import 'package:schoolyte/berita.dart';
@@ -434,7 +435,8 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(
+                              builder: (context) => KoperasiPage()));
                     },
                   ),
                 ),

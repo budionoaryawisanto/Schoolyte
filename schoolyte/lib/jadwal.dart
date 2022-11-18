@@ -13,6 +13,8 @@ import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 
+import 'koperasi.dart';
+
 class JadwalPage extends StatefulWidget {
   @override
   _JadwalPageState createState() => new _JadwalPageState();
@@ -422,7 +424,8 @@ class _JadwalPageState extends State<JadwalPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(
+                              builder: (context) => KoperasiPage()));
                     },
                   ),
                 ),

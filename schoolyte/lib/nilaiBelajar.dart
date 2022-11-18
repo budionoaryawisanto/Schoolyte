@@ -10,6 +10,8 @@ import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 
+import 'koperasi.dart';
+
 class NilaiBelajarPage extends StatefulWidget {
   @override
   _NilaiBelajarState createState() => new _NilaiBelajarState();
@@ -343,7 +345,8 @@ class _NilaiBelajarState extends State<NilaiBelajarPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(
+                              builder: (context) => KoperasiPage()));
                     },
                   ),
                 ),

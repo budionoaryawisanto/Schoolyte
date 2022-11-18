@@ -10,6 +10,7 @@ import 'package:schoolyte/nilaiBelajar.dart';
 import 'package:schoolyte/perpustakaan.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
+import 'package:schoolyte/koperasi.dart';
 
 class RaporPage extends StatefulWidget {
   @override
@@ -354,7 +355,8 @@ class _RaporPageState extends State<RaporPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(
+                              builder: (context) => KoperasiPage()));
                     },
                   ),
                 ),

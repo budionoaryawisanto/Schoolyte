@@ -20,6 +20,7 @@ import 'dart:math';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
+import 'koperasi.dart';
 import 'model.dart';
 import 'scanner.dart';
 
@@ -429,7 +430,8 @@ class _KantinPageState extends State<KantinPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(
+                              builder: (context) => KoperasiPage()));
                     },
                   ),
                 ),
