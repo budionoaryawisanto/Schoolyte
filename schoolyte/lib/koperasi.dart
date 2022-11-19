@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'fasilitas.dart';
@@ -13,6 +14,8 @@ import 'package:schoolyte/perpustakaan.dart';
 import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
+
+import 'pembayaranKoperasi.dart';
 
 class KoperasiPage extends StatefulWidget {
   @override
@@ -834,7 +837,9 @@ class _KoperasiPageState extends State<KoperasiPage> {
                       SingleChildScrollView(
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.65,
+                          height: count > 0
+                              ? MediaQuery.of(context).size.height * 0.58
+                              : MediaQuery.of(context).size.height * 0.65,
                           margin: EdgeInsets.symmetric(vertical: 20),
                           child: loading
                               ? Center(
@@ -1292,8 +1297,250 @@ class _KoperasiPageState extends State<KoperasiPage> {
                                     ),
                         ),
                       ),
+                      Visibility(
+                        visible: count > 0 ? true : false,
+                        child: GestureDetector(
+                          onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PembayaranKoperasi())),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.89,
+                            height: 43,
+                            padding: EdgeInsets.symmetric(
+                              vertical: 5,
+                              horizontal: 20,
+                            ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color.fromRGBO(255, 199, 0, 1),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '3 item',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 10,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Total Bayar',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Rp.30.000',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 16,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 5),
+                                      child: Icon(
+                                        Icons.shopping_bag,
+                                        size: 20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.85,
+                padding: EdgeInsets.all(10),
+                child: GridView.builder(
+                  itemCount: _list.length,
+                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: MediaQuery.of(context).size.width,
+                    mainAxisExtent: 200,
+                    mainAxisSpacing: 5,
+                    crossAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, i) {
+                    final a = _list[i];
+                    return Container(
+                      padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(7),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            spreadRadius: 0,
+                            blurRadius: 1.5,
+                            offset: Offset(0, 0),
+                          )
+                        ],
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'No. Pesanan',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-ExtraBold',
+                                      fontSize: 13,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Waktu Pemesanan',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 13,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    a.id.toString(),
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 13,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Senin, 11 Januari 2023',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 13,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Divider(
+                            color: Color.fromRGBO(76, 81, 97, 1),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 80,
+                            child: GridView.builder(
+                              itemCount: 6,
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent:
+                                    MediaQuery.of(context).size.width,
+                                mainAxisExtent: 20,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                              ),
+                              itemBuilder: (context, i) {
+                                return Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            margin: EdgeInsets.only(right: 5),
+                                            child: Text(
+                                              '1X',
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Extrabold',
+                                                fontSize: 14,
+                                                color: Color.fromRGBO(
+                                                    242, 78, 26, 1),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            'Pensil',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Extrabold',
+                                              fontSize: 16,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Text(
+                                        'Rp.10.000',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Extrabold',
+                                          fontSize: 16,
+                                          color: Color.fromRGBO(242, 78, 26, 1),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          Divider(
+                            color: Color.fromRGBO(76, 81, 97, 1),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text(
+                                'Total Pembayaran',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Extrabold',
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                              ),
+                              Text(
+                                'Rp.30.000',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Extrabold',
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(242, 78, 26, 1),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
