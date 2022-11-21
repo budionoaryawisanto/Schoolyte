@@ -147,12 +147,6 @@ class _SumbangBukuState extends State<SumbangBuku> {
                               width: MediaQuery.of(context).size.width,
                               height:
                                   MediaQuery.of(context).size.height * 0.7,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 1,
-                                  color: Colors.black,
-                                ),
-                              ),
                               padding: EdgeInsets.symmetric(
                                   horizontal:
                                       MediaQuery.of(context).size.width * 0.09),
