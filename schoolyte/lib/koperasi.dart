@@ -15,6 +15,7 @@ import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 
+import 'osis.dart';
 import 'pembayaranKoperasi.dart';
 
 class KoperasiPage extends StatefulWidget {
@@ -573,7 +574,7 @@ class _KoperasiPageState extends State<KoperasiPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => OsisPage()));
                     },
                   ),
                 ),

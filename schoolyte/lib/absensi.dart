@@ -15,6 +15,7 @@ import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 
 import 'koperasi.dart';
+import 'osis.dart';
 
 class AbsensiPage extends StatefulWidget {
   @override
@@ -517,7 +518,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => OsisPage()));
                     },
                   ),
                 ),

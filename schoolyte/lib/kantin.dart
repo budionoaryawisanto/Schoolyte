@@ -22,6 +22,7 @@ import 'package:sizer/sizer.dart';
 import 'package:http/http.dart' as http;
 import 'koperasi.dart';
 import 'model.dart';
+import 'osis.dart';
 import 'scanner.dart';
 
 class KantinPage extends StatefulWidget {
@@ -574,7 +575,7 @@ class _KantinPageState extends State<KantinPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => OsisPage()));
                     },
                   ),
                 ),

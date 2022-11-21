@@ -12,6 +12,8 @@ import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 import 'package:schoolyte/koperasi.dart';
 
+import 'osis.dart';
+
 class RaporPage extends StatefulWidget {
   @override
   _RaporPageState createState() => new _RaporPageState();
@@ -499,7 +501,7 @@ class _RaporPageState extends State<RaporPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => OsisPage()));
                     },
                   ),
                 ),

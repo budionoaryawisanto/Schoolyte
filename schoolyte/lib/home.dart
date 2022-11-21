@@ -13,6 +13,7 @@ import 'package:schoolyte/nilaiBelajar.dart';
 import 'package:schoolyte/perpustakaan.dart';
 import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
+import 'osis.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -525,7 +526,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => OsisPage()));
                     },
                   ),
                 ),

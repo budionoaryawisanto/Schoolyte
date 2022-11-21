@@ -14,15 +14,14 @@ import 'package:schoolyte/perpustakaan.dart';
 import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
+import 'package:schoolyte/fasilitas.dart';
 
-import 'osis.dart';
-
-class FasilitasPage extends StatefulWidget {
+class OsisPage extends StatefulWidget {
   @override
-  _FasilitasPageState createState() => new _FasilitasPageState();
+  _OsisPageState createState() => new _OsisPageState();
 }
 
-class _FasilitasPageState extends State<FasilitasPage> {
+class _OsisPageState extends State<OsisPage> {
   List<Test> _list = [];
   List<Test> _search = [];
   var loading = false;
@@ -89,10 +88,8 @@ class _FasilitasPageState extends State<FasilitasPage> {
   }
 
   List<Tab> myTabs = <Tab>[
-    Tab(text: 'Fasilitas'),
-    Tab(text: 'Menunggu'),
-    Tab(text: 'Dipinjam'),
-    Tab(text: 'Selesai'),
+    Tab(text: 'Kegiatan'),
+    Tab(text: 'Struktur Osis'),
   ];
 
   final TextEditingController searchController = TextEditingController();
@@ -887,7 +884,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Color.fromRGBO(119, 119, 205, 1),
+        statusBarColor: Color.fromRGBO(255, 199, 0, 1),
         statusBarIconBrightness: Brightness.light,
         systemNavigationBarColor: Colors.white,
         systemNavigationBarIconBrightness: Brightness.dark,
@@ -903,11 +900,11 @@ class _FasilitasPageState extends State<FasilitasPage> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(138),
             child: AppBar(
-              backgroundColor: Color.fromRGBO(119, 115, 205, 1),
+              backgroundColor: Color.fromRGBO(255, 199, 0, 1),
               title: Align(
                 alignment: Alignment(-0.7, 0.0),
                 child: Text(
-                  'Fasilitas',
+                  'Osis',
                   style: TextStyle(
                     fontFamily: 'Gilroy-ExtraBold',
                     fontSize: 24,
@@ -918,7 +915,6 @@ class _FasilitasPageState extends State<FasilitasPage> {
               elevation: 0.0,
               iconTheme: IconThemeData(color: Colors.white),
               bottom: TabBar(
-                isScrollable: true,
                 padding: EdgeInsets.only(bottom: 10),
                 indicatorColor: Colors.white,
                 indicatorSize: TabBarIndicatorSize.label,
@@ -1142,7 +1138,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                       'Fasilitas',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-ExtraBold',
+                          fontFamily: 'Gilroy-Light',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
@@ -1198,7 +1194,8 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.push(context,
+                      Navigator.push(
+                          context,
                           MaterialPageRoute(
                               builder: (context) => KoperasiPage()));
                     },
@@ -1337,13 +1334,13 @@ class _FasilitasPageState extends State<FasilitasPage> {
                       'OSIS',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
+                          fontFamily: 'Gilroy-ExtraBold',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => OsisPage()));
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -1489,7 +1486,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                       ),
                       SingleChildScrollView(
                         child: Container(
-                          width: MediaQuery.of(context).size.width * 0.84,
+                          width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.73,
                           margin: EdgeInsets.all(20),
                           child: loading
@@ -1499,18 +1496,24 @@ class _FasilitasPageState extends State<FasilitasPage> {
                               : _search.length != 0 ||
                                       searchController.text.isNotEmpty
                                   ? Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
                                       child: GridView.builder(
                                           itemCount: _search.length,
                                           padding: EdgeInsets.all(10),
                                           gridDelegate:
                                               SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent: 183,
-                                            mainAxisExtent: 212,
-                                            crossAxisSpacing: 30,
+                                            maxCrossAxisExtent:
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.42,
+                                            mainAxisExtent: 267,
+                                            crossAxisSpacing: 15,
                                             mainAxisSpacing: 20,
                                           ),
                                           itemBuilder: (context, i) {
-                                            final b = _search[i];
+                                            final b = _list[i];
                                             return GestureDetector(
                                               onTap: () {
                                                 showDialogFuncSearch(
@@ -1519,6 +1522,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                               child: Container(
                                                 padding: EdgeInsets.symmetric(
                                                   horizontal: 12,
+                                                  vertical: 12,
                                                 ),
                                                 decoration: BoxDecoration(
                                                   color: Colors.white,
@@ -1542,22 +1546,22 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Container(
-                                                      width: 162,
-                                                      height: 108,
                                                       decoration: BoxDecoration(
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
                                                                       10)),
                                                       child: new Image.asset(
-                                                        'assets/images/fasilitas.png',
+                                                        'assets/images/dies.png',
                                                         fit: BoxFit.fill,
                                                       ),
                                                     ),
                                                     Container(
-                                                      width: 131,
                                                       child: Text(
-                                                        'Lapangan Depan',
+                                                        'Dies Natalis SMAN 11 Surabaya ke - 8',
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-ExtraBold',
@@ -1567,13 +1571,27 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                                       ),
                                                     ),
                                                     Container(
-                                                      width: 162,
                                                       child: Text(
-                                                        b.username +
-                                                            b.name +
-                                                            b.email +
-                                                            b.website +
-                                                            b.phone,
+                                                        '24 12 2022 - 28 12 2022',
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-Light',
+                                                          fontSize: 10,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 0.47),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      height: 63,
+                                                      child: Text(
+                                                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie ipsum faucibus leo aliquam lorem sit. Non libero, cursus mattis id sapien cursus',
+                                                        maxLines: 5,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-Light',
@@ -1583,6 +1601,41 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                                         ),
                                                       ),
                                                     ),
+                                                    Container(
+                                                      height: 25,
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          ClipOval(
+                                                            child: Image.asset(
+                                                              'assets/images/profil.png',
+                                                              fit: BoxFit.fill,
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 5),
+                                                            child: Text(
+                                                              'Rendy Pratama',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Gilroy-ExtraBold',
+                                                                fontSize: 12,
+                                                                color: Color
+                                                                    .fromRGBO(
+                                                                        76,
+                                                                        81,
+                                                                        97,
+                                                                        1),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ],
                                                 ),
                                               ),
@@ -1590,14 +1643,20 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                           }),
                                     )
                                   : Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
                                       child: GridView.builder(
                                           itemCount: _list.length,
                                           padding: EdgeInsets.all(10),
                                           gridDelegate:
                                               SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent: 183,
-                                            mainAxisExtent: 212,
-                                            crossAxisSpacing: 30,
+                                            maxCrossAxisExtent:
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.42,
+                                            mainAxisExtent: 267,
+                                            crossAxisSpacing: 15,
                                             mainAxisSpacing: 20,
                                           ),
                                           itemBuilder: (context, i) {
@@ -1609,6 +1668,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                               child: Container(
                                                 padding: EdgeInsets.symmetric(
                                                   horizontal: 12,
+                                                  vertical: 12,
                                                 ),
                                                 decoration: BoxDecoration(
                                                   color: Colors.white,
@@ -1632,22 +1692,22 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Container(
-                                                      width: 162,
-                                                      height: 108,
                                                       decoration: BoxDecoration(
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
                                                                       10)),
                                                       child: new Image.asset(
-                                                        'assets/images/fasilitas.png',
+                                                        'assets/images/dies.png',
                                                         fit: BoxFit.fill,
                                                       ),
                                                     ),
                                                     Container(
-                                                      width: 131,
                                                       child: Text(
-                                                        'Lapangan Depan',
+                                                        'Dies Natalis SMAN 11 Surabaya ke - 8',
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-ExtraBold',
@@ -1657,13 +1717,27 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                                       ),
                                                     ),
                                                     Container(
-                                                      width: 162,
                                                       child: Text(
-                                                        a.username +
-                                                            a.name +
-                                                            a.email +
-                                                            a.website +
-                                                            a.phone,
+                                                        '24 12 2022 - 28 12 2022',
+                                                        maxLines: 1,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-Light',
+                                                          fontSize: 10,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 0.47),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      height: 63,
+                                                      child: Text(
+                                                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie ipsum faucibus leo aliquam lorem sit. Non libero, cursus mattis id sapien cursus',
+                                                        maxLines: 5,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-Light',
@@ -1671,6 +1745,41 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                                           color: Color.fromRGBO(
                                                               76, 81, 97, 1),
                                                         ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      height: 25,
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          ClipOval(
+                                                            child: Image.asset(
+                                                              'assets/images/profil.png',
+                                                              fit: BoxFit.fill,
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 5),
+                                                            child: Text(
+                                                              'Rendy Pratama',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Gilroy-ExtraBold',
+                                                                fontSize: 12,
+                                                                color: Color
+                                                                    .fromRGBO(
+                                                                        76,
+                                                                        81,
+                                                                        97,
+                                                                        1),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                   ],
@@ -1781,230 +1890,6 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                         child: Center(
                                           child: Text(
                                             'Menunggu Konfirmasi',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 13,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }))),
-              ),
-              SingleChildScrollView(
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.85,
-                    padding: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(243, 243, 243, 1),
-                    ),
-                    child: GridView.builder(
-                        itemCount: _list.length,
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: MediaQuery.of(context).size.width,
-                          mainAxisExtent:
-                              MediaQuery.of(context).size.height * 0.137,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemBuilder: ((context, i) {
-                          final a = _list[i];
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.1,
-                                  margin: EdgeInsets.only(left: 40),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/fasilitas.png',
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.5,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.1,
-                                  margin: EdgeInsets.only(left: 10),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'ID Peminjaman : ' + a.id.toString(),
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 15,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Lapangan Depan',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      Text(
-                                        'Selasa, 18 Oktober 2022',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 14,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
-                                        ),
-                                      ),
-                                      Text(
-                                        '13.30 - 15.00',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 14,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
-                                        ),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.24,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Color.fromRGBO(255, 217, 102, 1),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Sedang Dipinjam',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 13,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }))),
-              ),
-              SingleChildScrollView(
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.85,
-                    padding: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(243, 243, 243, 1),
-                    ),
-                    child: GridView.builder(
-                        itemCount: _list.length,
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: MediaQuery.of(context).size.width,
-                          mainAxisExtent:
-                              MediaQuery.of(context).size.height * 0.137,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemBuilder: ((context, i) {
-                          final a = _list[i];
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.1,
-                                  margin: EdgeInsets.only(left: 40),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/fasilitas.png',
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.5,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.1,
-                                  margin: EdgeInsets.only(left: 10),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'ID Peminjaman : ' + a.id.toString(),
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 15,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Lapangan Depan',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      Text(
-                                        'Selasa, 18 Oktober 2022',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 14,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
-                                        ),
-                                      ),
-                                      Text(
-                                        '13.30 - 15.00',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 14,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
-                                        ),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.13,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Color.fromRGBO(217, 217, 217, 1),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Selesai',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
                                               fontSize: 13,

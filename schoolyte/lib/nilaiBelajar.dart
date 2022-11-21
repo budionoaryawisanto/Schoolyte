@@ -11,6 +11,7 @@ import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 
 import 'koperasi.dart';
+import 'osis.dart';
 
 class NilaiBelajarPage extends StatefulWidget {
   @override
@@ -503,7 +504,7 @@ class _NilaiBelajarState extends State<NilaiBelajarPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomePage()));
+                                builder: (context) => OsisPage()));
                       },
                     ),
                   ),

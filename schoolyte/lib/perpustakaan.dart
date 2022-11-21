@@ -15,6 +15,7 @@ import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 
+import 'osis.dart';
 import 'sumbangBuku.dart';
 
 class PerpustakaanPage extends StatefulWidget {
@@ -579,7 +580,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => OsisPage()));
                     },
                   ),
                 ),

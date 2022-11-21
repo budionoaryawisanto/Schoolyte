@@ -15,6 +15,8 @@ import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 
+import 'osis.dart';
+
 class BeritaPage extends StatefulWidget {
   @override
   _BeritaPageState createState() => new _BeritaPageState();
@@ -572,7 +574,7 @@ class _BeritaPageState extends State<BeritaPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => OsisPage()));
                     },
                   ),
                 ),

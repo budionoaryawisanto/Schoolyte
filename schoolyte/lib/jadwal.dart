@@ -14,6 +14,7 @@ import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 
 import 'koperasi.dart';
+import 'osis.dart';
 
 class JadwalPage extends StatefulWidget {
   @override
@@ -568,7 +569,7 @@ class _JadwalPageState extends State<JadwalPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => OsisPage()));
                     },
                   ),
                 ),
