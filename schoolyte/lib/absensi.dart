@@ -77,7 +77,13 @@ class _AbsensiPageState extends State<AbsensiPage> {
 
   var status = ['Hadir', 'Alpha', 'Izin', 'Sakit'];
   var dropdownvalue = 'Hadir';
-  var waktuAbsen;
+  final waktuAbsen = DateTime.now().hour.toString() +
+      ':' +
+      DateTime.now().minute.toString() +
+      ' ' +
+      DateTime.now().timeZoneName;
+
+  var tglAbsen;
 
   @override
   Widget build(BuildContext context) {
@@ -844,36 +850,67 @@ class _AbsensiPageState extends State<AbsensiPage> {
                         ),
                       ),
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.56,
+                        width: MediaQuery.of(context).size.width * 0.8,
                         margin: EdgeInsets.only(
-                          left: 40,
+                          left: 30,
+                          bottom: 25,
                           top: 10,
-                          bottom: 15,
                         ),
-                        child: DateTimePicker(
-                          type: DateTimePickerType.dateTime,
-                          icon: Icon(Icons.date_range_rounded),
-                          dateMask: 'EEEE, d MMMM yyyy   H:m',
-                          initialValue: '',
-                          firstDate: DateTime.now(),
-                          lastDate: DateTime.now(),
-                          selectableDayPredicate: (date) {
-                            if (date.weekday == 6 || date.weekday == 7) {
-                              return false;
-                            }
-                            return true;
-                          },
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-Light',
-                            fontSize: 16,
-                            color: Colors.black,
-                          ),
-                          onChanged: (val) => setState(() {
-                            waktuAbsen = val;
-                          }),
-                          validator: (val) {
-                            return null;
-                          },
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.52,
+                              child: DateTimePicker(
+                                type: DateTimePickerType.date,
+                                icon: Icon(Icons.date_range_rounded),
+                                dateMask: 'EEEE, d MMMM yyyy',
+                                initialValue: '',
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime.now(),
+                                selectableDayPredicate: (date) {
+                                  if (date.weekday == 6 || date.weekday == 7) {
+                                    return false;
+                                  }
+                                  return true;
+                                },
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 16,
+                                  color: Colors.black,
+                                ),
+                                onChanged: (val) => setState(() {
+                                  tglAbsen = val;
+                                }),
+                                validator: (val) {
+                                  return null;
+                                },
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.22,
+                              margin: EdgeInsets.only(left: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Icon(
+                                    Icons.schedule_rounded,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                  ),
+                                  Text(
+                                    waktuAbsen,
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Row(

@@ -15,6 +15,7 @@ import 'package:schoolyte/perpustakaan.dart';
 import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'osis.dart';
+import 'perpustakaanPegawai.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -316,10 +317,18 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PerpustakaanPage()));
+                      if (_userActive[0].email.toLowerCase() ==
+                          'chaim_mcdermott@dana.io') {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    PerpustakaanPegawaiPage()));
+                      } else
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PerpustakaanPage()));
                     },
                   ),
                 ),
@@ -805,8 +814,20 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   TextButton(
-                                    onPressed: () async {
-                                      
+                                    onPressed: () {
+                                      if (_userActive[0].email.toLowerCase() ==
+                                          'rey.padberg@karina.biz') {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AbsensiPegawaiPage()));
+                                      } else
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AbsensiPage()));
                                     },
                                     child: Container(
                                       width: 56,
