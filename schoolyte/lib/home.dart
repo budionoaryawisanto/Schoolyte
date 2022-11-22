@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'absensiPegawai.dart';
 import 'koperasi.dart';
 import 'model.dart';
 import 'package:http/http.dart' as http;
@@ -235,9 +236,16 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
+                      if (_userActive[0].email.toLowerCase() ==
+                          'rey.padberg@karina.biz') {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AbsensiPegawaiPage()));
+                      } else
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
                               builder: (context) => AbsensiPage()));
                     },
                   ),
@@ -797,12 +805,8 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                   TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AbsensiPage()));
+                                    onPressed: () async {
+                                      
                                     },
                                     child: Container(
                                       width: 56,

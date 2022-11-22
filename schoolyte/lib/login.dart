@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
     String password = passwordController.text;
     if (_formKey.currentState!.validate()) {}
     if (_formKey2.currentState!.validate()) {}
-    for (var i = 0; i < _list.length; i++) {
+    for (var i = 0; i < _list.length + 1; i++) {
       if (userid == '20051214078' && password == 'aryagtg' ||
           userid == _list[i].email.toLowerCase() &&
               password.toLowerCase() == _list[i].username.toLowerCase()) {

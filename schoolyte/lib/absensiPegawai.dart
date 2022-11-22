@@ -17,12 +17,12 @@ import 'package:schoolyte/home.dart';
 import 'koperasi.dart';
 import 'osis.dart';
 
-class AbsensiPage extends StatefulWidget {
+class AbsensiPegawaiPage extends StatefulWidget {
   @override
-  _AbsensiPageState createState() => new _AbsensiPageState();
+  _AbsensiPegawaiPageState createState() => new _AbsensiPegawaiPageState();
 }
 
-class _AbsensiPageState extends State<AbsensiPage> {
+class _AbsensiPegawaiPageState extends State<AbsensiPegawaiPage> {
   @override
   void initState() {
     super.initState();
@@ -98,7 +98,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
             title: Align(
               alignment: Alignment(-0.7, 0.0),
               child: Text(
-                'Absensi',
+                'Absensi Pegawai',
                 style: TextStyle(
                   fontFamily: 'Gilroy-ExtraBold',
                   fontSize: 24,
@@ -230,7 +230,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AbsensiPage()));
+                              builder: (context) => AbsensiPegawaiPage()));
                     },
                   ),
                 ),
