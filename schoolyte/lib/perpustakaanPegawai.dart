@@ -13,6 +13,7 @@ import 'package:schoolyte/home.dart';
 import 'package:schoolyte/koperasi.dart';
 import 'osis.dart';
 import 'rapor.dart';
+import 'tambahBuku.dart';
 
 class PerpustakaanPegawaiPage extends StatefulWidget {
   @override
@@ -77,7 +78,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
-          backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+          backgroundColor: Colors.white,
           appBar: AppBar(
             title: Align(
               alignment: Alignment(-0.7, 0.0),
@@ -581,7 +582,178 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
               ],
             ),
           ),
-          body: SingleChildScrollView(),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/infopp.png',
+                  fit: BoxFit.fill,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.44,
+                  height: 350,
+                  margin: EdgeInsets.only(top: 50),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Pilih Kategori',
+                        style: TextStyle(
+                            fontFamily: 'Gilroy-ExtraBold',
+                            fontSize: 24,
+                            color: Color.fromRGBO(
+                              76,
+                              81,
+                              97,
+                              1,
+                            )),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => TambahBuku()));
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.164,
+                              height: 114,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: 70,
+                                    height: 70,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.3),
+                                          spreadRadius: 0,
+                                          blurRadius: 1.5,
+                                          offset: Offset(0, 0),
+                                        ),
+                                      ],
+                                      color: Colors.white,
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.post_add,
+                                        size: 50,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Tambah Buku',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.164,
+                            height: 114,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 70,
+                                  height: 70,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(6),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.3),
+                                        spreadRadius: 0,
+                                        blurRadius: 1.5,
+                                        offset: Offset(0, 0),
+                                      ),
+                                    ],
+                                    color: Colors.white,
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.menu_book,
+                                      size: 50,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  'Peminjman Buku',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.164,
+                        height: 114,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 70,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 0,
+                                    blurRadius: 1.5,
+                                    offset: Offset(0, 0),
+                                  ),
+                                ],
+                                color: Colors.white,
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.library_books,
+                                  size: 50,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              'Peminjman Buku',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
