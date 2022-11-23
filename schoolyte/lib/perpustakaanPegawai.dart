@@ -288,7 +288,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PerpustakaanPage()));
+                              builder: (context) => PerpustakaanPegawaiPage()));
                     },
                   ),
                 ),

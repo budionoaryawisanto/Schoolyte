@@ -1332,14 +1332,9 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                       MainAxisAlignment
                                                           .spaceEvenly,
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.16,
                                                       decoration: BoxDecoration(
                                                           borderRadius:
                                                               BorderRadius
@@ -1349,7 +1344,9 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                         fit: BoxFit.cover,
                                                       ),
                                                     ),
-                                                    Container(
+                                                    Align(
+                                                      alignment:
+                                                          Alignment(-1.0, 0.0),
                                                       child: Text(
                                                         'Ilmu Pengetahuan Alam',
                                                         style: TextStyle(
@@ -1359,7 +1356,9 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                         ),
                                                       ),
                                                     ),
-                                                    Container(
+                                                    Align(
+                                                      alignment:
+                                                          Alignment(-1.0, 0.0),
                                                       child: Text(
                                                         'Tahun terbit: 2013',
                                                         style: TextStyle(
@@ -1369,7 +1368,9 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                         ),
                                                       ),
                                                     ),
-                                                    Container(
+                                                    Align(
+                                                      alignment:
+                                                          Alignment(-1.0, 0.0),
                                                       child: Text(
                                                         'Oleh: ' + b.name,
                                                         style: TextStyle(
@@ -1382,7 +1383,9 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                             .ellipsis,
                                                       ),
                                                     ),
-                                                    Container(
+                                                    Align(
+                                                      alignment:
+                                                          Alignment(-1.0, 0.0),
                                                       child: Text(
                                                         'Kategori: Buku Paket',
                                                         style: TextStyle(
@@ -2030,14 +2033,9 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                       MainAxisAlignment
                                                           .spaceEvenly,
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.16,
                                                       decoration: BoxDecoration(
                                                           borderRadius:
                                                               BorderRadius
@@ -2047,7 +2045,9 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                         fit: BoxFit.cover,
                                                       ),
                                                     ),
-                                                    Container(
+                                                    Align(
+                                                      alignment:
+                                                          Alignment(-1.0, 0.0),
                                                       child: Text(
                                                         'Ilmu Pengetahuan Alam',
                                                         style: TextStyle(
@@ -2057,7 +2057,9 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                         ),
                                                       ),
                                                     ),
-                                                    Container(
+                                                    Align(
+                                                      alignment:
+                                                          Alignment(-1.0, 0.0),
                                                       child: Text(
                                                         'Tahun terbit: 2013',
                                                         style: TextStyle(
@@ -2067,7 +2069,9 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                         ),
                                                       ),
                                                     ),
-                                                    Container(
+                                                    Align(
+                                                      alignment:
+                                                          Alignment(-1.0, 0.0),
                                                       child: Text(
                                                         'Oleh: ' + a.name,
                                                         style: TextStyle(
@@ -2080,7 +2084,9 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                             .ellipsis,
                                                       ),
                                                     ),
-                                                    Container(
+                                                    Align(
+                                                      alignment:
+                                                          Alignment(-1.0, 0.0),
                                                       child: Text(
                                                         'Kategori: Buku Paket',
                                                         style: TextStyle(

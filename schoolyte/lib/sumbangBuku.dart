@@ -879,7 +879,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                         final a = _list[i];
                                         return Container(
                                           padding: EdgeInsets.symmetric(
-                                            horizontal: 10,
+                                            horizontal: 8,
                                             vertical: 4,
                                           ),
                                           decoration: BoxDecoration(
@@ -900,13 +900,9 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                CrossAxisAlignment.center,
                                             children: [
                                               Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.16,
                                                 decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -916,7 +912,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
-                                              Container(
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
                                                   'Ilmu Pengetahuan Alam',
                                                   style: TextStyle(
@@ -926,7 +923,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   ),
                                                 ),
                                               ),
-                                              Container(
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
                                                   'Tahun terbit: 2013',
                                                   style: TextStyle(
@@ -937,7 +935,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   ),
                                                 ),
                                               ),
-                                              Container(
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
                                                   'Oleh: ' + a.name,
                                                   style: TextStyle(
@@ -951,7 +950,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                              Container(
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
                                                   'Kategori: Buku Paket',
                                                   style: TextStyle(
@@ -962,13 +962,16 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   ),
                                                 ),
                                               ),
-                                              Text(
-                                                'Jumlah Buku : 2',
-                                                style: TextStyle(
-                                                  fontFamily: 'Gilroy-Light',
-                                                  fontSize: 10,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
+                                                child: Text(
+                                                  'Jumlah Buku : 2',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 10,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -993,7 +996,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                         final a = _list[i];
                                         return Container(
                                           padding: EdgeInsets.symmetric(
-                                            horizontal: 10,
+                                            horizontal: 8,
                                             vertical: 4,
                                           ),
                                           decoration: BoxDecoration(
@@ -1014,13 +1017,9 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.start,
+                                                CrossAxisAlignment.center,
                                             children: [
                                               Container(
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.16,
                                                 decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
@@ -1030,7 +1029,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
-                                              Container(
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
                                                   'Ilmu Pengetahuan Alam',
                                                   style: TextStyle(
@@ -1040,7 +1040,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   ),
                                                 ),
                                               ),
-                                              Container(
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
                                                   'Tahun terbit: 2013',
                                                   style: TextStyle(
@@ -1051,7 +1052,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   ),
                                                 ),
                                               ),
-                                              Container(
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
                                                   'Oleh: ' + a.name,
                                                   style: TextStyle(
@@ -1065,7 +1067,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                       TextOverflow.ellipsis,
                                                 ),
                                               ),
-                                              Container(
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
                                                   'Kategori: Buku Paket',
                                                   style: TextStyle(
@@ -1076,13 +1079,16 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                                   ),
                                                 ),
                                               ),
-                                              Text(
-                                                'Jumlah Buku : 2',
-                                                style: TextStyle(
-                                                  fontFamily: 'Gilroy-Light',
-                                                  fontSize: 10,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
+                                                child: Text(
+                                                  'Jumlah Buku : 2',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 10,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
                                                 ),
                                               ),
                                             ],
