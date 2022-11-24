@@ -79,35 +79,6 @@ class _TambahBukuState extends State<TambahBuku> {
     if (_formKey5.currentState!.validate()) {}
   }
 
-  bool akademikClick = true;
-  bool peminjamanClick = true;
-  bool pembelianClick = true;
-  bool keuanganClick = true;
-  bool kegiatanClick = true;
-  bool profilClick = true;
-
-  bool senClick = true;
-  bool selClick = true;
-  bool rabClick = true;
-  bool kamClick = true;
-  bool jumClick = true;
-
-  closeDrawer() {
-    akademikClick = true;
-    peminjamanClick = true;
-    pembelianClick = true;
-    keuanganClick = true;
-    kegiatanClick = true;
-    profilClick = true;
-  }
-
-  close() {
-    senClick = true;
-    selClick = true;
-    rabClick = true;
-    kamClick = true;
-    jumClick = true;
-  }
 
   List<Tab> myTabs = <Tab>[
     Tab(text: 'Buku'),
@@ -208,6 +179,7 @@ class _TambahBukuState extends State<TambahBuku> {
                 height: MediaQuery.of(context).size.height * 0.7,
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.09),
+
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -759,6 +731,7 @@ class _TambahBukuState extends State<TambahBuku> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.7,
                 padding: EdgeInsets.all(10),
+                color: Color.fromRGBO(243, 243, 243, 1),
                 child: GridView.builder(
                     itemCount: _list.length,
                     padding: EdgeInsets.all(10),
@@ -906,71 +879,90 @@ class _TambahBukuState extends State<TambahBuku> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
+                color: Color.fromRGBO(243, 243, 243, 1),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
                       Container(
-                        width: MediaQuery.of(context).size.width * 0.88,
-                        height: MediaQuery.of(context).size.height * 0.050,
-                        margin: EdgeInsets.only(top: 20),
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(243, 243, 243, 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.73,
-                              child: Form(
-                                child: TextFormField(
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
-                                  ),
-                                  textInputAction: TextInputAction.done,
-                                  controller: searchController,
-                                  autocorrect: true,
-                                  onChanged: ((value) {
-                                    setState(() {
-                                      onSearch(value);
-                                    });
-                                  }),
-                                  decoration: new InputDecoration(
-                                    icon: Icon(
-                                      Icons.search,
-                                      size: 24,
-                                    ),
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    hintText: 'Apa yang ingin kamu pinjam?',
-                                    hintStyle: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 16,
+                        width: MediaQuery.of(context).size.width,
+                        height: 85,
+                        color: Colors.white,
+                        child: Center(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.88,
+                            height: MediaQuery.of(context).size.height * 0.050,
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(243, 243, 243, 1),
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 0,
+                                  blurRadius: 1.5,
+                                  offset: Offset(0, 0),
+                                )
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.73,
+                                  child: Form(
+                                    child: TextFormField(
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 16,
+                                      ),
+                                      textInputAction: TextInputAction.done,
+                                      controller: searchController,
+                                      autocorrect: true,
+                                      onChanged: ((value) {
+                                        setState(() {
+                                          onSearch(value);
+                                        });
+                                      }),
+                                      decoration: new InputDecoration(
+                                        icon: Icon(
+                                          Icons.search,
+                                          size: 24,
+                                        ),
+                                        enabledBorder: InputBorder.none,
+                                        focusedBorder: InputBorder.none,
+                                        hintText: 'Apa yang ingin kamu pinjam?',
+                                        hintStyle: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 16,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
+                                IconButton(
+                                  icon: Icon(Icons.cancel,
+                                      size: 24,
+                                      color: searchController.text.length != 0
+                                          ? Colors.red
+                                          : Color.fromRGBO(76, 81, 97, 58)),
+                                  onPressed: () {
+                                    searchController.clear();
+                                    onSearch('');
+                                  },
+                                ),
+                              ],
                             ),
-                            IconButton(
-                              icon: Icon(Icons.cancel,
-                                  size: 24,
-                                  color: searchController.text.length != 0
-                                      ? Colors.red
-                                      : Color.fromRGBO(76, 81, 97, 58)),
-                              onPressed: () {
-                                searchController.clear();
-                                onSearch('');
-                              },
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                       SingleChildScrollView(
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.73,
-                          margin: EdgeInsets.all(20),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 10,
+                          ),
                           child: Stack(
                             children: [
                               loading

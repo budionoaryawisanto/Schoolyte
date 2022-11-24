@@ -711,6 +711,14 @@ class _KantinPageState extends State<KantinPage> {
                       decoration: BoxDecoration(
                         color: Color.fromRGBO(243, 243, 243, 1),
                         borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            spreadRadius: 0,
+                            blurRadius: 1.5,
+                            offset: Offset(0, 0),
+                          )
+                        ],
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
