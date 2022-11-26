@@ -32,8 +32,8 @@ class _HomePageState extends State<HomePage> {
       loading = true;
     });
     _user.clear();
-    final response = await http
-        .get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    final response =
+        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       getUsername();
@@ -247,7 +247,7 @@ class _HomePageState extends State<HomePage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => AbsensiPage()));
+                                builder: (context) => AbsensiPage()));
                     },
                   ),
                 ),
@@ -398,7 +398,8 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.push(context,
+                      Navigator.push(
+                          context,
                           MaterialPageRoute(
                               builder: (context) => KoperasiPage()));
                     },
@@ -1147,115 +1148,135 @@ class _HomePageState extends State<HomePage> {
                                     return GestureDetector(
                                       onTap: () {
                                         showModalBottomSheet<void>(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15),
-                                  topRight: Radius.circular(15),
-                                ),
-                              ),
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Container(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(15),
+                                              topRight: Radius.circular(15),
+                                            ),
+                                          ),
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Container(
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height *
                                                   0.87,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(15),
-                                      topRight: Radius.circular(15),
-                                    ),
-                                    color: Colors.white,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            width: 50,
-                                                        height: 50,
-                                          ),
-                                          Container(
-                                            width: 50,
-                                            height: 5,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  Color.fromRGBO(0, 0, 0, 0.25),
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                          ),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(15),
+                                                  topRight: Radius.circular(15),
+                                                ),
+                                                color: Colors.white,
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
                                                       Container(
                                                         width: 50,
                                                         height: 50,
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
+                                                      ),
+                                                      Container(
+                                                        width: 50,
+                                                        height: 5,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Color.fromRGBO(
+                                                              0, 0, 0, 0.25),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 50,
+                                                        height: 50,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
                                                             0.8,
                                                     height:
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .height *
                                                             0.16,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(9),
-                                        ),
-                                        child: new Image.asset(
-                                          'assets/images/logoberita.png',
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              9),
+                                                    ),
+                                                    child: new Image.asset(
+                                                      'assets/images/logoberita.png',
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
                                                             0.8,
-                                        margin: EdgeInsets.only(top: 10),
-                                        child: Text(
-                                          '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy-ExtraBold',
-                                            fontSize: 24,
-                                            color:
-                                                Color.fromRGBO(76, 81, 97, 1),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.4,
-                                        height: 31,
-                                        margin: EdgeInsets.only(top: 15),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(16),
-                                          color: Color.fromRGBO(242, 78, 26, 1),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Arya - 12/12/2022',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
+                                                    margin: EdgeInsets.only(
+                                                        top: 10),
+                                                    child: Text(
+                                                      '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 24,
+                                                        color: Color.fromRGBO(
+                                                            76, 81, 97, 1),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.4,
+                                                    height: 31,
+                                                    margin: EdgeInsets.only(
+                                                        top: 15),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16),
+                                                      color: Color.fromRGBO(
+                                                          242, 78, 26, 1),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        'Arya - 12/12/2022',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
                                                             0.8,
                                                     height:
                                                         MediaQuery.of(context)
@@ -1264,23 +1285,25 @@ class _HomePageState extends State<HomePage> {
                                                             0.53,
                                                     margin: EdgeInsets.only(
                                                         top: 15),
-                                        child: SingleChildScrollView(
-                                          child: Text(
-                                            'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 15,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Text(
+                                                        'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-Light',
+                                                          fontSize: 15,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
                                       },
                                       child: Container(
                                         padding: EdgeInsets.symmetric(
