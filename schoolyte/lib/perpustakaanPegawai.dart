@@ -11,6 +11,7 @@ import 'package:schoolyte/perpustakaan.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 import 'package:schoolyte/koperasi.dart';
+import 'daftarKunjungan.dart';
 import 'osis.dart';
 import 'peminjamanBuku.dart';
 import 'rapor.dart';
@@ -704,7 +705,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                                     ),
                                   ),
                                   Text(
-                                    'Peminjman Buku',
+                                    'Peminjaman Buku',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
@@ -717,45 +718,53 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                           ),
                         ],
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.164,
-                        height: 114,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 70,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(6),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.3),
-                                    spreadRadius: 0,
-                                    blurRadius: 1.5,
-                                    offset: Offset(0, 0),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DaftarKunjungan()));
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.164,
+                          height: 114,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 70,
+                                height: 70,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      spreadRadius: 0,
+                                      blurRadius: 1.5,
+                                      offset: Offset(0, 0),
+                                    ),
+                                  ],
+                                  color: Colors.white,
+                                ),
+                                child: Center(
+                                  child: Icon(
+                                    Icons.library_books,
+                                    size: 50,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
                                   ),
-                                ],
-                                color: Colors.white,
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.library_books,
-                                  size: 50,
-                                  color: Color.fromRGBO(76, 81, 97, 1),
                                 ),
                               ),
-                            ),
-                            Text(
-                              'Peminjman Buku',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 14,
+                              Text(
+                                'Daftar Kunjungan',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 14,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
