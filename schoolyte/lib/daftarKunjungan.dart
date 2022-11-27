@@ -366,61 +366,130 @@ class _DaftarKunjunganState extends State<DaftarKunjungan> {
               ),
               SafeArea(
                 child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      width: 1,
-                      color: Colors.black,
-                    ),
+                  margin: EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal: 10,
                   ),
-                  child: DataTable(
-                    columns: [
-                      DataColumn(
-                          label: Text(
-                        'No',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy-Extrabold',
-                          fontSize: 16,
-                          color: Color.fromRGBO(76, 81, 97, 1),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      border: TableBorder.all(
+                        color: Color.fromRGBO(0, 0, 0, 0.28),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
                         ),
-                      )),
-                      DataColumn(
-                          label: Text(
-                        'Nama',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy-Extrabold',
-                          fontSize: 16,
-                          color: Color.fromRGBO(76, 81, 97, 1),
-                        ),
-                      )),
-                      DataColumn(
-                          label: Text(
-                        'Status',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy-Extrabold',
-                          fontSize: 16,
-                          color: Color.fromRGBO(76, 81, 97, 1),
-                        ),
-                      )),
-                      DataColumn(
-                          label: Text(
-                        'Keterangan',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy-Extrabold',
-                          fontSize: 16,
-                          color: Color.fromRGBO(76, 81, 97, 1),
-                        ),
-                      )),
-                      DataColumn(
-                          label: Text(
-                        'Aksi',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy-Extrabold',
-                          fontSize: 16,
-                          color: Color.fromRGBO(76, 81, 97, 1),
-                        ),
-                      )),
-                    ],
-                    rows: [],
+                      ),
+                      headingRowColor: MaterialStateColor.resolveWith(
+                        (states) {
+                          return Color.fromRGBO(217, 217, 217, 1);
+                        },
+                      ),
+                      columns: [
+                        DataColumn(
+                            label: Text(
+                          'No',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Extrabold',
+                            fontSize: 16,
+                            color: Color.fromRGBO(76, 81, 97, 1),
+                          ),
+                        )),
+                        DataColumn(
+                            label: Text(
+                          'Nama',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Extrabold',
+                            fontSize: 16,
+                            color: Color.fromRGBO(76, 81, 97, 1),
+                          ),
+                        )),
+                        DataColumn(
+                            label: Text(
+                          'Status',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Extrabold',
+                            fontSize: 16,
+                            color: Color.fromRGBO(76, 81, 97, 1),
+                          ),
+                        )),
+                        DataColumn(
+                            label: Text(
+                          'Keterangan',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Extrabold',
+                            fontSize: 16,
+                            color: Color.fromRGBO(76, 81, 97, 1),
+                          ),
+                        )),
+                        DataColumn(
+                            label: Text(
+                          'Aksi',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Extrabold',
+                            fontSize: 16,
+                            color: Color.fromRGBO(76, 81, 97, 1),
+                          ),
+                        )),
+                      ],
+                      rows: _list
+                          .map((data) => DataRow(
+                                cells: [
+                                  DataCell(
+                                    Text(
+                                      data.id.toString(),
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 12,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Text(
+                                      data.name,
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 12,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Text(
+                                      'Siswa',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 12,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    Text(
+                                      'Membaca Buku',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 12,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                  ),
+                                  DataCell(
+                                    GestureDetector(
+                                      onTap: () {
+                                        print('delete');
+                                      },
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ))
+                          .toList(),
+                    ),
                   ),
                 ),
               ),
