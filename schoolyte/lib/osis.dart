@@ -23,7 +23,6 @@ class OsisPage extends StatefulWidget {
 
 class _OsisPageState extends State<OsisPage> {
   List<Test> _list = [];
-  List<Test> _search = [];
   var loading = false;
 
   Future<Null> fetchData() async {
@@ -88,31 +87,9 @@ class _OsisPageState extends State<OsisPage> {
   }
 
   List<Tab> myTabs = <Tab>[
-    Tab(text: 'Kegiatan'),
+    Tab(text: 'Divisi'),
     Tab(text: 'Struktur Osis'),
   ];
-
-  final TextEditingController searchController = TextEditingController();
-
-  onSearch(String text) async {
-    _search.clear();
-    if (text.isEmpty) {
-      setState(() {});
-      return;
-    }
-    _list.forEach((e) {
-      if (e.name.toLowerCase().contains(text.toLowerCase()) ||
-          e.id.toString().contains(text) ||
-          e.username.toLowerCase().contains(text.toLowerCase())) {
-        _search.add(e);
-      }
-    });
-  }
-
-  var tglPeminjaman;
-  var startPeminjaman;
-  var endPeminjaman;
-  var filterPeminjaman;
 
   showDialogFunc(context, a) {
     return showModalBottomSheet<void>(
@@ -356,8 +333,8 @@ class _OsisPageState extends State<OsisPage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Color.fromRGBO(255, 199, 0, 1),
-        statusBarIconBrightness: Brightness.light,
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
         systemNavigationBarColor: Colors.white,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
@@ -372,7 +349,7 @@ class _OsisPageState extends State<OsisPage> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(138),
             child: AppBar(
-              backgroundColor: Color.fromRGBO(255, 199, 0, 1),
+              backgroundColor: Colors.white,
               title: Align(
                 alignment: Alignment(-0.7, 0.0),
                 child: Text(
@@ -380,15 +357,16 @@ class _OsisPageState extends State<OsisPage> {
                   style: TextStyle(
                     fontFamily: 'Gilroy-ExtraBold',
                     fontSize: 24,
-                    color: Colors.white,
+                    color: Color.fromRGBO(76, 81, 97, 1),
                   ),
                 ),
               ),
               elevation: 0.0,
-              iconTheme: IconThemeData(color: Colors.white),
+              iconTheme: IconThemeData(color: Color.fromRGBO(76, 81, 97, 1)),
               bottom: TabBar(
                 padding: EdgeInsets.only(bottom: 10),
-                indicatorColor: Colors.white,
+                indicatorColor: Color.fromRGBO(76, 81, 97, 1),
+                labelColor: Color.fromRGBO(76, 81, 97, 1),
                 indicatorSize: TabBarIndicatorSize.label,
                 indicatorPadding: EdgeInsets.only(top: 0),
                 labelStyle: TextStyle(
@@ -898,62 +876,46 @@ class _OsisPageState extends State<OsisPage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        height: 50,
-                        margin: EdgeInsets.only(top: 20),
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(243, 243, 243, 1),
-                          borderRadius: BorderRadius.circular(10),
+                      GestureDetector(
+                        onTap: () {
+                          print('click');
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Image.asset(
+                            'assets/images/daftarosis.png',
+                            fit: BoxFit.fill,
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.72,
-                              height: 46,
-                              child: Form(
-                                child: TextFormField(
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
-                                  ),
-                                  textInputAction: TextInputAction.done,
-                                  controller: searchController,
-                                  autocorrect: true,
-                                  onChanged: ((value) {
-                                    setState(() {
-                                      onSearch(value);
-                                    });
-                                  }),
-                                  decoration: new InputDecoration(
-                                    icon: Icon(
-                                      Icons.search,
-                                      size: 24,
-                                    ),
-                                    enabledBorder: InputBorder.none,
-                                    focusedBorder: InputBorder.none,
-                                    hintText: 'Apa yang ingin kamu pinjam?',
-                                    hintStyle: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 16,
-                                    ),
-                                  ),
+                      ),
+                      Align(
+                        alignment: Alignment(-0.8, 0.0),
+                        child: Container(
+                          width: 302,
+                          height: 57,
+                          margin: EdgeInsets.only(top: 20),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Pilih Divisi',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-ExtraBold',
+                                  fontSize: 20,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
                                 ),
                               ),
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.cancel,
-                                  size: 24,
-                                  color: searchController.text.length != 0
-                                      ? Colors.red
-                                      : Color.fromRGBO(76, 81, 97, 58)),
-                              onPressed: () {
-                                searchController.clear();
-                                onSearch('');
-                              },
-                            ),
-                          ],
+                              Text(
+                                'Dapatkan beberapa informasi kegiatan disetiap divisi',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       SingleChildScrollView(
@@ -961,305 +923,132 @@ class _OsisPageState extends State<OsisPage> {
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.73,
                           margin: EdgeInsets.all(20),
-                          child: loading
-                              ? Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : _search.length != 0 ||
-                                      searchController.text.isNotEmpty
-                                  ? Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
-                                      child: GridView.builder(
-                                          itemCount: _search.length,
-                                          padding: EdgeInsets.all(10),
-                                          gridDelegate:
-                                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.42,
-                                            mainAxisExtent: 267,
-                                            crossAxisSpacing: 15,
-                                            mainAxisSpacing: 20,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            child: GridView.builder(
+                                itemCount: _list.length,
+                                padding: EdgeInsets.all(10),
+                                gridDelegate:
+                                    SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent:
+                                      MediaQuery.of(context).size.width * 0.42,
+                                  mainAxisExtent: 267,
+                                  crossAxisSpacing: 15,
+                                  mainAxisSpacing: 20,
+                                ),
+                                itemBuilder: (context, i) {
+                                  final a = _list[i];
+                                  return GestureDetector(
+                                    onTap: () {
+                                      showDialogFunc(context, a);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                        vertical: 12,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.3),
+                                            spreadRadius: 0,
+                                            blurRadius: 1.5,
+                                            offset: Offset(0, 0),
+                                          )
+                                        ],
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: new Image.asset(
+                                              'assets/images/dies.png',
+                                              fit: BoxFit.fill,
+                                            ),
                                           ),
-                                          itemBuilder: (context, i) {
-                                            final b = _list[i];
-                                            return GestureDetector(
-                                              onTap: () {
-                                                showDialogFuncSearch(
-                                                    context, b);
-                                              },
-                                              child: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: 12,
-                                                  vertical: 12,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.3),
-                                                      spreadRadius: 0,
-                                                      blurRadius: 1.5,
-                                                      offset: Offset(0, 0),
-                                                    )
-                                                  ],
-                                                ),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10)),
-                                                      child: new Image.asset(
-                                                        'assets/images/dies.png',
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      child: Text(
-                                                        'Dies Natalis SMAN 11 Surabaya ke - 8',
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-ExtraBold',
-                                                          fontSize: 16,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      child: Text(
-                                                        '24 12 2022 - 28 12 2022',
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 10,
-                                                          color: Color.fromRGBO(
-                                                              76, 81, 97, 0.47),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      height: 63,
-                                                      child: Text(
-                                                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie ipsum faucibus leo aliquam lorem sit. Non libero, cursus mattis id sapien cursus',
-                                                        maxLines: 5,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 10,
-                                                          color: Color.fromRGBO(
-                                                              76, 81, 97, 1),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      height: 25,
-                                                      child: Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          ClipOval(
-                                                            child: Image.asset(
-                                                              'assets/images/profil.png',
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.only(
-                                                                    left: 5),
-                                                            child: Text(
-                                                              'Rendy Pratama',
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Gilroy-ExtraBold',
-                                                                fontSize: 12,
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        76,
-                                                                        81,
-                                                                        97,
-                                                                        1),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                          Container(
+                                            child: Text(
+                                              'Dies Natalis SMAN 11 Surabaya ke - 8',
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-ExtraBold',
+                                                fontSize: 16,
+                                                color: Colors.black,
                                               ),
-                                            );
-                                          }),
-                                    )
-                                  : Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.8,
-                                      child: GridView.builder(
-                                          itemCount: _list.length,
-                                          padding: EdgeInsets.all(10),
-                                          gridDelegate:
-                                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.42,
-                                            mainAxisExtent: 267,
-                                            crossAxisSpacing: 15,
-                                            mainAxisSpacing: 20,
+                                            ),
                                           ),
-                                          itemBuilder: (context, i) {
-                                            final a = _list[i];
-                                            return GestureDetector(
-                                              onTap: () {
-                                                showDialogFunc(context, a);
-                                              },
-                                              child: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: 12,
-                                                  vertical: 12,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.3),
-                                                      spreadRadius: 0,
-                                                      blurRadius: 1.5,
-                                                      offset: Offset(0, 0),
-                                                    )
-                                                  ],
-                                                ),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10)),
-                                                      child: new Image.asset(
-                                                        'assets/images/dies.png',
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      child: Text(
-                                                        'Dies Natalis SMAN 11 Surabaya ke - 8',
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-ExtraBold',
-                                                          fontSize: 16,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      child: Text(
-                                                        '24 12 2022 - 28 12 2022',
-                                                        maxLines: 1,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 10,
-                                                          color: Color.fromRGBO(
-                                                              76, 81, 97, 0.47),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      height: 63,
-                                                      child: Text(
-                                                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie ipsum faucibus leo aliquam lorem sit. Non libero, cursus mattis id sapien cursus',
-                                                        maxLines: 5,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 10,
-                                                          color: Color.fromRGBO(
-                                                              76, 81, 97, 1),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      height: 25,
-                                                      child: Row(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          ClipOval(
-                                                            child: Image.asset(
-                                                              'assets/images/profil.png',
-                                                              fit: BoxFit.fill,
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.only(
-                                                                    left: 5),
-                                                            child: Text(
-                                                              'Rendy Pratama',
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Gilroy-ExtraBold',
-                                                                fontSize: 12,
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        76,
-                                                                        81,
-                                                                        97,
-                                                                        1),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                          Container(
+                                            child: Text(
+                                              '24 12 2022 - 28 12 2022',
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 10,
+                                                color: Color.fromRGBO(
+                                                    76, 81, 97, 0.47),
                                               ),
-                                            );
-                                          }),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 63,
+                                            child: Text(
+                                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Molestie ipsum faucibus leo aliquam lorem sit. Non libero, cursus mattis id sapien cursus',
+                                              maxLines: 5,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 10,
+                                                color: Color.fromRGBO(
+                                                    76, 81, 97, 1),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 25,
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                ClipOval(
+                                                  child: Image.asset(
+                                                    'assets/images/profil.png',
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  margin:
+                                                      EdgeInsets.only(left: 5),
+                                                  child: Text(
+                                                    'Rendy Pratama',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-ExtraBold',
+                                                      fontSize: 12,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 1),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
+                                  );
+                                }),
+                          ),
                         ),
                       ),
                     ],

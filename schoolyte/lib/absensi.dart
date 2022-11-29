@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'dart:ui';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -14,7 +16,11 @@ import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 import 'koperasi.dart';
+import 'model.dart';
 import 'osis.dart';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as path;
+import 'package:async/async.dart';
 
 class AbsensiPage extends StatefulWidget {
   @override
@@ -22,9 +28,63 @@ class AbsensiPage extends StatefulWidget {
 }
 
 class _AbsensiPageState extends State<AbsensiPage> {
+  List<Absensi> _absensi = [];
+  var loading = false;
+
+  Future fetchData() async {
+    setState(() {
+      loading = true;
+    });
+    _absensi.clear();
+    final response = await http.get(Uri.parse(Api.get));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _absensi.add(Absensi.formJson(i));
+          loading = false;
+        }
+      });
+    }
+  }
+
+  Future saveAbsensi() async {
+    print(tglAbsen);
+    setState(() {
+      loading = true;
+    });
+    var uri = Uri.parse(Api.create);
+    var request = http.MultipartRequest("POST", uri);
+    request.fields['absen_status'] = dropdownvalue;
+    request.fields['tgl_absen'] = tglAbsen.toString();
+    request.fields['waktu_absen'] = waktuAbsen;
+    request.files.add(
+        await http.MultipartFile.fromPath('img_absen', image!.path.toString()));
+
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      setState(() {
+        loading = false;
+      });
+      print("sukses");
+    } else {
+      setState(() {
+        loading = false;
+      });
+      print("failed");
+      print(response.statusCode);
+      print(dropdownvalue);
+      print(tglAbsen.toString());
+      print(waktuAbsen);
+      print(image!.path.toString());
+      print(uri);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    fetchData();
   }
 
   _logOut() async {
@@ -76,11 +136,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
 
   var status = ['Hadir', 'Alpha', 'Izin', 'Sakit'];
   var dropdownvalue = 'Hadir';
-  final waktuAbsen = DateTime.now().hour.toString() +
-      ':' +
-      DateTime.now().minute.toString() +
-      ' ' +
-      DateTime.now().timeZoneName;
+  final waktuAbsen =
+      DateTime.now().hour.toString() + ':' + DateTime.now().minute.toString();
 
   var tglAbsen;
 
@@ -880,7 +937,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
                                   color: Colors.black,
                                 ),
                                 onChanged: (val) => setState(() {
-                                  tglAbsen = val;
+                                  tglAbsen = DateFormat('EEEE, d MMMM yyyy')
+                                      .format(DateTime.now());
                                 }),
                                 validator: (val) {
                                   return null;
@@ -927,9 +985,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                             child: Center(
                               child: GestureDetector(
                                 onTap: () {
-                                  print(image);
-                                  print(dropdownvalue);
-                                  print(waktuAbsen);
+                                  saveAbsensi();
                                 },
                                 child: Text(
                                   'Selesai',
@@ -953,130 +1009,145 @@ class _AbsensiPageState extends State<AbsensiPage> {
                   color: Colors.white,
                   margin: EdgeInsets.only(top: 18),
                   padding: EdgeInsets.all(10),
-                  child: GridView.builder(
-                    itemCount: 7,
-                    padding: EdgeInsets.all(10),
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent:
-                          MediaQuery.of(context).size.width * 0.9,
-                      mainAxisExtent: 71,
-                      mainAxisSpacing: 18,
-                      crossAxisSpacing: 18,
-                    ),
-                    itemBuilder: (context, i) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 0,
-                              blurRadius: 1.5,
-                              offset: Offset(0, 1),
-                            )
-                          ],
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Monday, 01 January 2022',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Text(
-                                  '16:09 WIB',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 14,
-                                    color: Color.fromRGBO(76, 81, 97, 1),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return Center(
-                                            child: Material(
-                                              type: MaterialType.transparency,
-                                              child: image != null
-                                                  ? Image.file(image!)
-                                                  : Image.asset(
-                                                      'assets/images/hi1.png'),
-                                            ),
-                                          );
-                                        });
-                                  },
-                                  child: Container(
-                                    width: 80,
-                                    height: 23,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(4),
-                                      color: Color.fromRGBO(243, 243, 243, 1),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.3),
-                                          spreadRadius: 0,
-                                          blurRadius: 1.5,
-                                          offset: Offset(0, 1),
-                                        )
-                                      ],
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        Icon(
-                                          Icons.play_arrow,
-                                          size: 18,
-                                          color: Colors.black,
+                  child: loading
+                      ? Center(child: CircularProgressIndicator())
+                      : GridView.builder(
+                          itemCount: _absensi.length,
+                          padding: EdgeInsets.all(10),
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent:
+                                MediaQuery.of(context).size.width * 0.9,
+                            mainAxisExtent: 71,
+                            mainAxisSpacing: 18,
+                            crossAxisSpacing: 18,
+                          ),
+                          itemBuilder: (context, i) {
+                            final absen = _absensi[i];
+                            return Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 10,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 0,
+                                    blurRadius: 1.5,
+                                    offset: Offset(0, 1),
+                                  )
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        absen.tgl_absen,
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 16,
                                         ),
-                                        Text(
-                                          'Lihat Foto',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy-Light',
-                                            fontSize: 12,
+                                      ),
+                                      Text(
+                                        absen.waktu_absen,
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 14,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return Center(
+                                                  child: Material(
+                                                    type: MaterialType
+                                                        .transparency,
+                                                    child: image != null
+                                                        ? Image.network(
+                                                            Api.get +
+                                                                '/' +
+                                                                absen.img_absen)
+                                                        : Image.asset(
+                                                            'assets/images/hi1.png'),
+                                                  ),
+                                                );
+                                              });
+                                        },
+                                        child: Container(
+                                          width: 80,
+                                          height: 23,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(4),
                                             color: Color.fromRGBO(
-                                                76, 81, 97, 0.54),
+                                                243, 243, 243, 1),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.3),
+                                                spreadRadius: 0,
+                                                blurRadius: 1.5,
+                                                offset: Offset(0, 1),
+                                              )
+                                            ],
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Icon(
+                                                Icons.play_arrow,
+                                                size: 18,
+                                                color: Colors.black,
+                                              ),
+                                              Text(
+                                                'Lihat Foto',
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy-Light',
+                                                  fontSize: 12,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 0.54),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          absen.absen_status,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 12,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(left: 15),
-                                  child: Text(
-                                    'Hadir',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-ExtraBold',
-                                      fontSize: 12,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
               ],
             ),
