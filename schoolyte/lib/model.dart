@@ -1,7 +1,8 @@
 class Api {
-  static String get = 'https://sekolahkunihh.my.id/api/get';
+  static String get = 'https://sekolahkunihh.my.id/api';
   static String create = 'https://sekolahkunihh.my.id/api/create';
   static String edit = 'https://sekolahkunihh.my.id/api/update/';
+  static String image = 'https://sekolahkunihh.my.id/';
 }
 
 class Users {
@@ -59,25 +60,25 @@ class Test {
 
 class Absensi {
   final int id;
-  final String absen_status;
-  final String tgl_absen;
-  final String waktu_absen;
-  final String img_absen;
+  final String statAbsen;
+  final String image;
+  final String tglAbsen;
+  final String wktAbsen;
 
   Absensi(
       {required this.id,
-      required this.absen_status,
-      required this.tgl_absen,
-      required this.waktu_absen,
-      required this.img_absen});
+      required this.statAbsen,
+      required this.image,
+      required this.tglAbsen,
+      required this.wktAbsen});
 
   factory Absensi.formJson(Map<String, dynamic> json) {
     return new Absensi(
       id: json['id'],
-      absen_status: json['absen_status'],
-      tgl_absen: json['tgl_absen'],
-      waktu_absen: json['waktu_absen'],
-      img_absen: json['img_absen'],
+      statAbsen: json['statAbsen'],
+      image: json['image'],
+      tglAbsen: json['tglAbsen'],
+      wktAbsen: json['wktAbsen'],
     );
   }
 }

@@ -103,6 +103,8 @@ flutter:
     - assets/images/dies.png
     - assets/images/infopp.png
     - assets/images/daftarosis.png
+    - assets/images/divisi.png
+    - assets/images/dialog.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
