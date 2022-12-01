@@ -1,8 +1,10 @@
 class Api {
-  static String get = 'https://sekolahkunihh.my.id/api';
-  static String create = 'https://sekolahkunihh.my.id/api/create';
-  static String edit = 'https://sekolahkunihh.my.id/api/update/';
-  static String image = 'https://sekolahkunihh.my.id/';
+  static String getAbsen = 'https://sekolahkunihh.my.id/api';
+  static String createAbsen = 'https://sekolahkunihh.my.id/api/create';
+  static String editAbsen = 'https://sekolahkunihh.my.id/api/update/';
+  static String imageAbsen = 'https://sekolahkunihh.my.id/';
+  static String getBook = 'https://sekolahkunihh.my.id/api/perpus';
+  static String createBook = 'https://sekolahkunihh.my.id/api/perpus/create';
 }
 
 class Users {

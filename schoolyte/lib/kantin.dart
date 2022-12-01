@@ -803,7 +803,9 @@ class _KantinPageState extends State<KantinPage> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Menu()));
+                                                      Menu(
+                                                        kantin: b,
+                                                      )));
                                         },
                                         child: Container(
                                           padding: EdgeInsets.symmetric(
@@ -928,16 +930,14 @@ class _KantinPageState extends State<KantinPage> {
                                     itemBuilder: (context, i) {
                                       final a = _list[i];
                                       return GestureDetector(
-                                        onTap: () async {
-                                          final prefs = await SharedPreferences
-                                              .getInstance();
-                                          prefs.setString(
-                                              'nama kantin', a.name);
+                                        onTap: () {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Menu()));
+                                                      Menu(
+                                                        kantin: a,
+                                                      )));
                                         },
                                         child: Container(
                                           padding: EdgeInsets.symmetric(

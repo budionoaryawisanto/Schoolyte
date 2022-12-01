@@ -36,7 +36,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
       loading = true;
     });
     _absensi.clear();
-    final response = await http.get(Uri.parse(Api.get));
+    final response = await http.get(Uri.parse(Api.getAbsen));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
@@ -57,7 +57,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
     try {
       var stream = http.ByteStream(DelegatingStream(image!.openRead()));
       var length = await image!.length();
-      var uri = Uri.parse(Api.create);
+      var uri = Uri.parse(Api.createAbsen);
       var request = http.MultipartRequest("POST", uri);
       request.fields['statAbsen'] = dropdownvalue;
       request.fields['tglAbsen'] = tglAbsen.toString();
@@ -1080,9 +1080,14 @@ class _AbsensiPageState extends State<AbsensiPage> {
                       padding: EdgeInsets.all(10),
                       child: loading
                           ? Center(
-                              child: CircularProgressIndicator(
-                              color: Color.fromRGBO(119, 115, 205, 1),
-                            ))
+                              child: Text(
+                                'Tidak ada data',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-ExtraBold',
+                                  fontSize: 24,
+                                ),
+                              ),
+                            )
                           : GridView.builder(
                               itemCount: _absensi.length,
                               padding: EdgeInsets.all(10),
@@ -1155,7 +1160,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                                                         type: MaterialType
                                                             .transparency,
                                                         child: Image.network(
-                                                          Api.image +
+                                                          Api.imageAbsen +
                                                               absen.image,
                                                         ),
                                                       ),
@@ -1233,7 +1238,6 @@ class _AbsensiPageState extends State<AbsensiPage> {
                   child: Center(
                     child: CircularProgressIndicator(
                       color: Color.fromRGBO(119, 115, 205, 1),
-                      semanticsLabel: 'Loading',
                     ),
                   ),
                 ),

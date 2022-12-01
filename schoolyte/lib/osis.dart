@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:schoolyte/detailDivisi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'koperasi.dart';
@@ -646,290 +647,6 @@ class _OsisPageState extends State<OsisPage> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(21),
-                                  topRight: Radius.circular(21),
-                                ),
-                              ),
-                              isScrollControlled: true,
-                              context: context,
-                              builder: (context) {
-                                return Container(
-                                  height: 524,
-                                  padding: EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(21),
-                                      topRight: Radius.circular(21),
-                                    ),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        width: 66,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                          width: 1,
-                                          color:
-                                              Color.fromRGBO(217, 217, 217, 1),
-                                        )),
-                                      ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.9,
-                                        height: 391,
-                                        margin: EdgeInsets.only(top: 40),
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.85,
-                                              height: 50,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: 70,
-                                                    child: Text(
-                                                      'Nama Anggota',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-Light',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    ':',
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          76, 81, 97, 1),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.58,
-                                                    child: Form(
-                                                      key: _formKey,
-                                                      child: TextFormField(
-                                                        controller:
-                                                            namaController,
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 16,
-                                                          color: Color.fromRGBO(
-                                                              76, 81, 97, 1),
-                                                        ),
-                                                        textAlignVertical:
-                                                            TextAlignVertical(
-                                                                y: -0.7),
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText:
-                                                              'Nama Anggota',
-                                                          labelStyle: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 16,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    76,
-                                                                    81,
-                                                                    97,
-                                                                    0.54),
-                                                          ),
-                                                          border: OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10)),
-                                                        ),
-                                                        validator: (value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Nama tidak boleh kosong ! ';
-                                                          }
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.85,
-                                              height: 50,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: 70,
-                                                    child: Text(
-                                                      'NISN',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-Light',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    ':',
-                                                    style: TextStyle(
-                                                      color: Color.fromRGBO(
-                                                          76, 81, 97, 1),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.58,
-                                                    child: Form(
-                                                      key: _formKey2,
-                                                      child: TextFormField(
-                                                        controller:
-                                                            nisnController,
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 16,
-                                                          color: Color.fromRGBO(
-                                                              76, 81, 97, 1),
-                                                        ),
-                                                        textAlignVertical:
-                                                            TextAlignVertical(
-                                                                y: -0.7),
-                                                        decoration:
-                                                            InputDecoration(
-                                                          labelText: 'Nisn',
-                                                          labelStyle: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 16,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    76,
-                                                                    81,
-                                                                    97,
-                                                                    0.54),
-                                                          ),
-                                                          border: OutlineInputBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10)),
-                                                        ),
-                                                        validator: (value) {
-                                                          if (value!.isEmpty) {
-                                                            return 'Tahun terbit tidak boleh kosong ! ';
-                                                          }
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              width: 267,
-                                              height: 44,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black
-                                                        .withOpacity(0.3),
-                                                    spreadRadius: 0,
-                                                    blurRadius: 1.5,
-                                                    offset: Offset(0, 0),
-                                                  )
-                                                ],
-                                                color: Color.fromRGBO(
-                                                    243, 243, 243, 1),
-                                              ),
-                                              child: DropdownButton(
-                                                value: dropdownvalue,
-                                                elevation: 0,
-                                                underline: SizedBox(),
-                                                style: TextStyle(
-                                                  fontFamily: 'Gilroy-Light',
-                                                  fontSize: 16,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                ),
-                                                icon: const Icon(
-                                                    Icons.keyboard_arrow_down),
-                                                items:
-                                                    kelas.map((String items) {
-                                                  return DropdownMenuItem(
-                                                    value: items,
-                                                    child: Text(items),
-                                                  );
-                                                }).toList(),
-                                                onChanged: (String? newValue) {
-                                                  setState(() {
-                                                    dropdownvalue = newValue!;
-                                                  });
-                                                },
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              });
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Image.asset(
-                            'assets/images/daftarosis.png',
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                      ),
                       Align(
                         alignment: Alignment(-0.8, 0.0),
                         child: Container(
@@ -963,7 +680,7 @@ class _OsisPageState extends State<OsisPage> {
                       SingleChildScrollView(
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.6,
+                          height: MediaQuery.of(context).size.height * 0.74,
                           margin: EdgeInsets.symmetric(vertical: 20),
                           child: GridView.builder(
                               itemCount: _list.length,
@@ -979,8 +696,8 @@ class _OsisPageState extends State<OsisPage> {
                                 final a = _list[i];
                                 return Container(
                                   padding: EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 12,
+                                    horizontal: 10,
+                                    vertical: 10,
                                   ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
@@ -1009,7 +726,7 @@ class _OsisPageState extends State<OsisPage> {
                                         ),
                                       ),
                                       Container(
-                                        margin: EdgeInsets.only(top: 10),
+                                        margin: EdgeInsets.only(top: 20),
                                         child: Text(
                                           'Divisi Humas',
                                           maxLines: 1,
@@ -1043,7 +760,15 @@ class _OsisPageState extends State<OsisPage> {
                                             ),
                                           ),
                                           GestureDetector(
-                                            onTap: () {},
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DetailDivisi(
+                                                            divisi: a,
+                                                          )));
+                                            },
                                             child: Container(
                                               width: 86,
                                               height: 28,

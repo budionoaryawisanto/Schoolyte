@@ -12,13 +12,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'model.dart';
 
 class Menu extends StatefulWidget {
+  Test kantin;
+  Menu({required this.kantin});
   @override
-  _MenuState createState() => new _MenuState();
+  _MenuState createState() => new _MenuState(kantin);
 }
 
 class _MenuState extends State<Menu> {
   List<Test> _list = [];
-  List<Test> _kantin = [];
 
   var loading = false;
   var count = 0;
@@ -28,12 +29,10 @@ class _MenuState extends State<Menu> {
       loading = true;
     });
     _list.clear();
-    _kantin.clear();
     final response =
         await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      getNamaKantin();
       setState(() {
         for (Map<String, dynamic> i in data) {
           _list.add(Test.formJson(i));
@@ -43,24 +42,17 @@ class _MenuState extends State<Menu> {
     }
   }
 
-  getNamaKantin() async {
-    final prefs = await SharedPreferences.getInstance();
-    var namaKantin = prefs.getString('nama kantin');
-    _list.forEach((e) {
-      if (e.name.toLowerCase().contains(namaKantin!.toLowerCase())) {
-        _kantin.add(e);
-      }
-    });
-  }
 
   @override
   void initState() {
     super.initState();
     fetchData();
-    getNamaKantin();
   }
 
   @override
+  Test kantin;
+  _MenuState(this.kantin);
+
   int saldo = 40000;
   int total = 30000;
 
@@ -124,9 +116,9 @@ class _MenuState extends State<Menu> {
                                 children: [
                                   Text(
                                     'Dapur ' +
-                                        _kantin[0].name +
+                                        kantin.name +
                                         ', Kode: ' +
-                                        _kantin[0].id.toString(),
+                                        kantin.id.toString(),
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-ExtraBold',
                                       fontSize: 20,

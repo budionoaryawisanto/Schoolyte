@@ -6,6 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as path;
+import 'package:async/async.dart';
 
 class TambahBuku extends StatefulWidget {
   @override
@@ -13,7 +15,6 @@ class TambahBuku extends StatefulWidget {
 }
 
 class _TambahBukuState extends State<TambahBuku> {
- 
   final TextEditingController namaController = TextEditingController();
   final TextEditingController tahunController = TextEditingController();
   final TextEditingController penulisController = TextEditingController();
@@ -25,12 +26,11 @@ class _TambahBukuState extends State<TambahBuku> {
   final _formKey4 = GlobalKey<FormState>();
   final _formKey5 = GlobalKey<FormState>();
 
-
   List<Test> _list = [];
   List<Test> _search = [];
   var loading = false;
 
-  Future<Null> fetchData() async {
+  Future fetchData() async {
     setState(() {
       loading = true;
     });
@@ -71,14 +71,93 @@ class _TambahBukuState extends State<TambahBuku> {
     setState(() {});
   }
 
-  sendData() {
-    if (_formKey.currentState!.validate()) {}
-    if (_formKey2.currentState!.validate()) {}
-    if (_formKey3.currentState!.validate()) {}
-    if (_formKey4.currentState!.validate()) {}
-    if (_formKey5.currentState!.validate()) {}
-  }
+  Future sendBuku() async {
+    setState(() {
+      loading = true;
+    });
+    try {
+      var stream = http.ByteStream(DelegatingStream(image!.openRead()));
+      var length = await image!.length();
+      var uri = Uri.parse(Api.createBook);
+      var request = http.MultipartRequest("POST", uri);
+      request.fields['statAbsen'] = '';
+      request.fields['tglAbsen'] = '';
+      request.fields['wktAbsen'] = '';
 
+      request.files.add(http.MultipartFile("image", stream, length,
+          filename: path.basename(image!.path)));
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        setState(() {
+          loading = false;
+        });
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Container(
+                  height: 357,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 177,
+                        height: 177,
+                        child: Image.asset(
+                          'assets/images/dialog.png',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Text(
+                        'Sukses',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-ExtraBold',
+                          fontSize: 32,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TambahBuku()));
+                        },
+                        child: Container(
+                          width: 107,
+                          height: 43,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Color.fromRGBO(119, 115, 205, 1),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'OK',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            });
+      } else {
+        return;
+      }
+    } catch (e) {
+      debugPrint("Error $e");
+    }
+  }
 
   List<Tab> myTabs = <Tab>[
     Tab(text: 'Buku'),
@@ -179,7 +258,6 @@ class _TambahBukuState extends State<TambahBuku> {
                 height: MediaQuery.of(context).size.height * 0.7,
                 padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.09),
-
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -283,8 +361,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
                                   fontSize: 16,
-                                  color: Color.fromRGBO(
-                                                    76, 81, 97, 1),
+                                  color: Color.fromRGBO(76, 81, 97, 1),
                                 ),
                                 textAlignVertical: TextAlignVertical(y: -0.7),
                                 decoration: InputDecoration(
@@ -313,10 +390,8 @@ class _TambahBukuState extends State<TambahBuku> {
                       height: MediaQuery.of(context).size.height * 0.06,
                       margin: EdgeInsets.only(top: 22),
                       child: Row(
-                        mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment:
-                                          CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.15,
@@ -325,8 +400,7 @@ class _TambahBukuState extends State<TambahBuku> {
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
                                 fontSize: 18,
-                                color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
+                                color: Color.fromRGBO(76, 81, 97, 1),
                               ),
                             ),
                           ),
@@ -395,8 +469,7 @@ class _TambahBukuState extends State<TambahBuku> {
                             ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width *
-                                              0.6,
+                            width: MediaQuery.of(context).size.width * 0.6,
                             child: Form(
                               key: _formKey4,
                               child: TextFormField(
@@ -450,8 +523,7 @@ class _TambahBukuState extends State<TambahBuku> {
                           Text(
                             ' :      ',
                             style: TextStyle(
-                              color:
-                                                Color.fromRGBO(76, 81, 97, 1),
+                              color: Color.fromRGBO(76, 81, 97, 1),
                             ),
                           ),
                           Container(
@@ -508,8 +580,7 @@ class _TambahBukuState extends State<TambahBuku> {
                           Text(
                             '   :',
                             style: TextStyle(
-                              color:
-                                                Color.fromRGBO(76, 81, 97, 1),
+                              color: Color.fromRGBO(76, 81, 97, 1),
                             ),
                           ),
                           Container(
@@ -701,7 +772,7 @@ class _TambahBukuState extends State<TambahBuku> {
                       alignment: Alignment(1.0, 0.0),
                       child: GestureDetector(
                         onTap: () {
-                          sendData();
+                          sendBuku();
                         },
                         child: Container(
                           width: 119,
@@ -1293,8 +1364,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                         ),
                                                       ),
                                                       Container(
-                                                        height:
-                                                            MediaQuery.of(
+                                                        height: MediaQuery.of(
                                                                     context)
                                                                 .size
                                                                 .height *

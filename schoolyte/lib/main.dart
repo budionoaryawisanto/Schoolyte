@@ -45,9 +45,6 @@ class MyApp extends StatelessWidget {
         '/nilaiBelajar': (BuildContext context) => NilaiBelajarPage(),
         '/kantin': (BuildContext context) => KantinPage(),
         '/berita': (BuildContext context) => BeritaPage(),
-        '/scanner': (BuildContext context) => Scanner(),
-        '/pembayaran': (BuildContext context) => Pembayaran(),
-        '/menu': (BuildContext context) => Menu(),
       },
     );
   }

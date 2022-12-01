@@ -364,8 +364,10 @@ class _DaftarKunjunganState extends State<DaftarKunjungan> {
                   ],
                 ),
               ),
-              SafeArea(
+              SingleChildScrollView(
                 child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.79,
                   margin: EdgeInsets.symmetric(
                     vertical: 20,
                     horizontal: 10,
