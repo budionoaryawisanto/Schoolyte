@@ -23,23 +23,23 @@ class _SumbangBukuState extends State<SumbangBuku> {
   final _formKey4 = GlobalKey<FormState>();
   final _formKey5 = GlobalKey<FormState>();
 
-  List<Test> _list = [];
+  List<Book> _books = [];
 
   var loading = false;
   var count = 1;
 
-  Future<Null> fetchData() async {
+  Future fetchData() async {
     setState(() {
       loading = true;
     });
-    _list.clear();
+    _books.clear();
     final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+        await http.get(Uri.parse(Api.getBook));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _list.add(Test.formJson(i));
+          _books.add(Book.formJson(i));
           loading = false;
         }
       });
@@ -862,25 +862,21 @@ class _SumbangBukuState extends State<SumbangBuku> {
                               child: TabBarView(
                                 children: [
                                   GridView.builder(
-                                      itemCount: _list.length,
+                                      itemCount: _books.length,
                                       padding: EdgeInsets.all(10),
                                       gridDelegate:
                                           SliverGridDelegateWithMaxCrossAxisExtent(
-                                        maxCrossAxisExtent:
-                                            MediaQuery.of(context).size.width *
-                                                0.35,
-                                        mainAxisExtent:
-                                            MediaQuery.of(context).size.height *
-                                                0.28,
+                                        maxCrossAxisExtent: 140,
+                                        mainAxisExtent: 277,
                                         crossAxisSpacing: 15,
                                         mainAxisSpacing: 12,
                                       ),
                                       itemBuilder: (context, i) {
-                                        final a = _list[i];
+                                        final book = _books[i];
                                         return Container(
                                           padding: EdgeInsets.symmetric(
                                             horizontal: 8,
-                                            vertical: 4,
+                                            vertical: 8,
                                           ),
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -898,24 +894,26 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                           ),
                                           child: Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
+                                                MainAxisAlignment.start,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
                                               Container(
+                                                width: 119,
+                                                height: 161,
                                                 decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5)),
-                                                child: new Image.asset(
-                                                  'assets/images/samplebook.png',
+                                                child: Image.network(
+                                                  Api.image + book.image,
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
                                               Align(
                                                 alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
-                                                  'Ilmu Pengetahuan Alam',
+                                                  book.nama_buku,
                                                   style: TextStyle(
                                                     fontFamily:
                                                         'Gilroy-ExtraBold',
@@ -926,7 +924,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                               Align(
                                                 alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
-                                                  'Tahun terbit: 2013',
+                                                  'Tahun terbit: ' +
+                                                      book.tahun_terbit,
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
                                                     fontSize: 10,
@@ -938,7 +937,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                               Align(
                                                 alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
-                                                  'Oleh: ' + a.name,
+                                                  'Oleh: ' + book.nama_penulis,
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
                                                     fontSize: 10,
@@ -953,7 +952,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                               Align(
                                                 alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
-                                                  'Kategori: Buku Paket',
+                                                  'Kategori: ' +
+                                                      book.kategori_buku,
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
                                                     fontSize: 10,
@@ -965,7 +965,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                               Align(
                                                 alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
-                                                  'Jumlah Buku : 2',
+                                                  'Jumlah Buku : ' +
+                                                      book.jumlah_buku,
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
                                                     fontSize: 10,
@@ -979,25 +980,21 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                         );
                                       }),
                                   GridView.builder(
-                                      itemCount: _list.length,
+                                      itemCount: _books.length,
                                       padding: EdgeInsets.all(10),
                                       gridDelegate:
                                           SliverGridDelegateWithMaxCrossAxisExtent(
-                                        maxCrossAxisExtent:
-                                            MediaQuery.of(context).size.width *
-                                                0.35,
-                                        mainAxisExtent:
-                                            MediaQuery.of(context).size.height *
-                                                0.28,
+                                        maxCrossAxisExtent: 140,
+                                        mainAxisExtent: 277,
                                         crossAxisSpacing: 15,
                                         mainAxisSpacing: 12,
                                       ),
                                       itemBuilder: (context, i) {
-                                        final a = _list[i];
+                                        final book = _books[i];
                                         return Container(
                                           padding: EdgeInsets.symmetric(
                                             horizontal: 8,
-                                            vertical: 4,
+                                            vertical: 8,
                                           ),
                                           decoration: BoxDecoration(
                                             color: Colors.white,
@@ -1015,24 +1012,26 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                           ),
                                           child: Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
+                                                MainAxisAlignment.start,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                             children: [
                                               Container(
+                                                width: 119,
+                                                height: 161,
                                                 decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5)),
-                                                child: new Image.asset(
-                                                  'assets/images/samplebook.png',
+                                                child: Image.network(
+                                                  Api.image + book.image,
                                                   fit: BoxFit.cover,
                                                 ),
                                               ),
                                               Align(
                                                 alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
-                                                  'Ilmu Pengetahuan Alam',
+                                                  book.nama_buku,
                                                   style: TextStyle(
                                                     fontFamily:
                                                         'Gilroy-ExtraBold',
@@ -1043,7 +1042,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                               Align(
                                                 alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
-                                                  'Tahun terbit: 2013',
+                                                  'Tahun terbit: ' +
+                                                      book.tahun_terbit,
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
                                                     fontSize: 10,
@@ -1055,7 +1055,7 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                               Align(
                                                 alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
-                                                  'Oleh: ' + a.name,
+                                                  'Oleh: ' + book.nama_penulis,
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
                                                     fontSize: 10,
@@ -1070,7 +1070,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                               Align(
                                                 alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
-                                                  'Kategori: Buku Paket',
+                                                  'Kategori: ' +
+                                                      book.kategori_buku,
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
                                                     fontSize: 10,
@@ -1082,7 +1083,8 @@ class _SumbangBukuState extends State<SumbangBuku> {
                                               Align(
                                                 alignment: Alignment(-1.0, 0.0),
                                                 child: Text(
-                                                  'Jumlah Buku : 2',
+                                                  'Jumlah Buku : ' +
+                                                      book.jumlah_buku,
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
                                                     fontSize: 10,

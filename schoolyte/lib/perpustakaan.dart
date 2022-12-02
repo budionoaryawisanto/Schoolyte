@@ -836,15 +836,36 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                 ),
                                                                 Center(
                                                                   child:
-                                                                      Container(
-                                                                    width: 167,
-                                                                    height: 226,
-                                                                    child: Image
-                                                                        .network(
-                                                                      Api.image +
-                                                                          book.image,
-                                                                      fit: BoxFit
-                                                                          .cover,
+                                                                      GestureDetector(
+                                                                    onTap: () {
+                                                                      showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (context) {
+                                                                            return Center(
+                                                                              child: Material(
+                                                                                type: MaterialType.transparency,
+                                                                                child: Image.network(
+                                                                                  Api.image + book.image,
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          });
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          167,
+                                                                      height:
+                                                                          226,
+                                                                      child: Image
+                                                                          .network(
+                                                                        Api.image +
+                                                                            book.image,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
@@ -1558,15 +1579,36 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                 ),
                                                                 Center(
                                                                   child:
-                                                                      Container(
-                                                                    width: 167,
-                                                                    height: 226,
-                                                                    child: Image
-                                                                        .network(
-                                                                      Api.image +
-                                                                          book.image,
-                                                                      fit: BoxFit
-                                                                          .cover,
+                                                                      GestureDetector(
+                                                                    onTap: () {
+                                                                      showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (context) {
+                                                                            return Center(
+                                                                              child: Material(
+                                                                                type: MaterialType.transparency,
+                                                                                child: Image.network(
+                                                                                  Api.image + book.image,
+                                                                                ),
+                                                                              ),
+                                                                            );
+                                                                          });
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          167,
+                                                                      height:
+                                                                          226,
+                                                                      child: Image
+                                                                          .network(
+                                                                        Api.image +
+                                                                            book.image,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),

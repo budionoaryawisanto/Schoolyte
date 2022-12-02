@@ -281,21 +281,28 @@ class _DetailDivisiState extends State<DetailDivisi> {
                                     ),
                                     DataCell(
                                       Container(
-                                        width: 84.21,
+                                        width: data.id % 2 == 0 ? 97 : 84.21,
                                         height: 21,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(5),
-                                          color: Color.fromRGBO(255, 199, 0, 1),
+                                          color: data.id % 2 == 0
+                                              ? Color.fromRGBO(119, 115, 205, 1)
+                                              : Color.fromRGBO(255, 199, 0, 1),
                                         ),
                                         child: Center(
                                           child: Text(
-                                            'Terlaksana',
+                                            data.id % 2 == 0
+                                                ? 'Dilaksanakan'
+                                                : 'Terlaksana',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
                                               fontSize: 13,
                                               color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
+                                                  data.id % 2 == 0
+                                                  ? Colors.white
+                                                  : Color.fromRGBO(
+                                                      76, 81, 97, 1),
                                             ),
                                           ),
                                         ),
@@ -324,13 +331,8 @@ class _DetailDivisiState extends State<DetailDivisi> {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.95,
                     height: 410,
+                    margin: EdgeInsets.only(top: 10),
                     padding: EdgeInsets.symmetric(vertical: 5),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: Colors.black,
-                      ),
-                    ),
                     child: GridView.builder(
                         itemCount: _list.length,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -343,6 +345,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
                         itemBuilder: ((context, i) {
                           return Container(
                             margin: EdgeInsets.all(3),
+                            padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(8),
@@ -353,6 +356,55 @@ class _DetailDivisiState extends State<DetailDivisi> {
                                   blurRadius: 1.5,
                                   offset: Offset(0, 0),
                                 )
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 132,
+                                  height: 102,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/dokumentasi.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.63,
+                                  height: 82,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Juara II Jambore Tingkat Jawa Timur',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-ExtraBold',
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Alhamdulillah, salah satu wakil dari SDIT Insan Mulia berhasil memenangkan lomba pildacil dalam kegiatan Jambore Ranting Tambun Utara. Dhafin berhasil menyabet juara 2 dalam lomba tersebut.',
+                                        maxLines: 4,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 13,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           );
