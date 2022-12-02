@@ -1160,7 +1160,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                                                         type: MaterialType
                                                             .transparency,
                                                         child: Image.network(
-                                                          Api.imageAbsen +
+                                                          Api.image +
                                                               absen.image,
                                                         ),
                                                       ),

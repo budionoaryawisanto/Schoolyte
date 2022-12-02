@@ -2,9 +2,9 @@ class Api {
   static String getAbsen = 'https://sekolahkunihh.my.id/api';
   static String createAbsen = 'https://sekolahkunihh.my.id/api/create';
   static String editAbsen = 'https://sekolahkunihh.my.id/api/update/';
-  static String imageAbsen = 'https://sekolahkunihh.my.id/';
-  static String getBook = 'https://sekolahkunihh.my.id/api/perpus';
-  static String createBook = 'https://sekolahkunihh.my.id/api/perpus/create';
+  static String image = 'https://sekolahkunihh.my.id/';
+  static String getBook = 'https://sekolahkunihh.my.id/api/buku';
+  static String createBook = 'https://sekolahkunihh.my.id/api/buku/create';
 }
 
 class Users {
@@ -81,6 +81,42 @@ class Absensi {
       image: json['image'],
       tglAbsen: json['tglAbsen'],
       wktAbsen: json['wktAbsen'],
+    );
+  }
+}
+
+
+class Book {
+  final String buku_id;
+  final String nama_buku;
+  final String tahun_terbit;
+  final String nama_penulis;
+  final String rincian_buku;
+  final String jumlah_buku;
+  final String image;
+  final String kategori_buku;
+
+  Book({
+    required this.buku_id,
+    required this.nama_buku,
+    required this.tahun_terbit,
+    required this.nama_penulis,
+    required this.rincian_buku,
+    required this.jumlah_buku,
+    required this.image,
+    required this.kategori_buku,
+  });
+
+  factory Book.formJson(Map<String, dynamic> json) {
+    return new Book(
+      buku_id: json['buku_id'],
+      nama_buku: json['nama_buku'],
+      tahun_terbit: json['tahun_terbit'],
+      nama_penulis: json['nama_penulis'],
+      rincian_buku: json['rincian_buku'],
+      jumlah_buku: json['jumlah_buku'],
+      image: json['image'],
+      kategori_buku: json['kategori_buku'],
     );
   }
 }

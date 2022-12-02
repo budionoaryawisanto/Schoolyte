@@ -26,22 +26,22 @@ class _TambahBukuState extends State<TambahBuku> {
   final _formKey4 = GlobalKey<FormState>();
   final _formKey5 = GlobalKey<FormState>();
 
-  List<Test> _list = [];
-  List<Test> _search = [];
+  List<Book> _books = [];
+  List<Book> _search = [];
   var loading = false;
 
   Future fetchData() async {
     setState(() {
       loading = true;
     });
-    _list.clear();
+    _books.clear();
     final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+        await http.get(Uri.parse(Api.getBook));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _list.add(Test.formJson(i));
+          _books.add(Book.formJson(i));
           loading = false;
         }
       });
@@ -80,12 +80,15 @@ class _TambahBukuState extends State<TambahBuku> {
       var length = await image!.length();
       var uri = Uri.parse(Api.createBook);
       var request = http.MultipartRequest("POST", uri);
-      request.fields['statAbsen'] = '';
-      request.fields['tglAbsen'] = '';
-      request.fields['wktAbsen'] = '';
-
+      request.fields['nama_buku'] = namaController.text;
+      request.fields['tahun_terbit'] = tahunController.text;
+      request.fields['nama_penulis'] = penulisController.text;
+      request.fields['rincian_buku'] = rincianController.text;
+      request.fields['jumlah_buku'] = jumlahBuku.toString();
+      request.fields['kategori_buku'] = kategoriController.text;
       request.files.add(http.MultipartFile("image", stream, length,
           filename: path.basename(image!.path)));
+
       var response = await request.send();
       if (response.statusCode == 200) {
         setState(() {
@@ -175,17 +178,17 @@ class _TambahBukuState extends State<TambahBuku> {
       setState(() {});
       return;
     }
-    _list.forEach((e) {
-      if (e.name.toLowerCase().contains(text.toLowerCase()) ||
-          e.id.toString().contains(text)) {
-        _search.add(e);
+    _books.forEach((book) {
+      if (book.nama_buku.toLowerCase().contains(text.toLowerCase()) ||
+          book.nama_penulis.toLowerCase().contains(text.toLowerCase()) ||
+          book.kategori_buku.toLowerCase().contains(text.toLowerCase()) ||
+          book.tahun_terbit.contains(text.toLowerCase())) {
+        _search.add(book);
       }
     });
   }
 
-  var start = '';
-  var end = '';
-  var count = 1;
+  var jumlahBuku = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -253,550 +256,593 @@ class _TambahBukuState extends State<TambahBuku> {
           ),
           body: TabBarView(
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.7,
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.09),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Tambah Buku',
-                      style: TextStyle(
-                        fontFamily: 'Gilroy-ExtraBold',
-                        fontSize: 20,
-                        color: Color.fromRGBO(76, 81, 97, 1),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
-                            child: Text(
-                              'Nama Buku',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
-                                color: Color.fromRGBO(76, 81, 97, 1),
-                              ),
-                            ),
+              Stack(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.8,
+                    padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.09),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Tambah Buku',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-ExtraBold',
+                            fontSize: 20,
+                            color: Color.fromRGBO(76, 81, 97, 1),
                           ),
-                          Text(
-                            ' :      ',
-                            style: TextStyle(
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: Form(
-                              key: _formKey,
-                              child: TextFormField(
-                                controller: namaController,
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                                textAlignVertical: TextAlignVertical(y: -0.7),
-                                decoration: InputDecoration(
-                                  labelText: 'Nama',
-                                  labelStyle: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(76, 81, 97, 0.54),
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Nama buku tidak boleh kosong ! ';
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      margin: EdgeInsets.only(top: 22),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
-                            child: Text(
-                              'Tahun Terbit',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
-                                color: Color.fromRGBO(76, 81, 97, 1),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            ' :      ',
-                            style: TextStyle(
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: Form(
-                              key: _formKey2,
-                              child: TextFormField(
-                                controller: tahunController,
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                                textAlignVertical: TextAlignVertical(y: -0.7),
-                                decoration: InputDecoration(
-                                  labelText: 'Tahun',
-                                  labelStyle: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(76, 81, 97, 0.54),
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Tahun terbit tidak boleh kosong ! ';
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      margin: EdgeInsets.only(top: 22),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
-                            child: Text(
-                              'Penulis',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
-                                color: Color.fromRGBO(76, 81, 97, 1),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            ' :      ',
-                            style: TextStyle(
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: Form(
-                              key: _formKey3,
-                              child: TextFormField(
-                                controller: penulisController,
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                                textAlignVertical: TextAlignVertical(y: -0.7),
-                                decoration: InputDecoration(
-                                  labelText: 'Nama Penulis',
-                                  labelStyle: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(76, 81, 97, 0.54),
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Nama penulis tidak boleh kosong ! ';
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.06,
-                      margin: EdgeInsets.only(top: 22),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
-                            child: Text(
-                              'Kategori',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
-                                color: Color.fromRGBO(76, 81, 97, 1),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            ' :      ',
-                            style: TextStyle(
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: Form(
-                              key: _formKey4,
-                              child: TextFormField(
-                                controller: kategoriController,
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                                textAlignVertical: TextAlignVertical(y: -0.7),
-                                decoration: InputDecoration(
-                                  labelText: 'Kategori Buku',
-                                  labelStyle: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(76, 81, 97, 0.54),
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Kategori buku tidak boleh kosong ! ';
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.11,
-                      margin: EdgeInsets.only(top: 22),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
-                            child: Text(
-                              'Rincian Buku',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
-                                color: Color.fromRGBO(76, 81, 97, 1),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            ' :      ',
-                            style: TextStyle(
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            child: Form(
-                              key: _formKey5,
-                              child: TextFormField(
-                                controller: rincianController,
-                                keyboardType: TextInputType.multiline,
-                                maxLines: 400,
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                                decoration: InputDecoration(
-                                  labelText: 'Keterangan Buku',
-                                  labelStyle: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(76, 81, 97, 0.54),
-                                  ),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(10)),
-                                ),
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return 'Deskripsi tidak boleh kosong ! ';
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.42,
-                      height: MediaQuery.of(context).size.height * 0.042,
-                      margin: EdgeInsets.only(top: 22),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.14,
-                            child: Text(
-                              'Jumlah Buku',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
-                                color: Color.fromRGBO(76, 81, 97, 1),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            '   :',
-                            style: TextStyle(
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.17,
-                            height: MediaQuery.of(context).size.height * 0.026,
-                            margin: EdgeInsets.only(left: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                GestureDetector(
-                                  onTap: () => setState(() {
-                                    count != 1 ? count-- : null;
-                                  }),
-                                  child: Container(
-                                    width: 25,
-                                    height: 25,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(180),
-                                      border: Border.all(
-                                        width: 1,
-                                        color: Color.fromRGBO(119, 115, 205, 1),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.remove,
-                                        color: Color.fromRGBO(119, 115, 205, 1),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Text(
-                                  count.toString(),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.85,
+                          height: MediaQuery.of(context).size.height * 0.06,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.15,
+                                child: Text(
+                                  'Nama Buku',
                                   style: TextStyle(
                                     fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
-                                    color: Colors.black,
+                                    fontSize: 18,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
                                   ),
                                 ),
-                                GestureDetector(
+                              ),
+                              Text(
+                                ' :      ',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: Form(
+                                  key: _formKey,
+                                  child: TextFormField(
+                                    controller: namaController,
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                    textAlignVertical:
+                                        TextAlignVertical(y: -0.7),
+                                    decoration: InputDecoration(
+                                      labelText: 'Nama',
+                                      labelStyle: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 16,
+                                        color: Color.fromRGBO(76, 81, 97, 0.54),
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Nama buku tidak boleh kosong ! ';
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.85,
+                          height: MediaQuery.of(context).size.height * 0.06,
+                          margin: EdgeInsets.only(top: 22),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.15,
+                                child: Text(
+                                  'Tahun Terbit',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 18,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                ' :      ',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: Form(
+                                  key: _formKey2,
+                                  child: TextFormField(
+                                    controller: tahunController,
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                    textAlignVertical:
+                                        TextAlignVertical(y: -0.7),
+                                    decoration: InputDecoration(
+                                      labelText: 'Tahun',
+                                      labelStyle: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 16,
+                                        color: Color.fromRGBO(76, 81, 97, 0.54),
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Tahun terbit tidak boleh kosong ! ';
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.85,
+                          height: MediaQuery.of(context).size.height * 0.06,
+                          margin: EdgeInsets.only(top: 22),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.15,
+                                child: Text(
+                                  'Penulis',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 18,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                ' :      ',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: Form(
+                                  key: _formKey3,
+                                  child: TextFormField(
+                                    controller: penulisController,
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                    textAlignVertical:
+                                        TextAlignVertical(y: -0.7),
+                                    decoration: InputDecoration(
+                                      labelText: 'Nama Penulis',
+                                      labelStyle: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 16,
+                                        color: Color.fromRGBO(76, 81, 97, 0.54),
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Nama penulis tidak boleh kosong ! ';
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.85,
+                          height: MediaQuery.of(context).size.height * 0.06,
+                          margin: EdgeInsets.only(top: 22),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.15,
+                                child: Text(
+                                  'Kategori',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 18,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                ' :      ',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: Form(
+                                  key: _formKey4,
+                                  child: TextFormField(
+                                    controller: kategoriController,
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                    textAlignVertical:
+                                        TextAlignVertical(y: -0.7),
+                                    decoration: InputDecoration(
+                                      labelText: 'Kategori Buku',
+                                      labelStyle: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 16,
+                                        color: Color.fromRGBO(76, 81, 97, 0.54),
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Kategori buku tidak boleh kosong ! ';
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.85,
+                          height: MediaQuery.of(context).size.height * 0.11,
+                          margin: EdgeInsets.only(top: 22),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.15,
+                                child: Text(
+                                  'Rincian Buku',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 18,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                ' :      ',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.6,
+                                child: Form(
+                                  key: _formKey5,
+                                  child: TextFormField(
+                                    controller: rincianController,
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: 400,
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                    decoration: InputDecoration(
+                                      labelText: 'Keterangan Buku',
+                                      labelStyle: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 16,
+                                        color: Color.fromRGBO(76, 81, 97, 0.54),
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return 'Deskripsi tidak boleh kosong ! ';
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.42,
+                          height: MediaQuery.of(context).size.height * 0.042,
+                          margin: EdgeInsets.only(top: 22),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.14,
+                                child: Text(
+                                  'Jumlah Buku',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 18,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                '   :',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.17,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.026,
+                                margin: EdgeInsets.only(left: 20),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () => setState(() {
+                                        jumlahBuku != 1 ? jumlahBuku-- : null;
+                                      }),
+                                      child: Container(
+                                        width: 25,
+                                        height: 25,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(180),
+                                          border: Border.all(
+                                            width: 1,
+                                            color: Color.fromRGBO(
+                                                119, 115, 205, 1),
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.remove,
+                                            color: Color.fromRGBO(
+                                                119, 115, 205, 1),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      jumlahBuku.toString(),
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 16,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () => setState(() {
+                                        jumlahBuku++;
+                                      }),
+                                      child: Container(
+                                        width: 25,
+                                        height: 25,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(180),
+                                          border: Border.all(
+                                            width: 1,
+                                            color: Color.fromRGBO(
+                                                119, 115, 205, 1),
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.add,
+                                            color: Color.fromRGBO(
+                                                119, 115, 205, 1),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          height: MediaQuery.of(context).size.height * 0.042,
+                          margin: EdgeInsets.only(top: 22),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.15,
+                                child: Text(
+                                  'Tambah Foto',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 18,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                  ),
+                                ),
+                              ),
+                              Text(
+                                '  :',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                              ),
+                              image != null
+                                  ? GestureDetector(
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) {
+                                              return Center(
+                                                child: Material(
+                                                  type:
+                                                      MaterialType.transparency,
+                                                  child: new Image.file(image!),
+                                                ),
+                                              );
+                                            });
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.27,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.04,
+                                        margin: EdgeInsets.only(left: 25),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(0.3),
+                                              spreadRadius: 0,
+                                              blurRadius: 1.5,
+                                              offset: Offset(0, 1),
+                                            )
+                                          ],
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Lihat Foto',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 16,
+                                              color: Color.fromRGBO(
+                                                  76, 81, 97, 0.54),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : GestureDetector(
+                                      onTap: () async {
+                                        await getImage();
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.27,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.04,
+                                        margin: EdgeInsets.only(left: 25),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(0.3),
+                                              spreadRadius: 0,
+                                              blurRadius: 1.5,
+                                              offset: Offset(0, 1),
+                                            )
+                                          ],
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            'Pilih foto',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 16,
+                                              color: Color.fromRGBO(
+                                                  76, 81, 97, 0.54),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                              Visibility(
+                                visible: image != null ? true : false,
+                                child: GestureDetector(
                                   onTap: () => setState(() {
-                                    count++;
+                                    image = null;
                                   }),
                                   child: Container(
-                                    width: 25,
-                                    height: 25,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(180),
-                                      border: Border.all(
-                                        width: 1,
-                                        color: Color.fromRGBO(119, 115, 205, 1),
-                                      ),
-                                    ),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Color.fromRGBO(119, 115, 205, 1),
-                                      ),
+                                    margin: EdgeInsets.only(left: 10),
+                                    child: Icon(
+                                      Icons.delete,
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      height: MediaQuery.of(context).size.height * 0.042,
-                      margin: EdgeInsets.only(top: 22),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
-                            child: Text(
-                              'Tambah Foto',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
-                                color: Color.fromRGBO(76, 81, 97, 1),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            '  :',
-                            style: TextStyle(
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
-                          ),
-                          image != null
-                              ? GestureDetector(
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return Center(
-                                            child: Material(
-                                              type: MaterialType.transparency,
-                                              child: new Image.file(image!),
-                                            ),
-                                          );
-                                        });
-                                  },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.27,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.04,
-                                    margin: EdgeInsets.only(left: 25),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.3),
-                                          spreadRadius: 0,
-                                          blurRadius: 1.5,
-                                          offset: Offset(0, 1),
-                                        )
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        'Lihat Foto',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 16,
-                                          color:
-                                              Color.fromRGBO(76, 81, 97, 0.54),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : GestureDetector(
-                                  onTap: () async {
-                                    await getImage();
-                                  },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.27,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.04,
-                                    margin: EdgeInsets.only(left: 25),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.3),
-                                          spreadRadius: 0,
-                                          blurRadius: 1.5,
-                                          offset: Offset(0, 1),
-                                        )
-                                      ],
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        'Pilih foto',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 16,
-                                          color:
-                                              Color.fromRGBO(76, 81, 97, 0.54),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                          Visibility(
-                            visible: image != null ? true : false,
-                            child: GestureDetector(
-                              onTap: () => setState(() {
-                                image = null;
-                              }),
-                              child: Container(
-                                margin: EdgeInsets.only(left: 10),
-                                child: Icon(
-                                  Icons.delete,
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment(1.0, 0.0),
-                      child: GestureDetector(
-                        onTap: () {
-                          sendBuku();
-                        },
-                        child: Container(
-                          width: 119,
-                          height: 36,
-                          margin: EdgeInsets.only(top: 30),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            color: Colors.black,
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Selesai',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 15,
-                                color: Colors.white,
+                        ),
+                        Align(
+                          alignment: Alignment(1.0, 0.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              sendBuku();
+                            },
+                            child: Container(
+                              width: 119,
+                              height: 36,
+                              margin: EdgeInsets.only(top: 30),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: Colors.black,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Selesai',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+                  Visibility(
+                    visible: loading,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      color: Color.fromRGBO(0, 0, 0, 0.20),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: Color.fromRGBO(119, 115, 205, 1),
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               Container(
                 width: MediaQuery.of(context).size.width,
@@ -804,23 +850,22 @@ class _TambahBukuState extends State<TambahBuku> {
                 padding: EdgeInsets.all(10),
                 color: Color.fromRGBO(243, 243, 243, 1),
                 child: GridView.builder(
-                    itemCount: _list.length,
+                    itemCount: _books.length,
                     padding: EdgeInsets.all(10),
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent:
-                          MediaQuery.of(context).size.width * 0.35,
-                      mainAxisExtent: MediaQuery.of(context).size.height * 0.28,
+                      maxCrossAxisExtent: 140,
+                      mainAxisExtent: 283,
                       crossAxisSpacing: 15,
                       mainAxisSpacing: 12,
                     ),
                     itemBuilder: (context, i) {
-                      final a = _list[i];
+                      final book = _books[i];
                       return Stack(
                         children: [
                           Container(
                             padding: EdgeInsets.symmetric(
                               horizontal: 8,
-                              vertical: 4,
+                              vertical: 8,
                             ),
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -838,68 +883,81 @@ class _TambahBukuState extends State<TambahBuku> {
                               children: [
                                 Column(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Container(
+                                      width: 119,
+                                      height: 161,
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(5)),
-                                      child: new Image.asset(
-                                        'assets/images/samplebook.png',
+                                      child: Image.network(
+                                        Api.image + book.image,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
-                                    Align(
-                                      alignment: Alignment(-1.0, 0.0),
-                                      child: Text(
-                                        'Ilmu Pengetahuan Alam',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment(-1.0, 0.0),
-                                      child: Text(
-                                        'Tahun terbit: 2013',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment(-1.0, 0.0),
-                                      child: Text(
-                                        'Oleh: ' + a.name,
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment(-1.0, 0.0),
-                                      child: Text(
-                                        'Kategori: Buku Paket',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: Alignment(-1.0, 0.0),
-                                      child: Text(
-                                        'Jumlah Buku : 2',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 10,
-                                        ),
+                                    Container(
+                                      height: 100,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Align(
+                                            alignment: Alignment(-1.0, 0.0),
+                                            child: Text(
+                                              book.nama_buku,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-ExtraBold',
+                                                fontSize: 13,
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(-1.0, 0.0),
+                                            child: Text(
+                                              'Tahun terbit: ' +
+                                                  book.tahun_terbit,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(-1.0, 0.0),
+                                            child: Text(
+                                              'Oleh: ' + book.nama_penulis,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 10,
+                                              ),
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(-1.0, 0.0),
+                                            child: Text(
+                                              'Kategori: ' + book.kategori_buku,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(-1.0, 0.0),
+                                            child: Text(
+                                              'Jumlah Buku : ' +
+                                                  book.jumlah_buku,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 10,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
@@ -1047,25 +1105,17 @@ class _TambahBukuState extends State<TambahBuku> {
                                           padding: EdgeInsets.all(10),
                                           gridDelegate:
                                               SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.35,
-                                            mainAxisExtent:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.28,
+                                            maxCrossAxisExtent: 140,
+                                            mainAxisExtent: 282,
                                             crossAxisSpacing: 15,
                                             mainAxisSpacing: 12,
                                           ),
                                           itemBuilder: (context, i) {
-                                            final b = _search[i];
+                                            final book = _search[i];
                                             return Container(
                                               padding: EdgeInsets.symmetric(
                                                 horizontal: 8,
-                                                vertical: 4,
+                                                vertical: 8,
                                               ),
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
@@ -1086,112 +1136,151 @@ class _TambahBukuState extends State<TambahBuku> {
                                                   Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
-                                                            .spaceEvenly,
+                                                            .spaceBetween,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: [
                                                       Container(
+                                                        width: 119,
+                                                        height: 161,
                                                         decoration: BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
                                                                         5)),
-                                                        child: new Image.asset(
-                                                          'assets/images/samplebook.png',
+                                                        child: Image.network(
+                                                          Api.image +
+                                                              book.image,
                                                           fit: BoxFit.cover,
                                                         ),
                                                       ),
-                                                      Align(
-                                                        alignment: Alignment(
-                                                            -1.0, 0.0),
-                                                        child: Text(
-                                                          'Ilmu Pengetahuan Alam',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-ExtraBold',
-                                                            fontSize: 13,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment: Alignment(
-                                                            -1.0, 0.0),
-                                                        child: Text(
-                                                          'Tahun terbit: 2013',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 10,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment: Alignment(
-                                                            -1.0, 0.0),
-                                                        child: Text(
-                                                          'Oleh: ' + b.name,
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 10,
-                                                          ),
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment: Alignment(
-                                                            -1.0, 0.0),
-                                                        child: Text(
-                                                          'Kategori: Buku Paket',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 10,
-                                                          ),
-                                                        ),
-                                                      ),
                                                       Container(
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height *
-                                                            0.014,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: b.id % 2 == 0
-                                                              ? Color.fromRGBO(
-                                                                  115,
-                                                                  119,
-                                                                  205,
-                                                                  1)
-                                                              : Color.fromRGBO(
-                                                                  217,
-                                                                  217,
-                                                                  217,
-                                                                  1),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(4),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            b.id % 2 == 0
-                                                                ? 'Tersedia : 6'
-                                                                : 'Habis',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-Light',
-                                                              fontSize: 10,
-                                                              color: b.id % 2 ==
-                                                                      0
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
+                                                        height: 100,
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          children: [
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                book.nama_buku,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-ExtraBold',
+                                                                  fontSize: 13,
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                'Tahun terbit: ' +
+                                                                    book.tahun_terbit,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 10,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                'Oleh: ' +
+                                                                    book.nama_penulis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 10,
+                                                                ),
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                'Kategori: ' +
+                                                                    book.kategori_buku,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 10,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  0.014,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: book.jumlah_buku !=
+                                                                        '0'
+                                                                    ? Color
+                                                                        .fromRGBO(
+                                                                            115,
+                                                                            119,
+                                                                            205,
+                                                                            1)
+                                                                    : Color
+                                                                        .fromRGBO(
+                                                                            217,
+                                                                            217,
+                                                                            217,
+                                                                            1),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            4),
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  book.jumlah_buku !=
+                                                                          '0'
+                                                                      ? 'Tersedia : ' +
+                                                                          book.jumlah_buku
+                                                                      : 'Habis',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Gilroy-Light',
+                                                                    fontSize:
+                                                                        10,
+                                                                    color: book
+                                                                                .jumlah_buku !=
+                                                                            '0'
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
                                                     ],
@@ -1253,29 +1342,21 @@ class _TambahBukuState extends State<TambahBuku> {
                                             );
                                           })
                                       : GridView.builder(
-                                          itemCount: _list.length,
+                                          itemCount: _books.length,
                                           padding: EdgeInsets.all(10),
                                           gridDelegate:
                                               SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.35,
-                                            mainAxisExtent:
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.28,
+                                            maxCrossAxisExtent: 140,
+                                            mainAxisExtent: 282,
                                             crossAxisSpacing: 15,
                                             mainAxisSpacing: 12,
                                           ),
                                           itemBuilder: (context, i) {
-                                            final a = _list[i];
+                                            final book = _books[i];
                                             return Container(
                                               padding: EdgeInsets.symmetric(
                                                 horizontal: 8,
-                                                vertical: 4,
+                                                vertical: 8,
                                               ),
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
@@ -1296,112 +1377,151 @@ class _TambahBukuState extends State<TambahBuku> {
                                                   Column(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
-                                                            .spaceEvenly,
+                                                            .spaceBetween,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
                                                             .center,
                                                     children: [
                                                       Container(
+                                                        width: 119,
+                                                        height: 161,
                                                         decoration: BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
                                                                         5)),
-                                                        child: new Image.asset(
-                                                          'assets/images/samplebook.png',
+                                                        child: Image.network(
+                                                          Api.image +
+                                                              book.image,
                                                           fit: BoxFit.cover,
                                                         ),
                                                       ),
-                                                      Align(
-                                                        alignment: Alignment(
-                                                            -1.0, 0.0),
-                                                        child: Text(
-                                                          'Ilmu Pengetahuan Alam',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-ExtraBold',
-                                                            fontSize: 13,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment: Alignment(
-                                                            -1.0, 0.0),
-                                                        child: Text(
-                                                          'Tahun terbit: 2013',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 10,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment: Alignment(
-                                                            -1.0, 0.0),
-                                                        child: Text(
-                                                          'Oleh: ' + a.name,
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 10,
-                                                          ),
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment: Alignment(
-                                                            -1.0, 0.0),
-                                                        child: Text(
-                                                          'Kategori: Buku Paket',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 10,
-                                                          ),
-                                                        ),
-                                                      ),
                                                       Container(
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height *
-                                                            0.014,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: a.id % 2 == 0
-                                                              ? Color.fromRGBO(
-                                                                  115,
-                                                                  119,
-                                                                  205,
-                                                                  1)
-                                                              : Color.fromRGBO(
-                                                                  217,
-                                                                  217,
-                                                                  217,
-                                                                  1),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(4),
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            a.id % 2 == 0
-                                                                ? 'Tersedia : 6'
-                                                                : 'Habis',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-Light',
-                                                              fontSize: 10,
-                                                              color: a.id % 2 ==
-                                                                      0
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
+                                                        height: 100,
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          children: [
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                book.nama_buku,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-ExtraBold',
+                                                                  fontSize: 13,
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                'Tahun terbit: ' +
+                                                                    book.tahun_terbit,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 10,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                'Oleh: ' +
+                                                                    book.nama_penulis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 10,
+                                                                ),
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                'Kategori: ' +
+                                                                    book.kategori_buku,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 10,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  0.014,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: book.jumlah_buku !=
+                                                                        '0'
+                                                                    ? Color
+                                                                        .fromRGBO(
+                                                                            115,
+                                                                            119,
+                                                                            205,
+                                                                            1)
+                                                                    : Color
+                                                                        .fromRGBO(
+                                                                            217,
+                                                                            217,
+                                                                            217,
+                                                                            1),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            4),
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  book.jumlah_buku !=
+                                                                          '0'
+                                                                      ? 'Tersedia : ' +
+                                                                          book.jumlah_buku
+                                                                      : 'Habis',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Gilroy-Light',
+                                                                    fontSize:
+                                                                        10,
+                                                                    color: book
+                                                                                .jumlah_buku !=
+                                                                            '0'
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ),
                                                     ],
