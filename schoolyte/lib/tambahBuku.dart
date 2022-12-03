@@ -76,91 +76,160 @@ class _TambahBukuState extends State<TambahBuku> {
     setState(() {
       loading = true;
     });
-    try {
-      var stream = http.ByteStream(DelegatingStream(image!.openRead()));
-      var length = await image!.length();
-      var uri = Uri.parse(Api.createBook);
-      var request = http.MultipartRequest("POST", uri);
-      request.fields['nama_buku'] = namaController.text;
-      request.fields['tahun_terbit'] = tahunController.text;
-      request.fields['nama_penulis'] = penulisController.text;
-      request.fields['rincian_buku'] = rincianController.text;
-      request.fields['jumlah_buku'] = jumlahBuku.toString();
-      request.fields['kategori_buku'] = kategoriController.text;
-      request.files.add(http.MultipartFile("image", stream, length,
-          filename: path.basename(image!.path)));
-
-      var response = await request.send();
-      if (response.statusCode == 200) {
-        setState(() {
-          loading = false;
-        });
-        showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) {
-              return Dialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Container(
-                  height: 357,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 177,
-                        height: 177,
-                        child: Image.asset(
-                          'assets/images/dialog.png',
-                          fit: BoxFit.fill,
-                        ),
+    if (namaController.text.isEmpty ||
+        tahunController.text.isEmpty ||
+        penulisController.text.isEmpty ||
+        rincianController.text.isEmpty ||
+        kategoriController.text.isEmpty ||
+        image == null) {
+      setState(() {
+        loading = false;
+      });
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Container(
+                height: 357,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 177,
+                      height: 177,
+                      child: Image.asset(
+                        'assets/images/alertDialog.png',
+                        fit: BoxFit.fill,
                       ),
-                      Text(
-                        'Sukses',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy-ExtraBold',
-                          fontSize: 32,
-                        ),
+                    ),
+                    Text(
+                      'Gagal',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy-ExtraBold',
+                        fontSize: 32,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => TambahBuku()));
-                        },
-                        child: Container(
-                          width: 107,
-                          height: 43,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Color.fromRGBO(119, 115, 205, 1),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'OK',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        width: 107,
+                        height: 43,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Color.fromRGBO(242, 78, 26, 1),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'OK',
+                            style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 20,
+                              color: Colors.white,
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              );
-            });
-      } else {
-        return;
+              ),
+            );
+          });
+    } else {
+      try {
+        var stream = http.ByteStream(DelegatingStream(image!.openRead()));
+        var length = await image!.length();
+        var uri = Uri.parse(Api.createBook);
+        var request = http.MultipartRequest("POST", uri);
+        request.fields['nama_buku'] = namaController.text;
+        request.fields['tahun_terbit'] = tahunController.text;
+        request.fields['nama_penulis'] = penulisController.text;
+        request.fields['rincian_buku'] = rincianController.text;
+        request.fields['jumlah_buku'] = jumlahBuku.toString();
+        request.fields['kategori_buku'] = kategoriController.text;
+        request.files.add(http.MultipartFile("image", stream, length,
+            filename: path.basename(image!.path)));
+
+        var response = await request.send();
+        if (response.statusCode == 200) {
+          setState(() {
+            loading = false;
+          });
+          showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Container(
+                    height: 357,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 177,
+                          height: 177,
+                          child: Image.asset(
+                            'assets/images/dialog.png',
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        Text(
+                          'Sukses',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-ExtraBold',
+                            fontSize: 32,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => TambahBuku()));
+                          },
+                          child: Container(
+                            width: 107,
+                            height: 43,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color.fromRGBO(119, 115, 205, 1),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'OK',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              });
+        } else {
+          return;
+        }
+      } catch (e) {
+        debugPrint("Error $e");
       }
-    } catch (e) {
-      debugPrint("Error $e");
     }
+    ;
   }
 
   List<Tab> myTabs = <Tab>[

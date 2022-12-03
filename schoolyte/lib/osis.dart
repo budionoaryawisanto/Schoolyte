@@ -561,7 +561,7 @@ class _OsisPageState extends State<OsisPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(builder: (context) => OsisPage()));
                     },
                   ),
                 ),
@@ -682,7 +682,12 @@ class _OsisPageState extends State<OsisPage> {
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.74,
                           margin: EdgeInsets.symmetric(vertical: 20),
-                          child: GridView.builder(
+                          child: loading
+                              ? Center(
+                                  child: CircularProgressIndicator(
+                                      color: Color.fromRGBO(119, 115, 205, 1)),
+                                )
+                              : GridView.builder(
                               itemCount: _list.length,
                               padding: EdgeInsets.all(10),
                               gridDelegate:

@@ -18,6 +18,9 @@ class DetailDivisi extends StatefulWidget {
 class _DetailDivisiState extends State<DetailDivisi> {
   List<Test> _list = [];
 
+  final TextEditingController alasanController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
   var loading = false;
 
   Future<Null> fetchData() async {
@@ -162,7 +165,290 @@ class _DetailDivisiState extends State<DetailDivisi> {
                           ],
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            showDialog(
+                                barrierDismissible: true,
+                                context: context,
+                                builder: (context) {
+                                  return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(7),
+                                    ),
+                                    child: Container(
+                                      height: 479,
+                                      padding: EdgeInsets.all(10),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.85,
+                                            height: 56,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: Color.fromRGBO(
+                                                  246, 246, 246, 1),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                'Tuliskan alasan mengikuti ekstrakurikuler ini !!',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 16,
+                                                  color: Color.fromRGBO(
+                                                      242, 78, 26, 0.80),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.85,
+                                            height: 390,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: Color.fromRGBO(
+                                                  246, 246, 246, 1),
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.7,
+                                                  height: 116,
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            'Nama   :   ',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy-ExtraBold',
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            divisi.name,
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy-Light',
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            'NISN   :   ',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy-ExtraBold',
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            divisi.phone,
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy-Light',
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            'Kelas   :   ',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy-ExtraBold',
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            'XII IPA 1',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy-Light',
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.7,
+                                                  height: 110,
+                                                  color: Colors.white,
+                                                  child: Form(
+                                                    key: _formKey,
+                                                    child: TextFormField(
+                                                      controller:
+                                                          alasanController,
+                                                      keyboardType:
+                                                          TextInputType
+                                                              .multiline,
+                                                      maxLines: 20,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-Light',
+                                                        fontSize: 16,
+                                                      ),
+                                                      decoration:
+                                                          InputDecoration(
+                                                        labelText:
+                                                            'Alasan Anda...',
+                                                        labelStyle: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-Light',
+                                                          fontSize: 16,
+                                                        ),
+                                                        border: OutlineInputBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                      ),
+                                                      validator: (value) {
+                                                        if (value!.isEmpty) {
+                                                          return 'Deskripsi tidak boleh kosong ! ';
+                                                        }
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.7,
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      GestureDetector(
+                                                        onTap: () {},
+                                                        child: Container(
+                                                          width: 106,
+                                                          height: 30,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8),
+                                                            color: Colors.black,
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Kirim',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Gilroy-Light',
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Container(
+                                                          width: 106,
+                                                          height: 30,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8),
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    242,
+                                                                    78,
+                                                                    26,
+                                                                    1),
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Cancel',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Gilroy-Light',
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                });
+                          },
                           child: Container(
                             width: MediaQuery.of(context).size.width * 0.32,
                             height: 49,
@@ -298,8 +584,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
                                               fontSize: 13,
-                                              color:
-                                                  data.id % 2 == 0
+                                              color: data.id % 2 == 0
                                                   ? Colors.white
                                                   : Color.fromRGBO(
                                                       76, 81, 97, 1),
@@ -333,82 +618,90 @@ class _DetailDivisiState extends State<DetailDivisi> {
                     height: 410,
                     margin: EdgeInsets.only(top: 10),
                     padding: EdgeInsets.symmetric(vertical: 5),
-                    child: GridView.builder(
-                        itemCount: _list.length,
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent:
-                              MediaQuery.of(context).size.width * 0.95,
-                          mainAxisExtent: 116,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemBuilder: ((context, i) {
-                          return Container(
-                            margin: EdgeInsets.all(3),
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.3),
-                                  spreadRadius: 0,
-                                  blurRadius: 1.5,
-                                  offset: Offset(0, 0),
-                                )
-                              ],
+                    child: loading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                                color: Color.fromRGBO(119, 115, 205, 1)),
+                          )
+                        : GridView.builder(
+                            itemCount: _list.length,
+                            gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                              maxCrossAxisExtent:
+                                  MediaQuery.of(context).size.width * 0.95,
+                              mainAxisExtent: 116,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 132,
-                                  height: 102,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(7),
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/dokumentasi.png',
-                                    fit: BoxFit.cover,
-                                  ),
+                            itemBuilder: ((context, i) {
+                              return Container(
+                                margin: EdgeInsets.all(3),
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      spreadRadius: 0,
+                                      blurRadius: 1.5,
+                                      offset: Offset(0, 0),
+                                    )
+                                  ],
                                 ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.63,
-                                  height: 82,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Juara II Jambore Tingkat Jawa Timur',
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 16,
-                                        ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 132,
+                                      height: 102,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(7),
                                       ),
-                                      Text(
-                                        'Alhamdulillah, salah satu wakil dari SDIT Insan Mulia berhasil memenangkan lomba pildacil dalam kegiatan Jambore Ranting Tambun Utara. Dhafin berhasil menyabet juara 2 dalam lomba tersebut.',
-                                        maxLines: 4,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 13,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
-                                        ),
+                                      child: Image.asset(
+                                        'assets/images/dokumentasi.png',
+                                        fit: BoxFit.cover,
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.63,
+                                      height: 82,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Juara II Jambore Tingkat Jawa Timur',
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          Text(
+                                            'Alhamdulillah, salah satu wakil dari SDIT Insan Mulia berhasil memenangkan lomba pildacil dalam kegiatan Jambore Ranting Tambun Utara. Dhafin berhasil menyabet juara 2 dalam lomba tersebut.',
+                                            maxLines: 4,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 13,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          );
-                        })),
+                              );
+                            })),
                   ),
                 ],
               ),
