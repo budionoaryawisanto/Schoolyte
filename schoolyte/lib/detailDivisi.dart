@@ -167,7 +167,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
                         GestureDetector(
                           onTap: () {
                             showDialog(
-                                barrierDismissible: true,
+                                barrierDismissible: false,
                                 context: context,
                                 builder: (context) {
                                   return Dialog(

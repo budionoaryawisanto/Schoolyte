@@ -807,118 +807,719 @@ class _OsisPageState extends State<OsisPage> {
                   ),
                 ),
               ),
-              SingleChildScrollView(
-                child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.85,
-                    padding: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(243, 243, 243, 1),
-                    ),
-                    child: GridView.builder(
-                        itemCount: _list.length,
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                          maxCrossAxisExtent: MediaQuery.of(context).size.width,
-                          mainAxisExtent:
-                              MediaQuery.of(context).size.height * 0.137,
-                          mainAxisSpacing: 10,
-                        ),
-                        itemBuilder: ((context, i) {
-                          final a = _list[i];
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
+              Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.85,
+                  padding: EdgeInsets.only(bottom: 20),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(243, 243, 243, 1),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 57,
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          margin: EdgeInsets.only(top: 10),
+                          color: Colors.white,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'BPH',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-ExtraBold',
+                                fontSize: 20,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.3,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.1,
-                                  margin: EdgeInsets.only(left: 40),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Image.asset(
-                                    'assets/images/fasilitas.png',
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.5,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.1,
-                                  margin: EdgeInsets.only(left: 10),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 206,
+                          margin: EdgeInsets.only(top: 20),
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              itemCount: _list.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 206,
+                                mainAxisExtent: 130,
+                                mainAxisSpacing: 10,
+                              ),
+                              itemBuilder: ((context, i) {
+                                final bph = _list[i];
+                                return Container(
                                   child: Column(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                        MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      Text(
-                                        'ID Peminjaman : ' + a.id.toString(),
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 15,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
-                                        ),
-                                      ),
-                                      Text(
-                                        'Lapangan Depan',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      Text(
-                                        'Selasa, 18 Oktober 2022',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 14,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
-                                        ),
-                                      ),
-                                      Text(
-                                        '13.30 - 15.00',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 14,
-                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                      Container(
+                                        width: 77,
+                                        height: 29,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Jabatan',
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-ExtraBold',
+                                                fontSize: 16,
+                                                color: Color.fromRGBO(
+                                                    76, 81, 97, 1),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 77,
+                                              height: 3,
+                                              decoration: BoxDecoration(
+                                                color: Color.fromRGBO(
+                                                    255, 199, 0, 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                                border: Border.all(
+                                                  width: 1,
+                                                  color: Color.fromRGBO(
+                                                      255, 199, 0, 1),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                       Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.3,
+                                        width: 130,
+                                        height: 165,
+                                        padding: EdgeInsets.only(top: 8),
                                         decoration: BoxDecoration(
-                                          color:
-                                              Color.fromRGBO(217, 217, 217, 1),
                                           borderRadius:
-                                              BorderRadius.circular(4),
+                                              BorderRadius.circular(8),
+                                          color: Colors.white,
                                         ),
-                                        child: Center(
-                                          child: Text(
-                                            'Menunggu Konfirmasi',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 13,
-                                              color: Colors.black,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              width: 112,
+                                              height: 104,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              child: Image.asset(
+                                                'assets/images/profil.png',
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
-                                          ),
+                                            Container(
+                                              width: 130,
+                                              height: 33,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 10),
+                                              decoration: BoxDecoration(
+                                                color: Color.fromRGBO(
+                                                    255, 199, 0, 1),
+                                                borderRadius: BorderRadius.only(
+                                                  bottomLeft:
+                                                      Radius.circular(8),
+                                                  bottomRight:
+                                                      Radius.circular(8),
+                                                ),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  bph.name,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 14,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              ],
+                                );
+                              })),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 57,
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          margin: EdgeInsets.only(top: 20),
+                          color: Colors.white,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Divisi Humas',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-ExtraBold',
+                                fontSize: 20,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
                             ),
-                          );
-                        }))),
-              ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 165,
+                          margin: EdgeInsets.only(top: 20),
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              itemCount: _list.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 165,
+                                mainAxisExtent: 130,
+                                mainAxisSpacing: 10,
+                              ),
+                              itemBuilder: ((context, i) {
+                                final humas = _list[i];
+                                return Container(
+                                  child: Container(
+                                    width: 130,
+                                    height: 165,
+                                    padding: EdgeInsets.only(top: 8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 112,
+                                          height: 104,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Image.asset(
+                                            'assets/images/profil.png',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 130,
+                                          height: 33,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Color.fromRGBO(255, 199, 0, 1),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(8),
+                                              bottomRight: Radius.circular(8),
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              humas.name,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 57,
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          margin: EdgeInsets.only(top: 20),
+                          color: Colors.white,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Divisi Keuangan',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-ExtraBold',
+                                fontSize: 20,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 165,
+                          margin: EdgeInsets.only(top: 20),
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              itemCount: _list.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 165,
+                                mainAxisExtent: 130,
+                                mainAxisSpacing: 10,
+                              ),
+                              itemBuilder: ((context, i) {
+                                final keuangan = _list[i];
+                                return Container(
+                                  child: Container(
+                                    width: 130,
+                                    height: 165,
+                                    padding: EdgeInsets.only(top: 8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 112,
+                                          height: 104,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Image.asset(
+                                            'assets/images/profil.png',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 130,
+                                          height: 33,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Color.fromRGBO(255, 199, 0, 1),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(8),
+                                              bottomRight: Radius.circular(8),
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              keuangan.name,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 57,
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          margin: EdgeInsets.only(top: 20),
+                          color: Colors.white,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Divisi Kewirausahaan',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-ExtraBold',
+                                fontSize: 20,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 165,
+                          margin: EdgeInsets.only(top: 20),
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              itemCount: _list.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 165,
+                                mainAxisExtent: 130,
+                                mainAxisSpacing: 10,
+                              ),
+                              itemBuilder: ((context, i) {
+                                final kwu = _list[i];
+                                return Container(
+                                  child: Container(
+                                    width: 130,
+                                    height: 165,
+                                    padding: EdgeInsets.only(top: 8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 112,
+                                          height: 104,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Image.asset(
+                                            'assets/images/profil.png',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 130,
+                                          height: 33,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Color.fromRGBO(255, 199, 0, 1),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(8),
+                                              bottomRight: Radius.circular(8),
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              kwu.name,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 57,
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          margin: EdgeInsets.only(top: 20),
+                          color: Colors.white,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Divisi Kesehatan',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-ExtraBold',
+                                fontSize: 20,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 165,
+                          margin: EdgeInsets.only(top: 20),
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              itemCount: _list.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 165,
+                                mainAxisExtent: 130,
+                                mainAxisSpacing: 10,
+                              ),
+                              itemBuilder: ((context, i) {
+                                final kesehatan = _list[i];
+                                return Container(
+                                  child: Container(
+                                    width: 130,
+                                    height: 165,
+                                    padding: EdgeInsets.only(top: 8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 112,
+                                          height: 104,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Image.asset(
+                                            'assets/images/profil.png',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 130,
+                                          height: 33,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Color.fromRGBO(255, 199, 0, 1),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(8),
+                                              bottomRight: Radius.circular(8),
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              kesehatan.name,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 57,
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          margin: EdgeInsets.only(top: 20),
+                          color: Colors.white,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Divisi Kreatif',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-ExtraBold',
+                                fontSize: 20,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 165,
+                          margin: EdgeInsets.only(top: 20),
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              itemCount: _list.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 165,
+                                mainAxisExtent: 130,
+                                mainAxisSpacing: 10,
+                              ),
+                              itemBuilder: ((context, i) {
+                                final kreatif = _list[i];
+                                return Container(
+                                  child: Container(
+                                    width: 130,
+                                    height: 165,
+                                    padding: EdgeInsets.only(top: 8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 112,
+                                          height: 104,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Image.asset(
+                                            'assets/images/profil.png',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 130,
+                                          height: 33,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Color.fromRGBO(255, 199, 0, 1),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(8),
+                                              bottomRight: Radius.circular(8),
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              kreatif.name,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 57,
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          margin: EdgeInsets.only(top: 20),
+                          color: Colors.white,
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Divisi Minat dan Bakat',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-ExtraBold',
+                                fontSize: 20,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 165,
+                          margin: EdgeInsets.only(top: 20),
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              itemCount: _list.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 165,
+                                mainAxisExtent: 130,
+                                mainAxisSpacing: 10,
+                              ),
+                              itemBuilder: ((context, i) {
+                                final minat = _list[i];
+                                return Container(
+                                  child: Container(
+                                    width: 130,
+                                    height: 165,
+                                    padding: EdgeInsets.only(top: 8),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(8),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 112,
+                                          height: 104,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Image.asset(
+                                            'assets/images/profil.png',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 130,
+                                          height: 33,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Color.fromRGBO(255, 199, 0, 1),
+                                            borderRadius: BorderRadius.only(
+                                              bottomLeft: Radius.circular(8),
+                                              bottomRight: Radius.circular(8),
+                                            ),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              minat.name,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              })),
+                        ),                       
+                      ],
+                    ),
+                  )),
             ],
           ),
         ),
