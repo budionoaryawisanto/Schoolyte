@@ -21,6 +21,8 @@ import 'osis.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 import 'package:async/async.dart';
+import 'ekstrakurikuler.dart';
+import 'profil.dart';
 
 class AbsensiPage extends StatefulWidget {
   @override
@@ -716,7 +718,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                   child: ListTile(
                     tileColor: Color.fromRGBO(237, 237, 237, 1),
                     title: Text(
-                      'Ekstrakulikuler',
+                      'Ekstrakurikuler',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
@@ -724,35 +726,30 @@ class _AbsensiPageState extends State<AbsensiPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EkstrakurikulerPage()));
                     },
                   ),
                 ),
                 ListTile(
-                  tileColor: (profilClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
+                  tileColor: Colors.white,
                   leading: Icon(
                     Icons.person_rounded,
-                    color: (profilClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
+                    color: Color.fromRGBO(255, 199, 0, 1),
                   ),
                   title: Text(
                     'Profil',
                     style: TextStyle(
-                      fontFamily: (profilClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
+                      fontFamily: 'Gilroy-Light',
                       fontSize: 16,
-                      color: (profilClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
+                      color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
                   onTap: () {
-                    print('clicked');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfilPage()));
                   },
                 ),
                 Container(

@@ -24,6 +24,8 @@ import 'koperasi.dart';
 import 'model.dart';
 import 'osis.dart';
 import 'scanner.dart';
+import 'ekstrakurikuler.dart';
+import 'profil.dart';
 
 class KantinPage extends StatefulWidget {
   @override
@@ -430,7 +432,8 @@ class _KantinPageState extends State<KantinPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.push(context,
+                      Navigator.push(
+                          context,
                           MaterialPageRoute(
                               builder: (context) => KoperasiPage()));
                     },
@@ -586,7 +589,7 @@ class _KantinPageState extends State<KantinPage> {
                   child: ListTile(
                     tileColor: Color.fromRGBO(237, 237, 237, 1),
                     title: Text(
-                      'Ekstrakulikuler',
+                      'Ekstrakurikuler',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
@@ -594,35 +597,30 @@ class _KantinPageState extends State<KantinPage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EkstrakurikulerPage()));
                     },
                   ),
                 ),
                 ListTile(
-                  tileColor: (profilClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
+                  tileColor: Colors.white,
                   leading: Icon(
                     Icons.person_rounded,
-                    color: (profilClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
+                    color: Color.fromRGBO(255, 199, 0, 1),
                   ),
                   title: Text(
                     'Profil',
                     style: TextStyle(
-                      fontFamily: (profilClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
+                      fontFamily: 'Gilroy-Light',
                       fontSize: 16,
-                      color: (profilClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
+                      color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
                   onTap: () {
-                    print('clicked');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfilPage()));
                   },
                 ),
                 Container(
@@ -802,8 +800,7 @@ class _KantinPageState extends State<KantinPage> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Menu(
+                                                  builder: (context) => Menu(
                                                         kantin: b,
                                                       )));
                                         },
@@ -934,8 +931,7 @@ class _KantinPageState extends State<KantinPage> {
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Menu(
+                                                  builder: (context) => Menu(
                                                         kantin: a,
                                                       )));
                                         },

@@ -376,33 +376,6 @@ class _DetailDivisiState extends State<DetailDivisi> {
                                                             .spaceBetween,
                                                     children: [
                                                       GestureDetector(
-                                                        onTap: () {},
-                                                        child: Container(
-                                                          width: 106,
-                                                          height: 30,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        8),
-                                                            color: Colors.black,
-                                                          ),
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Kirim',
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Gilroy-Light',
-                                                                fontSize: 14,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      GestureDetector(
                                                         onTap: () {
                                                           Navigator.pop(
                                                               context);
@@ -426,6 +399,33 @@ class _DetailDivisiState extends State<DetailDivisi> {
                                                           child: Center(
                                                             child: Text(
                                                               'Cancel',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Gilroy-Light',
+                                                                fontSize: 14,
+                                                                color: Colors
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),                                                 
+                                                      GestureDetector(
+                                                        onTap: () {},
+                                                        child: Container(
+                                                          width: 106,
+                                                          height: 30,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8),
+                                                            color: Colors.black,
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              'Kirim',
                                                               style: TextStyle(
                                                                 fontFamily:
                                                                     'Gilroy-Light',

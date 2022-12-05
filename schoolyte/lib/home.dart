@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'absensiPegawai.dart';
+import 'ekstrakurikuler.dart';
 import 'koperasi.dart';
 import 'model.dart';
 import 'package:http/http.dart' as http;
@@ -16,6 +17,7 @@ import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'osis.dart';
 import 'perpustakaanPegawai.dart';
+import 'profil.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -555,7 +557,7 @@ class _HomePageState extends State<HomePage> {
                   child: ListTile(
                     tileColor: Color.fromRGBO(237, 237, 237, 1),
                     title: Text(
-                      'Ekstrakulikuler',
+                      'Ekstrakurikuler',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
@@ -563,35 +565,30 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EkstrakurikulerPage()));
                     },
                   ),
                 ),
                 ListTile(
-                  tileColor: (profilClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
+                  tileColor: Colors.white,
                   leading: Icon(
                     Icons.person_rounded,
-                    color: (profilClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
+                    color: Color.fromRGBO(255, 199, 0, 1),
                   ),
                   title: Text(
                     'Profil',
                     style: TextStyle(
-                      fontFamily: (profilClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
+                      fontFamily: 'Gilroy-Light',
                       fontSize: 16,
-                      color: (profilClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
+                      color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
                   onTap: () {
-                    print('clicked');
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => ProfilPage()));
                   },
                 ),
                 Container(
@@ -942,7 +939,8 @@ class _HomePageState extends State<HomePage> {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => HomePage()));
+                                            builder: (context) =>
+                                                EkstrakurikulerPage()));
                                   },
                                   child: Container(
                                     width: 77,
@@ -961,7 +959,7 @@ class _HomePageState extends State<HomePage> {
                                         Align(
                                           alignment: Alignment(0.0, 0.7),
                                           child: Text(
-                                            'Ekstrakulikuler',
+                                            'Ekstrakurikuler',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',

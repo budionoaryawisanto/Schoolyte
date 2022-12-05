@@ -16,18 +16,19 @@ import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 import 'package:schoolyte/fasilitas.dart';
+import 'osis.dart';
 import 'profil.dart';
 
-class OsisPage extends StatefulWidget {
+class EkstrakurikulerPage extends StatefulWidget {
   @override
-  _OsisPageState createState() => new _OsisPageState();
+  _EkstrakurikulerPageState createState() => new _EkstrakurikulerPageState();
 }
 
-class _OsisPageState extends State<OsisPage> {
+class _EkstrakurikulerPageState extends State<EkstrakurikulerPage> {
   List<Test> _list = [];
   var loading = false;
 
-  Future<Null> fetchData() async {
+  Future fetchData() async {
     setState(() {
       loading = true;
     });
@@ -89,16 +90,16 @@ class _OsisPageState extends State<OsisPage> {
   }
 
   List<Tab> myTabs = <Tab>[
-    Tab(text: 'Divisi'),
-    Tab(text: 'Struktur Osis'),
+    Tab(text: 'Kategori'),
+    Tab(text: 'Ekskul Saya'),
   ];
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
+        statusBarColor: Color.fromRGBO(255, 217, 102, 1),
+        statusBarIconBrightness: Brightness.light,
         systemNavigationBarColor: Colors.white,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
@@ -113,24 +114,24 @@ class _OsisPageState extends State<OsisPage> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(138),
             child: AppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: Color.fromRGBO(255, 217, 102, 1),
               title: Align(
                 alignment: Alignment(-0.7, 0.0),
                 child: Text(
-                  'Osis',
+                  'Extrakurikuler',
                   style: TextStyle(
                     fontFamily: 'Gilroy-ExtraBold',
                     fontSize: 24,
-                    color: Color.fromRGBO(76, 81, 97, 1),
+                    color: Colors.white,
                   ),
                 ),
               ),
               elevation: 0.0,
-              iconTheme: IconThemeData(color: Color.fromRGBO(76, 81, 97, 1)),
+              iconTheme: IconThemeData(color: Colors.white),
               bottom: TabBar(
                 padding: EdgeInsets.only(bottom: 10),
-                indicatorColor: Color.fromRGBO(76, 81, 97, 1),
-                labelColor: Color.fromRGBO(76, 81, 97, 1),
+                indicatorColor: Colors.white,
+                labelColor: Colors.white,
                 indicatorSize: TabBarIndicatorSize.label,
                 indicatorPadding: EdgeInsets.only(top: 0),
                 labelStyle: TextStyle(
@@ -548,7 +549,7 @@ class _OsisPageState extends State<OsisPage> {
                       'OSIS',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-ExtraBold',
+                          fontFamily: 'Gilroy-Light',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
@@ -568,13 +569,15 @@ class _OsisPageState extends State<OsisPage> {
                       'Ekstrakulikuler',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
+                          fontFamily: 'Gilroy-ExtraBold',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EkstrakurikulerPage()));
                     },
                   ),
                 ),
