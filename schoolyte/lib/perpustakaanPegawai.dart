@@ -17,6 +17,7 @@ import 'rapor.dart';
 import 'tambahBuku.dart';
 import 'ekstrakurikuler.dart';
 import 'profil.dart';
+import 'administrasi.dart';
 
 class PerpustakaanPegawaiPage extends StatefulWidget {
   @override
@@ -414,53 +415,25 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                   },
                 ),
                 ListTile(
-                  tileColor: (keuanganClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
+                  tileColor: Colors.white,
                   leading: Icon(
                     Icons.point_of_sale,
-                    color: (keuanganClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
+                    color: Color.fromRGBO(255, 199, 0, 1),
                   ),
                   title: Text(
-                    'Administrasi Keuangan',
+                    'Administrasi',
                     style: TextStyle(
-                      fontFamily: (keuanganClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
+                      fontFamily: 'Gilroy-Light',
                       fontSize: 16,
-                      color: (keuanganClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
+                      color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
                   onTap: () {
-                    setState(() {
-                      closeDrawer();
-                      keuanganClick = !keuanganClick;
-                    });
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AdministrasiPage()));
                   },
-                ),
-                Visibility(
-                  visible: (keuanganClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Pembayaran SPP',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    },
-                  ),
                 ),
                 ListTile(
                   tileColor: (kegiatanClick == false)
@@ -590,11 +563,11 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                   fit: BoxFit.fill,
                 ),
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.44,
-                  height: 350,
+                  width: 220,
+                  height: 400,
                   margin: EdgeInsets.only(top: 50),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
@@ -609,158 +582,180 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                               1,
                             )),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => TambahBuku()));
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.164,
-                              height: 114,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 70,
-                                    height: 70,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.3),
-                                          spreadRadius: 0,
-                                          blurRadius: 1.5,
-                                          offset: Offset(0, 0),
+                      Container(
+                        width: 220,
+                        height: 263,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TambahBuku()));
+                                  },
+                                  child: Container(
+                                    width: 88,
+                                    height: 114,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 70,
+                                          height: 70,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.3),
+                                                spreadRadius: 0,
+                                                blurRadius: 1.5,
+                                                offset: Offset(0, 1),
+                                              ),
+                                            ],
+                                            color: Colors.white,
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.post_add,
+                                              size: 50,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Tambah Buku',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 14,
+                                          ),
                                         ),
                                       ],
-                                      color: Colors.white,
-                                    ),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.post_add,
-                                        size: 50,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
                                     ),
                                   ),
-                                  Text(
-                                    'Tambah Buku',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => PeminjamanBuku()));
-                            },
-                            child: Container(
-                              width: MediaQuery.of(context).size.width * 0.164,
-                              height: 114,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 70,
-                                    height: 70,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.3),
-                                          spreadRadius: 0,
-                                          blurRadius: 1.5,
-                                          offset: Offset(0, 0),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PeminjamanBuku()));
+                                  },
+                                  child: Container(
+                                    width: 88,
+                                    height: 114,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 70,
+                                          height: 70,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.3),
+                                                spreadRadius: 0,
+                                                blurRadius: 1.5,
+                                                offset: Offset(0, 1),
+                                              ),
+                                            ],
+                                            color: Colors.white,
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.menu_book,
+                                              size: 50,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Peminjaman Buku',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 14,
+                                          ),
                                         ),
                                       ],
-                                      color: Colors.white,
                                     ),
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.menu_book,
-                                        size: 50,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            DaftarKunjungan()));
+                              },
+                              child: Container(
+                                width: 88,
+                                height: 114,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 70,
+                                      height: 70,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(6),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.3),
+                                            spreadRadius: 0,
+                                            blurRadius: 1.5,
+                                            offset: Offset(0, 1),
+                                          ),
+                                        ],
+                                        color: Colors.white,
+                                      ),
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.library_books,
+                                          size: 50,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Peminjaman Buku',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DaftarKunjungan()));
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.164,
-                          height: 114,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 70,
-                                height: 70,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.3),
-                                      spreadRadius: 0,
-                                      blurRadius: 1.5,
-                                      offset: Offset(0, 0),
+                                    Text(
+                                      'Daftar Kunjungan',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 14,
+                                      ),
                                     ),
                                   ],
-                                  color: Colors.white,
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.library_books,
-                                    size: 50,
-                                    color: Color.fromRGBO(76, 81, 97, 1),
-                                  ),
                                 ),
                               ),
-                              Text(
-                                'Daftar Kunjungan',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ],

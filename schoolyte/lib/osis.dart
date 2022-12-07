@@ -17,6 +17,7 @@ import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 import 'package:schoolyte/fasilitas.dart';
 import 'profil.dart';
+import 'administrasi.dart';
 
 class OsisPage extends StatefulWidget {
   @override
@@ -461,53 +462,25 @@ class _OsisPageState extends State<OsisPage> {
                   },
                 ),
                 ListTile(
-                  tileColor: (keuanganClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
+                  tileColor: Colors.white,
                   leading: Icon(
                     Icons.point_of_sale,
-                    color: (keuanganClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
+                    color: Color.fromRGBO(255, 199, 0, 1),
                   ),
                   title: Text(
-                    'Administrasi Keuangan',
+                    'Administrasi',
                     style: TextStyle(
-                      fontFamily: (keuanganClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
+                      fontFamily: 'Gilroy-Light',
                       fontSize: 16,
-                      color: (keuanganClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
+                      color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
                   onTap: () {
-                    setState(() {
-                      closeDrawer();
-                      keuanganClick = !keuanganClick;
-                    });
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AdministrasiPage()));
                   },
-                ),
-                Visibility(
-                  visible: (keuanganClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Pembayaran SPP',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    },
-                  ),
                 ),
                 ListTile(
                   tileColor: (kegiatanClick == false)

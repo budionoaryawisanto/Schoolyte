@@ -7,61 +7,27 @@ import 'package:schoolyte/berita.dart';
 import 'package:schoolyte/fasilitas.dart';
 import 'package:schoolyte/jadwal.dart';
 import 'package:schoolyte/nilaiBelajar.dart';
-import 'package:schoolyte/perpustakaan.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 import 'package:schoolyte/koperasi.dart';
+import 'daftarKunjungan.dart';
 import 'osis.dart';
-import 'ekstrakurikuler.dart';
+import 'peminjamanBuku.dart';
 import 'rapor.dart';
-import 'model.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'kartuDigital.dart';
+import 'tambahBuku.dart';
+import 'ekstrakurikuler.dart';
+import 'profil.dart';
+import 'perpustakaan.dart';
 
-class ProfilPage extends StatefulWidget {
+class AdministrasiPage extends StatefulWidget {
   @override
-  _ProfilPageState createState() => new _ProfilPageState();
+  _AdministrasiPageState createState() => new _AdministrasiPageState();
 }
 
-class _ProfilPageState extends State<ProfilPage> {
-  List<Test> _profil = [];
-  late Test profil;
-  var loading = false;
-
-  Future fetchData() async {
-    setState(() {
-      loading = true;
-    });
-    _profil.clear();
-    final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      setState(() {
-        for (Map<String, dynamic> i in data) {
-          _profil.add(Test.formJson(i));
-          loading = false;
-        }
-      });
-      getProfil();
-    }
-  }
-
-  getProfil() async {
-    final prefs = await SharedPreferences.getInstance();
-    var username = prefs.getString('username');
-    _profil.forEach((e) {
-      if (e.email.toLowerCase() == username.toString()) {
-        profil = e;
-      }
-    });
-  }
-
+class _AdministrasiPageState extends State<AdministrasiPage> {
   @override
   void initState() {
     super.initState();
-    fetchData();
   }
 
   _logOut() async {
@@ -105,9 +71,9 @@ class _ProfilPageState extends State<ProfilPage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: Color.fromRGBO(255, 217, 102, 1),
         systemNavigationBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
@@ -120,17 +86,17 @@ class _ProfilPageState extends State<ProfilPage> {
             title: Align(
               alignment: Alignment(-0.7, 0.0),
               child: Text(
-                'Profil',
+                'Administrasi',
                 style: TextStyle(
                   fontFamily: 'Gilroy-ExtraBold',
                   fontSize: 24,
-                  color: Color.fromRGBO(76, 81, 97, 1),
+                  color: Colors.white,
                 ),
               ),
             ),
             elevation: 0,
-            iconTheme: IconThemeData(color: Color.fromARGB(255, 66, 65, 65)),
-            backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.white),
+            backgroundColor: Color.fromRGBO(255, 217, 102, 1),
           ),
           drawer: Drawer(
             backgroundColor: Colors.white,
@@ -224,7 +190,7 @@ class _ProfilPageState extends State<ProfilPage> {
                       'Rapor',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-ExtraBold',
+                          fontFamily: 'Gilroy-Light',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
@@ -317,7 +283,7 @@ class _ProfilPageState extends State<ProfilPage> {
                       'Perpustakaan',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
+                          fontFamily: 'Gilroy-ExtraBold',
                           fontSize: 14,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
@@ -448,53 +414,25 @@ class _ProfilPageState extends State<ProfilPage> {
                   },
                 ),
                 ListTile(
-                  tileColor: (keuanganClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
+                  tileColor: Colors.white,
                   leading: Icon(
                     Icons.point_of_sale,
-                    color: (keuanganClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
+                    color: Color.fromRGBO(255, 199, 0, 1),
                   ),
                   title: Text(
-                    'Administrasi Keuangan',
+                    'Administrasi',
                     style: TextStyle(
-                      fontFamily: (keuanganClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
+                      fontFamily: 'Gilroy-ExtraBold',
                       fontSize: 16,
-                      color: (keuanganClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
+                      color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
                   onTap: () {
-                    setState(() {
-                      closeDrawer();
-                      keuanganClick = !keuanganClick;
-                    });
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AdministrasiPage()));
                   },
-                ),
-                Visibility(
-                  visible: (keuanganClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Pembayaran SPP',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    },
-                  ),
                 ),
                 ListTile(
                   tileColor: (kegiatanClick == false)
@@ -576,7 +514,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   title: Text(
                     'Profil',
                     style: TextStyle(
-                      fontFamily: 'Gilroy-ExtraBold',
+                      fontFamily: 'Gilroy-Light',
                       fontSize: 16,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
@@ -614,316 +552,278 @@ class _ProfilPageState extends State<ProfilPage> {
               ],
             ),
           ),
-          body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 177,
-                    height: 177,
-                    margin: EdgeInsets.only(top: 40),
-                    child: GestureDetector(
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return Center(
-                                child: Material(
-                                  type: MaterialType.transparency,
-                                  child:
-                                      Image.asset(
-                                    'assets/images/profil.png'),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/infopp.png',
+                  fit: BoxFit.fill,
+                ),
+                Container(
+                  width: 220,
+                  height: 400,
+                  margin: EdgeInsets.only(top: 50),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Pilih Kategori',
+                        style: TextStyle(
+                            fontFamily: 'Gilroy-ExtraBold',
+                            fontSize: 24,
+                            color: Color.fromRGBO(
+                              76,
+                              81,
+                              97,
+                              1,
+                            )),
+                      ),
+                      Container(
+                        width: 220,
+                        height: 263,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                TambahBuku()));
+                                  },
+                                  child: Container(
+                                    width: 88,
+                                    height: 114,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 70,
+                                          height: 70,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.3),
+                                                spreadRadius: 0,
+                                                blurRadius: 1.5,
+                                                offset: Offset(0, 1),
+                                              ),
+                                            ],
+                                            color: Colors.white,
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.school_rounded,
+                                              size: 50,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Pembayaran SPP',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
-                              );
-                            });
-                      },
-                      child: ClipOval(
-                        child: Image.asset(
-                          'assets/images/profil.png',
-                          fit: BoxFit.cover,
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                PeminjamanBuku()));
+                                  },
+                                  child: Container(
+                                    width: 88,
+                                    height: 114,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 70,
+                                          height: 70,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.3),
+                                                spreadRadius: 0,
+                                                blurRadius: 1.5,
+                                                offset: Offset(0, 1),
+                                              ),
+                                            ],
+                                            color: Colors.white,
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.menu_book,
+                                              size: 50,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Pembayaran Buku',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DaftarKunjungan()));
+                                  },
+                                  child: Container(
+                                    width: 88,
+                                    height: 114,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 70,
+                                          height: 70,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.3),
+                                                spreadRadius: 0,
+                                                blurRadius: 1.5,
+                                                offset: Offset(0, 1),
+                                              ),
+                                            ],
+                                            color: Colors.white,
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.collections_bookmark,
+                                              size: 50,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Pembayaran Seragam',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DaftarKunjungan()));
+                                  },
+                                  child: Container(
+                                    width: 88,
+                                    height: 114,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 70,
+                                          height: 70,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(6),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.3),
+                                                spreadRadius: 0,
+                                                blurRadius: 1.5,
+                                                offset: Offset(0, 1),
+                                              ),
+                                            ],
+                                            color: Colors.white,
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.library_books,
+                                              size: 50,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ),
+                                        Text(
+                                          'Laporan Keuangan',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 14,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  KartuDigital(profil: profil)));
-                    },
-                    child: Container(
-                      width: 159,
-                      height: 24,
-                      margin: EdgeInsets.only(top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Lihat Kartu Digital',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-Light',
-                              fontSize: 16,
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
-                          ),
-                          Icon(
-                            Icons.chevron_right_rounded,
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: 391,
-                    margin: EdgeInsets.only(top: 30),
-                    child: loading
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              color: Color.fromRGBO(119, 115, 205, 1),
-                            ),
-                          )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Nama',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                    Text(
-                                      profil.name,
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Status',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Siswa',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'NISN',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                    Text(
-                                      profil.phone,
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Kelas',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                    Text(
-                                      'XII IPA 1',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'TTL',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Surabaya, 30 December 2001',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Jenis Kelamin',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                    Text(
-                                      'L',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Agama',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Islam',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

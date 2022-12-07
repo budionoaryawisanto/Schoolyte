@@ -100,9 +100,183 @@ class _KartuDigitalState extends State<KartuDigital> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width * 0.9,
+                  height: 270,
                   margin: EdgeInsets.only(top: 35),
-                  child: Image.asset(
-                    'assets/images/kartudigital.png',
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/kartudigital.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: Stack(
+                    children: [
+                      Align(
+                        alignment: Alignment(-0.7, -0.7),
+                        child: Container(
+                          width: 240,
+                          height: 55,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: 55,
+                                height: 55,
+                                child: ClipOval(
+                                  child: Image.asset(
+                                    'assets/images/profil.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: 180,
+                                height: 55,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      profil.name,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 16,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                    Text(
+                                      'Status : Siswa',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 15,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment(-0.6, 0.3),
+                        child: Container(
+                          width: 258,
+                          height: 72,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    'NIS : ',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-ExtraBold',
+                                      fontSize: 12,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    profil.phone,
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 12,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'TTL : ',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-ExtraBold',
+                                      fontSize: 12,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Surabaya, 30 Desember 2001',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 12,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'Alamat : ',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-ExtraBold',
+                                      fontSize: 12,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Pantai Mentari blok z no 99',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 12,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment(0.75, -0.35),
+                        child: GestureDetector(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Center(
+                                    child: Material(
+                                      type: MaterialType.transparency,
+                                      child: Image.asset(
+                                          'assets/images/exampqr.jpg'),
+                                    ),
+                                  );
+                                });
+                          },
+                          child: Container(
+                            width: 70,
+                            height: 70,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/borderbarcode.png'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            child: Center(
+                              child: Container(
+                                width: 53.21,
+                                height: 53.21,
+                                child: Image.asset(
+                                  'assets/images/exampqr.jpg',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
