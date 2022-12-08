@@ -63,25 +63,31 @@ class Test {
 
 class Absensi {
   final int id;
-  final String statAbsen;
+  final String siswa_id;
+  final String kelas_id;
+  final String status_absen;
   final String image;
-  final String tglAbsen;
-  final String wktAbsen;
+  final String tgl_absen;
+  final String wkt_absen;
 
   Absensi(
       {required this.id,
-      required this.statAbsen,
+      required this.siswa_id,
+      required this.kelas_id,
+      required this.status_absen,
       required this.image,
-      required this.tglAbsen,
-      required this.wktAbsen});
+      required this.tgl_absen,
+      required this.wkt_absen});
 
   factory Absensi.formJson(Map<String, dynamic> json) {
     return new Absensi(
       id: json['id'],
-      statAbsen: json['statAbsen'],
+      siswa_id: json['siswa_id'],
+      kelas_id: json['kelas_id'],
+      status_absen: json['status_absen'],
       image: json['image'],
-      tglAbsen: json['tglAbsen'],
-      wktAbsen: json['wktAbsen'],
+      tgl_absen: json['tgl_absen'],
+      wkt_absen: json['wkt_absen'],
     );
   }
 }

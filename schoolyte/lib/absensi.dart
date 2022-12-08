@@ -57,155 +57,150 @@ class _AbsensiPageState extends State<AbsensiPage> {
     setState(() {
       loading = true;
     });
-    if (image == null) {
-      setState(() {
-        loading = false;
-      });
-      showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) {
-            return Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(14),
-              ),
-              child: Container(
-                height: 357,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 177,
-                      height: 177,
-                      child: Image.asset(
-                        'assets/images/alertDialog.png',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                    Text(
-                      'Gagal',
-                      style: TextStyle(
-                        fontFamily: 'Gilroy-ExtraBold',
-                        fontSize: 32,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AbsensiPage()));
-                      },
-                      child: Container(
-                        width: 107,
-                        height: 43,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Color.fromRGBO(242, 78, 26, 1),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'OK',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-Light',
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          });
-    } else {
-      try {
-        var stream = http.ByteStream(DelegatingStream(image!.openRead()));
-        var length = await image!.length();
-        var uri = Uri.parse(Api.createAbsen);
-        var request = http.MultipartRequest("POST", uri);
-        request.fields['statAbsen'] = dropdownvalue;
-        request.fields['tglAbsen'] = tglAbsen.toString();
-        request.fields['wktAbsen'] = waktuAbsen;
+    try {
+      var stream = http.ByteStream(DelegatingStream(image!.openRead()));
+      var length = await image!.length();
+      var uri = Uri.parse(Api.createAbsen);
+      var request = http.MultipartRequest("POST", uri);
+      request.fields['siswa_id'] = '1';
+      request.fields['kelas_id'] = '1';
+      request.fields['status_absen'] = dropdownvalue;
+      request.fields['tgl_absen'] = tglAbsen.toString();
+      request.fields['wkt_absen'] = waktuAbsen.toString();
 
-        request.files.add(http.MultipartFile("image", stream, length,
-            filename: path.basename(image!.path)));
-        var response = await request.send();
-        if (response.statusCode == 200) {
-          setState(() {
-            loading = false;
-          });
-          showDialog(
-              barrierDismissible: false,
-              context: context,
-              builder: (context) {
-                return Dialog(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Container(
-                    height: 357,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 177,
-                          height: 177,
-                          child: Image.asset(
-                            'assets/images/dialog.png',
-                            fit: BoxFit.fill,
-                          ),
+      request.files.add(http.MultipartFile("image", stream, length,
+          filename: path.basename(image!.path)));
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        setState(() {
+          loading = false;
+        });
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Container(
+                  height: 357,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 177,
+                        height: 177,
+                        child: Image.asset(
+                          'assets/images/dialog.png',
+                          fit: BoxFit.fill,
                         ),
-                        Text(
-                          'Absen Sukses',
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 32,
-                          ),
+                      ),
+                      Text(
+                        'Absen Sukses',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-ExtraBold',
+                          fontSize: 32,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomePage()));
-                          },
-                          child: Container(
-                            width: 107,
-                            height: 43,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Color.fromRGBO(119, 115, 205, 1),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'OK',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()));
+                        },
+                        child: Container(
+                          width: 107,
+                          height: 43,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Color.fromRGBO(119, 115, 205, 1),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'OK',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 20,
+                                color: Colors.white,
                               ),
                             ),
                           ),
                         ),
-                      ],
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            });
+      } else {
+        return;
+      }
+    } catch (e) {
+      debugPrint("Error $e");
+    }
+  }
+
+  failed() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Container(
+              height: 357,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 177,
+                    height: 177,
+                    child: Image.asset(
+                      'assets/images/alertDialog.png',
+                      fit: BoxFit.fill,
                     ),
                   ),
-                );
-              });
-        } else {
-          return;
-        }
-      } catch (e) {
-        debugPrint("Error $e");
-      }
-    }
-    ;
+                  Text(
+                    'Gagal',
+                    style: TextStyle(
+                      fontFamily: 'Gilroy-ExtraBold',
+                      fontSize: 32,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: 107,
+                      height: 43,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Color.fromRGBO(242, 78, 26, 1),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'OK',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Light',
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   @override
@@ -261,11 +256,9 @@ class _AbsensiPageState extends State<AbsensiPage> {
     setState(() {});
   }
 
-  var status = ['Hadir', 'Alpha', 'Izin', 'Sakit'];
+  var status = ['Hadir', 'Izin', 'Sakit'];
   var dropdownvalue = 'Hadir';
-  final waktuAbsen =
-      DateTime.now().hour.toString() + ':' + DateTime.now().minute.toString();
-
+  final waktuAbsen = DateFormat().add_Hm().format(DateTime.now());
   var tglAbsen;
 
   @override
@@ -278,6 +271,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
+    // ignore: unnecessary_new
     return new MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
@@ -1042,8 +1036,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                                       color: Colors.black,
                                     ),
                                     onChanged: (val) => setState(() {
-                                      tglAbsen = DateFormat('EEEE, d MMMM yyyy')
-                                          .format(DateTime.now());
+                                      tglAbsen = val;
                                     }),
                                     validator: (val) {
                                       return null;
@@ -1063,7 +1056,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                                         color: Color.fromRGBO(76, 81, 97, 1),
                                       ),
                                       Text(
-                                        waktuAbsen,
+                                        waktuAbsen.toString(),
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
                                           fontSize: 16,
@@ -1082,7 +1075,33 @@ class _AbsensiPageState extends State<AbsensiPage> {
                               Container(),
                               GestureDetector(
                                 onTap: () {
-                                  saveAbsensi();
+                                  if (dropdownvalue.toLowerCase() == 'hadir' &&
+                                      image != null &&
+                                      tglAbsen != null) {
+                                    if (DateTime.now().hour == 7 &&
+                                        DateTime.now().minute <= 15) {
+                                      saveAbsensi();
+                                    } else {
+                                      failed();
+                                    }
+                                  } else if (dropdownvalue.toLowerCase() ==
+                                          'izin' &&
+                                      image != null &&
+                                      tglAbsen != null) {
+                                    if (DateTime.now().hour >= 6 &&
+                                        DateTime.now().hour <= 15) {
+                                      saveAbsensi();
+                                    } else {
+                                      failed();
+                                    }
+                                  } else if (dropdownvalue.toLowerCase() ==
+                                          'sakit' &&
+                                      image != null &&
+                                      tglAbsen != null) {
+                                    saveAbsensi();
+                                  } else {
+                                    failed();
+                                  }
                                 },
                                 child: Container(
                                   width: 118,
@@ -1118,7 +1137,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                       child: loading
                           ? Center(
                               child: Text(
-                                'Tidak ada data',
+                                '.....',
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-ExtraBold',
                                   fontSize: 24,
@@ -1168,14 +1187,17 @@ class _AbsensiPageState extends State<AbsensiPage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            absen.tglAbsen,
+                                            DateFormat('EEEE, d MMMM yyyy')
+                                                .format(DateTime.parse(
+                                                    absen.tgl_absen))
+                                                .toString(),
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
                                               fontSize: 16,
                                             ),
                                           ),
                                           Text(
-                                            absen.wktAbsen,
+                                            absen.wkt_absen,
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
                                               fontSize: 14,
@@ -1246,7 +1268,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                                           Container(
                                             margin: EdgeInsets.only(left: 15),
                                             child: Text(
-                                              absen.statAbsen,
+                                              absen.status_absen,
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
                                                 fontSize: 12,

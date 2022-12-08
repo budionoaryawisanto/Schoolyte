@@ -12,12 +12,12 @@ import 'package:schoolyte/home.dart';
 import 'package:schoolyte/koperasi.dart';
 import 'daftarKunjungan.dart';
 import 'osis.dart';
-import 'peminjamanBuku.dart';
 import 'rapor.dart';
 import 'ekstrakurikuler.dart';
 import 'profil.dart';
 import 'perpustakaan.dart';
 import 'pembayaranSpp.dart';
+import 'pembayaranBuku.dart';
 
 class AdministrasiPage extends StatefulWidget {
   @override
@@ -651,7 +651,7 @@ class _AdministrasiPageState extends State<AdministrasiPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                PeminjamanBuku()));
+                                                PembayaranBuku()));
                                   },
                                   child: Container(
                                     width: 88,
