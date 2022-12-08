@@ -597,7 +597,7 @@ class _HomePageState extends State<HomePage> {
               SingleChildScrollView(
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 1100,
+                  height: 1200,
                   color: Color.fromRGBO(243, 243, 243, 1),
                   child: Column(
                     children: [
@@ -606,8 +606,10 @@ class _HomePageState extends State<HomePage> {
                         height: 104,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/landing', (Route<dynamic> route) => false);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ProfilPage()));
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
@@ -676,32 +678,155 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Container(
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                '/landing', (Route<dynamic> route) => false);
-                          },
-                          child: Container(
-                            width: 490,
-                            height: 216,
-                            child: Center(
-                              child: new Image.asset(
-                                'assets/images/autoslide1.png',
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                        width: MediaQuery.of(context).size.width,
+                        height: 236,
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: Center(
+                          child: new Image.asset(
+                            'assets/images/postberita.png',
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       Container(
-                        width: 490,
-                        height: 260,
+                        width: MediaQuery.of(context).size.width,
+                        height: 355,
                         decoration: BoxDecoration(
                           color: Colors.white,
                         ),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              height: MediaQuery.of(context).size.height * 0.07,
+                        decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 0,
+                                    blurRadius: 1.5,
+                                    offset: Offset(0, 1),
+                                  )
+                                ],
+                          color: Colors.white,
+                        ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.24,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.047,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Saldo',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 14,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.only(right: 5),
+                                              child: Icon(
+                                                Icons.wallet_outlined,
+                                                color: Color.fromRGBO(
+                                                    255, 199, 0, 1),
+                                              ),
+                                            ),
+                                            Text(
+                                              'Rp.30000',
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-ExtraBold',
+                                                fontSize: 16,
+                                                color: Color.fromRGBO(
+                                                    76, 81, 97, 1),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  VerticalDivider(
+                                    color: Color.fromRGBO(0, 0, 0, 0.18),
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.24,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.047,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Icon(
+                                          Icons.add_box_rounded,
+                                          color: Color.fromRGBO(255, 199, 0, 1),
+                                          size: 21,
+                                        ),
+                                        Text(
+                                          'Top Up',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  VerticalDivider(
+                                    color: Color.fromRGBO(0, 0, 0, 0.18),
+                                  ),
+                                  Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.24,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.047,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Icon(
+                                          Icons.ios_share_outlined,
+                                          color: Color.fromRGBO(255, 199, 0, 1),
+                                          size: 21,
+                                        ),
+                                        Text(
+                                          'Tarik',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 16,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [

@@ -1,6 +1,7 @@
 class Api {
-  static String getAbsen = 'https://sekolahkunihh.my.id/api';
-  static String createAbsen = 'https://sekolahkunihh.my.id/api/create';
+  static String getAbsen = 'https://sekolahkunihh.my.id/api/absensiswa';
+  static String createAbsen =
+      'https://sekolahkunihh.my.id/api/absensiswa/create';
   static String editAbsen = 'https://sekolahkunihh.my.id/api/update/';
   static String image = 'https://sekolahkunihh.my.id/';
   static String getBook = 'https://sekolahkunihh.my.id/api/buku';
