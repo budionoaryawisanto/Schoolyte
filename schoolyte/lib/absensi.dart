@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
 import 'package:date_time_picker/date_time_picker.dart';
@@ -24,6 +25,7 @@ import 'package:async/async.dart';
 import 'ekstrakurikuler.dart';
 import 'profil.dart';
 import 'administrasi.dart';
+import 'package:geolocator/geolocator.dart';
 
 class AbsensiPage extends StatefulWidget {
   @override
@@ -49,7 +51,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
         }
       });
     } else {
-      print('gagal');
+      print('gagal mendapatkan data');
     }
   }
 
@@ -207,6 +209,11 @@ class _AbsensiPageState extends State<AbsensiPage> {
   void initState() {
     super.initState();
     fetchData();
+    _getCurrentLocation().then((value) {
+      lat = '${value.latitude}';
+      long = '${value.longitude}';
+    });
+    liveLocation();
   }
 
   _logOut() async {
@@ -256,10 +263,43 @@ class _AbsensiPageState extends State<AbsensiPage> {
     setState(() {});
   }
 
+  void liveLocation() {
+    LocationSettings locationSettings = const LocationSettings(
+      accuracy: LocationAccuracy.best,
+      distanceFilter: 5,
+    );
+
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((Position? position) {
+      lat = position?.latitude.toString();
+      long = position?.longitude.toString();
+    });
+  }
+
+  Future<Position> _getCurrentLocation() async {
+    DartPluginRegistrant.ensureInitialized();
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Tidak dapat melacak lokasi');
+    }
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      return Future.error('Izin lokasi ditolak');
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Izin lokasi berstatus nonaktif permanen');
+    }
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+
   var status = ['Hadir', 'Izin', 'Sakit'];
   var dropdownvalue = 'Hadir';
   final waktuAbsen = DateFormat().add_Hm().format(DateTime.now());
   var tglAbsen;
+  var lat;
+  var long;
 
   @override
   Widget build(BuildContext context) {
