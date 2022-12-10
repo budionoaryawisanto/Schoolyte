@@ -18,6 +18,8 @@ import 'profil.dart';
 import 'perpustakaan.dart';
 import 'pembayaranSpp.dart';
 import 'pembayaranBuku.dart';
+import 'pembayaranSeragam.dart';
+import 'laporanKeuangan.dart';
 
 class AdministrasiPage extends StatefulWidget {
   @override
@@ -711,7 +713,7 @@ class _AdministrasiPageState extends State<AdministrasiPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                DaftarKunjungan()));
+                                                PembayaranSeragam()));
                                   },
                                   child: Container(
                                     width: 88,
@@ -766,7 +768,7 @@ class _AdministrasiPageState extends State<AdministrasiPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                DaftarKunjungan()));
+                                                LaporanKeuangan()));
                                   },
                                   child: Container(
                                     width: 88,

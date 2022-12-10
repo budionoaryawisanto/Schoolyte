@@ -26,44 +26,54 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<Test> _user = [];
-  List<Test> _userActive = [];
+  List<Test> _siswa = [];
+  late Test profil;
   var loading = false;
 
-  Future<Null> fetchData() async {
+  Future fetchDataSiswa() async {
     setState(() {
       loading = true;
     });
-    _user.clear();
+    _siswa.clear();
     final response =
         await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _user.add(Test.formJson(i));
-          loading = false;
+          _siswa.add(Test.formJson(i));
         }
       });
-      getUsername();
+      await getProfil();
+      setState(() {
+        loading = false;
+      });
     }
   }
 
-  getUsername() async {
+  getProfil() async {
     final prefs = await SharedPreferences.getInstance();
-    var username = prefs.getString('username');
-    _user.forEach((e) {
-      if (e.email.toLowerCase() == username.toString()) {
-        _userActive.add(e);
+    var id = prefs.getString('id');
+    var status = prefs.getString('status');
+    _siswa.forEach((siswa) {
+      if (siswa.id.toString() == id) {
+        profil = siswa;
       }
     });
+    // if (status!.toLowerCase() == 'siswa' || status.toLowerCase() == 'osis') {
+    //   _siswa.forEach((siswa) {
+    //     if (siswa.id == id) {
+    //       profil = siswa;
+    //     }
+    //   });
+    // }
   }
 
   @override
   void initState() {
     super.initState();
-    fetchData();
-    getUsername();
+    fetchDataSiswa();
+    getProfil();
   }
 
   _logOut() async {
@@ -113,8 +123,6 @@ class _HomePageState extends State<HomePage> {
                 margin: EdgeInsetsDirectional.only(end: 10),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/pembayaran', (Route<dynamic> route) => false);
                   },
                   child: Image.asset(
                     'assets/images/lonceng.png',
@@ -240,14 +248,7 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      if (_userActive[0].email.toLowerCase() ==
-                          'rey.padberg@karina.biz') {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AbsensiPegawaiPage()));
-                      } else
-                        Navigator.push(
+                      Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => AbsensiPage()));
@@ -320,14 +321,6 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                      if (_userActive[0].email.toLowerCase() ==
-                          'chaim_mcdermott@dana.io') {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    PerpustakaanPegawaiPage()));
-                      } else
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -604,7 +597,14 @@ class _HomePageState extends State<HomePage> {
                       Container(
                         width: MediaQuery.of(context).size.width,
                         height: 104,
-                        child: ElevatedButton(
+                        color: Colors.white,
+                        child: loading
+                            ? Align(
+                                alignment: Alignment(-0.7, 0.0),
+                                child: CircularProgressIndicator(
+                                    color: Color.fromRGBO(119, 115, 255, 1)),
+                              )
+                            : ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -629,7 +629,7 @@ class _HomePageState extends State<HomePage> {
                                 child: ClipOval(
                                   child: Image.asset(
                                     'assets/images/profil.png',
-                                    fit: BoxFit.fill,
+                                          fit: BoxFit.cover,
                                   ),
                                 ),
                               ),
@@ -660,9 +660,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     Container(
                                       child: Text(
-                                        _userActive.isNotEmpty
-                                            ? _userActive[0].name
-                                            : '-----',
+                                              profil.name,
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-ExtraBold',
                                           fontSize: 22,
@@ -701,7 +699,7 @@ class _HomePageState extends State<HomePage> {
                             Container(
                               width: MediaQuery.of(context).size.width * 0.9,
                               height: MediaQuery.of(context).size.height * 0.07,
-                        decoration: BoxDecoration(
+                              decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 boxShadow: [
                                   BoxShadow(
@@ -711,8 +709,8 @@ class _HomePageState extends State<HomePage> {
                                     offset: Offset(0, 1),
                                   )
                                 ],
-                          color: Colors.white,
-                        ),
+                                color: Colors.white,
+                              ),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -907,15 +905,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 TextButton(
                                   onPressed: () {
-                                    if (_userActive[0].email.toLowerCase() ==
-                                        'rey.padberg@karina.biz') {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AbsensiPegawaiPage()));
-                                    } else
-                                      Navigator.push(
+                                    Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>

@@ -17,7 +17,7 @@ class _PembayaranBukuState extends State<PembayaranBuku> {
 
   var loading = false;
 
-  Future<Null> fetchData() async {
+  Future fetchData() async {
     setState(() {
       loading = true;
     });

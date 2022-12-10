@@ -733,7 +733,7 @@ class _OsisPageState extends State<OsisPage> {
                                                       MaterialPageRoute(
                                                           builder: (context) =>
                                                               DetailDivisi(
-                                                                divisi: a,
+                                                                  divisi: a
                                                               )));
                                                 },
                                                 child: Container(
