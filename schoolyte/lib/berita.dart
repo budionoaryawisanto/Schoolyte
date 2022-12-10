@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:schoolyte/postingBerita.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'koperasi.dart';
@@ -130,1477 +131,950 @@ class _BeritaPageState extends State<BeritaPage> {
     );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: DefaultTabController(
-        length: myTabs.length,
-        child: Scaffold(
-          backgroundColor: Color.fromRGBO(243, 243, 243, 1),
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(138),
-            child: AppBar(
-              backgroundColor: Color.fromRGBO(255, 199, 0, 1),
-              title: Align(
-                alignment: Alignment(-0.7, 0.0),
-                child: Text(
-                  'Berita',
-                  style: TextStyle(
-                    fontFamily: 'Gilroy-ExtraBold',
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              elevation: 0.0,
-              iconTheme: IconThemeData(color: Colors.white),
-              bottom: TabBar(
-                padding: EdgeInsets.only(bottom: 10),
-                indicatorColor: Colors.white,
-                indicatorSize: TabBarIndicatorSize.label,
-                indicatorPadding: EdgeInsets.only(top: 0),
-                labelStyle: TextStyle(
+      home: Scaffold(
+        backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(75),
+          child: AppBar(
+            backgroundColor: Color.fromRGBO(255, 199, 0, 1),
+            title: Align(
+              alignment: Alignment(-0.7, 0.0),
+              child: Text(
+                'Berita',
+                style: TextStyle(
                   fontFamily: 'Gilroy-ExtraBold',
-                  fontSize: 20,
+                  fontSize: 24,
+                  color: Colors.white,
                 ),
-                unselectedLabelStyle: TextStyle(
-                  fontFamily: 'Gilroy-Light',
-                  fontSize: 20,
-                ),
-                tabs: myTabs,
               ),
             ),
+            elevation: 0.0,
+            iconTheme: IconThemeData(color: Colors.white),
           ),
-          drawer: Drawer(
-            backgroundColor: Colors.white,
-            width: 257,
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: Image(
-                    image: AssetImage('assets/images/logolanding.png'),
+        ),
+        drawer: Drawer(
+          backgroundColor: Colors.white,
+          width: 257,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: Image(
+                  image: AssetImage('assets/images/logolanding.png'),
+                ),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.home,
+                  color: Color.fromRGBO(255, 199, 0, 1),
+                ),
+                title: Text(
+                  'Beranda',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-Light',
+                    fontSize: 16,
+                    color: Color.fromRGBO(76, 81, 97, 1),
                   ),
                 ),
-                ListTile(
-                  leading: Icon(
-                    Icons.home,
-                    color: Color.fromRGBO(255, 199, 0, 1),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomePage()));
+                },
+              ),
+              ListTile(
+                tileColor: (akademikClick == false)
+                    ? Color.fromRGBO(255, 199, 0, 1)
+                    : Colors.white,
+                leading: Icon(
+                  Icons.school_rounded,
+                  color: (akademikClick == false)
+                      ? Colors.white
+                      : Color.fromRGBO(255, 199, 0, 1),
+                ),
+                title: Text(
+                  'Akademik',
+                  style: TextStyle(
+                    fontFamily: (akademikClick == false)
+                        ? 'Gilroy-ExtraBold'
+                        : 'Gilroy-Light',
+                    fontSize: 16,
+                    color: (akademikClick == false)
+                        ? Colors.white
+                        : Color.fromRGBO(76, 81, 97, 1),
                   ),
+                ),
+                onTap: () {
+                  closeDrawer();
+                  setState(() {
+                    closeDrawer();
+                    akademikClick = !akademikClick;
+                  });
+                },
+              ),
+              Visibility(
+                visible: (akademikClick == false) ? true : false,
+                child: ListTile(
+                  tileColor: Color.fromRGBO(237, 237, 237, 1),
                   title: Text(
-                    'Beranda',
+                    'Jadwal Kelas',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 14,
+                        color: Color.fromRGBO(76, 81, 91, 1)),
                   ),
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                        MaterialPageRoute(builder: (context) => JadwalPage()));
                   },
                 ),
-                ListTile(
-                  tileColor: (akademikClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
-                  leading: Icon(
-                    Icons.school_rounded,
-                    color: (akademikClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
-                  ),
+              ),
+              Visibility(
+                visible: (akademikClick == false) ? true : false,
+                maintainAnimation: false,
+                maintainState: false,
+                child: ListTile(
+                  tileColor: Color.fromRGBO(237, 237, 237, 1),
                   title: Text(
-                    'Akademik',
+                    'Rapor',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: (akademikClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
-                      fontSize: 16,
-                      color: (akademikClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
-                    ),
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 14,
+                        color: Color.fromRGBO(76, 81, 91, 1)),
                   ),
                   onTap: () {
-                    closeDrawer();
-                    setState(() {
-                      closeDrawer();
-                      akademikClick = !akademikClick;
-                    });
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => RaporPage()));
                   },
                 ),
-                Visibility(
-                  visible: (akademikClick == false) ? true : false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Jadwal Kelas',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => JadwalPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (akademikClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Rapor',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => RaporPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (akademikClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Absensi',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AbsensiPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (akademikClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Nilai Belajar',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => NilaiBelajarPage()));
-                    },
-                  ),
-                ),
-                ListTile(
-                  tileColor: (peminjamanClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
-                  leading: Icon(
-                    Icons.book,
-                    color: (peminjamanClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
-                  ),
+              ),
+              Visibility(
+                visible: (akademikClick == false) ? true : false,
+                maintainAnimation: false,
+                maintainState: false,
+                child: ListTile(
+                  tileColor: Color.fromRGBO(237, 237, 237, 1),
                   title: Text(
-                    'Peminjaman',
+                    'Absensi',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: (peminjamanClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
-                      fontSize: 16,
-                      color: (peminjamanClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
-                    ),
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 14,
+                        color: Color.fromRGBO(76, 81, 91, 1)),
                   ),
                   onTap: () {
-                    setState(() {
-                      closeDrawer();
-                      peminjamanClick = !peminjamanClick;
-                    });
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AbsensiPage()));
                   },
                 ),
-                Visibility(
-                  visible: (peminjamanClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Perpustakaan',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PerpustakaanPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (peminjamanClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Fasilitas',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FasilitasPage()));
-                    },
-                  ),
-                ),
-                ListTile(
-                  tileColor: (pembelianClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
-                  leading: Icon(
-                    Icons.payment_rounded,
-                    color: (pembelianClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
-                  ),
+              ),
+              Visibility(
+                visible: (akademikClick == false) ? true : false,
+                maintainAnimation: false,
+                maintainState: false,
+                child: ListTile(
+                  tileColor: Color.fromRGBO(237, 237, 237, 1),
                   title: Text(
-                    'Pembelian',
+                    'Nilai Belajar',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: (pembelianClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
-                      fontSize: 16,
-                      color: (pembelianClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      closeDrawer();
-                      pembelianClick = !pembelianClick;
-                    });
-                  },
-                ),
-                Visibility(
-                  visible: (pembelianClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Koperasi',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => KoperasiPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (pembelianClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Kantin',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => KantinPage()));
-                    },
-                  ),
-                ),
-                ListTile(
-                  tileColor: Colors.white,
-                  leading: Icon(
-                    Icons.newspaper_rounded,
-                    color: Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Berita',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy-ExtraBold',
-                      fontSize: 16,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BeritaPage()));
-                    });
-                  },
-                ),
-                ListTile(
-                  tileColor: Colors.white,
-                  leading: Icon(
-                    Icons.point_of_sale,
-                    color: Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Administrasi',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 14,
+                        color: Color.fromRGBO(76, 81, 91, 1)),
                   ),
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AdministrasiPage()));
+                            builder: (context) => NilaiBelajarPage()));
                   },
                 ),
-                ListTile(
-                  tileColor: (kegiatanClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
-                  leading: Icon(
-                    Icons.people_rounded,
-                    color: (kegiatanClick == false)
+              ),
+              ListTile(
+                tileColor: (peminjamanClick == false)
+                    ? Color.fromRGBO(255, 199, 0, 1)
+                    : Colors.white,
+                leading: Icon(
+                  Icons.book,
+                  color: (peminjamanClick == false)
+                      ? Colors.white
+                      : Color.fromRGBO(255, 199, 0, 1),
+                ),
+                title: Text(
+                  'Peminjaman',
+                  style: TextStyle(
+                    fontFamily: (peminjamanClick == false)
+                        ? 'Gilroy-ExtraBold'
+                        : 'Gilroy-Light',
+                    fontSize: 16,
+                    color: (peminjamanClick == false)
                         ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
+                        : Color.fromRGBO(76, 81, 97, 1),
                   ),
+                ),
+                onTap: () {
+                  setState(() {
+                    closeDrawer();
+                    peminjamanClick = !peminjamanClick;
+                  });
+                },
+              ),
+              Visibility(
+                visible: (peminjamanClick == false) ? true : false,
+                maintainAnimation: false,
+                maintainState: false,
+                child: ListTile(
+                  tileColor: Color.fromRGBO(237, 237, 237, 1),
                   title: Text(
-                    'Kegiatan Sekolah',
+                    'Perpustakaan',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: (kegiatanClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
-                      fontSize: 16,
-                      color: (kegiatanClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
-                    ),
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 14,
+                        color: Color.fromRGBO(76, 81, 91, 1)),
                   ),
                   onTap: () {
-                    setState(() {
-                      closeDrawer();
-                      kegiatanClick = !kegiatanClick;
-                    });
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PerpustakaanPage()));
                   },
                 ),
-                Visibility(
-                  visible: (kegiatanClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'OSIS',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => OsisPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (kegiatanClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Ekstrakurikuler',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EkstrakurikulerPage()));
-                    },
-                  ),
-                ),
-                ListTile(
-                  tileColor: Colors.white,
-                  leading: Icon(
-                    Icons.person_rounded,
-                    color: Color.fromRGBO(255, 199, 0, 1),
-                  ),
+              ),
+              Visibility(
+                visible: (peminjamanClick == false) ? true : false,
+                maintainAnimation: false,
+                maintainState: false,
+                child: ListTile(
+                  tileColor: Color.fromRGBO(237, 237, 237, 1),
                   title: Text(
-                    'Profil',
+                    'Fasilitas',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 14,
+                        color: Color.fromRGBO(76, 81, 91, 1)),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FasilitasPage()));
+                  },
+                ),
+              ),
+              ListTile(
+                tileColor: (pembelianClick == false)
+                    ? Color.fromRGBO(255, 199, 0, 1)
+                    : Colors.white,
+                leading: Icon(
+                  Icons.payment_rounded,
+                  color: (pembelianClick == false)
+                      ? Colors.white
+                      : Color.fromRGBO(255, 199, 0, 1),
+                ),
+                title: Text(
+                  'Pembelian',
+                  style: TextStyle(
+                    fontFamily: (pembelianClick == false)
+                        ? 'Gilroy-ExtraBold'
+                        : 'Gilroy-Light',
+                    fontSize: 16,
+                    color: (pembelianClick == false)
+                        ? Colors.white
+                        : Color.fromRGBO(76, 81, 97, 1),
+                  ),
+                ),
+                onTap: () {
+                  setState(() {
+                    closeDrawer();
+                    pembelianClick = !pembelianClick;
+                  });
+                },
+              ),
+              Visibility(
+                visible: (pembelianClick == false) ? true : false,
+                maintainAnimation: false,
+                maintainState: false,
+                child: ListTile(
+                  tileColor: Color.fromRGBO(237, 237, 237, 1),
+                  title: Text(
+                    'Koperasi',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 14,
+                        color: Color.fromRGBO(76, 81, 91, 1)),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => KoperasiPage()));
+                  },
+                ),
+              ),
+              Visibility(
+                visible: (pembelianClick == false) ? true : false,
+                maintainAnimation: false,
+                maintainState: false,
+                child: ListTile(
+                  tileColor: Color.fromRGBO(237, 237, 237, 1),
+                  title: Text(
+                    'Kantin',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 14,
+                        color: Color.fromRGBO(76, 81, 91, 1)),
                   ),
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ProfilPage()));
+                        MaterialPageRoute(builder: (context) => KantinPage()));
                   },
                 ),
-                Container(
-                  child: Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: Column(
-                      children: <Widget>[
-                        Divider(),
-                        ListTile(
-                          leading: Icon(
-                            Icons.logout_rounded,
-                          ),
-                          title: Text(
-                            'Log Out',
-                            style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 14,
-                                color: Color.fromRGBO(76, 81, 91, 1)),
-                          ),
-                          onTap: () {
-                            _logOut();
-                          },
-                        ),
-                      ],
-                    ),
+              ),
+              ListTile(
+                tileColor: Colors.white,
+                leading: Icon(
+                  Icons.newspaper_rounded,
+                  color: Color.fromRGBO(255, 199, 0, 1),
+                ),
+                title: Text(
+                  'Berita',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-ExtraBold',
+                    fontSize: 16,
+                    color: Color.fromRGBO(76, 81, 97, 1),
                   ),
                 ),
-              ],
-            ),
-          ),
-          body: TabBarView(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: Column(
-                  children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        height: MediaQuery.of(context).size.height * 0.22,
-                        viewportFraction: 1,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 2),
-                      ),
-                      items: imgList.map(
-                        (i) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet<void>(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
-                                      ),
-                                    ),
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.87,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(15),
-                                            topRight: Radius.circular(15),
-                                          ),
-                                          color: Colors.white,
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  width: 50,
-                                                ),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.1,
-                                                  height: 5,
-                                                  decoration: BoxDecoration(
-                                                    color: Color.fromRGBO(
-                                                        0, 0, 0, 0.25),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: 50,
-                                                  height: 50,
-                                                ),
-                                              ],
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.8,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(9),
-                                              ),
-                                              child: new Image.asset(
-                                                i,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.8,
-                                              margin: EdgeInsets.only(top: 10),
-                                              child: Text(
-                                                'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan SMAN 28 | DBL ID',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Gilroy-ExtraBold',
-                                                  fontSize: 24,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.4,
-                                              height: 31,
-                                              margin: EdgeInsets.only(top: 15),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(16),
-                                                color: Color.fromRGBO(
-                                                    242, 78, 26, 1),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  'Harir Ataki - 12/12/2022',
-                                                  style: TextStyle(
-                                                    fontFamily:
-                                                        'Gilroy-ExtraBold',
-                                                    fontSize: 16,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.8,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.5,
-                                              margin: EdgeInsets.only(top: 15),
-                                              child: SingleChildScrollView(
-                                                child: Text(
-                                                  'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Gilroy-Light',
-                                                    fontSize: 15,
-                                                    color: Color.fromRGBO(
-                                                        76, 81, 97, 1),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.22,
-                                  child: Stack(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment(0.0, 0.0),
-                                        child: Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 224,
-                                          child: Image.asset(
-                                            i,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment(0.0, 0.0),
-                                        child: Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 224,
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                              colors: <Color>[
-                                                Color.fromRGBO(
-                                                    255, 255, 255, 0),
-                                                Color.fromRGBO(
-                                                    87, 92, 107, 0.78),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment(0.0, 0.5),
-                                        child: Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.75,
-                                          height: 58,
-                                          child: Text(
-                                            'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan Lawan',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 24,
-                                              color: Colors.white,
-                                            ),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ).toList(),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.588,
-                      margin: EdgeInsets.only(top: 10),
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: loading
-                          ? Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : GridView.builder(
-                              itemCount: 10,
-                              gridDelegate:
-                                  SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent:
-                                    MediaQuery.of(context).size.width * 0.95,
-                                mainAxisExtent:
-                                    MediaQuery.of(context).size.height * 0.095,
-                                crossAxisSpacing: 20,
-                              ),
-                              itemBuilder: (context, i) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    showModalBottomSheet<void>(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(15),
-                                          topRight: Radius.circular(15),
-                                        ),
-                                      ),
-                                      isScrollControlled: true,
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.87,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15),
-                                            ),
-                                            color: Colors.white,
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    width: 50,
-                                                    height: 50,
-                                                  ),
-                                                  Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.1,
-                                                    height: 5,
-                                                    decoration: BoxDecoration(
-                                                      color: Color.fromRGBO(
-                                                          0, 0, 0, 0.25),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width: 50,
-                                                    height: 50,
-                                                  ),
-                                                ],
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.16,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(9),
-                                                ),
-                                                child: new Image.asset(
-                                                  'assets/images/logoberita.png',
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                margin:
-                                                    EdgeInsets.only(top: 10),
-                                                child: Text(
-                                                  '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontFamily:
-                                                        'Gilroy-ExtraBold',
-                                                    fontSize: 24,
-                                                    color: Color.fromRGBO(
-                                                        76, 81, 97, 1),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.4,
-                                                height: 31,
-                                                margin:
-                                                    EdgeInsets.only(top: 15),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  color: Color.fromRGBO(
-                                                      242, 78, 26, 1),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    'Arya - 12/12/2022',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-ExtraBold',
-                                                      fontSize: 16,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.5,
-                                                margin:
-                                                    EdgeInsets.only(top: 15),
-                                                child: SingleChildScrollView(
-                                                  child: Text(
-                                                    'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-Light',
-                                                      fontSize: 15,
-                                                      color: Color.fromRGBO(
-                                                          76, 81, 97, 1),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Container(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20),
-                                    margin: EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.3),
-                                          spreadRadius: 0,
-                                          blurRadius: 1.5,
-                                          offset: Offset(0, 0),
-                                        )
-                                      ],
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.6,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.064,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Gilroy-ExtraBold',
-                                                  fontSize: 16,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                ),
-                                              ),
-                                              Text(
-                                                'Senin, 12/12/2022',
-                                                style: TextStyle(
-                                                  fontFamily: 'Gilroy-Light',
-                                                  fontSize: 13,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.15,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.15,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(7)),
-                                          child: new Image.asset(
-                                            'assets/images/logoberita.png',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                    ),
-                  ],
+                onTap: () {
+                  setState(() {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => BeritaPage()));
+                  });
+                },
+              ),
+              ListTile(
+                tileColor: Colors.white,
+                leading: Icon(
+                  Icons.point_of_sale,
+                  color: Color.fromRGBO(255, 199, 0, 1),
+                ),
+                title: Text(
+                  'Administrasi',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-Light',
+                    fontSize: 16,
+                    color: Color.fromRGBO(76, 81, 97, 1),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AdministrasiPage()));
+                },
+              ),
+              ListTile(
+                tileColor: (kegiatanClick == false)
+                    ? Color.fromRGBO(255, 199, 0, 1)
+                    : Colors.white,
+                leading: Icon(
+                  Icons.people_rounded,
+                  color: (kegiatanClick == false)
+                      ? Colors.white
+                      : Color.fromRGBO(255, 199, 0, 1),
+                ),
+                title: Text(
+                  'Kegiatan Sekolah',
+                  style: TextStyle(
+                    fontFamily: (kegiatanClick == false)
+                        ? 'Gilroy-ExtraBold'
+                        : 'Gilroy-Light',
+                    fontSize: 16,
+                    color: (kegiatanClick == false)
+                        ? Colors.white
+                        : Color.fromRGBO(76, 81, 97, 1),
+                  ),
+                ),
+                onTap: () {
+                  setState(() {
+                    closeDrawer();
+                    kegiatanClick = !kegiatanClick;
+                  });
+                },
+              ),
+              Visibility(
+                visible: (kegiatanClick == false) ? true : false,
+                maintainAnimation: false,
+                maintainState: false,
+                child: ListTile(
+                  tileColor: Color.fromRGBO(237, 237, 237, 1),
+                  title: Text(
+                    'OSIS',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 14,
+                        color: Color.fromRGBO(76, 81, 91, 1)),
+                  ),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => OsisPage()));
+                  },
                 ),
               ),
+              Visibility(
+                visible: (kegiatanClick == false) ? true : false,
+                maintainAnimation: false,
+                maintainState: false,
+                child: ListTile(
+                  tileColor: Color.fromRGBO(237, 237, 237, 1),
+                  title: Text(
+                    'Ekstrakurikuler',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 14,
+                        color: Color.fromRGBO(76, 81, 91, 1)),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EkstrakurikulerPage()));
+                  },
+                ),
+              ),
+              ListTile(
+                tileColor: Colors.white,
+                leading: Icon(
+                  Icons.person_rounded,
+                  color: Color.fromRGBO(255, 199, 0, 1),
+                ),
+                title: Text(
+                  'Profil',
+                  style: TextStyle(
+                    fontFamily: 'Gilroy-Light',
+                    fontSize: 16,
+                    color: Color.fromRGBO(76, 81, 97, 1),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProfilPage()));
+                },
+              ),
               Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: Column(
-                  children: [
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        height: MediaQuery.of(context).size.height * 0.22,
-                        viewportFraction: 1,
-                        autoPlay: true,
-                        autoPlayInterval: Duration(seconds: 2),
-                      ),
-                      items: imgList.map(
-                        (i) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet<void>(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
-                                      ),
-                                    ),
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.87,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(15),
-                                            topRight: Radius.circular(15),
-                                          ),
-                                          color: Colors.white,
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  width: 50,
-                                                ),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.1,
-                                                  height: 5,
-                                                  decoration: BoxDecoration(
-                                                    color: Color.fromRGBO(
-                                                        0, 0, 0, 0.25),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: 50,
-                                                  height: 50,
-                                                ),
-                                              ],
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.8,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.16,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(9),
-                                              ),
-                                              child: new Image.asset(
-                                                i,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.8,
-                                              margin: EdgeInsets.only(top: 10),
-                                              child: Text(
-                                                'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan SMAN 28 | DBL ID',
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Gilroy-ExtraBold',
-                                                  fontSize: 24,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.4,
-                                              height: 31,
-                                              margin: EdgeInsets.only(top: 15),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(16),
-                                                color: Color.fromRGBO(
-                                                    242, 78, 26, 1),
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  'Harir Ataki - 12/12/2022',
-                                                  style: TextStyle(
-                                                    fontFamily:
-                                                        'Gilroy-ExtraBold',
-                                                    fontSize: 16,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.8,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.5,
-                                              margin: EdgeInsets.only(top: 15),
-                                              child: SingleChildScrollView(
-                                                child: Text(
-                                                  'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Gilroy-Light',
-                                                    fontSize: 15,
-                                                    color: Color.fromRGBO(
-                                                        76, 81, 97, 1),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.22,
-                                  child: Stack(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment(0.0, 0.0),
-                                        child: Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 224,
-                                          child: Image.asset(
-                                            i,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment(0.0, 0.0),
-                                        child: Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 224,
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                              colors: <Color>[
-                                                Color.fromRGBO(
-                                                    255, 255, 255, 0),
-                                                Color.fromRGBO(
-                                                    87, 92, 107, 0.78),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment: Alignment(0.0, 0.5),
-                                        child: Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.75,
-                                          height: 58,
-                                          child: Text(
-                                            'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan Lawan',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 24,
-                                              color: Colors.white,
-                                            ),
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          );
+                child: Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: Column(
+                    children: <Widget>[
+                      Divider(),
+                      ListTile(
+                        leading: Icon(
+                          Icons.logout_rounded,
+                        ),
+                        title: Text(
+                          'Log Out',
+                          style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 14,
+                              color: Color.fromRGBO(76, 81, 91, 1)),
+                        ),
+                        onTap: () {
+                          _logOut();
                         },
-                      ).toList(),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.588,
-                      margin: EdgeInsets.only(top: 10),
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: loading
-                          ? Center(
-                              child: CircularProgressIndicator(),
-                            )
-                          : GridView.builder(
-                              itemCount: 10,
-                              gridDelegate:
-                                  SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent:
-                                    MediaQuery.of(context).size.width * 0.95,
-                                mainAxisExtent:
-                                    MediaQuery.of(context).size.height * 0.095,
-                                crossAxisSpacing: 20,
-                              ),
-                              itemBuilder: (context, i) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    showModalBottomSheet<void>(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(15),
-                                          topRight: Radius.circular(15),
-                                        ),
-                                      ),
-                                      isScrollControlled: true,
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.87,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(15),
-                                              topRight: Radius.circular(15),
-                                            ),
-                                            color: Colors.white,
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    width: 50,
-                                                    height: 50,
-                                                  ),
-                                                  Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.1,
-                                                    height: 5,
-                                                    decoration: BoxDecoration(
-                                                      color: Color.fromRGBO(
-                                                          0, 0, 0, 0.25),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width: 50,
-                                                    height: 50,
-                                                  ),
-                                                ],
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.16,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(9),
-                                                ),
-                                                child: new Image.asset(
-                                                  'assets/images/logoberita.png',
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                margin:
-                                                    EdgeInsets.only(top: 10),
-                                                child: Text(
-                                                  '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    fontFamily:
-                                                        'Gilroy-ExtraBold',
-                                                    fontSize: 24,
-                                                    color: Color.fromRGBO(
-                                                        76, 81, 97, 1),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.4,
-                                                height: 31,
-                                                margin:
-                                                    EdgeInsets.only(top: 15),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(16),
-                                                  color: Color.fromRGBO(
-                                                      242, 78, 26, 1),
-                                                ),
-                                                child: Center(
-                                                  child: Text(
-                                                    'Arya - 12/12/2022',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-ExtraBold',
-                                                      fontSize: 16,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.8,
-                                                height: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.5,
-                                                margin:
-                                                    EdgeInsets.only(top: 15),
-                                                child: SingleChildScrollView(
-                                                  child: Text(
-                                                    'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-Light',
-                                                      fontSize: 15,
-                                                      color: Color.fromRGBO(
-                                                          76, 81, 97, 1),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Container(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 20),
-                                    margin: EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.3),
-                                          spreadRadius: 0,
-                                          blurRadius: 1.5,
-                                          offset: Offset(0, 0),
-                                        )
-                                      ],
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.6,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.064,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Gilroy-ExtraBold',
-                                                  fontSize: 16,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                ),
-                                              ),
-                                              Text(
-                                                'Senin, 12/12/2022',
-                                                style: TextStyle(
-                                                  fontFamily: 'Gilroy-Light',
-                                                  fontSize: 13,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.15,
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.15,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(7)),
-                                          child: new Image.asset(
-                                            'assets/images/logoberita.png',
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
+          ),
+        ),
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 224,
+                    viewportFraction: 1,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 2),
+                  ),
+                  items: imgList.map(
+                    (i) {
+                      return Builder(
+                        builder: (BuildContext context) {
+                          return GestureDetector(
+                            onTap: () {
+                              showModalBottomSheet<void>(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    topRight: Radius.circular(15),
+                                  ),
+                                ),
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Container(
+                                    height:
+                                        MediaQuery.of(context).size.height *
+                                        0.87,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(15),
+                                        topRight: Radius.circular(15),
+                                      ),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              width: 50,
+                                            ),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.1,
+                                              height: 5,
+                                              decoration: BoxDecoration(
+                                                color: Color.fromRGBO(
+                                                    0, 0, 0, 0.25),
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 50,
+                                              height: 50,
+                                            ),
+                                          ],
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                                  0.8,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                                  0.16,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(9),
+                                          ),
+                                          child: new Image.asset(
+                                            i,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                                  0.8,
+                                          margin: EdgeInsets.only(top: 10),
+                                          child: Text(
+                                            'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan SMAN 28 | DBL ID',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 24,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                                  0.4,
+                                          height: 31,
+                                          margin: EdgeInsets.only(top: 15),
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                            color:
+                                                Color.fromRGBO(242, 78, 26, 1),
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              'Harir Ataki - 12/12/2022',
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-ExtraBold',
+                                                fontSize: 16,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                                  0.8,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                                  0.5,
+                                          margin: EdgeInsets.only(top: 15),
+                                          child: SingleChildScrollView(
+                                            child: Text(
+                                              'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 15,
+                                                color: Color.fromRGBO(
+                                                    76, 81, 97, 1),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height * 0.22,
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: Alignment(0.0, 0.0),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 224,
+                                      child: Image.asset(
+                                        i,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment(0.0, 0.0),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 224,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: <Color>[
+                                            Color.fromRGBO(255, 255, 255, 0),
+                                            Color.fromRGBO(87, 92, 107, 0.78),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment(0.0, 0.5),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.75,
+                                      height: 58,
+                                      child: Text(
+                                        'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan Lawan',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-ExtraBold',
+                                          fontSize: 24,
+                                          color: Colors.white,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ).toList(),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PostingBerita()));
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 133,
+                    margin: EdgeInsets.only(top: 10),
+                    child: Image.asset(
+                      'assets/images/postingBerita.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.53,
+                  margin: EdgeInsets.only(top: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: loading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : GridView.builder(
+                          itemCount: 10,
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent:
+                                MediaQuery.of(context).size.width * 0.95,
+                            mainAxisExtent:
+                                MediaQuery.of(context).size.height * 0.095,
+                            crossAxisSpacing: 20,
+                          ),
+                          itemBuilder: (context, i) {
+                            return GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet<void>(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15),
+                                    ),
+                                  ),
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.87,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(15),
+                                          topRight: Radius.circular(15),
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                              ),
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.1,
+                                                height: 5,
+                                                decoration: BoxDecoration(
+                                                  color: Color.fromRGBO(
+                                                      0, 0, 0, 0.25),
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.8,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.16,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(9),
+                                            ),
+                                            child: new Image.asset(
+                                              'assets/images/logoberita.png',
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.8,
+                                            margin: EdgeInsets.only(top: 10),
+                                            child: Text(
+                                              '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-ExtraBold',
+                                                fontSize: 24,
+                                                color: Color.fromRGBO(
+                                                    76, 81, 97, 1),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.4,
+                                            height: 31,
+                                            margin: EdgeInsets.only(top: 15),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              color: Color.fromRGBO(
+                                                  242, 78, 26, 1),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                'Arya - 12/12/2022',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 16,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.8,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.5,
+                                            margin: EdgeInsets.only(top: 15),
+                                            child: SingleChildScrollView(
+                                              child: Text(
+                                                'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy-Light',
+                                                  fontSize: 15,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(horizontal: 20),
+                                margin: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      spreadRadius: 0,
+                                      blurRadius: 1.5,
+                                      offset: Offset(0, 0),
+                                    )
+                                  ],
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.6,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.064,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 16,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                          Text(
+                                            'Senin, 12/12/2022',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 13,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.15,
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              0.15,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(7)),
+                                      child: new Image.asset(
+                                        'assets/images/logoberita.png',
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

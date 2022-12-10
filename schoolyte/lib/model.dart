@@ -141,7 +141,7 @@ class Test {
 
 
 class Book {
-  final String buku_id;
+  final int id;
   final String nama_buku;
   final String tahun_terbit;
   final String nama_penulis;
@@ -151,7 +151,7 @@ class Book {
   final String kategori_buku;
 
   Book({
-    required this.buku_id,
+    required this.id,
     required this.nama_buku,
     required this.tahun_terbit,
     required this.nama_penulis,
@@ -163,7 +163,7 @@ class Book {
 
   factory Book.formJson(Map<String, dynamic> json) {
     return new Book(
-      buku_id: json['buku_id'],
+      id: json['id'],
       nama_buku: json['nama_buku'],
       tahun_terbit: json['tahun_terbit'],
       nama_penulis: json['nama_penulis'],

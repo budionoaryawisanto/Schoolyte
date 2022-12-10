@@ -289,12 +289,6 @@ class _LaporanKeuanganState extends State<LaporanKeuangan> {
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.7,
                           margin: EdgeInsets.only(top: 10),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1,
-                              color: Colors.black,
-                            ),
-                          ),
                           child: GridView.builder(
                               itemCount: _rMoney.length,
                               gridDelegate:
@@ -309,10 +303,106 @@ class _LaporanKeuanganState extends State<LaporanKeuangan> {
                                 final money = _rMoney[i];
                                 return Container(
                                   padding: EdgeInsets.symmetric(
-                                    horizontal: 15,
+                                    horizontal: 30,
                                   ),
                                   color: Colors.white,
-                                  child: Text(i.toString()),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 220,
+                                        height: 60,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              width: 28,
+                                              height: 28,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(21),
+                                                color: Color.fromRGBO(
+                                                    242, 78, 26, 1),
+                                              ),
+                                              child: Center(
+                                                child: Icon(
+                                                  money.id % 2 == 0
+                                                      ? Icons.add_box_rounded
+                                                      : Icons
+                                                          .ios_share_outlined,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 180,
+                                              height: 60,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    money.id % 2 == 0
+                                                        ? 'Top Up'
+                                                        : 'Pembayaran',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-ExtraBold',
+                                                      fontSize: 16,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 1),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    money.id % 2 == 0
+                                                        ? 'Dari TU'
+                                                        : 'Untuk Stand ${money.id}',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-Light',
+                                                      fontSize: 14,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 1),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    'Monday, 11 January 2023',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-Light',
+                                                      fontSize: 13,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 1),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Text(
+                                        money.id % 2 == 0
+                                            ? '+Rp 30.000'
+                                            : '-Rp 12.000',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 16,
+                                          color: Color.fromRGBO(242, 78, 26, 1),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 );
                               }),
                         ),

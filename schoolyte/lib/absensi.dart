@@ -206,9 +206,9 @@ class _AbsensiPageState extends State<AbsensiPage> {
   }
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    await fetchData();
+    fetchData();
     _getCurrentLocation().then((value) {
       lat = '${value.latitude}';
       long = '${value.longitude}';

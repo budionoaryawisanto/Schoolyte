@@ -36,8 +36,6 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
     });
     _books.clear();
     final response = await http.get(Uri.parse(Api.getBook));
-    print(response.body);
-    print(response.statusCode);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
@@ -2280,7 +2278,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                     children: [
                                       Text(
                                         'ID Peminjaman : ' +
-                                            book.buku_id.toString(),
+                                            book.id.toString(),
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
                                           fontSize: 15,
@@ -2390,7 +2388,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                         children: [
                                           Text(
                                             'ID Peminjaman : ' +
-                                                book.buku_id.toString(),
+                                                book.id.toString(),
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
                                               fontSize: 15,
@@ -2535,7 +2533,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                     children: [
                                       Text(
                                         'ID Peminjaman : ' +
-                                            book.buku_id.toString(),
+                                            book.id.toString(),
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
                                           fontSize: 15,
@@ -2647,7 +2645,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                     children: [
                                       Text(
                                         'ID Peminjaman : ' +
-                                            book.buku_id.toString(),
+                                            book.id.toString(),
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
                                           fontSize: 15,
@@ -2772,7 +2770,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                           children: [
                                             Text(
                                               'ID Peminjaman : ' +
-                                                  book.buku_id.toString(),
+                                                  book.id.toString(),
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-Light',
                                                 fontSize: 15,
@@ -2968,7 +2966,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                           children: [
                                             Text(
                                               'ID Peminjaman : ' +
-                                                  book.buku_id.toString(),
+                                                  book.id.toString(),
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-Light',
                                                 fontSize: 15,
