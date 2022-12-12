@@ -26,22 +26,21 @@ class BeritaPage extends StatefulWidget {
 }
 
 class _BeritaPageState extends State<BeritaPage> {
-  List<Test> _list = [];
-  List<Test> _search = [];
+  List<Test> _berita = [];
   var loading = false;
 
-  Future<Null> fetchData() async {
+  Future fetchData() async {
     setState(() {
       loading = true;
     });
-    _list.clear();
+    _berita.clear();
     final response =
         await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _list.add(Test.formJson(i));
+          _berita.add(Test.formJson(i));
           loading = false;
         }
       });
@@ -89,28 +88,6 @@ class _BeritaPageState extends State<BeritaPage> {
     rabClick = true;
     kamClick = true;
     jumClick = true;
-  }
-
-  List<Tab> myTabs = <Tab>[
-    Tab(text: 'Berita Sekolah'),
-    Tab(text: 'Berita Kelas'),
-  ];
-
-  final TextEditingController searchController = TextEditingController();
-
-  onSearch(String text) async {
-    _search.clear();
-    if (text.isEmpty) {
-      setState(() {});
-      return;
-    }
-    _list.forEach((e) {
-      if (e.name.toLowerCase().contains(text.toLowerCase()) ||
-          e.id.toString().contains(text) ||
-          e.username.toLowerCase().contains(text.toLowerCase())) {
-        _search.add(e);
-      }
-    });
   }
 
   var imgList = [
@@ -628,8 +605,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return Container(
-                                    height:
-                                        MediaQuery.of(context).size.height *
+                                    height: MediaQuery.of(context).size.height *
                                         0.87,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.only(
@@ -674,11 +650,11 @@ class _BeritaPageState extends State<BeritaPage> {
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                                  0.8,
+                                              0.8,
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                                  0.16,
+                                              0.16,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(9),
@@ -692,7 +668,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                                  0.8,
+                                              0.8,
                                           margin: EdgeInsets.only(top: 10),
                                           child: Text(
                                             'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan SMAN 28 | DBL ID',
@@ -709,7 +685,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                                  0.4,
+                                              0.4,
                                           height: 31,
                                           margin: EdgeInsets.only(top: 15),
                                           decoration: BoxDecoration(
@@ -733,11 +709,11 @@ class _BeritaPageState extends State<BeritaPage> {
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
-                                                  0.8,
+                                              0.8,
                                           height: MediaQuery.of(context)
                                                   .size
                                                   .height *
-                                                  0.5,
+                                              0.5,
                                           margin: EdgeInsets.only(top: 15),
                                           child: SingleChildScrollView(
                                             child: Text(
@@ -844,7 +820,7 @@ class _BeritaPageState extends State<BeritaPage> {
                           child: CircularProgressIndicator(),
                         )
                       : GridView.builder(
-                          itemCount: 10,
+                          itemCount: _berita.length,
                           gridDelegate:
                               SliverGridDelegateWithMaxCrossAxisExtent(
                             maxCrossAxisExtent:
@@ -854,6 +830,7 @@ class _BeritaPageState extends State<BeritaPage> {
                             crossAxisSpacing: 20,
                           ),
                           itemBuilder: (context, i) {
+                            final berita = _berita[i];
                             return GestureDetector(
                               onTap: () {
                                 showModalBottomSheet<void>(
@@ -937,6 +914,8 @@ class _BeritaPageState extends State<BeritaPage> {
                                             child: Text(
                                               '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
                                               textAlign: TextAlign.center,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
                                                 fontSize: 24,
@@ -949,7 +928,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                0.4,
+                                                0.8,
                                             height: 31,
                                             margin: EdgeInsets.only(top: 15),
                                             decoration: BoxDecoration(
@@ -960,7 +939,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                'Arya - 12/12/2022',
+                                                '${berita.name} - 12-12-2022',
                                                 style: TextStyle(
                                                   fontFamily:
                                                       'Gilroy-ExtraBold',
@@ -1009,7 +988,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                       color: Colors.black.withOpacity(0.3),
                                       spreadRadius: 0,
                                       blurRadius: 1.5,
-                                      offset: Offset(0, 0),
+                                      offset: Offset(0, 1),
                                     )
                                   ],
                                 ),
@@ -1020,9 +999,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                     Container(
                                       width: MediaQuery.of(context).size.width *
                                           0.6,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.064,
+                                      height: 64,
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
@@ -1041,7 +1018,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                             ),
                                           ),
                                           Text(
-                                            'Senin, 12/12/2022',
+                                            '${berita.name} - 12-12-2022',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
                                               fontSize: 13,

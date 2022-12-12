@@ -26,6 +26,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final TextEditingController topupController = TextEditingController();
+  final TextEditingController tarikController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _formKey2 = GlobalKey<FormState>();
   List<Test> _siswa = [];
   late Test profil;
   var loading = false;
@@ -585,169 +589,472 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          body: Stack(
-            children: [
-              SingleChildScrollView(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 1200,
-                  color: Color.fromRGBO(243, 243, 243, 1),
-                  child: Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 104,
-                        color: Colors.white,
-                        child: loading
-                            ? Align(
-                                alignment: Alignment(-0.7, 0.0),
-                                child: CircularProgressIndicator(
-                                    color: Color.fromRGBO(119, 115, 255, 1)),
-                              )
-                            : ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ProfilPage()));
-                          },
-                          style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            fixedSize: Size(490, 104),
-                            backgroundColor: Colors.white,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 55,
-                                height: 55,
-                                margin: EdgeInsets.only(
-                                  left: 7,
-                                  right: 14,
-                                ),
-                                child: ClipOval(
-                                  child: Image.asset(
-                                    'assets/images/profil.png',
-                                          fit: BoxFit.cover,
+          body: SingleChildScrollView(
+            child: loading
+                ? Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    color: Colors.white,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Color.fromRGBO(119, 115, 205, 1),
+                      ),
+                    ),
+                  )
+                : Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 1200,
+                    color: Color.fromRGBO(243, 243, 243, 1),
+                    child: Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 104,
+                          color: Colors.white,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ProfilPage()));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              fixedSize: Size(490, 104),
+                              backgroundColor: Colors.white,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Container(
+                                  width: 55,
+                                  height: 55,
+                                  margin: EdgeInsets.only(
+                                    left: 7,
+                                    right: 14,
+                                  ),
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      'assets/images/profil.png',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.7,
-                                height: 59,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          'Selamat Datang',
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.7,
+                                  height: 59,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            'Selamat Datang',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 16,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                          Container(
+                                            child: new Image.asset(
+                                              'assets/images/tangan.png',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          profil.name,
                                           style: TextStyle(
-                                            fontFamily: 'Gilroy-Light',
-                                            fontSize: 16,
-                                            color:
-                                                Color.fromRGBO(76, 81, 97, 1),
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 22,
+                                            color: Colors.black,
                                           ),
-                                        ),
-                                        Container(
-                                          child: new Image.asset(
-                                            'assets/images/tangan.png',
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      child: Text(
-                                              profil.name,
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 22,
-                                          color: Colors.black,
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 236,
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        child: Center(
-                          child: new Image.asset(
-                            'assets/images/postberita.png',
-                            fit: BoxFit.cover,
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 236,
+                          padding: EdgeInsets.symmetric(vertical: 10),
+                          child: Center(
+                            child: new Image.asset(
+                              'assets/images/postberita.png',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 355,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              height: MediaQuery.of(context).size.height * 0.07,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.3),
-                                    spreadRadius: 0,
-                                    blurRadius: 1.5,
-                                    offset: Offset(0, 1),
-                                  )
-                                ],
-                                color: Colors.white,
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.24,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.047,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          'Saldo',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy-Light',
-                                            fontSize: 14,
-                                            color:
-                                                Color.fromRGBO(76, 81, 97, 1),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 355,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.07,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      spreadRadius: 0,
+                                      blurRadius: 1.5,
+                                      offset: Offset(0, 1),
+                                    )
+                                  ],
+                                  color: Colors.white,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.24,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.047,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            'Saldo',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 14,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
                                           ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.only(right: 5),
-                                              child: Icon(
-                                                Icons.wallet_outlined,
-                                                color: Color.fromRGBO(
-                                                    255, 199, 0, 1),
+                                          Row(
+                                            children: [
+                                              Container(
+                                                margin:
+                                                    EdgeInsets.only(right: 5),
+                                                child: Icon(
+                                                  Icons.wallet_outlined,
+                                                  color: Color.fromRGBO(
+                                                      255, 199, 0, 1),
+                                                ),
+                                              ),
+                                              Text(
+                                                'Rp 30.000',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 16,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    VerticalDivider(
+                                      color: Color.fromRGBO(0, 0, 0, 0.18),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(15),
+                                                topRight: Radius.circular(15),
                                               ),
                                             ),
+                                            isScrollControlled: true,
+                                            context: context,
+                                            builder: (context) {
+                                              return Container(
+                                                height: 574,
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 20,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      width: 66,
+                                                      height: 2,
+                                                      decoration: BoxDecoration(
+                                                        color: Color.fromRGBO(
+                                                            0, 0, 0, 0.1),
+                                                        border: Border.all(
+                                                          width: 1,
+                                                          color: Color.fromRGBO(
+                                                              0, 0, 0, 0.1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.9,
+                                                      height: 187,
+                                                      margin: EdgeInsets.only(
+                                                          top: 25),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            'Top-Up',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy-ExtraBold',
+                                                              fontSize: 24,
+                                                              color: Color
+                                                                  .fromRGBO(
+                                                                      76,
+                                                                      81,
+                                                                      97,
+                                                                      1),
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                'Lytepay',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-ExtraBold',
+                                                                  fontSize: 16,
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          76,
+                                                                          81,
+                                                                          97,
+                                                                          1),
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                width: 120,
+                                                                height: 20,
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .wallet,
+                                                                      size: 20,
+                                                                      color: Color
+                                                                          .fromRGBO(
+                                                                              255,
+                                                                              199,
+                                                                              0,
+                                                                              1),
+                                                                    ),
+                                                                    Text(
+                                                                      'Rp 30.000',
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontFamily:
+                                                                            'Gilroy-ExtraBold',
+                                                                        fontSize:
+                                                                            16,
+                                                                        color: Color.fromRGBO(
+                                                                            76,
+                                                                            81,
+                                                                            97,
+                                                                            1),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Text(
+                                                            'Jumlah Top-Up Saldo    :',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy-Light',
+                                                              fontSize: 16,
+                                                              color: Color
+                                                                  .fromRGBO(
+                                                                      76,
+                                                                      81,
+                                                                      97,
+                                                                      1),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.9,
+                                                            height: 40,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color
+                                                                  .fromRGBO(
+                                                                      243,
+                                                                      243,
+                                                                      243,
+                                                                      1),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          7),
+                                                            ),
+                                                            child: Form(
+                                                              key: _formKey,
+                                                              child:
+                                                                  TextFormField(
+                                                                controller:
+                                                                    topupController,
+                                                                keyboardType:
+                                                                    TextInputType
+                                                                        .number,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 16,
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          76,
+                                                                          81,
+                                                                          97,
+                                                                          1),
+                                                                ),
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                  labelText:
+                                                                      'Rp',
+                                                                  labelStyle:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Gilroy-Light',
+                                                                    fontSize:
+                                                                        16,
+                                                                    color: Color
+                                                                        .fromRGBO(
+                                                                            76,
+                                                                            81,
+                                                                            97,
+                                                                            0.54),
+                                                                  ),
+                                                                  border: OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10)),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          Alignment(0.8, 0.0),
+                                                      child: Container(
+                                                        width: 106,
+                                                        height: 30,
+                                                        margin: EdgeInsets.only(
+                                                            top: 100),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                          color: Colors.black,
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            'Selesai',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy-Light',
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            });
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.24,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.047,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Icon(
+                                              Icons.add_box_rounded,
+                                              color: Color.fromRGBO(
+                                                  255, 199, 0, 1),
+                                              size: 21,
+                                            ),
                                             Text(
-                                              'Rp.30000',
+                                              'Top Up',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
                                                 fontSize: 16,
@@ -757,648 +1064,290 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                  VerticalDivider(
-                                    color: Color.fromRGBO(0, 0, 0, 0.18),
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.24,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.047,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(
-                                          Icons.add_box_rounded,
-                                          color: Color.fromRGBO(255, 199, 0, 1),
-                                          size: 21,
-                                        ),
-                                        Text(
-                                          'Top Up',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy-ExtraBold',
-                                            fontSize: 16,
-                                            color:
-                                                Color.fromRGBO(76, 81, 97, 1),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  VerticalDivider(
-                                    color: Color.fromRGBO(0, 0, 0, 0.18),
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.24,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.047,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Icon(
-                                          Icons.ios_share_outlined,
-                                          color: Color.fromRGBO(255, 199, 0, 1),
-                                          size: 21,
-                                        ),
-                                        Text(
-                                          'Tarik',
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy-ExtraBold',
-                                            fontSize: 16,
-                                            color:
-                                                Color.fromRGBO(76, 81, 97, 1),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                JadwalPage()));
-                                  },
-                                  child: Container(
-                                    width: 56,
-                                    height: 83,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment(0.0, -1.0),
-                                          child: new Image.asset(
-                                            'assets/images/Frame 125.png',
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(0.0, 0.8),
-                                          child: Text(
-                                            'Jadwal Kelas',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 11,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => RaporPage()));
-                                  },
-                                  child: Container(
-                                    width: 56,
-                                    height: 83,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment(0.0, -1.0),
-                                          child: new Image.asset(
-                                            'assets/images/Frame 126.png',
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(0.0, 0.7),
-                                          child: Text(
-                                            'Rapor',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 11,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AbsensiPage()));
-                                  },
-                                  child: Container(
-                                    width: 56,
-                                    height: 83,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment(0.0, -1.0),
-                                          child: new Image.asset(
-                                            'assets/images/Frame 127.png',
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(0.0, 0.5),
-                                          child: Text(
-                                            'Absensi',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 11,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                FasilitasPage()));
-                                  },
-                                  child: Container(
-                                    width: 56,
-                                    height: 83,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment(0.0, -1.0),
-                                          child: new Image.asset(
-                                            'assets/images/Frame 128.png',
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(0.0, 0.5),
-                                          child: Text(
-                                            'Fasilitas',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 11,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                PerpustakaanPage()));
-                                  },
-                                  child: Container(
-                                    width: 71,
-                                    height: 72,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment(0.0, -1.0),
-                                          child: new Image.asset(
-                                            'assets/images/Frame 129.png',
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(0.0, 0.7),
-                                          child: Text(
-                                            'Perpustakaan',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 11,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                EkstrakurikulerPage()));
-                                  },
-                                  child: Container(
-                                    width: 77,
-                                    height: 84.5,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment(0.0, -1.0),
-                                          child: new Image.asset(
-                                            'assets/images/Frame 130.png',
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(0.0, 0.7),
-                                          child: Text(
-                                            'Ekstrakurikuler',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 11,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                KantinPage()));
-                                  },
-                                  child: Container(
-                                    width: 57,
-                                    height: 69,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment(0.0, -1.0),
-                                          child: new Image.asset(
-                                            'assets/images/Frame 131.png',
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(0.0, 0.9),
-                                          child: Text(
-                                            'Kantin',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 11,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => HomePage()));
-                                  },
-                                  child: Container(
-                                    width: 85,
-                                    height: 80,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment(0.0, -1.0),
-                                          child: new Image.asset(
-                                            'assets/images/Frame 132.png',
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(0.0, 0.8),
-                                          child: Text(
-                                            'Pembayaran SPP',
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 11,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.48,
-                        padding: EdgeInsets.symmetric(
-                          vertical: 30,
-                          horizontal: 20,
-                        ),
-                        margin: EdgeInsets.only(top: 15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  margin: EdgeInsets.only(left: 20),
-                                  child: Text(
-                                    'Berita Sekolah',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-ExtraBold',
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil('/berita',
-                                            (Route<dynamic> route) => false);
-                                  },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.18,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.018,
-                                    margin: EdgeInsets.only(right: 20),
-                                    decoration: BoxDecoration(
-                                      color: Color.fromRGBO(180, 176, 255, 1),
-                                      border: Border.all(
-                                        width: 1,
-                                        color: Color.fromRGBO(180, 176, 255, 1),
-                                      ),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        "Lihat Semua",
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 12,
-                                          color:
-                                              Color.fromRGBO(119, 115, 205, 1),
-                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.85,
-                              height: MediaQuery.of(context).size.height * 0.35,
-                              margin: EdgeInsets.only(top: 10),
-                              child: GridView.builder(
-                                itemCount: 3,
-                                gridDelegate:
-                                    SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent:
-                                      MediaQuery.of(context).size.width,
-                                  mainAxisExtent:
-                                      MediaQuery.of(context).size.height * 0.09,
-                                  crossAxisSpacing: 25,
-                                  mainAxisSpacing: 25,
-                                ),
-                                itemBuilder: (context, i) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      showModalBottomSheet<void>(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(15),
-                                            topRight: Radius.circular(15),
-                                          ),
-                                        ),
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.87,
-                                            decoration: BoxDecoration(
+                                    VerticalDivider(
+                                      color: Color.fromRGBO(0, 0, 0, 0.18),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        showModalBottomSheet(
+                                            shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.only(
                                                 topLeft: Radius.circular(15),
                                                 topRight: Radius.circular(15),
                                               ),
-                                              color: Colors.white,
                                             ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Row(
+                                            isScrollControlled: true,
+                                            context: context,
+                                            builder: (context) {
+                                              return Container(
+                                                height: 574,
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 20,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(15),
+                                                    topRight:
+                                                        Radius.circular(15),
+                                                  ),
+                                                ),
+                                                child: Column(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: 50,
-                                                      height: 50,
-                                                    ),
-                                                    Container(
-                                                      width: 50,
-                                                      height: 5,
+                                                      width: 66,
+                                                      height: 2,
                                                       decoration: BoxDecoration(
                                                         color: Color.fromRGBO(
-                                                            0, 0, 0, 0.25),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10),
+                                                            0, 0, 0, 0.1),
+                                                        border: Border.all(
+                                                          width: 1,
+                                                          color: Color.fromRGBO(
+                                                              0, 0, 0, 0.1),
+                                                        ),
                                                       ),
                                                     ),
                                                     Container(
-                                                      width: 50,
-                                                      height: 50,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.9,
+                                                      height: 187,
+                                                      margin: EdgeInsets.only(
+                                                          top: 25),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            'Tarik',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy-ExtraBold',
+                                                              fontSize: 24,
+                                                              color: Color
+                                                                  .fromRGBO(
+                                                                      76,
+                                                                      81,
+                                                                      97,
+                                                                      1),
+                                                            ),
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                'Lytepay',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-ExtraBold',
+                                                                  fontSize: 16,
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          76,
+                                                                          81,
+                                                                          97,
+                                                                          1),
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                width: 120,
+                                                                height: 20,
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons
+                                                                          .wallet,
+                                                                      size: 20,
+                                                                      color: Color
+                                                                          .fromRGBO(
+                                                                              255,
+                                                                              199,
+                                                                              0,
+                                                                              1),
+                                                                    ),
+                                                                    Text(
+                                                                      'Rp 30.000',
+                                                                      style:
+                                                                          TextStyle(
+                                                                        fontFamily:
+                                                                            'Gilroy-ExtraBold',
+                                                                        fontSize:
+                                                                            16,
+                                                                        color: Color.fromRGBO(
+                                                                            76,
+                                                                            81,
+                                                                            97,
+                                                                            1),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Text(
+                                                            'Jumlah Top-Up Saldo    :',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy-Light',
+                                                              fontSize: 16,
+                                                              color: Color
+                                                                  .fromRGBO(
+                                                                      76,
+                                                                      81,
+                                                                      97,
+                                                                      1),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            width: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width *
+                                                                0.9,
+                                                            height: 40,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color
+                                                                  .fromRGBO(
+                                                                      243,
+                                                                      243,
+                                                                      243,
+                                                                      1),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          7),
+                                                            ),
+                                                            child: Form(
+                                                              key: _formKey2,
+                                                              child:
+                                                                  TextFormField(
+                                                                controller:
+                                                                    tarikController,
+                                                                keyboardType:
+                                                                    TextInputType
+                                                                        .number,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 16,
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          76,
+                                                                          81,
+                                                                          97,
+                                                                          1),
+                                                                ),
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                  labelText:
+                                                                      'Rp',
+                                                                  labelStyle:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Gilroy-Light',
+                                                                    fontSize:
+                                                                        16,
+                                                                    color: Color
+                                                                        .fromRGBO(
+                                                                            76,
+                                                                            81,
+                                                                            97,
+                                                                            0.54),
+                                                                  ),
+                                                                  border: OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10)),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          Alignment(0.8, 0.0),
+                                                      child: Container(
+                                                        width: 106,
+                                                        height: 30,
+                                                        margin: EdgeInsets.only(
+                                                            top: 100),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(8),
+                                                          color: Colors.black,
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            'Selesai',
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  'Gilroy-Light',
+                                                              fontSize: 16,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.8,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.16,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            9),
-                                                  ),
-                                                  child: new Image.asset(
-                                                    'assets/images/logoberita.png',
-                                                    fit: BoxFit.cover,
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.8,
-                                                  margin:
-                                                      EdgeInsets.only(top: 10),
-                                                  child: Text(
-                                                    '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-ExtraBold',
-                                                      fontSize: 24,
-                                                      color: Color.fromRGBO(
-                                                          76, 81, 97, 1),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.4,
-                                                  height: 31,
-                                                  margin:
-                                                      EdgeInsets.only(top: 15),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            16),
-                                                    color: Color.fromRGBO(
-                                                        242, 78, 26, 1),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      'Arya - 12/12/2022',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-ExtraBold',
-                                                        fontSize: 16,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.8,
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.53,
-                                                  margin:
-                                                      EdgeInsets.only(top: 15),
-                                                  child: SingleChildScrollView(
-                                                    child: Text(
-                                                      'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-Light',
-                                                        fontSize: 15,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
+                                              );
+                                            });
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.24,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.047,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Icon(
+                                              Icons.ios_share_outlined,
+                                              color: Color.fromRGBO(
+                                                  255, 199, 0, 1),
+                                              size: 21,
                                             ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                    child: Container(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 20),
-                                      margin:
-                                          EdgeInsets.symmetric(horizontal: 5),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.3),
-                                            spreadRadius: 0,
-                                            blurRadius: 1.5,
-                                            offset: Offset(0, 0),
-                                          )
-                                        ],
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.5,
-                                            child: Text(
-                                              "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                            Text(
+                                              'Tarik',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
                                                 fontSize: 16,
@@ -1406,56 +1355,665 @@ class _HomePageState extends State<HomePage> {
                                                     76, 81, 97, 1),
                                               ),
                                             ),
-                                          ),
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.15,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.15,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                  width: 1,
-                                                  color: Colors.white,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(7)),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  JadwalPage()));
+                                    },
+                                    child: Container(
+                                      width: 56,
+                                      height: 83,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment(0.0, -1.0),
                                             child: new Image.asset(
-                                              'assets/images/logoberita.png',
-                                              fit: BoxFit.fill,
+                                              'assets/images/Frame 125.png',
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(0.0, 0.8),
+                                            child: Text(
+                                              'Jadwal Kelas',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 11,
+                                                color: Colors.black,
+                                              ),
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
-                                  );
-                                },
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RaporPage()));
+                                    },
+                                    child: Container(
+                                      width: 56,
+                                      height: 83,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment(0.0, -1.0),
+                                            child: new Image.asset(
+                                              'assets/images/Frame 126.png',
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(0.0, 0.7),
+                                            child: Text(
+                                              'Rapor',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 11,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AbsensiPage()));
+                                    },
+                                    child: Container(
+                                      width: 56,
+                                      height: 83,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment(0.0, -1.0),
+                                            child: new Image.asset(
+                                              'assets/images/Frame 127.png',
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(0.0, 0.5),
+                                            child: Text(
+                                              'Absensi',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 11,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FasilitasPage()));
+                                    },
+                                    child: Container(
+                                      width: 56,
+                                      height: 83,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment(0.0, -1.0),
+                                            child: new Image.asset(
+                                              'assets/images/Frame 128.png',
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(0.0, 0.5),
+                                            child: Text(
+                                              'Fasilitas',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 11,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ],
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PerpustakaanPage()));
+                                    },
+                                    child: Container(
+                                      width: 71,
+                                      height: 72,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment(0.0, -1.0),
+                                            child: new Image.asset(
+                                              'assets/images/Frame 129.png',
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(0.0, 0.7),
+                                            child: Text(
+                                              'Perpustakaan',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 11,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  EkstrakurikulerPage()));
+                                    },
+                                    child: Container(
+                                      width: 77,
+                                      height: 84.5,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment(0.0, -1.0),
+                                            child: new Image.asset(
+                                              'assets/images/Frame 130.png',
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(0.0, 0.7),
+                                            child: Text(
+                                              'Ekstrakurikuler',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 11,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  KantinPage()));
+                                    },
+                                    child: Container(
+                                      width: 57,
+                                      height: 69,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment(0.0, -1.0),
+                                            child: new Image.asset(
+                                              'assets/images/Frame 131.png',
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(0.0, 0.9),
+                                            child: Text(
+                                              'Kantin',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 11,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomePage()));
+                                    },
+                                    child: Container(
+                                      width: 85,
+                                      height: 80,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                      ),
+                                      child: Stack(
+                                        children: [
+                                          Align(
+                                            alignment: Alignment(0.0, -1.0),
+                                            child: new Image.asset(
+                                              'assets/images/Frame 132.png',
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(0.0, 0.8),
+                                            child: Text(
+                                              'Pembayaran SPP',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 11,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: loading,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  color: Color.fromRGBO(0, 0, 0, 0.20),
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      color: Color.fromRGBO(119, 115, 205, 1),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.48,
+                          padding: EdgeInsets.symmetric(
+                            vertical: 30,
+                            horizontal: 20,
+                          ),
+                          margin: EdgeInsets.only(top: 15),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 20),
+                                    child: Text(
+                                      'Berita Sekolah',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 20,
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushNamedAndRemoveUntil('/berita',
+                                              (Route<dynamic> route) => false);
+                                    },
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.18,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.018,
+                                      margin: EdgeInsets.only(right: 20),
+                                      decoration: BoxDecoration(
+                                        color: Color.fromRGBO(180, 176, 255, 1),
+                                        border: Border.all(
+                                          width: 1,
+                                          color:
+                                              Color.fromRGBO(180, 176, 255, 1),
+                                        ),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          "Lihat Semua",
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-ExtraBold',
+                                            fontSize: 12,
+                                            color: Color.fromRGBO(
+                                                119, 115, 205, 1),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.85,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.35,
+                                margin: EdgeInsets.only(top: 10),
+                                child: GridView.builder(
+                                  itemCount: _siswa.length,
+                                  gridDelegate:
+                                      SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 445,
+                                    mainAxisExtent: 89,
+                                    crossAxisSpacing: 15,
+                                  ),
+                                  itemBuilder: (context, i) {
+                                    final berita = _siswa[i];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        showModalBottomSheet<void>(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(15),
+                                              topRight: Radius.circular(15),
+                                            ),
+                                          ),
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.87,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(15),
+                                                  topRight: Radius.circular(15),
+                                                ),
+                                                color: Colors.white,
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        width: 50,
+                                                        height: 50,
+                                                      ),
+                                                      Container(
+                                                        width: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            0.1,
+                                                        height: 5,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Color.fromRGBO(
+                                                              0, 0, 0, 0.25),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(10),
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width: 50,
+                                                        height: 50,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.8,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.16,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              9),
+                                                    ),
+                                                    child: new Image.asset(
+                                                      'assets/images/logoberita.png',
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.8,
+                                                    margin: EdgeInsets.only(
+                                                        top: 10),
+                                                    child: Text(
+                                                      '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      maxLines: 2,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 24,
+                                                        color: Color.fromRGBO(
+                                                            76, 81, 97, 1),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.8,
+                                                    height: 31,
+                                                    margin: EdgeInsets.only(
+                                                        top: 15),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16),
+                                                      color: Color.fromRGBO(
+                                                          242, 78, 26, 1),
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        '${berita.name} - 12-12-2022',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.8,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.5,
+                                                    margin: EdgeInsets.only(
+                                                        top: 15),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Text(
+                                                        'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-Light',
+                                                          fontSize: 15,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20),
+                                        margin: EdgeInsets.all(5),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(0.3),
+                                              spreadRadius: 0,
+                                              blurRadius: 1.5,
+                                              offset: Offset(0, 1),
+                                            )
+                                          ],
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.6,
+                                              height: 64,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                              "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-ExtraBold',
+                                                fontSize: 16,
+                                                color: Color.fromRGBO(
+                                                    76, 81, 97, 1),
+                                              ),
+                                            ),
+                                                  Text(
+                                                    '${berita.name} - 12-12-2022',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-Light',
+                                                      fontSize: 13,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 1),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 67,
+                                              height: 67,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(7)),
+                                              child: new Image.asset(
+                                                'assets/images/logoberita.png',
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ),
-            ],
           ),
         ),
       ),
