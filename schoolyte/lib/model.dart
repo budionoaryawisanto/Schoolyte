@@ -117,6 +117,7 @@ class Test {
   final String email;
   final String phone;
   final String website;
+  final Address address;
 
   Test({
     required this.id,
@@ -125,6 +126,7 @@ class Test {
     required this.email,
     required this.phone,
     required this.website,
+    required this.address,
   });
 
   factory Test.formJson(Map<String, dynamic> json) {
@@ -135,6 +137,30 @@ class Test {
       email: json['email'],
       phone: json['phone'],
       website: json['website'],
+      address: Address.formJson(json['address']),
+    );
+  }
+}
+
+class Address {
+  final String street;
+  final String suite;
+  final String city;
+  final String zipcode;
+
+  Address({
+    required this.street,
+    required this.suite,
+    required this.city,
+    required this.zipcode,
+  });
+
+  factory Address.formJson(Map<String, dynamic> json) {
+    return new Address(
+      street: json['street'],
+      suite: json['suite'],
+      city: json['city'],
+      zipcode: json['zipcode'],
     );
   }
 }

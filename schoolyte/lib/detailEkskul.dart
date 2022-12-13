@@ -71,7 +71,7 @@ class _DetailEkskulState extends State<DetailEkskul> {
               title: Align(
                 alignment: Alignment(-0.7, 0.0),
                 child: Text(
-                  'Paskibraka',
+                  'Pramuka',
                   style: TextStyle(
                     fontFamily: 'Gilroy-ExtraBold',
                     fontSize: 24,
@@ -109,7 +109,7 @@ class _DetailEkskulState extends State<DetailEkskul> {
                       borderRadius: BorderRadius.circular(9),
                     ),
                     child: Image.asset(
-                      'assets/images/paskib.png',
+                      'assets/images/ekskulexam.png',
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -134,7 +134,7 @@ class _DetailEkskulState extends State<DetailEkskul> {
                     ),
                     child: Center(
                       child: Text(
-                        'Jadwal : Hari Senin, Rabu, Jumat (15.00 - 17.00 WIB)',
+                        'Jadwal : Hari Jumat (15.00 - 17.00 WIB)',
                         style: TextStyle(
                           fontFamily: 'Gilroy-Light',
                           fontSize: 12,

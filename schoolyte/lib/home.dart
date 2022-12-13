@@ -19,6 +19,7 @@ import 'osis.dart';
 import 'perpustakaanPegawai.dart';
 import 'profil.dart';
 import 'administrasi.dart';
+import 'mutasi.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -593,22 +594,22 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          body: SingleChildScrollView(
-            child: loading
-                ? Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    color: Colors.white,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: Color.fromRGBO(119, 115, 205, 1),
-                      ),
+          body: loading
+              ? Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  color: Colors.white,
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Color.fromRGBO(119, 115, 205, 1),
                     ),
-                  )
-                : Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 1200,
-                    color: Color.fromRGBO(243, 243, 243, 1),
+                  ),
+                )
+              : Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  color: Color.fromRGBO(243, 243, 243, 1),
+                  child: SingleChildScrollView(
                     child: Column(
                       children: [
                         Container(
@@ -2015,10 +2016,26 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                         ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        MutasiPage(profil: profil)));
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Image.asset(
+                              'assets/images/mutasi.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
-          ),
+                ),
         ),
       ),
     );
