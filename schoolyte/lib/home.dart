@@ -127,6 +127,10 @@ class _HomePageState extends State<HomePage> {
                 margin: EdgeInsetsDirectional.only(end: 10),
                 child: TextButton(
                   onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PerpustakaanPegawaiPage()));
                   },
                   child: Image.asset(
                     'assets/images/lonceng.png',
@@ -253,9 +257,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     onTap: () {
                       Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AbsensiPage()));
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AbsensiPage()));
                     },
                   ),
                 ),
@@ -325,10 +329,10 @@ class _HomePageState extends State<HomePage> {
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PerpustakaanPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PerpustakaanPage()));
                     },
                   ),
                 ),
@@ -1965,18 +1969,18 @@ class _HomePageState extends State<HomePage> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                              "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                                    "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
                                                     maxLines: 2,
                                                     overflow:
                                                         TextOverflow.ellipsis,
-                                              style: TextStyle(
+                                                    style: TextStyle(
                                                       fontFamily:
                                                           'Gilroy-ExtraBold',
-                                                fontSize: 16,
-                                                color: Color.fromRGBO(
-                                                    76, 81, 97, 1),
-                                              ),
-                                            ),
+                                                      fontSize: 16,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 1),
+                                                    ),
+                                                  ),
                                                   Text(
                                                     '${berita.name} - 12-12-2022',
                                                     style: TextStyle(

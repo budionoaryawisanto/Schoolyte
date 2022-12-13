@@ -3,19 +3,18 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:schoolyte/pembayaran.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'model.dart';
 
-class DetailDivisi extends StatefulWidget {
-  Test divisi;
-  DetailDivisi({super.key, required this.divisi});
+class DetailEkskul extends StatefulWidget {
+  Test ekskul;
+  DetailEkskul({super.key, required this.ekskul});
 
   @override
-  _DetailDivisiState createState() => new _DetailDivisiState(divisi);
+  _DetailEkskulState createState() => new _DetailEkskulState(ekskul);
 }
 
-class _DetailDivisiState extends State<DetailDivisi> {
+class _DetailEkskulState extends State<DetailEkskul> {
   List<Test> _list = [];
 
   final TextEditingController alasanController = TextEditingController();
@@ -23,7 +22,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
 
   var loading = false;
 
-  Future<Null> fetchData() async {
+  Future fetchData() async {
     setState(() {
       loading = true;
     });
@@ -48,8 +47,8 @@ class _DetailDivisiState extends State<DetailDivisi> {
   }
 
   @override
-  Test divisi;
-  _DetailDivisiState(this.divisi);
+  Test ekskul;
+  _DetailEkskulState(this.ekskul);
 
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -72,7 +71,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
               title: Align(
                 alignment: Alignment(-0.7, 0.0),
                 child: Text(
-                  'Divisi Humas ' + divisi.id.toString(),
+                  'Paskibraka',
                   style: TextStyle(
                     fontFamily: 'Gilroy-ExtraBold',
                     fontSize: 24,
@@ -101,16 +100,52 @@ class _DetailDivisiState extends State<DetailDivisi> {
             child: Container(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Align(
-                    alignment: Alignment(0.0, 0.0),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: 212,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(9),
+                    ),
                     child: Image.asset(
-                      'assets/images/divisi.png',
+                      'assets/images/paskib.png',
+                      fit: BoxFit.cover,
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.92,
-                    height: 60,
+                    margin: EdgeInsets.only(top: 20),
+                    child: Text(
+                      'Guru Pembina : ${ekskul.name}',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 16,
+                        color: Color.fromRGBO(76, 81, 97, 1),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: 24,
+                    margin: EdgeInsets.only(top: 10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Color.fromRGBO(255, 217, 102, 1),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Jadwal : Hari Senin, Rabu, Jumat (15.00 - 17.00 WIB)',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 12,
+                          color: Color.fromRGBO(76, 81, 97, 1),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: 100,
                     margin: EdgeInsets.only(top: 15),
                     child: SingleChildScrollView(
                       child: Text(
@@ -127,7 +162,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
                     width: MediaQuery.of(context).size.width * 0.86,
                     height: 109,
                     margin: EdgeInsets.only(
-                      top: 40,
+                      top: 30,
                       bottom: 30,
                     ),
                     decoration: BoxDecoration(
@@ -143,7 +178,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Daftar Osis',
+                              'Daftar Ekstrakurikuler',
                               style: TextStyle(
                                 fontFamily: 'Gilroy-ExtraBold',
                                 fontSize: 20,
@@ -154,7 +189,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
                               width: 196,
                               height: 48,
                               child: Text(
-                                'Untuk menjadi bagian dari OSIS ini, anda harus mendaftar terlebih dahulu',
+                                'Untuk menjadi bagian dari Ekskul ini, anda harus mendaftar terlebih dahulu',
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
                                   fontSize: 14,
@@ -197,7 +232,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                'Tuliskan alasan mengikuti divisi ini !!',
+                                                'Tuliskan alasan mengikuti ekstrakurikuler ini !!',
                                                 style: TextStyle(
                                                   fontFamily:
                                                       'Gilroy-ExtraBold',
@@ -257,7 +292,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
                                                             ),
                                                           ),
                                                           Text(
-                                                            divisi.name,
+                                                            ekskul.name,
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   'Gilroy-Light',
@@ -283,7 +318,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
                                                             ),
                                                           ),
                                                           Text(
-                                                            divisi.phone,
+                                                            ekskul.phone,
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   'Gilroy-Light',
@@ -409,7 +444,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
                                                             ),
                                                           ),
                                                         ),
-                                                      ),                                                 
+                                                      ),
                                                       GestureDetector(
                                                         onTap: () {},
                                                         child: Container(
@@ -474,14 +509,11 @@ class _DetailDivisiState extends State<DetailDivisi> {
                   Align(
                     alignment: Alignment(-0.9, 0.0),
                     child: Text(
-                      'Program Kerja',
+                      'Daftar Anggota',
                       style: TextStyle(
                         fontFamily: 'Gilroy-ExtraBold',
-                        fontSize: 16,
+                        fontSize: 24,
                         color: Color.fromRGBO(76, 81, 97, 1),
-                        decoration: TextDecoration.underline,
-                        decorationColor: Color.fromRGBO(255, 199, 0, 1),
-                        decorationThickness: 3,
                       ),
                     ),
                   ),
@@ -496,7 +528,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
                     ),
                     margin: EdgeInsets.only(
                       top: 20,
-                      bottom: 10,
+                      bottom: 20,
                     ),
                     child: SingleChildScrollView(
                       child: DataTable(
@@ -566,30 +598,12 @@ class _DetailDivisiState extends State<DetailDivisi> {
                                       ),
                                     ),
                                     DataCell(
-                                      Container(
-                                        width: data.id % 2 == 0 ? 97 : 84.21,
-                                        height: 21,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          color: data.id % 2 == 0
-                                              ? Color.fromRGBO(119, 115, 205, 1)
-                                              : Color.fromRGBO(255, 199, 0, 1),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            data.id % 2 == 0
-                                                ? 'Dilaksanakan'
-                                                : 'Terlaksana',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 13,
-                                              color: data.id % 2 == 0
-                                                  ? Colors.white
-                                                  : Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                            ),
-                                          ),
+                                      Text(
+                                        '12 IPA ${data.id}',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 13,
+                                          color: Color.fromRGBO(76, 81, 97, 1),
                                         ),
                                       ),
                                     ),
@@ -599,17 +613,20 @@ class _DetailDivisiState extends State<DetailDivisi> {
                       ),
                     ),
                   ),
+                  Divider(
+                    color: Color.fromRGBO(0, 0, 0, 0.25),
+                  ),
                   Align(
                     alignment: Alignment(-0.9, 0.0),
-                    child: Text(
-                      'Dokumentasi Kegiatan',
-                      style: TextStyle(
-                        fontFamily: 'Gilroy-ExtraBold',
-                        fontSize: 16,
-                        color: Color.fromRGBO(76, 81, 97, 1),
-                        decoration: TextDecoration.underline,
-                        decorationColor: Color.fromRGBO(255, 199, 0, 1),
-                        decorationThickness: 3,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 20),
+                      child: Text(
+                        'Daftar Prestasi',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-ExtraBold',
+                          fontSize: 24,
+                          color: Color.fromRGBO(76, 81, 97, 1),
+                        ),
                       ),
                     ),
                   ),

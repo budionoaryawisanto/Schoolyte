@@ -3,6 +3,7 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:schoolyte/detailDivisi.dart';
+import 'package:schoolyte/detailEkskul.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'koperasi.dart';
@@ -606,173 +607,137 @@ class _EkstrakurikulerPageState extends State<EkstrakurikulerPage> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Align(
-                        alignment: Alignment(-0.8, 0.0),
-                        child: Container(
-                          width: 302,
-                          height: 57,
-                          margin: EdgeInsets.only(top: 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Pilih Divisi',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-ExtraBold',
-                                  fontSize: 20,
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                              ),
-                              Text(
-                                'Dapatkan beberapa informasi kegiatan disetiap divisi',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 13,
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                              ),
-                            ],
-                          ),
+                child: loading
+                    ? Center(
+                        child: CircularProgressIndicator(
+                            color: Color.fromRGBO(119, 115, 205, 1)),
+                      )
+                    : GridView.builder(
+                        itemCount: _list.length,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 10,
                         ),
-                      ),
-                      SingleChildScrollView(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.74,
-                          margin: EdgeInsets.symmetric(vertical: 20),
-                          child: loading
-                              ? Center(
-                                  child: CircularProgressIndicator(
-                                      color: Color.fromRGBO(119, 115, 205, 1)),
-                                )
-                              : GridView.builder(
-                                  itemCount: _list.length,
-                                  padding: EdgeInsets.all(10),
-                                  gridDelegate:
-                                      SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: 231,
-                                    mainAxisExtent: 247,
-                                    crossAxisSpacing: 8,
-                                    mainAxisSpacing: 10,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          mainAxisExtent: 370,
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 5,
+                        ),
+                        itemBuilder: (context, i) {
+                          final ekskul = _list[i];
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          DetailEkskul(ekskul: ekskul)));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 20,
+                                vertical: 20,
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(16),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 0,
+                                    blurRadius: 1.5,
+                                    offset: Offset(0, 0),
+                                  )
+                                ],
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    height: 184,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(9)),
+                                    child: new Image.asset(
+                                      'assets/images/paskib.png',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                  itemBuilder: (context, i) {
-                                    final a = _list[i];
-                                    return Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 10,
-                                        vertical: 10,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    height: 29,
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Paskibraka',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Extrabold',
+                                            fontSize: 24,
                                             color:
-                                                Colors.black.withOpacity(0.3),
-                                            spreadRadius: 0,
-                                            blurRadius: 1.5,
-                                            offset: Offset(0, 0),
-                                          )
-                                        ],
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.chevron_right_rounded,
+                                          color: Colors.black,
+                                          size: 26,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    height: 68,
+                                    margin: EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      'Gerakan Kepanduan Praja Muda Karana, lebih dikenal sebagai Gerakan Pramuka Indonesia, adalah nama organisasi pendidikan nonformal yang menyelenggarakan pendidikan kepanduan di Indonesia.',
+                                      maxLines: 4,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 12,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
                                       ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: new Image.asset(
-                                              'assets/images/divisi.png',
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(top: 20),
-                                            child: Text(
-                                              'Divisi Humas',
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 16,
-                                                color: Color.fromRGBO(
-                                                    76, 81, 97, 1),
-                                              ),
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                width: 113,
-                                                height: 42,
-                                                child: Text(
-                                                  a.id.toString() +
-                                                      ' Divisi ini berfokus pada bidang kemanusiaan serta Memantapkan dan mengembangkan peran siswa di dalam OSIS sesuai dengan tugasnya masing-masing',
-                                                  maxLines: 3,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                    fontFamily: 'Gilroy-Light',
-                                                    fontSize: 10,
-                                                  ),
-                                                ),
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              DetailDivisi(
-                                                                divisi: a,
-                                                              )));
-                                                },
-                                                child: Container(
-                                                  width: 86,
-                                                  height: 28,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                    color: Color.fromRGBO(
-                                                        242, 78, 26, 1),
-                                                  ),
-                                                  child: Center(
-                                                    child: Text(
-                                                      'Selengkapnya',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-Light',
-                                                        fontSize: 10,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment(-1.0, 0.0),
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.8,
+                                      height: 24,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        color: Color.fromRGBO(255, 217, 102, 1),
                                       ),
-                                    );
-                                  }),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                                      child: Center(
+                                        child: Text(
+                                          'Jadwal : Hari Jumat (15.00 - 17.00 WIB)',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 12,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
               ),
               Container(
                   width: MediaQuery.of(context).size.width,

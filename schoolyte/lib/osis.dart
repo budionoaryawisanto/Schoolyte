@@ -3,6 +3,7 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:schoolyte/detailDivisi.dart';
+import 'package:schoolyte/ekstrakurikuler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'koperasi.dart';
@@ -547,7 +548,8 @@ class _OsisPageState extends State<OsisPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(
+                              builder: (context) => EkstrakurikulerPage()));
                     },
                   ),
                 ),

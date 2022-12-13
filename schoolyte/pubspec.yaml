@@ -114,6 +114,7 @@ flutter:
     - assets/images/exampqr.jpg
     - assets/images/postberita.png
     - assets/images/postingBerita.png
+    - assets/images/paskib.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
