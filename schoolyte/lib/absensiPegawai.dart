@@ -1,7 +1,10 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:ui';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
@@ -14,10 +17,15 @@ import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
 import 'koperasi.dart';
+import 'model.dart';
 import 'osis.dart';
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as path;
+import 'package:async/async.dart';
 import 'ekstrakurikuler.dart';
 import 'profil.dart';
 import 'administrasi.dart';
+import 'package:geolocator/geolocator.dart';
 
 class AbsensiPegawaiPage extends StatefulWidget {
   @override
@@ -25,6 +33,178 @@ class AbsensiPegawaiPage extends StatefulWidget {
 }
 
 class _AbsensiPegawaiPageState extends State<AbsensiPegawaiPage> {
+  List<Absensi> _absensi = [];
+  var loading = false;
+
+  Future fetchData() async {
+    setState(() {
+      loading = true;
+    });
+    _absensi.clear();
+    final response = await http.get(Uri.parse(Api.getAbsen));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _absensi.add(Absensi.formJson(i));
+          loading = false;
+        }
+      });
+    } else {
+      print('gagal mendapatkan data');
+    }
+  }
+
+  Future saveAbsensi() async {
+    setState(() {
+      loading = true;
+    });
+    try {
+      var stream = http.ByteStream(DelegatingStream(image!.openRead()));
+      var length = await image!.length();
+      var uri = Uri.parse(Api.createAbsen);
+      var request = http.MultipartRequest("POST", uri);
+      request.fields['siswa_id'] = '1';
+      request.fields['kelas_id'] = '1';
+      request.fields['status_absen'] = dropdownvalue;
+      request.fields['tgl_absen'] = tglAbsen.toString();
+      request.fields['wkt_absen'] = waktuAbsen.toString();
+
+      request.files.add(http.MultipartFile("image", stream, length,
+          filename: path.basename(image!.path)));
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        setState(() {
+          loading = false;
+        });
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Container(
+                  height: 357,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 177,
+                        height: 177,
+                        child: Image.asset(
+                          'assets/images/dialog.png',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Text(
+                        'Absen Sukses',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-ExtraBold',
+                          fontSize: 32,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()));
+                        },
+                        child: Container(
+                          width: 107,
+                          height: 43,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Color.fromRGBO(119, 115, 205, 1),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'OK',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            });
+      } else {
+        return;
+      }
+    } catch (e) {
+      debugPrint("Error $e");
+    }
+  }
+
+  failed() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Container(
+              height: 357,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 177,
+                    height: 177,
+                    child: Image.asset(
+                      'assets/images/alertDialog.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Text(
+                    'Gagal',
+                    style: TextStyle(
+                      fontFamily: 'Gilroy-ExtraBold',
+                      fontSize: 32,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: 107,
+                      height: 43,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Color.fromRGBO(242, 78, 26, 1),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'OK',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Light',
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -77,14 +257,43 @@ class _AbsensiPegawaiPageState extends State<AbsensiPegawaiPage> {
     setState(() {});
   }
 
+  void liveLocation() {
+    LocationSettings locationSettings = const LocationSettings(
+      accuracy: LocationAccuracy.best,
+      distanceFilter: 5,
+    );
+
+    Geolocator.getPositionStream(locationSettings: locationSettings)
+        .listen((Position? position) {
+      lat = position?.latitude.toString();
+      long = position?.longitude.toString();
+    });
+  }
+
+  Future<Position> _getCurrentLocation() async {
+    DartPluginRegistrant.ensureInitialized();
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Tidak dapat melacak lokasi');
+    }
+    LocationPermission permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      return Future.error('Izin lokasi ditolak');
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Izin lokasi berstatus nonaktif permanen');
+    }
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+  }
+
   var status = ['Hadir', 'Alpha', 'Izin', 'Sakit'];
   var dropdownvalue = 'Hadir';
-  final waktuAbsen = DateTime.now().hour.toString() +
-      ':' +
-      DateTime.now().minute.toString() +
-      ' ' +
-      DateTime.now().timeZoneName;
+  final waktuAbsen = DateFormat().add_Hm().format(DateTime.now());
   var tglAbsen;
+  var lat;
+  var long;
 
   List<Tab> myTabs = <Tab>[
     Tab(text: 'Check-In'),

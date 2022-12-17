@@ -2090,6 +2090,10 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                                                     -1.0, 0.0),
                                                             child: Text(
                                                               book.nama_buku,
+                                                              maxLines: 2,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                               style: TextStyle(
                                                                 fontFamily:
                                                                     'Gilroy-ExtraBold',
@@ -2287,6 +2291,8 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                       ),
                                       Text(
                                         book.nama_buku,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-ExtraBold',
                                           fontSize: 20,
@@ -2398,6 +2404,8 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                           ),
                                           Text(
                                             book.nama_buku,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-ExtraBold',
                                               fontSize: 20,
@@ -2542,6 +2550,8 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                       ),
                                       Text(
                                         book.nama_buku,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-ExtraBold',
                                           fontSize: 20,
@@ -2654,6 +2664,8 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                       ),
                                       Text(
                                         book.nama_buku,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-ExtraBold',
                                           fontSize: 20,
@@ -2780,6 +2792,8 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                             ),
                                             Text(
                                               book.nama_buku,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
                                                 fontSize: 20,
@@ -2976,6 +2990,8 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                                             ),
                                             Text(
                                               book.nama_buku,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
                                                 fontSize: 20,

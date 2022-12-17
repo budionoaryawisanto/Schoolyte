@@ -20,6 +20,9 @@ import 'perpustakaanPegawai.dart';
 import 'profil.dart';
 import 'administrasi.dart';
 import 'mutasi.dart';
+import 'postingBerita.dart';
+import 'beritaAdmin.dart';
+import 'absensiAdmin.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -131,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => PerpustakaanPegawaiPage()));
+                            builder: (context) => AbsensiAdminPage()));
                   },
                   child: Image.asset(
                     'assets/images/lonceng.png',
@@ -689,14 +692,22 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 236,
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Center(
-                            child: new Image.asset(
-                              'assets/images/postberita.png',
-                              fit: BoxFit.cover,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PostingBerita()));
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 236,
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: Center(
+                              child: new Image.asset(
+                                'assets/images/postberita.png',
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),

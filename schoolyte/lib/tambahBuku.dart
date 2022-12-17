@@ -229,7 +229,6 @@ class _TambahBukuState extends State<TambahBuku> {
         debugPrint("Error $e");
       }
     }
-    ;
   }
 
   List<Tab> myTabs = <Tab>[
