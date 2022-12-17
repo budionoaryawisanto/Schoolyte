@@ -14,6 +14,7 @@ import 'osis.dart';
 import 'ekstrakurikuler.dart';
 import 'profil.dart';
 import 'administrasi.dart';
+import 'detailAbsensiAdmin1.dart';
 
 class AbsensiAdminPage extends StatefulWidget {
   @override
@@ -581,45 +582,55 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Container(
-                            width: 81,
-                            height: 95,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 70,
-                                  height: 70,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.3),
-                                        spreadRadius: 0,
-                                        blurRadius: 1.5,
-                                        offset: Offset(0, 0),
-                                      )
-                                    ],
-                                    color: Colors.white,
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.face,
-                                      size: 40,
-                                      color: Color.fromRGBO(119, 115, 205, 1),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          DetailAbsensiAdmin1()));
+                            },
+                            child: Container(
+                              width: 81,
+                              height: 95,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: 70,
+                                    height: 70,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.3),
+                                          spreadRadius: 0,
+                                          blurRadius: 1.5,
+                                          offset: Offset(0, 0),
+                                        )
+                                      ],
+                                      color: Colors.white,
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.face,
+                                        size: 40,
+                                        color: Color.fromRGBO(119, 115, 205, 1),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Text(
-                                  'Siswa',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 14,
-                                    color: Colors.black,
+                                  Text(
+                                    'Siswa',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           Container(
