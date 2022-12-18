@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'model.dart';
+import 'package:date_time_picker/date_time_picker.dart';
 
 class DetailAbsensiAdmin2 extends StatefulWidget {
   @override
@@ -12,7 +13,8 @@ class DetailAbsensiAdmin2 extends StatefulWidget {
 }
 
 class _DetailAbsensiAdmin2State extends State<DetailAbsensiAdmin2> {
-  List<Test> _list = [];
+  List<Test> _kelas = [];
+  List<Test> _search = [];
 
   var loading = false;
 
@@ -20,14 +22,14 @@ class _DetailAbsensiAdmin2State extends State<DetailAbsensiAdmin2> {
     setState(() {
       loading = true;
     });
-    _list.clear();
+    _kelas.clear();
     final response =
         await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _list.add(Test.formJson(i));
+          _kelas.add(Test.formJson(i));
           loading = false;
         }
       });
@@ -38,6 +40,26 @@ class _DetailAbsensiAdmin2State extends State<DetailAbsensiAdmin2> {
   void initState() {
     super.initState();
     fetchData();
+  }
+
+  var filterTgl;
+
+  final TextEditingController searchController = TextEditingController();
+
+  onSearch(String text) async {
+    _search.clear();
+    if (text.isEmpty) {
+      setState(() {});
+      return;
+    }
+    _kelas.forEach((kelas) {
+      if (kelas.name.toLowerCase().contains(text.toLowerCase()) ||
+          kelas.id.toString().contains(text) ||
+          kelas.email.toLowerCase().contains(text.toLowerCase()) ||
+          kelas.username.toLowerCase().contains(text.toLowerCase())) {
+        _search.add(kelas);
+      }
+    });
   }
 
   @override
@@ -54,7 +76,7 @@ class _DetailAbsensiAdmin2State extends State<DetailAbsensiAdmin2> {
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
-          backgroundColor: Color.fromRGBO(229, 229, 229, 1),
+          backgroundColor: Colors.white,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(75),
             child: AppBar(
@@ -100,7 +122,188 @@ class _DetailAbsensiAdmin2State extends State<DetailAbsensiAdmin2> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.82,
+                          height: MediaQuery.of(context).size.height * 0.050,
+                          margin: EdgeInsets.only(top: 20),
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(243, 243, 243, 1),
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.3),
+                                spreadRadius: 0,
+                                blurRadius: 1.5,
+                                offset: Offset(0, 0),
+                              )
+                            ],
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                child: Form(
+                                  child: TextFormField(
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 16,
+                                    ),
+                                    textInputAction: TextInputAction.done,
+                                    controller: searchController,
+                                    autocorrect: true,
+                                    onChanged: ((value) {
+                                      setState(() {
+                                        onSearch(value);
+                                      });
+                                    }),
+                                    decoration: new InputDecoration(
+                                      icon: Icon(
+                                        Icons.search,
+                                        size: 24,
+                                      ),
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                      hintText: 'Cari Siswa',
+                                      hintStyle: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons.cancel,
+                                    size: 24,
+                                    color: searchController.text.length != 0
+                                        ? Colors.red
+                                        : Color.fromRGBO(76, 81, 97, 58)),
+                                onPressed: () {
+                                  searchController.clear();
+                                  onSearch('');
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 70,
+                          margin: EdgeInsets.only(top: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                  width: 120,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.3),
+                                        spreadRadius: 0,
+                                        blurRadius: 1.5,
+                                        offset: Offset(0, 1),
+                                      )
+                                    ],
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Semua',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 15,
+                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.52,
+                                child: DateTimePicker(
+                                  type: DateTimePickerType.date,
+                                  icon: Icon(Icons.date_range_rounded),
+                                  dateMask: 'EEEE, d MMMM yyyy',
+                                  initialValue: 'Pilih Tanggal',
+                                  firstDate: DateTime(DateTime.now().year - 3,
+                                      DateTime.now().month, DateTime.now().day),
+                                  lastDate: DateTime.now(),
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                  onChanged: (val) => setState(() {
+                                    filterTgl = val;
+                                  }),
+                                  validator: (val) {
+                                    return null;
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.72,
+                          child: GridView.builder(
+                              itemCount: _kelas.length,
+                              padding: EdgeInsets.all(10),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 1,
+                                mainAxisExtent: 68,
+                                mainAxisSpacing: 10,
+                              ),
+                              itemBuilder: (context, i) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.3),
+                                        spreadRadius: 0,
+                                        blurRadius: 1.5,
+                                        offset: Offset(0, 1),
+                                      )
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.426,
+                                        height: 38,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: 1,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
+                        ),
                       ],
                     ),
                   ),

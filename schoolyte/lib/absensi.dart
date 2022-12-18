@@ -51,7 +51,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
         }
       });
     } else {
-      print('gagal mendapatkan data');
+      return;
     }
   }
 
