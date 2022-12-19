@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:schoolyte/beritaAdmin.dart';
 import 'package:schoolyte/detailAbsensiAdminJabatan.dart';
+import 'package:schoolyte/nilaiBelajarAdmin.dart';
+import 'package:schoolyte/perpustakaanPegawai.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:schoolyte/berita.dart';
-import 'package:schoolyte/fasilitas.dart';
-import 'package:schoolyte/jadwal.dart';
-import 'package:schoolyte/nilaiBelajar.dart';
-import 'package:schoolyte/perpustakaan.dart';
-import 'package:schoolyte/rapor.dart';
-import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
-import 'koperasi.dart';
-import 'osis.dart';
-import 'ekstrakurikuler.dart';
 import 'profil.dart';
-import 'administrasi.dart';
 import 'detailAbsensiAdminKelas.dart';
 
 class AbsensiAdminPage extends StatefulWidget {
@@ -175,7 +167,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => JadwalPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -195,7 +187,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => RaporPage()));
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -239,7 +231,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => NilaiBelajarPage()));
+                              builder: (context) => NilaiBelajarAdmin()));
                     },
                   ),
                 ),
@@ -290,7 +282,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PerpustakaanPage()));
+                              builder: (context) => PerpustakaanPegawaiPage()));
                     },
                   ),
                 ),
@@ -312,7 +304,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FasilitasPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -363,7 +355,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => KoperasiPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -385,7 +377,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => KantinPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -408,7 +400,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => BeritaPage()));
+                              builder: (context) => BeritaAdminPage()));
                     });
                   },
                 ),
@@ -430,7 +422,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AdministrasiPage()));
+                            builder: (context) => HomePage()));
                   },
                 ),
                 ListTile(
@@ -478,7 +470,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => OsisPage()));
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -500,7 +492,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EkstrakurikulerPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),

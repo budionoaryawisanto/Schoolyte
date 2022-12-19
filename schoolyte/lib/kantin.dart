@@ -1209,7 +1209,7 @@ class _KantinPageState extends State<KantinPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              width: 350,
+                              width: MediaQuery.of(context).size.width * 0.82,
                               height: 46,
                               child: Form(
                                 child: TextFormField(

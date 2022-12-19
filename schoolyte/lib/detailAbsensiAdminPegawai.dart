@@ -382,6 +382,7 @@ class _DetailAbsensiAdminPegawaiState extends State<DetailAbsensiAdminPegawai> {
         child: DefaultTabController(
           length: myTabs.length,
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             backgroundColor: Colors.white,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(75),
@@ -430,7 +431,7 @@ class _DetailAbsensiAdminPegawaiState extends State<DetailAbsensiAdminPegawai> {
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.82,
-                            height: MediaQuery.of(context).size.height * 0.050,
+                            height: 46,
                             margin: EdgeInsets.only(top: 20),
                             decoration: BoxDecoration(
                               color: Color.fromRGBO(243, 243, 243, 1),

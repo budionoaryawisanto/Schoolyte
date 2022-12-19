@@ -1,23 +1,14 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:schoolyte/absensiAdmin.dart';
+import 'package:schoolyte/nilaiBelajarAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:schoolyte/absensi.dart';
-import 'package:schoolyte/berita.dart';
-import 'package:schoolyte/fasilitas.dart';
-import 'package:schoolyte/jadwal.dart';
-import 'package:schoolyte/nilaiBelajar.dart';
-import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
-import 'package:schoolyte/koperasi.dart';
 import 'daftarKunjungan.dart';
-import 'osis.dart';
 import 'peminjamanBuku.dart';
-import 'rapor.dart';
 import 'tambahBuku.dart';
-import 'ekstrakurikuler.dart';
 import 'profil.dart';
-import 'administrasi.dart';
 
 class PerpustakaanPegawaiPage extends StatefulWidget {
   @override
@@ -177,7 +168,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => JadwalPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -197,7 +188,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => RaporPage()));
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -219,7 +210,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AbsensiPage()));
+                              builder: (context) => AbsensiAdminPage()));
                     },
                   ),
                 ),
@@ -241,7 +232,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => NilaiBelajarPage()));
+                              builder: (context) => NilaiBelajarAdmin()));
                     },
                   ),
                 ),
@@ -314,7 +305,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FasilitasPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -365,7 +356,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => KoperasiPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -387,7 +378,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => KantinPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -410,7 +401,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => BeritaPage()));
+                              builder: (context) => HomePage()));
                     });
                   },
                 ),
@@ -432,7 +423,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AdministrasiPage()));
+                            builder: (context) => HomePage()));
                   },
                 ),
                 ListTile(
@@ -480,7 +471,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => OsisPage()));
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -502,7 +493,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EkstrakurikulerPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),

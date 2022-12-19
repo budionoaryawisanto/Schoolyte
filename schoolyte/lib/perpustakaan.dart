@@ -640,7 +640,7 @@ class _PerpustakaanPageState extends State<PerpustakaanPage> {
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width * 0.88,
-                        height: MediaQuery.of(context).size.height * 0.050,
+                        height: 46,
                         margin: EdgeInsets.only(top: 20),
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(243, 243, 243, 1),
