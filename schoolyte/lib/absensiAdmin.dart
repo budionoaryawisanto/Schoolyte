@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:schoolyte/detailAbsensiAdminJabatan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:schoolyte/berita.dart';
 import 'package:schoolyte/fasilitas.dart';
@@ -14,7 +15,7 @@ import 'osis.dart';
 import 'ekstrakurikuler.dart';
 import 'profil.dart';
 import 'administrasi.dart';
-import 'detailAbsensiAdmin1.dart';
+import 'detailAbsensiAdminKelas.dart';
 
 class AbsensiAdminPage extends StatefulWidget {
   @override
@@ -588,7 +589,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          DetailAbsensiAdmin1()));
+                                          DetailAbsensiAdminKelas()));
                             },
                             child: Container(
                               width: 81,
@@ -633,45 +634,55 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                               ),
                             ),
                           ),
-                          Container(
-                            width: 81,
-                            height: 95,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width: 70,
-                                  height: 70,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.3),
-                                        spreadRadius: 0,
-                                        blurRadius: 1.5,
-                                        offset: Offset(0, 0),
-                                      )
-                                    ],
-                                    color: Colors.white,
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.support_agent,
-                                      size: 40,
-                                      color: Color.fromRGBO(119, 115, 205, 1),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          DetailAbsensiAdminJabatan()));
+                            },
+                            child: Container(
+                              width: 81,
+                              height: 95,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    width: 70,
+                                    height: 70,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.3),
+                                          spreadRadius: 0,
+                                          blurRadius: 1.5,
+                                          offset: Offset(0, 0),
+                                        )
+                                      ],
+                                      color: Colors.white,
+                                    ),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.support_agent,
+                                        size: 40,
+                                        color: Color.fromRGBO(119, 115, 205, 1),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                Text(
-                                  'Guru',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 14,
-                                    color: Colors.black,
+                                  Text(
+                                    'Guru',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 14,
+                                      color: Colors.black,
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ],

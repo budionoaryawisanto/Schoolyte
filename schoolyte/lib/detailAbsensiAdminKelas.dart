@@ -5,14 +5,15 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'model.dart';
-import 'detailAbsensiAdmin2.dart';
+import 'detailAbsensiAdminSiswa.dart';
 
-class DetailAbsensiAdmin1 extends StatefulWidget {
+class DetailAbsensiAdminKelas extends StatefulWidget {
   @override
-  _DetailAbsensiAdmin1State createState() => new _DetailAbsensiAdmin1State();
+  _DetailAbsensiAdminKelasState createState() =>
+      new _DetailAbsensiAdminKelasState();
 }
 
-class _DetailAbsensiAdmin1State extends State<DetailAbsensiAdmin1> {
+class _DetailAbsensiAdminKelasState extends State<DetailAbsensiAdminKelas> {
   List<Test> _list = [];
 
   var loading = false;
@@ -554,7 +555,7 @@ class _DetailAbsensiAdmin1State extends State<DetailAbsensiAdmin1> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                DetailAbsensiAdmin2()));
+                                                DetailAbsensiAdminSiswa()));
                                   },
                                   child: Container(
                                     margin: EdgeInsets.all(2),

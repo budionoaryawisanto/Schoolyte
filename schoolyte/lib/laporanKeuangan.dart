@@ -15,6 +15,7 @@ class LaporanKeuangan extends StatefulWidget {
 class _LaporanKeuanganState extends State<LaporanKeuangan> {
   final TextEditingController topupController = TextEditingController();
   final TextEditingController tarikController = TextEditingController();
+  final TextEditingController filterController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
   List<Test> _rMoney = [];
@@ -44,8 +45,6 @@ class _LaporanKeuanganState extends State<LaporanKeuangan> {
     super.initState();
     fetchData();
   }
-
-  var filterTgl;
 
   @override
   Widget build(BuildContext context) {
@@ -704,7 +703,11 @@ class _LaporanKeuanganState extends State<LaporanKeuangan> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  setState(() {
+                                    filterController.clear();
+                                  });
+                                },
                                 child: Container(
                                   width: 120,
                                   height: 40,
@@ -734,10 +737,10 @@ class _LaporanKeuanganState extends State<LaporanKeuangan> {
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.52,
                                 child: DateTimePicker(
+                                  controller: filterController,
                                   type: DateTimePickerType.date,
                                   icon: Icon(Icons.date_range_rounded),
                                   dateMask: 'EEEE, d MMMM yyyy',
-                                  initialValue: 'Pilih Tanggal',
                                   firstDate: DateTime(DateTime.now().year - 3,
                                       DateTime.now().month, DateTime.now().day),
                                   lastDate: DateTime.now(),
@@ -747,7 +750,7 @@ class _LaporanKeuanganState extends State<LaporanKeuangan> {
                                     color: Colors.black,
                                   ),
                                   onChanged: (val) => setState(() {
-                                    filterTgl = val;
+                                    filterController.text = val;
                                   }),
                                   validator: (val) {
                                     return null;

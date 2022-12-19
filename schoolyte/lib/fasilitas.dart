@@ -889,10 +889,10 @@ class _FasilitasPageState extends State<FasilitasPage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Color.fromRGBO(119, 119, 205, 1),
+        statusBarColor: Color.fromRGBO(119, 115, 205, 1),
         statusBarIconBrightness: Brightness.light,
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: Color.fromRGBO(119, 115, 205, 1),
+        systemNavigationBarIconBrightness: Brightness.light,
       ),
     );
     return MaterialApp(

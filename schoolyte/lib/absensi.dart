@@ -306,9 +306,9 @@ class _AbsensiPageState extends State<AbsensiPage> {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: Color.fromRGBO(180, 176, 255, 1),
-        systemNavigationBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
+        systemNavigationBarColor: Color.fromRGBO(180, 176, 255, 1),
+        systemNavigationBarIconBrightness: Brightness.light,
       ),
     );
     // ignore: unnecessary_new

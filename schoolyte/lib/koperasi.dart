@@ -438,7 +438,8 @@ class _KoperasiPageState extends State<KoperasiPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(
+                              builder: (context) => KoperasiPage()));
                     },
                   ),
                 ),
