@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:schoolyte/detailNilaiBelajarAdminProfil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'model.dart';
-import 'package:date_time_picker/date_time_picker.dart';
 
 class DetailNilaiBelajarAdminSiswa extends StatefulWidget {
   @override
@@ -45,9 +45,6 @@ class _DetailNilaiBelajarAdminSiswaState
   }
 
   final TextEditingController searchController = TextEditingController();
-  final TextEditingController filterController = TextEditingController();
-  final TextEditingController statusController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
 
   onSearch(String text) async {
     _search.clear();
@@ -213,62 +210,74 @@ class _DetailNilaiBelajarAdminSiswaState
                                   ),
                                   itemBuilder: (context, i) {
                                     final siswa = _search[i];
-                                    return Container(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.3),
-                                            spreadRadius: 0,
-                                            blurRadius: 1.5,
-                                            offset: Offset(0, 1),
-                                          )
-                                        ],
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                siswa.name,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Gilroy-ExtraBold',
-                                                  fontSize: 16,
-                                                  color: Colors.black,
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DetailNilaiBelajarAdminProfil(
+                                                        profil: siswa)));
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(0.3),
+                                              spreadRadius: 0,
+                                              blurRadius: 1.5,
+                                              offset: Offset(0, 1),
+                                            )
+                                          ],
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  siswa.name,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 16,
+                                                    color: Colors.black,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                'NIS : ${siswa.phone}',
-                                                style: TextStyle(
-                                                  fontFamily: 'Gilroy-Light',
-                                                  fontSize: 12,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
+                                                Text(
+                                                  'NIS : ${siswa.phone}',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 12,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Icon(
-                                            Icons.chevron_right_rounded,
-                                            size: 24,
-                                            color: Colors.black,
-                                          ),
-                                        ],
+                                              ],
+                                            ),
+                                            Icon(
+                                              Icons.chevron_right_rounded,
+                                              size: 24,
+                                              color: Colors.black,
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     );
                                   })
@@ -283,62 +292,75 @@ class _DetailNilaiBelajarAdminSiswaState
                                   ),
                                   itemBuilder: (context, i) {
                                     final siswa = _siswa[i];
-                                    return Container(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 10),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(8),
-                                        color: Colors.white,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.3),
-                                            spreadRadius: 0,
-                                            blurRadius: 1.5,
-                                            offset: Offset(0, 1),
-                                          )
-                                        ],
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                siswa.name,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Gilroy-ExtraBold',
-                                                  fontSize: 16,
-                                                  color: Colors.black,
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DetailNilaiBelajarAdminProfil(
+                                                      profil: siswa,
+                                                    )));
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 10),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.black.withOpacity(0.3),
+                                              spreadRadius: 0,
+                                              blurRadius: 1.5,
+                                              offset: Offset(0, 1),
+                                            )
+                                          ],
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  siswa.name,
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 16,
+                                                    color: Colors.black,
+                                                  ),
                                                 ),
-                                              ),
-                                              Text(
-                                                'NIS : ${siswa.phone}',
-                                                style: TextStyle(
-                                                  fontFamily: 'Gilroy-Light',
-                                                  fontSize: 12,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
+                                                Text(
+                                                  'NIS : ${siswa.phone}',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 12,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Icon(
-                                            Icons.chevron_right_rounded,
-                                            size: 24,
-                                            color: Colors.black,
-                                          ),
-                                        ],
+                                              ],
+                                            ),
+                                            Icon(
+                                              Icons.chevron_right_rounded,
+                                              size: 24,
+                                              color: Colors.black,
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     );
                                   }),

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:schoolyte/perpustakaanPegawai.dart';
+import 'package:schoolyte/pinjamBuku.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'model.dart';
@@ -231,6 +232,100 @@ class _TambahBukuState extends State<TambahBuku> {
     }
   }
 
+  konfirmasi() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Container(
+              height: 357,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 177,
+                    height: 177,
+                    child: Image.asset(
+                      'assets/images/alertDialog.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Text(
+                    'Kamu Yakin ?',
+                    style: TextStyle(
+                      fontFamily: 'Gilroy-ExtraBold',
+                      fontSize: 32,
+                    ),
+                  ),
+                  Container(
+                    width: 253,
+                    height: 43,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 107,
+                            height: 43,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                width: 1,
+                                color: Color.fromRGBO(119, 115, 205, 1),
+                              ),
+                              color: Colors.white,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Tidak',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 107,
+                            height: 43,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color.fromRGBO(242, 78, 26, 1),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Ya',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   List<Tab> myTabs = <Tab>[
     Tab(text: 'Buku'),
     Tab(text: 'Sumbang'),
@@ -330,410 +425,956 @@ class _TambahBukuState extends State<TambahBuku> {
           ),
           body: TabBarView(
             children: [
-              Stack(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.8,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: MediaQuery.of(context).size.width * 0.09),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Tambah Buku',
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 20,
-                            color: Color.fromRGBO(76, 81, 97, 1),
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.85,
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                child: Text(
-                                  'Nama Buku',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 18,
-                                    color: Color.fromRGBO(76, 81, 97, 1),
-                                  ),
-                                ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.8,
+                padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.09),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Tambah Buku',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy-ExtraBold',
+                        fontSize: 20,
+                        color: Color.fromRGBO(76, 81, 97, 1),
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            child: Text(
+                              'Nama Buku',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 18,
+                                color: Color.fromRGBO(76, 81, 97, 1),
                               ),
-                              Text(
-                                ' :      ',
+                            ),
+                          ),
+                          Text(
+                            ' :      ',
+                            style: TextStyle(
+                              color: Color.fromRGBO(76, 81, 97, 1),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Form(
+                              key: _formKey,
+                              child: TextFormField(
+                                controller: namaController,
                                 style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 16,
                                   color: Color.fromRGBO(76, 81, 97, 1),
                                 ),
+                                textAlignVertical: TextAlignVertical(y: -0.7),
+                                decoration: InputDecoration(
+                                  labelText: 'Nama',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(76, 81, 97, 0.54),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Nama buku tidak boleh kosong ! ';
+                                  }
+                                },
                               ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                child: Form(
-                                  key: _formKey,
-                                  child: TextFormField(
-                                    controller: namaController,
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 16,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                    textAlignVertical:
-                                        TextAlignVertical(y: -0.7),
-                                    decoration: InputDecoration(
-                                      labelText: 'Nama',
-                                      labelStyle: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 0.54),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      margin: EdgeInsets.only(top: 22),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            child: Text(
+                              'Tahun Terbit',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 18,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            ' :      ',
+                            style: TextStyle(
+                              color: Color.fromRGBO(76, 81, 97, 1),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Form(
+                              key: _formKey2,
+                              child: TextFormField(
+                                controller: tahunController,
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                                textAlignVertical: TextAlignVertical(y: -0.7),
+                                decoration: InputDecoration(
+                                  labelText: 'Tahun',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(76, 81, 97, 0.54),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Tahun terbit tidak boleh kosong ! ';
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      margin: EdgeInsets.only(top: 22),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            child: Text(
+                              'Penulis',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 18,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            ' :      ',
+                            style: TextStyle(
+                              color: Color.fromRGBO(76, 81, 97, 1),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Form(
+                              key: _formKey3,
+                              child: TextFormField(
+                                controller: penulisController,
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                                textAlignVertical: TextAlignVertical(y: -0.7),
+                                decoration: InputDecoration(
+                                  labelText: 'Nama Penulis',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(76, 81, 97, 0.54),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Nama penulis tidak boleh kosong ! ';
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      margin: EdgeInsets.only(top: 22),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            child: Text(
+                              'Kategori',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 18,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            ' :      ',
+                            style: TextStyle(
+                              color: Color.fromRGBO(76, 81, 97, 1),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Form(
+                              key: _formKey4,
+                              child: TextFormField(
+                                controller: kategoriController,
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                                textAlignVertical: TextAlignVertical(y: -0.7),
+                                decoration: InputDecoration(
+                                  labelText: 'Kategori Buku',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(76, 81, 97, 0.54),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Kategori buku tidak boleh kosong ! ';
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      height: MediaQuery.of(context).size.height * 0.11,
+                      margin: EdgeInsets.only(top: 22),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            child: Text(
+                              'Rincian Buku',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 18,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            ' :      ',
+                            style: TextStyle(
+                              color: Color.fromRGBO(76, 81, 97, 1),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.6,
+                            child: Form(
+                              key: _formKey5,
+                              child: TextFormField(
+                                controller: rincianController,
+                                keyboardType: TextInputType.multiline,
+                                maxLines: 400,
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 16,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                                decoration: InputDecoration(
+                                  labelText: 'Keterangan Buku',
+                                  labelStyle: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(76, 81, 97, 0.54),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Deskripsi tidak boleh kosong ! ';
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.42,
+                      height: MediaQuery.of(context).size.height * 0.042,
+                      margin: EdgeInsets.only(top: 22),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.14,
+                            child: Text(
+                              'Jumlah Buku',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 18,
+                                color: Color.fromRGBO(76, 81, 97, 1),
+                              ),
+                            ),
+                          ),
+                          Text(
+                            '   :',
+                            style: TextStyle(
+                              color: Color.fromRGBO(76, 81, 97, 1),
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.17,
+                            height: MediaQuery.of(context).size.height * 0.026,
+                            margin: EdgeInsets.only(left: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: () => setState(() {
+                                    jumlahBuku--;
+                                  }),
+                                  child: Container(
+                                    width: 25,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(180),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Color.fromRGBO(119, 115, 205, 1),
                                       ),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
                                     ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Nama buku tidak boleh kosong ! ';
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.85,
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          margin: EdgeInsets.only(top: 22),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                child: Text(
-                                  'Tahun Terbit',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 18,
-                                    color: Color.fromRGBO(76, 81, 97, 1),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                ' :      ',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                child: Form(
-                                  key: _formKey2,
-                                  child: TextFormField(
-                                    controller: tahunController,
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 16,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                    textAlignVertical:
-                                        TextAlignVertical(y: -0.7),
-                                    decoration: InputDecoration(
-                                      labelText: 'Tahun',
-                                      labelStyle: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 0.54),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.remove,
+                                        color: Color.fromRGBO(119, 115, 205, 1),
                                       ),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
                                     ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Tahun terbit tidak boleh kosong ! ';
-                                      }
-                                    },
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.85,
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          margin: EdgeInsets.only(top: 22),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                child: Text(
-                                  'Penulis',
+                                Text(
+                                  jumlahBuku.toString(),
                                   style: TextStyle(
                                     fontFamily: 'Gilroy-Light',
-                                    fontSize: 18,
-                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                    fontSize: 16,
+                                    color: Colors.black,
                                   ),
                                 ),
-                              ),
-                              Text(
-                                ' :      ',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                child: Form(
-                                  key: _formKey3,
-                                  child: TextFormField(
-                                    controller: penulisController,
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 16,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                    textAlignVertical:
-                                        TextAlignVertical(y: -0.7),
-                                    decoration: InputDecoration(
-                                      labelText: 'Nama Penulis',
-                                      labelStyle: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 0.54),
+                                GestureDetector(
+                                  onTap: () => setState(() {
+                                    jumlahBuku++;
+                                  }),
+                                  child: Container(
+                                    width: 25,
+                                    height: 25,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(180),
+                                      border: Border.all(
+                                        width: 1,
+                                        color: Color.fromRGBO(119, 115, 205, 1),
                                       ),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
                                     ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Nama penulis tidak boleh kosong ! ';
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.85,
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          margin: EdgeInsets.only(top: 22),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                child: Text(
-                                  'Kategori',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 18,
-                                    color: Color.fromRGBO(76, 81, 97, 1),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                ' :      ',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                child: Form(
-                                  key: _formKey4,
-                                  child: TextFormField(
-                                    controller: kategoriController,
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 16,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                    textAlignVertical:
-                                        TextAlignVertical(y: -0.7),
-                                    decoration: InputDecoration(
-                                      labelText: 'Kategori Buku',
-                                      labelStyle: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 0.54),
+                                    child: Center(
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Color.fromRGBO(119, 115, 205, 1),
                                       ),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
                                     ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Kategori buku tidak boleh kosong ! ';
-                                      }
-                                    },
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.85,
-                          height: MediaQuery.of(context).size.height * 0.11,
-                          margin: EdgeInsets.only(top: 22),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                child: Text(
-                                  'Rincian Buku',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 18,
-                                    color: Color.fromRGBO(76, 81, 97, 1),
-                                  ),
-                                ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      height: MediaQuery.of(context).size.height * 0.042,
+                      margin: EdgeInsets.only(top: 22),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.15,
+                            child: Text(
+                              'Tambah Foto',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 18,
+                                color: Color.fromRGBO(76, 81, 97, 1),
                               ),
-                              Text(
-                                ' :      ',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.6,
-                                child: Form(
-                                  key: _formKey5,
-                                  child: TextFormField(
-                                    controller: rincianController,
-                                    keyboardType: TextInputType.multiline,
-                                    maxLines: 400,
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 16,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
+                            ),
+                          ),
+                          Text(
+                            '  :',
+                            style: TextStyle(
+                              color: Color.fromRGBO(76, 81, 97, 1),
+                            ),
+                          ),
+                          image != null
+                              ? GestureDetector(
+                                  onTap: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return Center(
+                                            child: Material(
+                                              type: MaterialType.transparency,
+                                              child: new Image.file(image!),
+                                            ),
+                                          );
+                                        });
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.27,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.04,
+                                    margin: EdgeInsets.only(left: 25),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.3),
+                                          spreadRadius: 0,
+                                          blurRadius: 1.5,
+                                          offset: Offset(0, 1),
+                                        )
+                                      ],
                                     ),
-                                    decoration: InputDecoration(
-                                      labelText: 'Keterangan Buku',
-                                      labelStyle: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 0.54),
+                                    child: Center(
+                                      child: Text(
+                                        'Lihat Foto',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 16,
+                                          color:
+                                              Color.fromRGBO(76, 81, 97, 0.54),
+                                        ),
                                       ),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
                                     ),
-                                    validator: (value) {
-                                      if (value!.isEmpty) {
-                                        return 'Deskripsi tidak boleh kosong ! ';
-                                      }
-                                    },
+                                  ),
+                                )
+                              : GestureDetector(
+                                  onTap: () async {
+                                    await getImage();
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.27,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.04,
+                                    margin: EdgeInsets.only(left: 25),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.3),
+                                          spreadRadius: 0,
+                                          blurRadius: 1.5,
+                                          offset: Offset(0, 1),
+                                        )
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'Pilih foto',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 16,
+                                          color:
+                                              Color.fromRGBO(76, 81, 97, 0.54),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
+                          Visibility(
+                            visible: image != null ? true : false,
+                            child: GestureDetector(
+                              onTap: () => setState(() {
+                                image = null;
+                              }),
+                              child: Container(
+                                margin: EdgeInsets.only(left: 10),
+                                child: Icon(
+                                  Icons.delete,
+                                ),
                               ),
-                            ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment(1.0, 0.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          sendBuku();
+                        },
+                        child: Container(
+                          width: 119,
+                          height: 36,
+                          margin: EdgeInsets.only(top: 30),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            color: Colors.black,
+                          ),
+                          child: Center(
+                            child: Text(
+                              'Selesai',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 15,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.42,
-                          height: MediaQuery.of(context).size.height * 0.042,
-                          margin: EdgeInsets.only(top: 22),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.14,
-                                child: Text(
-                                  'Jumlah Buku',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 18,
-                                    color: Color.fromRGBO(76, 81, 97, 1),
-                                  ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              loading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                          color: Color.fromRGBO(255, 199, 0, 1)),
+                    )
+                  : Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.7,
+                      padding: EdgeInsets.all(10),
+                      color: Color.fromRGBO(243, 243, 243, 1),
+                      child: GridView.builder(
+                          itemCount: _books.length,
+                          padding: EdgeInsets.all(10),
+                          gridDelegate:
+                              SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: 140,
+                            mainAxisExtent: 283,
+                            crossAxisSpacing: 15,
+                            mainAxisSpacing: 12,
+                          ),
+                          itemBuilder: (context, i) {
+                            final book = _books[i];
+                            return GestureDetector(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return SafeArea(
+                                        child: Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.964,
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 30,
+                                          ),
+                                          child: SingleChildScrollView(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      vertical: 30),
+                                                  child: Row(
+                                                    children: [
+                                                      GestureDetector(
+                                                        onTap: () =>
+                                                            Navigator.pop(
+                                                                context),
+                                                        child: Icon(
+                                                          Icons.chevron_left,
+                                                          color: Color.fromRGBO(
+                                                              200, 200, 200, 1),
+                                                          size: 40,
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 25),
+                                                        child: Text(
+                                                          'Detail Buku',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy-ExtraBold',
+                                                            fontSize: 20,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    1),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Center(
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      showDialog(
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return Center(
+                                                              child: Material(
+                                                                type: MaterialType
+                                                                    .transparency,
+                                                                child: Image
+                                                                    .network(
+                                                                  Api.image +
+                                                                      book.image,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          });
+                                                    },
+                                                    child: Container(
+                                                      width: 167,
+                                                      height: 226,
+                                                      child: Image.network(
+                                                        Api.image + book.image,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Center(
+                                                  child: Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.67,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.2,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          book.nama_buku,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy-ExtraBold',
+                                                            fontSize: 32,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          'Tahun terbit: ' +
+                                                              book.tahun_terbit,
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy-Light',
+                                                            fontSize: 13,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    1),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          'Oleh: ' +
+                                                              book.nama_penulis,
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy-Light',
+                                                            fontSize: 13,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    1),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width *
+                                                              0.12,
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              0.018,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        4),
+                                                            color: book.jumlah_buku !=
+                                                                    '0'
+                                                                ? Color
+                                                                    .fromRGBO(
+                                                                        119,
+                                                                        115,
+                                                                        205,
+                                                                        1)
+                                                                : Color
+                                                                    .fromRGBO(
+                                                                        217,
+                                                                        217,
+                                                                        217,
+                                                                        1),
+                                                          ),
+                                                          child: Center(
+                                                            child: Text(
+                                                              book.jumlah_buku !=
+                                                                      '0'
+                                                                  ? 'Tersedia : ' +
+                                                                      book.jumlah_buku
+                                                                          .toString()
+                                                                  : 'Habis',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Gilroy-Light',
+                                                                fontSize: 10,
+                                                                color: book.jumlah_buku !=
+                                                                        '0'
+                                                                    ? Colors
+                                                                        .white
+                                                                    : Colors
+                                                                        .black,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                Center(
+                                                  child: Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.8,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.40,
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Text(
+                                                        book.rincian_buku,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-Light',
+                                                          fontSize: 12,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    });
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 8,
                                 ),
-                              ),
-                              Text(
-                                '   :',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(7),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.3),
+                                      spreadRadius: 0,
+                                      blurRadius: 1.5,
+                                      offset: Offset(0, 0),
+                                    )
+                                  ],
                                 ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.17,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.026,
-                                margin: EdgeInsets.only(left: 20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                child: Stack(
                                   children: [
-                                    GestureDetector(
-                                      onTap: () => setState(() {
-                                        jumlahBuku != 1 ? jumlahBuku-- : null;
-                                      }),
-                                      child: Container(
-                                        width: 25,
-                                        height: 25,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(180),
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Color.fromRGBO(
-                                                119, 115, 205, 1),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 119,
+                                          height: 161,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(5)),
+                                          child: Image.network(
+                                            Api.image + book.image,
+                                            fit: BoxFit.cover,
                                           ),
                                         ),
-                                        child: Center(
-                                          child: Icon(
-                                            Icons.remove,
+                                        Container(
+                                          height: 100,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
+                                                child: Text(
+                                                  book.nama_buku,
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 13,
+                                                  ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
+                                                child: Text(
+                                                  'Tahun terbit: ' +
+                                                      book.tahun_terbit,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
+                                                child: Text(
+                                                  'Oleh: ' + book.nama_penulis,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 10,
+                                                  ),
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
+                                                child: Text(
+                                                  'Kategori: ' +
+                                                      book.kategori_buku,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                              ),
+                                              Align(
+                                                alignment: Alignment(-1.0, 0.0),
+                                                child: Text(
+                                                  'Jumlah Buku : ' +
+                                                      book.jumlah_buku,
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 10,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Align(
+                                      alignment: Alignment(-0.9, -0.93),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          konfirmasi();
+                                        },
+                                        child: Container(
+                                          width: 24,
+                                          height: 24,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(180),
                                             color: Color.fromRGBO(
-                                                119, 115, 205, 1),
+                                                255, 255, 255, 0.78),
+                                          ),
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.close,
+                                              color: Colors.black,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                    Text(
-                                      jumlahBuku.toString(),
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () => setState(() {
-                                        jumlahBuku++;
-                                      }),
+                                    Align(
+                                      alignment: Alignment(0.9, -0.93),
                                       child: Container(
-                                        width: 25,
-                                        height: 25,
+                                        width: 24,
+                                        height: 24,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(180),
-                                          border: Border.all(
-                                            width: 1,
-                                            color: Color.fromRGBO(
-                                                119, 115, 205, 1),
-                                          ),
+                                          color: Color.fromRGBO(
+                                              255, 255, 255, 0.78),
                                         ),
                                         child: Center(
                                           child: Icon(
-                                            Icons.add,
-                                            color: Color.fromRGBO(
-                                                119, 115, 205, 1),
+                                            Icons.done,
+                                            color: Colors.black,
                                           ),
                                         ),
                                       ),
@@ -741,366 +1382,376 @@ class _TambahBukuState extends State<TambahBuku> {
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.6,
-                          height: MediaQuery.of(context).size.height * 0.042,
-                          margin: EdgeInsets.only(top: 22),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.15,
-                                child: Text(
-                                  'Tambah Foto',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 18,
-                                    color: Color.fromRGBO(76, 81, 97, 1),
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                '  :',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                              ),
-                              image != null
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return Center(
-                                                child: Material(
-                                                  type:
-                                                      MaterialType.transparency,
-                                                  child: new Image.file(image!),
-                                                ),
-                                              );
-                                            });
-                                      },
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.27,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.04,
-                                        margin: EdgeInsets.only(left: 25),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.3),
-                                              spreadRadius: 0,
-                                              blurRadius: 1.5,
-                                              offset: Offset(0, 1),
-                                            )
-                                          ],
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Lihat Foto',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 16,
-                                              color: Color.fromRGBO(
-                                                  76, 81, 97, 0.54),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  : GestureDetector(
-                                      onTap: () async {
-                                        await getImage();
-                                      },
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.27,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.04,
-                                        margin: EdgeInsets.only(left: 25),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.3),
-                                              spreadRadius: 0,
-                                              blurRadius: 1.5,
-                                              offset: Offset(0, 1),
-                                            )
-                                          ],
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            'Pilih foto',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 16,
-                                              color: Color.fromRGBO(
-                                                  76, 81, 97, 0.54),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                              Visibility(
-                                visible: image != null ? true : false,
-                                child: GestureDetector(
-                                  onTap: () => setState(() {
-                                    image = null;
-                                  }),
-                                  child: Container(
-                                    margin: EdgeInsets.only(left: 10),
-                                    child: Icon(
-                                      Icons.delete,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment(1.0, 0.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              sendBuku();
-                            },
-                            child: Container(
-                              width: 119,
-                              height: 36,
-                              margin: EdgeInsets.only(top: 30),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: Colors.black,
-                              ),
+                            );
+                          }),
+                    ),
+              loading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                          color: Color.fromRGBO(255, 199, 0, 1)),
+                    )
+                  : Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      color: Color.fromRGBO(243, 243, 243, 1),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 85,
+                              color: Colors.white,
                               child: Center(
-                                child: Text(
-                                  'Selesai',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 15,
-                                    color: Colors.white,
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.88,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.050,
+                                  decoration: BoxDecoration(
+                                    color: Color.fromRGBO(243, 243, 243, 1),
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withOpacity(0.3),
+                                        spreadRadius: 0,
+                                        blurRadius: 1.5,
+                                        offset: Offset(0, 0),
+                                      )
+                                    ],
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.73,
+                                        child: Form(
+                                          child: TextFormField(
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 16,
+                                            ),
+                                            textInputAction:
+                                                TextInputAction.done,
+                                            controller: searchController,
+                                            autocorrect: true,
+                                            onChanged: ((value) {
+                                              setState(() {
+                                                onSearch(value);
+                                              });
+                                            }),
+                                            decoration: new InputDecoration(
+                                              icon: Icon(
+                                                Icons.search,
+                                                size: 24,
+                                              ),
+                                              enabledBorder: InputBorder.none,
+                                              focusedBorder: InputBorder.none,
+                                              hintText:
+                                                  'Apa yang ingin kamu pinjam?',
+                                              hintStyle: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.cancel,
+                                            size: 24,
+                                            color:
+                                                searchController.text.length !=
+                                                        0
+                                                    ? Colors.red
+                                                    : Color.fromRGBO(
+                                                        76, 81, 97, 58)),
+                                        onPressed: () {
+                                          searchController.clear();
+                                          onSearch('');
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Visibility(
-                    visible: loading,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      color: Color.fromRGBO(0, 0, 0, 0.20),
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: Color.fromRGBO(119, 115, 205, 1),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.7,
-                padding: EdgeInsets.all(10),
-                color: Color.fromRGBO(243, 243, 243, 1),
-                child: GridView.builder(
-                    itemCount: _books.length,
-                    padding: EdgeInsets.all(10),
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 140,
-                      mainAxisExtent: 283,
-                      crossAxisSpacing: 15,
-                      mainAxisSpacing: 12,
-                    ),
-                    itemBuilder: (context, i) {
-                      final book = _books[i];
-                      return GestureDetector(
-                        onTap: () {
-                          showModalBottomSheet(
-                              isScrollControlled: true,
-                              enableDrag: false,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return SafeArea(
-                                  child: Container(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.964,
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 30,
-                                    ),
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.symmetric(
-                                                vertical: 30),
-                                            child: Row(
-                                              children: [
-                                                GestureDetector(
-                                                  onTap: () =>
-                                                      Navigator.pop(context),
-                                                  child: Icon(
-                                                    Icons.chevron_left,
-                                                    color: Color.fromRGBO(
-                                                        200, 200, 200, 1),
-                                                    size: 40,
+                            SingleChildScrollView(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.73,
+                                margin: EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                  vertical: 10,
+                                ),
+                                child: _search.length != 0 ||
+                                        searchController.text.isNotEmpty
+                                    ? GridView.builder(
+                                        itemCount: _search.length,
+                                        padding: EdgeInsets.all(10),
+                                        gridDelegate:
+                                            SliverGridDelegateWithMaxCrossAxisExtent(
+                                          maxCrossAxisExtent: 140,
+                                          mainAxisExtent: 282,
+                                          crossAxisSpacing: 15,
+                                          mainAxisSpacing: 12,
+                                        ),
+                                        itemBuilder: (context, i) {
+                                          final book = _search[i];
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          PinjamBuku(
+                                                              book: book)));
+                                            },
+                                            child: Container(
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 8,
+                                                vertical: 8,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(7),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.3),
+                                                    spreadRadius: 0,
+                                                    blurRadius: 1.5,
+                                                    offset: Offset(0, 0),
+                                                  )
+                                                ],
+                                              ),
+                                              child: Stack(
+                                                children: [
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: 119,
+                                                        height: 161,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5)),
+                                                        child: Image.network(
+                                                          Api.image +
+                                                              book.image,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        height: 100,
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          children: [
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                book.nama_buku,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-ExtraBold',
+                                                                  fontSize: 13,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                'Tahun terbit: ' +
+                                                                    book.tahun_terbit,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 10,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                'Oleh: ' +
+                                                                    book.nama_penulis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 10,
+                                                                ),
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                'Kategori: ' +
+                                                                    book.kategori_buku,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 10,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  0.014,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: book.jumlah_buku !=
+                                                                        '0'
+                                                                    ? Color
+                                                                        .fromRGBO(
+                                                                            115,
+                                                                            119,
+                                                                            205,
+                                                                            1)
+                                                                    : Color
+                                                                        .fromRGBO(
+                                                                            217,
+                                                                            217,
+                                                                            217,
+                                                                            1),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            4),
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  book.jumlah_buku !=
+                                                                          '0'
+                                                                      ? 'Tersedia : ' +
+                                                                          book.jumlah_buku
+                                                                      : 'Habis',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Gilroy-Light',
+                                                                    fontSize:
+                                                                        10,
+                                                                    color: book
+                                                                                .jumlah_buku !=
+                                                                            '0'
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ),
-                                                Container(
-                                                  margin:
-                                                      EdgeInsets.only(left: 25),
-                                                  child: Text(
-                                                    'Pinjam Buku',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-ExtraBold',
-                                                      fontSize: 20,
-                                                      color: Color.fromRGBO(
-                                                          76, 81, 97, 1),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Center(
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                showDialog(
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return Center(
-                                                        child: Material(
-                                                          type: MaterialType
-                                                              .transparency,
-                                                          child: Image.network(
-                                                            Api.image +
-                                                                book.image,
+                                                  Align(
+                                                    alignment:
+                                                        Alignment(-0.9, -0.93),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        print('edit click');
+                                                      },
+                                                      child: Container(
+                                                        width: 24,
+                                                        height: 24,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      180),
+                                                          color: Color.fromRGBO(
+                                                              255,
+                                                              255,
+                                                              255,
+                                                              0.78),
+                                                        ),
+                                                        child: Center(
+                                                          child: Icon(
+                                                            Icons.edit,
+                                                            size: 17,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    1),
                                                           ),
                                                         ),
-                                                      );
-                                                    });
-                                              },
-                                              child: Container(
-                                                width: 167,
-                                                height: 226,
-                                                child: Image.network(
-                                                  Api.image + book.image,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Center(
-                                            child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.67,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.2,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    book.nama_buku,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-ExtraBold',
-                                                      fontSize: 32,
-                                                      color: Colors.black,
+                                                      ),
                                                     ),
                                                   ),
-                                                  Text(
-                                                    'Tahun terbit: ' +
-                                                        book.tahun_terbit,
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-Light',
-                                                      fontSize: 13,
-                                                      color: Color.fromRGBO(
-                                                          76, 81, 97, 1),
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'Oleh: ' +
-                                                        book.nama_penulis,
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-Light',
-                                                      fontSize: 13,
-                                                      color: Color.fromRGBO(
-                                                          76, 81, 97, 1),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.12,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.018,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4),
-                                                      color: book.jumlah_buku !=
-                                                              '0'
-                                                          ? Color.fromRGBO(
-                                                              119, 115, 205, 1)
-                                                          : Color.fromRGBO(
-                                                              217, 217, 217, 1),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        book.jumlah_buku != '0'
-                                                            ? 'Tersedia : ' +
-                                                                book.jumlah_buku
-                                                                    .toString()
-                                                            : 'Habis',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 10,
-                                                          color:
-                                                              book.jumlah_buku !=
-                                                                      '0'
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
+                                                  Align(
+                                                    alignment:
+                                                        Alignment(0.9, -0.93),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        konfirmasi();
+                                                      },
+                                                      child: Container(
+                                                        width: 24,
+                                                        height: 24,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      180),
+                                                          color: Color.fromRGBO(
+                                                              255,
+                                                              255,
+                                                              255,
+                                                              0.78),
+                                                        ),
+                                                        child: Center(
+                                                          child: Icon(
+                                                            Icons.delete,
+                                                            size: 17,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    1),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -1108,1948 +1759,287 @@ class _TambahBukuState extends State<TambahBuku> {
                                                 ],
                                               ),
                                             ),
-                                          ),
-                                          Center(
+                                          );
+                                        })
+                                    : GridView.builder(
+                                        itemCount: _books.length,
+                                        padding: EdgeInsets.all(10),
+                                        gridDelegate:
+                                            SliverGridDelegateWithMaxCrossAxisExtent(
+                                          maxCrossAxisExtent: 140,
+                                          mainAxisExtent: 282,
+                                          crossAxisSpacing: 15,
+                                          mainAxisSpacing: 12,
+                                        ),
+                                        itemBuilder: (context, i) {
+                                          final book = _books[i];
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          PinjamBuku(
+                                                              book: book)));
+                                            },
                                             child: Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.8,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.40,
-                                              child: SingleChildScrollView(
-                                                child: Text(
-                                                  book.rincian_buku,
-                                                  style: TextStyle(
-                                                    fontFamily: 'Gilroy-Light',
-                                                    fontSize: 12,
-                                                    color: Color.fromRGBO(
-                                                        76, 81, 97, 1),
+                                              padding: EdgeInsets.symmetric(
+                                                horizontal: 8,
+                                                vertical: 8,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(7),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.3),
+                                                    spreadRadius: 0,
+                                                    blurRadius: 1.5,
+                                                    offset: Offset(0, 0),
+                                                  )
+                                                ],
+                                              ),
+                                              child: Stack(
+                                                children: [
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: 119,
+                                                        height: 161,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5)),
+                                                        child: Image.network(
+                                                          Api.image +
+                                                              book.image,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        height: 100,
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          children: [
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                book.nama_buku,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-ExtraBold',
+                                                                  fontSize: 13,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                'Tahun terbit: ' +
+                                                                    book.tahun_terbit,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 10,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                'Oleh: ' +
+                                                                    book.nama_penulis,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 10,
+                                                                ),
+                                                                maxLines: 1,
+                                                                overflow:
+                                                                    TextOverflow
+                                                                        .ellipsis,
+                                                              ),
+                                                            ),
+                                                            Align(
+                                                              alignment:
+                                                                  Alignment(
+                                                                      -1.0,
+                                                                      0.0),
+                                                              child: Text(
+                                                                'Kategori: ' +
+                                                                    book.kategori_buku,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 10,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  0.014,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: book.jumlah_buku !=
+                                                                        '0'
+                                                                    ? Color
+                                                                        .fromRGBO(
+                                                                            115,
+                                                                            119,
+                                                                            205,
+                                                                            1)
+                                                                    : Color
+                                                                        .fromRGBO(
+                                                                            217,
+                                                                            217,
+                                                                            217,
+                                                                            1),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            4),
+                                                              ),
+                                                              child: Center(
+                                                                child: Text(
+                                                                  book.jumlah_buku !=
+                                                                          '0'
+                                                                      ? 'Tersedia : ' +
+                                                                          book.jumlah_buku
+                                                                      : 'Habis',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Gilroy-Light',
+                                                                    fontSize:
+                                                                        10,
+                                                                    color: book
+                                                                                .jumlah_buku !=
+                                                                            '0'
+                                                                        ? Colors
+                                                                            .white
+                                                                        : Colors
+                                                                            .black,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment(-0.9, -0.93),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        print('edit click');
+                                                      },
+                                                      child: Container(
+                                                        width: 24,
+                                                        height: 24,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      180),
+                                                          color: Color.fromRGBO(
+                                                              255,
+                                                              255,
+                                                              255,
+                                                              0.78),
+                                                        ),
+                                                        child: Center(
+                                                          child: Icon(
+                                                            Icons.edit,
+                                                            size: 17,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    1),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment(0.9, -0.93),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        konfirmasi();
+                                                      },
+                                                      child: Container(
+                                                        width: 24,
+                                                        height: 24,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      180),
+                                                          color: Color.fromRGBO(
+                                                              255,
+                                                              255,
+                                                              255,
+                                                              0.78),
+                                                        ),
+                                                        child: Center(
+                                                          child: Icon(
+                                                            Icons.delete,
+                                                            size: 17,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    1),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 8,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(7),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.3),
-                                spreadRadius: 0,
-                                blurRadius: 1.5,
-                                offset: Offset(0, 0),
-                              )
-                            ],
-                          ),
-                          child: Stack(
-                            children: [
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 119,
-                                    height: 161,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Image.network(
-                                      Api.image + book.image,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 100,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Align(
-                                          alignment: Alignment(-1.0, 0.0),
-                                          child: Text(
-                                            book.nama_buku,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 13,
-                                            ),
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(-1.0, 0.0),
-                                          child: Text(
-                                            'Tahun terbit: ' +
-                                                book.tahun_terbit,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 10,
-                                            ),
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(-1.0, 0.0),
-                                          child: Text(
-                                            'Oleh: ' + book.nama_penulis,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 10,
-                                            ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(-1.0, 0.0),
-                                          child: Text(
-                                            'Kategori: ' + book.kategori_buku,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 10,
-                                            ),
-                                          ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment(-1.0, 0.0),
-                                          child: Text(
-                                            'Jumlah Buku : ' + book.jumlah_buku,
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 10,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                                          );
+                                        }),
                               ),
-                              Align(
-                                alignment: Alignment(-0.9, -0.93),
-                                child: Container(
-                                  width: 24,
-                                  height: 24,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(180),
-                                    color: Color.fromRGBO(255, 255, 255, 0.78),
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.close,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment(0.9, -0.93),
-                                child: Container(
-                                  width: 24,
-                                  height: 24,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(180),
-                                    color: Color.fromRGBO(255, 255, 255, 0.78),
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.done,
-                                      color: Colors.black,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    }),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                color: Color.fromRGBO(243, 243, 243, 1),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 85,
-                        color: Colors.white,
-                        child: Center(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.88,
-                            height: MediaQuery.of(context).size.height * 0.050,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(243, 243, 243, 1),
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.3),
-                                  spreadRadius: 0,
-                                  blurRadius: 1.5,
-                                  offset: Offset(0, 0),
-                                )
-                              ],
                             ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.73,
-                                  child: Form(
-                                    child: TextFormField(
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                      ),
-                                      textInputAction: TextInputAction.done,
-                                      controller: searchController,
-                                      autocorrect: true,
-                                      onChanged: ((value) {
-                                        setState(() {
-                                          onSearch(value);
-                                        });
-                                      }),
-                                      decoration: new InputDecoration(
-                                        icon: Icon(
-                                          Icons.search,
-                                          size: 24,
-                                        ),
-                                        enabledBorder: InputBorder.none,
-                                        focusedBorder: InputBorder.none,
-                                        hintText: 'Apa yang ingin kamu pinjam?',
-                                        hintStyle: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.cancel,
-                                      size: 24,
-                                      color: searchController.text.length != 0
-                                          ? Colors.red
-                                          : Color.fromRGBO(76, 81, 97, 58)),
-                                  onPressed: () {
-                                    searchController.clear();
-                                    onSearch('');
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
+                          ],
                         ),
                       ),
-                      SingleChildScrollView(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.73,
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 10,
-                          ),
-                          child: Stack(
-                            children: [
-                              loading
-                                  ? Center(
-                                      child: CircularProgressIndicator(),
-                                    )
-                                  : _search.length != 0 ||
-                                          searchController.text.isNotEmpty
-                                      ? GridView.builder(
-                                          itemCount: _search.length,
-                                          padding: EdgeInsets.all(10),
-                                          gridDelegate:
-                                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent: 140,
-                                            mainAxisExtent: 282,
-                                            crossAxisSpacing: 15,
-                                            mainAxisSpacing: 12,
-                                          ),
-                                          itemBuilder: (context, i) {
-                                            final book = _search[i];
-                                            return GestureDetector(
-                                              onTap: () {
-                                                showModalBottomSheet(
-                                                    isScrollControlled: true,
-                                                    enableDrag: false,
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return SafeArea(
-                                                        child: Container(
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
-                                                              0.964,
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                            horizontal: 30,
-                                                          ),
-                                                          child:
-                                                              SingleChildScrollView(
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceEvenly,
-                                                              children: [
-                                                                Container(
-                                                                  margin: EdgeInsets
-                                                                      .symmetric(
-                                                                          vertical:
-                                                                              30),
-                                                                  child: Row(
-                                                                    children: [
-                                                                      GestureDetector(
-                                                                        onTap: () =>
-                                                                            Navigator.pop(context),
-                                                                        child:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .chevron_left,
-                                                                          color: Color.fromRGBO(
-                                                                              200,
-                                                                              200,
-                                                                              200,
-                                                                              1),
-                                                                          size:
-                                                                              40,
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        margin: EdgeInsets.only(
-                                                                            left:
-                                                                                25),
-                                                                        child:
-                                                                            Text(
-                                                                          'Pinjam Buku',
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontFamily:
-                                                                                'Gilroy-ExtraBold',
-                                                                            fontSize:
-                                                                                20,
-                                                                            color: Color.fromRGBO(
-                                                                                76,
-                                                                                81,
-                                                                                97,
-                                                                                1),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Center(
-                                                                  child:
-                                                                      GestureDetector(
-                                                                    onTap: () {
-                                                                      showDialog(
-                                                                          context:
-                                                                              context,
-                                                                          builder:
-                                                                              (context) {
-                                                                            return Center(
-                                                                              child: Material(
-                                                                                type: MaterialType.transparency,
-                                                                                child: Image.network(
-                                                                                  Api.image + book.image,
-                                                                                ),
-                                                                              ),
-                                                                            );
-                                                                          });
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          167,
-                                                                      height:
-                                                                          226,
-                                                                      child: Image
-                                                                          .network(
-                                                                        Api.image +
-                                                                            book.image,
-                                                                        fit: BoxFit
-                                                                            .cover,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Center(
-                                                                  child:
-                                                                      Container(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.67,
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .height *
-                                                                        0.2,
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceEvenly,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Text(
-                                                                          book.nama_buku,
-                                                                          textAlign:
-                                                                              TextAlign.center,
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontFamily:
-                                                                                'Gilroy-ExtraBold',
-                                                                            fontSize:
-                                                                                32,
-                                                                            color:
-                                                                                Colors.black,
-                                                                          ),
-                                                                        ),
-                                                                        Text(
-                                                                          'Tahun terbit: ' +
-                                                                              book.tahun_terbit,
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontFamily:
-                                                                                'Gilroy-Light',
-                                                                            fontSize:
-                                                                                13,
-                                                                            color: Color.fromRGBO(
-                                                                                76,
-                                                                                81,
-                                                                                97,
-                                                                                1),
-                                                                          ),
-                                                                        ),
-                                                                        Text(
-                                                                          'Oleh: ' +
-                                                                              book.nama_penulis,
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontFamily:
-                                                                                'Gilroy-Light',
-                                                                            fontSize:
-                                                                                13,
-                                                                            color: Color.fromRGBO(
-                                                                                76,
-                                                                                81,
-                                                                                97,
-                                                                                1),
-                                                                          ),
-                                                                        ),
-                                                                        Container(
-                                                                          width:
-                                                                              MediaQuery.of(context).size.width * 0.12,
-                                                                          height:
-                                                                              MediaQuery.of(context).size.height * 0.018,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(4),
-                                                                            color: book.jumlah_buku != '0'
-                                                                                ? Color.fromRGBO(119, 115, 205, 1)
-                                                                                : Color.fromRGBO(217, 217, 217, 1),
-                                                                          ),
-                                                                          child:
-                                                                              Center(
-                                                                            child:
-                                                                                Text(
-                                                                              book.jumlah_buku != '0' ? 'Tersedia : ' + book.jumlah_buku.toString() : 'Habis',
-                                                                              style: TextStyle(
-                                                                                fontFamily: 'Gilroy-Light',
-                                                                                fontSize: 10,
-                                                                                color: book.jumlah_buku != '0' ? Colors.white : Colors.black,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Center(
-                                                                  child:
-                                                                      Container(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.8,
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .height *
-                                                                        0.24,
-                                                                    child:
-                                                                        SingleChildScrollView(
-                                                                      child:
-                                                                          Text(
-                                                                        book.rincian_buku,
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontFamily:
-                                                                              'Gilroy-Light',
-                                                                          fontSize:
-                                                                              12,
-                                                                          color: Color.fromRGBO(
-                                                                              76,
-                                                                              81,
-                                                                              97,
-                                                                              1),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Divider(
-                                                                  color: Color
-                                                                      .fromRGBO(
-                                                                          0,
-                                                                          0,
-                                                                          0,
-                                                                          0.22),
-                                                                ),
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      0.9,
-                                                                  height: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .height *
-                                                                      0.045,
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Text(
-                                                                        'Mulai       : ',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontFamily:
-                                                                              'Gilroy-Light',
-                                                                          fontSize:
-                                                                              16,
-                                                                          color:
-                                                                              Colors.black,
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        width: MediaQuery.of(context).size.width *
-                                                                            0.65,
-                                                                        margin: EdgeInsets.only(
-                                                                            left:
-                                                                                15),
-                                                                        child:
-                                                                            DateTimePicker(
-                                                                          type:
-                                                                              DateTimePickerType.dateTimeSeparate,
-                                                                          dateMask:
-                                                                              'd MMMM yyyy',
-                                                                          initialValue:
-                                                                              DateTime.now().toString(),
-                                                                          firstDate:
-                                                                              DateTime.now(),
-                                                                          lastDate:
-                                                                              DateTime(DateTime.now().year + 1),
-                                                                          selectableDayPredicate:
-                                                                              (date) {
-                                                                            if (date.weekday == 6 ||
-                                                                                date.weekday == 7) {
-                                                                              return false;
-                                                                            }
-
-                                                                            return true;
-                                                                          },
-                                                                          onChanged: (val) =>
-                                                                              setState(() {
-                                                                            start =
-                                                                                val;
-                                                                          }),
-                                                                          validator:
-                                                                              (val) {
-                                                                            return null;
-                                                                          },
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      0.9,
-                                                                  height: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .height *
-                                                                      0.045,
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Text(
-                                                                        'Berakhir  : ',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontFamily:
-                                                                              'Gilroy-Light',
-                                                                          fontSize:
-                                                                              16,
-                                                                          color:
-                                                                              Colors.black,
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        width: MediaQuery.of(context).size.width *
-                                                                            0.65,
-                                                                        margin: EdgeInsets.only(
-                                                                            left:
-                                                                                15),
-                                                                        child:
-                                                                            DateTimePicker(
-                                                                          type:
-                                                                              DateTimePickerType.dateTimeSeparate,
-                                                                          dateMask:
-                                                                              'd MMMM yyyy',
-                                                                          initialValue:
-                                                                              DateTime.now().toString(),
-                                                                          firstDate:
-                                                                              DateTime.now(),
-                                                                          lastDate:
-                                                                              DateTime(DateTime.now().year + 1),
-                                                                          selectableDayPredicate:
-                                                                              (date) {
-                                                                            if (date.weekday == 6 ||
-                                                                                date.weekday == 7) {
-                                                                              return false;
-                                                                            }
-
-                                                                            return true;
-                                                                          },
-                                                                          onChanged: (val) =>
-                                                                              setState(() {
-                                                                            end =
-                                                                                val;
-                                                                          }),
-                                                                          validator:
-                                                                              (val) {
-                                                                            return null;
-                                                                          },
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      0.9,
-                                                                  height: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .height *
-                                                                      0.033,
-                                                                  margin: EdgeInsets
-                                                                      .only(
-                                                                          top:
-                                                                              20),
-                                                                  child: Row(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Text(
-                                                                        'Jumlah Buku : ',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontFamily:
-                                                                              'Gilroy-Light',
-                                                                          fontSize:
-                                                                              16,
-                                                                          color:
-                                                                              Colors.black,
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        width: MediaQuery.of(context).size.width *
-                                                                            0.17,
-                                                                        height: MediaQuery.of(context).size.height *
-                                                                            0.026,
-                                                                        margin: EdgeInsets.only(
-                                                                            left:
-                                                                                20),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceAround,
-                                                                          children: [
-                                                                            GestureDetector(
-                                                                              onTap: () => setState(() {
-                                                                                jumlahBuku != 1 ? jumlahBuku : null;
-                                                                              }),
-                                                                              child: Container(
-                                                                                width: MediaQuery.of(context).size.width * 0.052,
-                                                                                height: MediaQuery.of(context).size.height * 0.0240,
-                                                                                decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.circular(180),
-                                                                                  border: Border.all(
-                                                                                    width: 1,
-                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
-                                                                                  ),
-                                                                                ),
-                                                                                child: Center(
-                                                                                  child: Icon(
-                                                                                    Icons.remove,
-                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                            Text(
-                                                                              jumlahBuku.toString(),
-                                                                              style: TextStyle(
-                                                                                fontFamily: 'Gilroy-Light',
-                                                                                fontSize: 16,
-                                                                                color: Colors.black,
-                                                                              ),
-                                                                            ),
-                                                                            GestureDetector(
-                                                                              onTap: () => setState(() {
-                                                                                jumlahBuku++;
-                                                                              }),
-                                                                              child: Container(
-                                                                                width: MediaQuery.of(context).size.width * 0.052,
-                                                                                height: MediaQuery.of(context).size.height * 0.0240,
-                                                                                decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.circular(180),
-                                                                                  border: Border.all(
-                                                                                    width: 1,
-                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
-                                                                                  ),
-                                                                                ),
-                                                                                child: Center(
-                                                                                  child: Icon(
-                                                                                    Icons.add,
-                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      0.9,
-                                                                  height: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .height *
-                                                                      0.04,
-                                                                  margin: EdgeInsets
-                                                                      .only(
-                                                                          top:
-                                                                              40),
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      GestureDetector(
-                                                                        onTap: () =>
-                                                                            Navigator.pop(context),
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              MediaQuery.of(context).size.width * 0.38,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(10),
-                                                                            color: Color.fromRGBO(
-                                                                                217,
-                                                                                217,
-                                                                                217,
-                                                                                1),
-                                                                          ),
-                                                                          child:
-                                                                              Center(
-                                                                            child:
-                                                                                Text(
-                                                                              'Batal',
-                                                                              style: TextStyle(
-                                                                                fontFamily: 'Gilroy-Light',
-                                                                                fontSize: 18,
-                                                                                color: Colors.black,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      GestureDetector(
-                                                                        onTap: () =>
-                                                                            print('clicked'),
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              MediaQuery.of(context).size.width * 0.38,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(10),
-                                                                            color:
-                                                                                Colors.black,
-                                                                          ),
-                                                                          child:
-                                                                              Center(
-                                                                            child:
-                                                                                Text(
-                                                                              'Pinjam Buku',
-                                                                              style: TextStyle(
-                                                                                fontFamily: 'Gilroy-Light',
-                                                                                fontSize: 18,
-                                                                                color: Colors.white,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    });
-                                              },
-                                              child: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: 8,
-                                                  vertical: 8,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(7),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.3),
-                                                      spreadRadius: 0,
-                                                      blurRadius: 1.5,
-                                                      offset: Offset(0, 0),
-                                                    )
-                                                  ],
-                                                ),
-                                                child: Stack(
-                                                  children: [
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Container(
-                                                          width: 119,
-                                                          height: 161,
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5)),
-                                                          child: Image.network(
-                                                            Api.image +
-                                                                book.image,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          height: 100,
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: [
-                                                              Align(
-                                                                alignment:
-                                                                    Alignment(
-                                                                        -1.0,
-                                                                        0.0),
-                                                                child: Text(
-                                                                  book.nama_buku,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-ExtraBold',
-                                                                    fontSize:
-                                                                        13,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Align(
-                                                                alignment:
-                                                                    Alignment(
-                                                                        -1.0,
-                                                                        0.0),
-                                                                child: Text(
-                                                                  'Tahun terbit: ' +
-                                                                      book.tahun_terbit,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-Light',
-                                                                    fontSize:
-                                                                        10,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Align(
-                                                                alignment:
-                                                                    Alignment(
-                                                                        -1.0,
-                                                                        0.0),
-                                                                child: Text(
-                                                                  'Oleh: ' +
-                                                                      book.nama_penulis,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-Light',
-                                                                    fontSize:
-                                                                        10,
-                                                                  ),
-                                                                  maxLines: 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                ),
-                                                              ),
-                                                              Align(
-                                                                alignment:
-                                                                    Alignment(
-                                                                        -1.0,
-                                                                        0.0),
-                                                                child: Text(
-                                                                  'Kategori: ' +
-                                                                      book.kategori_buku,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-Light',
-                                                                    fontSize:
-                                                                        10,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                height: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .height *
-                                                                    0.014,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: book.jumlah_buku !=
-                                                                          '0'
-                                                                      ? Color.fromRGBO(
-                                                                          115,
-                                                                          119,
-                                                                          205,
-                                                                          1)
-                                                                      : Color.fromRGBO(
-                                                                          217,
-                                                                          217,
-                                                                          217,
-                                                                          1),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              4),
-                                                                ),
-                                                                child: Center(
-                                                                  child: Text(
-                                                                    book.jumlah_buku !=
-                                                                            '0'
-                                                                        ? 'Tersedia : ' +
-                                                                            book.jumlah_buku
-                                                                        : 'Habis',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Gilroy-Light',
-                                                                      fontSize:
-                                                                          10,
-                                                                      color: book.jumlah_buku !=
-                                                                              '0'
-                                                                          ? Colors
-                                                                              .white
-                                                                          : Colors
-                                                                              .black,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Align(
-                                                      alignment: Alignment(
-                                                          -0.9, -0.93),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          print('edit click');
-                                                        },
-                                                        child: Container(
-                                                          width: 24,
-                                                          height: 24,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        180),
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    255,
-                                                                    255,
-                                                                    255,
-                                                                    0.78),
-                                                          ),
-                                                          child: Center(
-                                                            child: Icon(
-                                                              Icons.edit,
-                                                              size: 17,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      1),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment(0.9, -0.93),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          print('delete click');
-                                                        },
-                                                        child: Container(
-                                                          width: 24,
-                                                          height: 24,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        180),
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    255,
-                                                                    255,
-                                                                    255,
-                                                                    0.78),
-                                                          ),
-                                                          child: Center(
-                                                            child: Icon(
-                                                              Icons.delete,
-                                                              size: 17,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      1),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            );
-                                          })
-                                      : GridView.builder(
-                                          itemCount: _books.length,
-                                          padding: EdgeInsets.all(10),
-                                          gridDelegate:
-                                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent: 140,
-                                            mainAxisExtent: 282,
-                                            crossAxisSpacing: 15,
-                                            mainAxisSpacing: 12,
-                                          ),
-                                          itemBuilder: (context, i) {
-                                            final book = _books[i];
-                                            return GestureDetector(
-                                              onTap: () {
-                                                showModalBottomSheet(
-                                                    isScrollControlled: true,
-                                                    enableDrag: false,
-                                                    context: context,
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return SafeArea(
-                                                        child: Container(
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
-                                                              0.964,
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                            horizontal: 30,
-                                                          ),
-                                                          child:
-                                                              SingleChildScrollView(
-                                                            child: Column(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceEvenly,
-                                                              children: [
-                                                                Container(
-                                                                  margin: EdgeInsets
-                                                                      .symmetric(
-                                                                          vertical:
-                                                                              30),
-                                                                  child: Row(
-                                                                    children: [
-                                                                      GestureDetector(
-                                                                        onTap: () =>
-                                                                            Navigator.pop(context),
-                                                                        child:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .chevron_left,
-                                                                          color: Color.fromRGBO(
-                                                                              200,
-                                                                              200,
-                                                                              200,
-                                                                              1),
-                                                                          size:
-                                                                              40,
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        margin: EdgeInsets.only(
-                                                                            left:
-                                                                                25),
-                                                                        child:
-                                                                            Text(
-                                                                          'Pinjam Buku',
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontFamily:
-                                                                                'Gilroy-ExtraBold',
-                                                                            fontSize:
-                                                                                20,
-                                                                            color: Color.fromRGBO(
-                                                                                76,
-                                                                                81,
-                                                                                97,
-                                                                                1),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Center(
-                                                                  child:
-                                                                      GestureDetector(
-                                                                    onTap: () {
-                                                                      showDialog(
-                                                                          context:
-                                                                              context,
-                                                                          builder:
-                                                                              (context) {
-                                                                            return Center(
-                                                                              child: Material(
-                                                                                type: MaterialType.transparency,
-                                                                                child: Image.network(
-                                                                                  Api.image + book.image,
-                                                                                ),
-                                                                              ),
-                                                                            );
-                                                                          });
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          167,
-                                                                      height:
-                                                                          226,
-                                                                      child: Image
-                                                                          .network(
-                                                                        Api.image +
-                                                                            book.image,
-                                                                        fit: BoxFit
-                                                                            .cover,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Center(
-                                                                  child:
-                                                                      Container(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.67,
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .height *
-                                                                        0.2,
-                                                                    child:
-                                                                        Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceEvenly,
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .center,
-                                                                      children: [
-                                                                        Text(
-                                                                          book.nama_buku,
-                                                                          textAlign:
-                                                                              TextAlign.center,
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontFamily:
-                                                                                'Gilroy-ExtraBold',
-                                                                            fontSize:
-                                                                                32,
-                                                                            color:
-                                                                                Colors.black,
-                                                                          ),
-                                                                        ),
-                                                                        Text(
-                                                                          'Tahun terbit: ' +
-                                                                              book.tahun_terbit,
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontFamily:
-                                                                                'Gilroy-Light',
-                                                                            fontSize:
-                                                                                13,
-                                                                            color: Color.fromRGBO(
-                                                                                76,
-                                                                                81,
-                                                                                97,
-                                                                                1),
-                                                                          ),
-                                                                        ),
-                                                                        Text(
-                                                                          'Oleh: ' +
-                                                                              book.nama_penulis,
-                                                                          style:
-                                                                              TextStyle(
-                                                                            fontFamily:
-                                                                                'Gilroy-Light',
-                                                                            fontSize:
-                                                                                13,
-                                                                            color: Color.fromRGBO(
-                                                                                76,
-                                                                                81,
-                                                                                97,
-                                                                                1),
-                                                                          ),
-                                                                        ),
-                                                                        Container(
-                                                                          width:
-                                                                              MediaQuery.of(context).size.width * 0.12,
-                                                                          height:
-                                                                              MediaQuery.of(context).size.height * 0.018,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(4),
-                                                                            color: book.jumlah_buku != '0'
-                                                                                ? Color.fromRGBO(119, 115, 205, 1)
-                                                                                : Color.fromRGBO(217, 217, 217, 1),
-                                                                          ),
-                                                                          child:
-                                                                              Center(
-                                                                            child:
-                                                                                Text(
-                                                                              book.jumlah_buku != '0' ? 'Tersedia : ' + book.jumlah_buku.toString() : 'Habis',
-                                                                              style: TextStyle(
-                                                                                fontFamily: 'Gilroy-Light',
-                                                                                fontSize: 10,
-                                                                                color: book.jumlah_buku != '0' ? Colors.white : Colors.black,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Center(
-                                                                  child:
-                                                                      Container(
-                                                                    width: MediaQuery.of(context)
-                                                                            .size
-                                                                            .width *
-                                                                        0.8,
-                                                                    height: MediaQuery.of(context)
-                                                                            .size
-                                                                            .height *
-                                                                        0.24,
-                                                                    child:
-                                                                        SingleChildScrollView(
-                                                                      child:
-                                                                          Text(
-                                                                        book.rincian_buku,
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontFamily:
-                                                                              'Gilroy-Light',
-                                                                          fontSize:
-                                                                              12,
-                                                                          color: Color.fromRGBO(
-                                                                              76,
-                                                                              81,
-                                                                              97,
-                                                                              1),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Divider(
-                                                                  color: Color
-                                                                      .fromRGBO(
-                                                                          0,
-                                                                          0,
-                                                                          0,
-                                                                          0.22),
-                                                                ),
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      0.9,
-                                                                  height: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .height *
-                                                                      0.045,
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Text(
-                                                                        'Mulai       : ',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontFamily:
-                                                                              'Gilroy-Light',
-                                                                          fontSize:
-                                                                              16,
-                                                                          color:
-                                                                              Colors.black,
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        width: MediaQuery.of(context).size.width *
-                                                                            0.65,
-                                                                        margin: EdgeInsets.only(
-                                                                            left:
-                                                                                15),
-                                                                        child:
-                                                                            DateTimePicker(
-                                                                          type:
-                                                                              DateTimePickerType.dateTimeSeparate,
-                                                                          dateMask:
-                                                                              'd MMMM yyyy',
-                                                                          initialValue:
-                                                                              DateTime.now().toString(),
-                                                                          firstDate:
-                                                                              DateTime.now(),
-                                                                          lastDate:
-                                                                              DateTime(DateTime.now().year + 1),
-                                                                          selectableDayPredicate:
-                                                                              (date) {
-                                                                            if (date.weekday == 6 ||
-                                                                                date.weekday == 7) {
-                                                                              return false;
-                                                                            }
-
-                                                                            return true;
-                                                                          },
-                                                                          onChanged: (val) =>
-                                                                              setState(() {
-                                                                            start =
-                                                                                val;
-                                                                          }),
-                                                                          validator:
-                                                                              (val) {
-                                                                            return null;
-                                                                          },
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      0.9,
-                                                                  height: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .height *
-                                                                      0.045,
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Text(
-                                                                        'Berakhir  : ',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontFamily:
-                                                                              'Gilroy-Light',
-                                                                          fontSize:
-                                                                              16,
-                                                                          color:
-                                                                              Colors.black,
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        width: MediaQuery.of(context).size.width *
-                                                                            0.65,
-                                                                        margin: EdgeInsets.only(
-                                                                            left:
-                                                                                15),
-                                                                        child:
-                                                                            DateTimePicker(
-                                                                          type:
-                                                                              DateTimePickerType.dateTimeSeparate,
-                                                                          dateMask:
-                                                                              'd MMMM yyyy',
-                                                                          initialValue:
-                                                                              DateTime.now().toString(),
-                                                                          firstDate:
-                                                                              DateTime.now(),
-                                                                          lastDate:
-                                                                              DateTime(DateTime.now().year + 1),
-                                                                          selectableDayPredicate:
-                                                                              (date) {
-                                                                            if (date.weekday == 6 ||
-                                                                                date.weekday == 7) {
-                                                                              return false;
-                                                                            }
-
-                                                                            return true;
-                                                                          },
-                                                                          onChanged: (val) =>
-                                                                              setState(() {
-                                                                            end =
-                                                                                val;
-                                                                          }),
-                                                                          validator:
-                                                                              (val) {
-                                                                            return null;
-                                                                          },
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      0.9,
-                                                                  height: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .height *
-                                                                      0.033,
-                                                                  margin: EdgeInsets
-                                                                      .only(
-                                                                          top:
-                                                                              20),
-                                                                  child: Row(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Text(
-                                                                        'Jumlah Buku : ',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          fontFamily:
-                                                                              'Gilroy-Light',
-                                                                          fontSize:
-                                                                              16,
-                                                                          color:
-                                                                              Colors.black,
-                                                                        ),
-                                                                      ),
-                                                                      Container(
-                                                                        width: MediaQuery.of(context).size.width *
-                                                                            0.17,
-                                                                        height: MediaQuery.of(context).size.height *
-                                                                            0.026,
-                                                                        margin: EdgeInsets.only(
-                                                                            left:
-                                                                                20),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceAround,
-                                                                          children: [
-                                                                            GestureDetector(
-                                                                              onTap: () => setState(() {
-                                                                                jumlahBuku != 1 ? jumlahBuku : null;
-                                                                              }),
-                                                                              child: Container(
-                                                                                width: MediaQuery.of(context).size.width * 0.052,
-                                                                                height: MediaQuery.of(context).size.height * 0.0240,
-                                                                                decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.circular(180),
-                                                                                  border: Border.all(
-                                                                                    width: 1,
-                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
-                                                                                  ),
-                                                                                ),
-                                                                                child: Center(
-                                                                                  child: Icon(
-                                                                                    Icons.remove,
-                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                            Text(
-                                                                              jumlahBuku.toString(),
-                                                                              style: TextStyle(
-                                                                                fontFamily: 'Gilroy-Light',
-                                                                                fontSize: 16,
-                                                                                color: Colors.black,
-                                                                              ),
-                                                                            ),
-                                                                            GestureDetector(
-                                                                              onTap: () => setState(() {
-                                                                                jumlahBuku++;
-                                                                              }),
-                                                                              child: Container(
-                                                                                width: MediaQuery.of(context).size.width * 0.052,
-                                                                                height: MediaQuery.of(context).size.height * 0.0240,
-                                                                                decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.circular(180),
-                                                                                  border: Border.all(
-                                                                                    width: 1,
-                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
-                                                                                  ),
-                                                                                ),
-                                                                                child: Center(
-                                                                                  child: Icon(
-                                                                                    Icons.add,
-                                                                                    color: Color.fromRGBO(119, 115, 205, 1),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width *
-                                                                      0.9,
-                                                                  height: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .height *
-                                                                      0.04,
-                                                                  margin: EdgeInsets
-                                                                      .only(
-                                                                          top:
-                                                                              40),
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      GestureDetector(
-                                                                        onTap: () =>
-                                                                            Navigator.pop(context),
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              MediaQuery.of(context).size.width * 0.38,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(10),
-                                                                            color: Color.fromRGBO(
-                                                                                217,
-                                                                                217,
-                                                                                217,
-                                                                                1),
-                                                                          ),
-                                                                          child:
-                                                                              Center(
-                                                                            child:
-                                                                                Text(
-                                                                              'Batal',
-                                                                              style: TextStyle(
-                                                                                fontFamily: 'Gilroy-Light',
-                                                                                fontSize: 18,
-                                                                                color: Colors.black,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      GestureDetector(
-                                                                        onTap: () =>
-                                                                            print('clicked'),
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              MediaQuery.of(context).size.width * 0.38,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(10),
-                                                                            color:
-                                                                                Colors.black,
-                                                                          ),
-                                                                          child:
-                                                                              Center(
-                                                                            child:
-                                                                                Text(
-                                                                              'Pinjam Buku',
-                                                                              style: TextStyle(
-                                                                                fontFamily: 'Gilroy-Light',
-                                                                                fontSize: 18,
-                                                                                color: Colors.white,
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      );
-                                                    });
-                                              },
-                                              child: Container(
-                                                padding: EdgeInsets.symmetric(
-                                                  horizontal: 8,
-                                                  vertical: 8,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(7),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.black
-                                                          .withOpacity(0.3),
-                                                      spreadRadius: 0,
-                                                      blurRadius: 1.5,
-                                                      offset: Offset(0, 0),
-                                                    )
-                                                  ],
-                                                ),
-                                                child: Stack(
-                                                  children: [
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Container(
-                                                          width: 119,
-                                                          height: 161,
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5)),
-                                                          child: Image.network(
-                                                            Api.image +
-                                                                book.image,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          height: 100,
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: [
-                                                              Align(
-                                                                alignment:
-                                                                    Alignment(
-                                                                        -1.0,
-                                                                        0.0),
-                                                                child: Text(
-                                                                  book.nama_buku,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-ExtraBold',
-                                                                    fontSize:
-                                                                        13,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Align(
-                                                                alignment:
-                                                                    Alignment(
-                                                                        -1.0,
-                                                                        0.0),
-                                                                child: Text(
-                                                                  'Tahun terbit: ' +
-                                                                      book.tahun_terbit,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-Light',
-                                                                    fontSize:
-                                                                        10,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Align(
-                                                                alignment:
-                                                                    Alignment(
-                                                                        -1.0,
-                                                                        0.0),
-                                                                child: Text(
-                                                                  'Oleh: ' +
-                                                                      book.nama_penulis,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-Light',
-                                                                    fontSize:
-                                                                        10,
-                                                                  ),
-                                                                  maxLines: 1,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                ),
-                                                              ),
-                                                              Align(
-                                                                alignment:
-                                                                    Alignment(
-                                                                        -1.0,
-                                                                        0.0),
-                                                                child: Text(
-                                                                  'Kategori: ' +
-                                                                      book.kategori_buku,
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-Light',
-                                                                    fontSize:
-                                                                        10,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                height: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .height *
-                                                                    0.014,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: book.jumlah_buku !=
-                                                                          '0'
-                                                                      ? Color.fromRGBO(
-                                                                          115,
-                                                                          119,
-                                                                          205,
-                                                                          1)
-                                                                      : Color.fromRGBO(
-                                                                          217,
-                                                                          217,
-                                                                          217,
-                                                                          1),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              4),
-                                                                ),
-                                                                child: Center(
-                                                                  child: Text(
-                                                                    book.jumlah_buku !=
-                                                                            '0'
-                                                                        ? 'Tersedia : ' +
-                                                                            book.jumlah_buku
-                                                                        : 'Habis',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Gilroy-Light',
-                                                                      fontSize:
-                                                                          10,
-                                                                      color: book.jumlah_buku !=
-                                                                              '0'
-                                                                          ? Colors
-                                                                              .white
-                                                                          : Colors
-                                                                              .black,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Align(
-                                                      alignment: Alignment(
-                                                          -0.9, -0.93),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          print('edit click');
-                                                        },
-                                                        child: Container(
-                                                          width: 24,
-                                                          height: 24,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        180),
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    255,
-                                                                    255,
-                                                                    255,
-                                                                    0.78),
-                                                          ),
-                                                          child: Center(
-                                                            child: Icon(
-                                                              Icons.edit,
-                                                              size: 17,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      1),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment(0.9, -0.93),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          print('delete click');
-                                                        },
-                                                        child: Container(
-                                                          width: 24,
-                                                          height: 24,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        180),
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    255,
-                                                                    255,
-                                                                    255,
-                                                                    0.78),
-                                                          ),
-                                                          child: Center(
-                                                            child: Icon(
-                                                              Icons.delete,
-                                                              size: 17,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      1),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            );
-                                          }),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                    ),
             ],
           ),
         ),

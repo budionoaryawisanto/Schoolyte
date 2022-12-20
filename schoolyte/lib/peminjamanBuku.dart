@@ -152,6 +152,100 @@ class _PeminjamanBukuState extends State<PeminjamanBuku> {
     });
   }
 
+  konfirmasi() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Container(
+              height: 357,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 177,
+                    height: 177,
+                    child: Image.asset(
+                      'assets/images/alertDialog.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Text(
+                    'Kamu Yakin ?',
+                    style: TextStyle(
+                      fontFamily: 'Gilroy-ExtraBold',
+                      fontSize: 32,
+                    ),
+                  ),
+                  Container(
+                    width: 253,
+                    height: 43,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 107,
+                            height: 43,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                width: 1,
+                                color: Color.fromRGBO(119, 115, 205, 1),
+                              ),
+                              color: Colors.white,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Tidak',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: Container(
+                            width: 107,
+                            height: 43,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color.fromRGBO(242, 78, 26, 1),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Ya',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 20,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   var status = ['Telah Dikembalikan', 'Telat', 'Kehilangan'];
   var dropdownvalue = 'Telah Dikembalikan';
   var tglDikembalikan;
@@ -421,8 +515,7 @@ class _PeminjamanBukuState extends State<PeminjamanBuku> {
                                                         children: [
                                                           GestureDetector(
                                                             onTap: () {
-                                                              print(
-                                                                  'close click');
+                                                              konfirmasi();
                                                             },
                                                             child: Container(
                                                               width: 26,
@@ -768,8 +861,7 @@ class _PeminjamanBukuState extends State<PeminjamanBuku> {
                                                         children: [
                                                           GestureDetector(
                                                             onTap: () {
-                                                              print(
-                                                                  'close clicked');
+                                                              konfirmasi();
                                                             },
                                                             child: Container(
                                                               width: 26,
@@ -4923,7 +5015,7 @@ class _PeminjamanBukuState extends State<PeminjamanBuku> {
                     ],
                   ),
                 ),
-              ),                    
+              ),
             ],
           ),
         ),
