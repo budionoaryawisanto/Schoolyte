@@ -1681,7 +1681,7 @@ class _HomePageState extends State<HomePage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  HomePage()));
+                                                      AdministrasiPage()));
                                     },
                                     child: Container(
                                           width: 70,
@@ -1703,7 +1703,7 @@ class _HomePageState extends State<HomePage> {
                                             ),
                                           ),
                                               Text(
-                                                'Pembayaran SPP',
+                                                'Administrasi Keuangan',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontFamily: 'Gilroy-Light',

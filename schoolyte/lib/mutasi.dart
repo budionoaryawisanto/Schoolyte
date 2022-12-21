@@ -7,7 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:schoolyte/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'model.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:open_file/open_file.dart';
 
 class MutasiPage extends StatefulWidget {
   Test profil;
@@ -49,14 +50,24 @@ class _MutasiPageState extends State<MutasiPage> {
     fetchData();
   }
 
-  File? image;
-  Future getImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? imagePicked =
-        await _picker.pickImage(source: ImageSource.gallery);
+  FilePickerResult? result;
+  PlatformFile? file;
 
-    image = File(imagePicked!.path);
+  Future getFile() async {
+    result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf', 'doc', 'docx'],
+    );
+    if (result != null) {
+      file = result!.files.first;
+    } else {
+      // User canceled the picker
+    }
     setState(() {});
+  }
+
+  void openFile(file) {
+    OpenFile.open(file);
   }
 
   Future sendData() async {
@@ -65,7 +76,7 @@ class _MutasiPageState extends State<MutasiPage> {
     });
     if (ortuController.text.isEmpty ||
         tujuanController.text.isEmpty ||
-        image == null) {
+        file == null) {
       setState(() {
         loading = false;
       });
@@ -663,20 +674,10 @@ class _MutasiPageState extends State<MutasiPage> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              image != null
+                              file != null
                                   ? GestureDetector(
                                       onTap: () {
-                                        showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return Center(
-                                                child: Material(
-                                                  type:
-                                                      MaterialType.transparency,
-                                                  child: new Image.file(image!),
-                                                ),
-                                              );
-                                            });
+                                        openFile(file!.path);
                                       },
                                       child: Container(
                                         width: 135,
@@ -697,7 +698,7 @@ class _MutasiPageState extends State<MutasiPage> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            'Lihat Foto',
+                                            'Lihat File',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
                                               fontSize: 16,
@@ -709,8 +710,8 @@ class _MutasiPageState extends State<MutasiPage> {
                                       ),
                                     )
                                   : GestureDetector(
-                                      onTap: () async {
-                                        await getImage();
+                                      onTap: () {
+                                        getFile();
                                       },
                                       child: Container(
                                         width: 135,
@@ -743,10 +744,10 @@ class _MutasiPageState extends State<MutasiPage> {
                                       ),
                                     ),
                               Visibility(
-                                visible: image != null ? true : false,
+                                visible: file != null ? true : false,
                                 child: GestureDetector(
                                   onTap: () => setState(() {
-                                    image = null;
+                                    file = null;
                                   }),
                                   child: Container(
                                     child: Icon(

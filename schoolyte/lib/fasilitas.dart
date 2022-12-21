@@ -1419,7 +1419,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.82,
+                              width: MediaQuery.of(context).size.width * 0.72,
                               height: 46,
                               child: Form(
                                 child: TextFormField(

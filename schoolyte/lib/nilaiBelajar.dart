@@ -590,564 +590,1236 @@ class _NilaiBelajarState extends State<NilaiBelajarPage> {
                     height: MediaQuery.of(context).size.height * 0.61,
                     child: TabBarView(
                       children: [
-                        loading
-                            ? Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : GridView.builder(
-                                itemCount: mapel.length,
-                                padding: EdgeInsets.all(10),
-                                gridDelegate:
-                                    SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 462,
-                                  mainAxisExtent: 293,
-                                  mainAxisSpacing: 15,
-                                  crossAxisSpacing: 10,
+                        SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Align(
+                                alignment: Alignment(-0.9, 0.0),
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child: Text(
+                                    'Semester Ganjil',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-ExtraBold',
+                                      fontSize: 18,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
                                 ),
-                                itemBuilder: (context, i) {
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.2),
-                                          spreadRadius: 0,
-                                          blurRadius: 1.5,
-                                          offset: Offset(0, 0),
-                                        )
-                                      ],
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 47,
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 40,
-                                            vertical: 10,
-                                          ),
-                                          child: Text(
-                                            mapel[i],
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 20,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 0.25,
-                                                color: Color.fromRGBO(
-                                                    76, 81, 97, 0.37)),
-                                          ),
-                                        ),
-                                        Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 198,
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 40,
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text(
-                                                      'Tugas 1',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-light',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    child: Text(
-                                                      '88',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-ExtraBold',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text(
-                                                      'Tugas 2',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-light',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    child: Text(
-                                                      '88',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-ExtraBold',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text(
-                                                      'Tugas 3',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-light',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    child: Text(
-                                                      '88',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-ExtraBold',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text(
-                                                      'UTS',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-light',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    child: Text(
-                                                      '-',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-ExtraBold',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text(
-                                                      'UAS',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-light',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    child: Text(
-                                                      '-',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-ExtraBold',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 47,
-                                          padding: EdgeInsets.only(
-                                            left: 120,
-                                            right: 70,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(10),
-                                              bottomRight: Radius.circular(10),
-                                            ),
-                                            color: Color.fromRGBO(
-                                                243, 243, 243, 1),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Total (rata-rata)',
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Gilroy-ExtraBold',
-                                                  fontSize: 16,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                ),
-                                              ),
-                                              Text(
-                                                '88',
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Gilroy-ExtraBold',
-                                                  fontSize: 16,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
                               ),
-                        loading
-                            ? Center(
-                                child: CircularProgressIndicator(),
-                              )
-                            : GridView.builder(
-                                itemCount: mapel.length,
-                                padding: EdgeInsets.all(10),
-                                gridDelegate:
-                                    SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 462,
-                                  mainAxisExtent: 293,
-                                  mainAxisSpacing: 15,
-                                  crossAxisSpacing: 10,
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 335,
+                                margin: EdgeInsets.only(
+                                  bottom: 20,
                                 ),
-                                itemBuilder: (context, i) {
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black.withOpacity(0.2),
-                                          spreadRadius: 0,
-                                          blurRadius: 1.5,
-                                          offset: Offset(0, 0),
-                                        )
-                                      ],
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 47,
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 40,
-                                            vertical: 10,
-                                          ),
-                                          child: Text(
-                                            mapel[i],
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 20,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
+                                child: GridView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: mapel.length,
+                                  padding: EdgeInsets.all(10),
+                                  gridDelegate:
+                                      SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 330,
+                                    mainAxisExtent: 461,
+                                    mainAxisSpacing: 10,
+                                  ),
+                                  itemBuilder: (context, i) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.2),
+                                            spreadRadius: 0,
+                                            blurRadius: 1.5,
+                                            offset: Offset(0, 0),
+                                          )
+                                        ],
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width:
+                                                        MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 47,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 40,
+                                              vertical: 10,
                                             ),
-                                          ),
-                                        ),
-                                        Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(
-                                                width: 0.25,
+                                            child: Text(
+                                              mapel[i],
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-ExtraBold',
+                                                fontSize: 20,
                                                 color: Color.fromRGBO(
-                                                    76, 81, 97, 0.37)),
-                                          ),
-                                        ),
-                                        Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 198,
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: 40,
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text(
-                                                      'Tugas 1',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-light',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    child: Text(
-                                                      '88',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-ExtraBold',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
+                                                    76, 81, 97, 1),
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text(
-                                                      'Tugas 2',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-light',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    child: Text(
-                                                      '88',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-ExtraBold',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text(
-                                                      'Tugas 3',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-light',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    child: Text(
-                                                      '88',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-ExtraBold',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text(
-                                                      'UTS',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-light',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    child: Text(
-                                                      '-',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-ExtraBold',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Container(
-                                                    child: Text(
-                                                      'UAS',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-light',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    child: Text(
-                                                      '-',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Gilroy-ExtraBold',
-                                                        fontSize: 16,
-                                                        color: Color.fromRGBO(
-                                                            76, 81, 97, 1),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          width:
-                                              MediaQuery.of(context).size.width,
-                                          height: 47,
-                                          padding: EdgeInsets.only(
-                                            left: 120,
-                                            right: 70,
-                                          ),
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(10),
-                                              bottomRight: Radius.circular(10),
                                             ),
-                                            color: Color.fromRGBO(
-                                                243, 243, 243, 1),
                                           ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Total (rata-rata)',
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Gilroy-ExtraBold',
-                                                  fontSize: 16,
+                                          Container(
+                                            width:
+                                                        MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 0.25,
                                                   color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                ),
-                                              ),
-                                              Text(
-                                                '88',
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Gilroy-ExtraBold',
-                                                  fontSize: 16,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                ),
-                                              ),
-                                            ],
+                                                      76, 81, 97, 0.37)),
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
+                                          Container(
+                                            width:
+                                                        MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 198,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 40,
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'Tugas 1',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '88',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'Tugas 2',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '88',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'Tugas 3',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '88',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'UTS',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'UAS',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            width:
+                                                        MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 47,
+                                            padding: EdgeInsets.only(
+                                              left: 120,
+                                              right: 70,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(10),
+                                                bottomRight:
+                                                    Radius.circular(10),
+                                              ),
+                                              color: Color.fromRGBO(
+                                                  243, 243, 243, 1),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Total (rata-rata)',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 16,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '88',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 16,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
+                              Align(
+                                alignment: Alignment(-0.9, 0.0),
+                                child: Text(
+                                  'Semester Genap',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-ExtraBold',
+                                    fontSize: 18,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 335,
+                                margin: EdgeInsets.only(
+                                  bottom: 10,
+                                ),
+                                child: GridView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: mapel.length,
+                                  padding: EdgeInsets.all(10),
+                                  gridDelegate:
+                                      SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 330,
+                                    mainAxisExtent: 461,
+                                    mainAxisSpacing: 10,
+                                  ),
+                                  itemBuilder: (context, i) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.2),
+                                            spreadRadius: 0,
+                                            blurRadius: 1.5,
+                                            offset: Offset(0, 0),
+                                          )
+                                        ],
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width:
+                                                        MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 47,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 40,
+                                              vertical: 10,
+                                            ),
+                                            child: Text(
+                                              mapel[i],
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-ExtraBold',
+                                                fontSize: 20,
+                                                color: Color.fromRGBO(
+                                                    76, 81, 97, 1),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width:
+                                                        MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 0.25,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 0.37)),
+                                            ),
+                                          ),
+                                          Container(
+                                            width:
+                                                        MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 198,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 40,
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'Tugas 1',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '88',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'Tugas 2',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '88',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'Tugas 3',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '88',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'UTS',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'UAS',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 47,
+                                            padding: EdgeInsets.only(
+                                              left: 120,
+                                              right: 70,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(10),
+                                                bottomRight:
+                                                    Radius.circular(10),
+                                              ),
+                                              color: Color.fromRGBO(
+                                                  243, 243, 243, 1),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Total (rata-rata)',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 16,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '88',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 16,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Align(
+                                alignment: Alignment(-0.9, 0.0),
+                                child: Container(
+                                  margin: EdgeInsets.only(top: 20),
+                                  child: Text(
+                                    'Semester Ganjil',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-ExtraBold',
+                                      fontSize: 18,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 335,
+                                margin: EdgeInsets.only(
+                                  bottom: 20,
+                                ),
+                                child: GridView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: mapel.length,
+                                  padding: EdgeInsets.all(10),
+                                  gridDelegate:
+                                      SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 330,
+                                    mainAxisExtent: 461,
+                                    mainAxisSpacing: 10,
+                                  ),
+                                  itemBuilder: (context, i) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.2),
+                                            spreadRadius: 0,
+                                            blurRadius: 1.5,
+                                            offset: Offset(0, 0),
+                                          )
+                                        ],
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 47,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 40,
+                                              vertical: 10,
+                                            ),
+                                            child: Text(
+                                              mapel[i],
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-ExtraBold',
+                                                fontSize: 20,
+                                                color: Color.fromRGBO(
+                                                    76, 81, 97, 1),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 0.25,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 0.37)),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 198,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 40,
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'Tugas Keterampilan 1',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '88',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'Tugas Keterampilan 2',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '88',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'Tugas Keterampilan 3',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '88',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'UTS',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'UAS',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 47,
+                                            padding: EdgeInsets.only(
+                                              left: 120,
+                                              right: 70,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(10),
+                                                bottomRight:
+                                                    Radius.circular(10),
+                                              ),
+                                              color: Color.fromRGBO(
+                                                  243, 243, 243, 1),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Total (rata-rata)',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 16,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '88',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 16,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment(-0.9, 0.0),
+                                child: Text(
+                                  'Semester Genap',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-ExtraBold',
+                                    fontSize: 18,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 335,
+                                margin: EdgeInsets.only(
+                                  bottom: 10,
+                                ),
+                                child: GridView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: mapel.length,
+                                  padding: EdgeInsets.all(10),
+                                  gridDelegate:
+                                      SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 330,
+                                    mainAxisExtent: 461,
+                                    mainAxisSpacing: 10,
+                                  ),
+                                  itemBuilder: (context, i) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.2),
+                                            spreadRadius: 0,
+                                            blurRadius: 1.5,
+                                            offset: Offset(0, 0),
+                                          )
+                                        ],
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 47,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 40,
+                                              vertical: 10,
+                                            ),
+                                            child: Text(
+                                              mapel[i],
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-ExtraBold',
+                                                fontSize: 20,
+                                                color: Color.fromRGBO(
+                                                    76, 81, 97, 1),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 0.25,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 0.37)),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 198,
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: 40,
+                                            ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'Tugas Keterampilan 1',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '88',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'Tugas Keterampilan 2',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '88',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'Tugas Keterampilan 3',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '88',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'UTS',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Text(
+                                                        'UAS',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-light',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      child: Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            width:
+                                                        MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: 47,
+                                            padding: EdgeInsets.only(
+                                              left: 120,
+                                              right: 70,
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(10),
+                                                bottomRight:
+                                                    Radius.circular(10),
+                                              ),
+                                              color: Color.fromRGBO(
+                                                  243, 243, 243, 1),
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Total (rata-rata)',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 16,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '88',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 16,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
