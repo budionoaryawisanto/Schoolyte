@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:schoolyte/beritaAdmin.dart';
 import 'package:schoolyte/detailAbsensiAdminJabatan.dart';
 import 'package:schoolyte/nilaiBelajarAdmin.dart';
@@ -68,7 +69,10 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
       ),
     );
     // ignore: unnecessary_new
-    return new MaterialApp(
+    return ScreenUtilInit(
+      designSize: const Size(490, 980),
+      builder: (context, child) {
+        return new MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
@@ -80,7 +84,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                 'Absensi',
                 style: TextStyle(
                   fontFamily: 'Gilroy-ExtraBold',
-                  fontSize: 24,
+                      fontSize: 24.w,
                   color: Colors.white,
                 ),
               ),
@@ -91,7 +95,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
           ),
           drawer: Drawer(
             backgroundColor: Colors.white,
-            width: 257,
+                width: 257.w,
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
@@ -112,7 +116,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                     'Beranda',
                     style: TextStyle(
                       fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
@@ -137,7 +141,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       fontFamily: (akademikClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: (akademikClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
@@ -160,7 +164,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -182,7 +186,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -202,7 +206,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-ExtraBold',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -224,7 +228,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -251,7 +255,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       fontFamily: (peminjamanClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: (peminjamanClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
@@ -275,7 +279,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -297,7 +301,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -324,7 +328,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       fontFamily: (pembelianClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: (pembelianClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
@@ -348,7 +352,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -370,7 +374,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -391,7 +395,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                     'Berita',
                     style: TextStyle(
                       fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
@@ -414,7 +418,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                     'Administrasi',
                     style: TextStyle(
                       fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
@@ -441,7 +445,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       fontFamily: (kegiatanClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: (kegiatanClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
@@ -465,7 +469,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -485,7 +489,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -506,7 +510,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                     'Profil',
                     style: TextStyle(
                       fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
@@ -529,7 +533,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                             'Log Out',
                             style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
-                                fontSize: 14,
+                                    fontSize: 14.w,
                                 color: Color.fromRGBO(76, 81, 91, 1)),
                           ),
                           onTap: () {
@@ -549,16 +553,16 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width,
+                      width: 490.w,
                   child: new Image.asset(
                     'assets/images/infoabsen.png',
                     fit: BoxFit.fill,
                   ),
                 ),
                 Container(
-                  width: 212,
-                  height: 170,
-                  margin: EdgeInsets.only(top: 60),
+                      width: 212.w,
+                      height: 170.h,
+                      margin: EdgeInsets.only(top: 60.h),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -567,7 +571,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                         'Pilih Kategori',
                         style: TextStyle(
                           fontFamily: 'Gilroy-ExtraBold',
-                          fontSize: 24,
+                              fontSize: 24.w,
                           color: Color.fromRGBO(76, 81, 97, 1),
                         ),
                       ),
@@ -584,16 +588,16 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                                           DetailAbsensiAdminKelas()));
                             },
                             child: Container(
-                              width: 81,
-                              height: 95,
+                                  width: 81.w,
+                                  height: 95.h,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Container(
-                                    width: 70,
-                                    height: 70,
+                                        width: 70.w,
+                                        height: 70.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(6),
                                       boxShadow: [
@@ -609,7 +613,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                                     child: Center(
                                       child: Icon(
                                         Icons.face,
-                                        size: 40,
+                                            size: 40.w,
                                         color: Color.fromRGBO(119, 115, 205, 1),
                                       ),
                                     ),
@@ -618,7 +622,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                                     'Siswa',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
-                                      fontSize: 14,
+                                          fontSize: 14.w,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -635,16 +639,16 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                                           DetailAbsensiAdminJabatan()));
                             },
                             child: Container(
-                              width: 81,
-                              height: 95,
+                                  width: 81.w,
+                                  height: 95.h,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Container(
-                                    width: 70,
-                                    height: 70,
+                                        width: 70.w,
+                                        height: 70.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(6),
                                       boxShadow: [
@@ -660,7 +664,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                                     child: Center(
                                       child: Icon(
                                         Icons.support_agent,
-                                        size: 40,
+                                            size: 40.w,
                                         color: Color.fromRGBO(119, 115, 205, 1),
                                       ),
                                     ),
@@ -669,7 +673,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                                     'Guru',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
-                                      fontSize: 14,
+                                          fontSize: 14.w,
                                       color: Colors.black,
                                     ),
                                   ),
@@ -687,6 +691,9 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
           ),
         ),
       ),
+    );
+ 
+      },
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:schoolyte/ekstrakurikuler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:schoolyte/absensi.dart';
@@ -120,8 +121,10 @@ class _JadwalPageState extends State<JadwalPage> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
-
-    return new MaterialApp(
+    return ScreenUtilInit(
+      designSize: const Size(490, 980),
+      builder: (context, child) {
+        return new MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
         length: myTabs.length,
@@ -137,7 +140,7 @@ class _JadwalPageState extends State<JadwalPage> {
                   'Jadwal Kelas',
                   style: TextStyle(
                     fontFamily: 'Gilroy-ExtraBold',
-                    fontSize: 24,
+                        fontSize: 24.w,
                     color: Colors.black,
                   ),
                 ),
@@ -151,12 +154,12 @@ class _JadwalPageState extends State<JadwalPage> {
                 indicatorPadding: EdgeInsets.only(top: 0),
                 labelStyle: TextStyle(
                   fontFamily: 'Gilroy-ExtraBold',
-                  fontSize: 20,
+                      fontSize: 20.w,
                   color: Colors.black,
                 ),
                 unselectedLabelStyle: TextStyle(
                   fontFamily: 'Gilroy-Light',
-                  fontSize: 20,
+                      fontSize: 20.w,
                 ),
                 tabs: myTabs,
               ),
@@ -882,6 +885,9 @@ class _JadwalPageState extends State<JadwalPage> {
           ),
         ),
       ),
+    );
+  
+      },
     );
   }
 }

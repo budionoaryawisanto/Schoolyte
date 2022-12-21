@@ -23,6 +23,7 @@ import 'mutasi.dart';
 import 'postingBerita.dart';
 import 'beritaAdmin.dart';
 import 'absensiAdmin.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -117,11 +118,14 @@ class _HomePageState extends State<HomePage> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
-    return new MaterialApp(
+    return ScreenUtilInit(
+      designSize: const Size(490, 980),
+      builder: (context, child) {
+        return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
+              backgroundColor: Color.fromRGBO(243, 243, 243, 1),
           appBar: AppBar(
             elevation: 0,
             iconTheme: IconThemeData(color: Color.fromARGB(255, 66, 65, 65)),
@@ -145,7 +149,7 @@ class _HomePageState extends State<HomePage> {
           ),
           drawer: Drawer(
             backgroundColor: Colors.white,
-            width: 257,
+                width: 257.w,
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
@@ -166,7 +170,7 @@ class _HomePageState extends State<HomePage> {
                     'Beranda',
                     style: TextStyle(
                       fontFamily: 'Gilroy-ExtraBold',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
@@ -191,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                       fontFamily: (akademikClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: (akademikClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
@@ -214,7 +218,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -236,7 +240,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -256,7 +260,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -278,7 +282,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -305,7 +309,7 @@ class _HomePageState extends State<HomePage> {
                       fontFamily: (peminjamanClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: (peminjamanClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
@@ -329,7 +333,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -351,7 +355,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -378,7 +382,7 @@ class _HomePageState extends State<HomePage> {
                       fontFamily: (pembelianClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: (pembelianClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
@@ -402,7 +406,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -424,7 +428,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -445,7 +449,7 @@ class _HomePageState extends State<HomePage> {
                     'Berita',
                     style: TextStyle(
                       fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
@@ -468,7 +472,7 @@ class _HomePageState extends State<HomePage> {
                     'Administrasi',
                     style: TextStyle(
                       fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
@@ -495,7 +499,7 @@ class _HomePageState extends State<HomePage> {
                       fontFamily: (kegiatanClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: (kegiatanClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
@@ -519,7 +523,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -539,7 +543,7 @@ class _HomePageState extends State<HomePage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -560,7 +564,7 @@ class _HomePageState extends State<HomePage> {
                     'Profil',
                     style: TextStyle(
                       fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
@@ -583,7 +587,7 @@ class _HomePageState extends State<HomePage> {
                             'Log Out',
                             style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
-                                fontSize: 14,
+                                    fontSize: 14.w,
                                 color: Color.fromRGBO(76, 81, 91, 1)),
                           ),
                           onTap: () {
@@ -599,8 +603,8 @@ class _HomePageState extends State<HomePage> {
           ),
           body: loading
               ? Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+                      width: 490.w,
+                      height: 980.h,
                   color: Colors.white,
                   child: Center(
                     child: CircularProgressIndicator(
@@ -609,16 +613,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                 )
               : Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  color: Color.fromRGBO(243, 243, 243, 1),
+                      width: 490.w,
+                      height: 980.h,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 104,
-                          color: Colors.white,
+                              width: 490.w,
+                              height: 104.h,
                           child: ElevatedButton(
                             onPressed: () {
                               Navigator.push(
@@ -628,15 +630,15 @@ class _HomePageState extends State<HomePage> {
                             },
                             style: ElevatedButton.styleFrom(
                               elevation: 0,
-                              fixedSize: Size(490, 104),
+                                  fixedSize: Size(490.w, 104.h),
                               backgroundColor: Colors.white,
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
-                                  width: 55,
-                                  height: 55,
+                                      width: 55.w,
+                                      height: 55.h,
                                   margin: EdgeInsets.only(
                                     left: 7,
                                     right: 14,
@@ -650,12 +652,13 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  height: 59,
+                                      490.w * 0.7,
+                                      height: 68.h,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
                                     children: [
                                       Row(
                                         children: [
@@ -663,7 +666,7 @@ class _HomePageState extends State<HomePage> {
                                             'Selamat Datang',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
-                                              fontSize: 16,
+                                                  fontSize: 16.w,
                                               color:
                                                   Color.fromRGBO(76, 81, 97, 1),
                                             ),
@@ -680,7 +683,7 @@ class _HomePageState extends State<HomePage> {
                                           profil.name,
                                           style: TextStyle(
                                             fontFamily: 'Gilroy-ExtraBold',
-                                            fontSize: 22,
+                                                fontSize: 22.w,
                                             color: Colors.black,
                                           ),
                                         ),
@@ -700,8 +703,8 @@ class _HomePageState extends State<HomePage> {
                                     builder: (context) => PostingBerita()));
                           },
                           child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 236,
+                                width: 490.h,
+                                height: 225.h,
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: Center(
                               child: new Image.asset(
@@ -712,9 +715,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 355,
-                          decoration: BoxDecoration(
+                              width: 490.w,
+                              height: 355.h,
+                              decoration: BoxDecoration(
                             color: Colors.white,
                           ),
                           child: Column(
@@ -722,10 +725,9 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.07,
-                                decoration: BoxDecoration(
+                                    width: 490.w * 0.9,
+                                    height: 70.25.h,
+                                    decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
                                   boxShadow: [
                                     BoxShadow(
@@ -743,10 +745,9 @@ class _HomePageState extends State<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.24,
+                                          width: 103.w,
                                       height:
-                                          MediaQuery.of(context).size.height *
+                                          980.h *
                                               0.047,
                                       child: Column(
                                         crossAxisAlignment:
@@ -758,18 +759,20 @@ class _HomePageState extends State<HomePage> {
                                             'Saldo',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
+                                                  fontSize: 14.w,
                                               color:
                                                   Color.fromRGBO(76, 81, 97, 1),
                                             ),
                                           ),
                                           Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                             children: [
-                                              Container(
-                                                margin:
-                                                    EdgeInsets.only(right: 5),
+                                                  Container(
                                                 child: Icon(
                                                   Icons.wallet_outlined,
+                                                      size: 24.w,
                                                   color: Color.fromRGBO(
                                                       255, 199, 0, 1),
                                                 ),
@@ -779,7 +782,7 @@ class _HomePageState extends State<HomePage> {
                                                 style: TextStyle(
                                                   fontFamily:
                                                       'Gilroy-ExtraBold',
-                                                  fontSize: 16,
+                                                      fontSize: 16.w,
                                                   color: Color.fromRGBO(
                                                       76, 81, 97, 1),
                                                 ),
@@ -805,9 +808,9 @@ class _HomePageState extends State<HomePage> {
                                             context: context,
                                             builder: (context) {
                                               return Container(
-                                                height: 574,
+                                                    height: 574.h,
                                                 padding: EdgeInsets.symmetric(
-                                                  vertical: 20,
+                                                      vertical: 20.h,
                                                 ),
                                                 decoration: BoxDecoration(
                                                   borderRadius:
@@ -825,8 +828,8 @@ class _HomePageState extends State<HomePage> {
                                                       CrossAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: 66,
-                                                      height: 2,
+                                                          width: 66.w,
+                                                          height: 2.h,
                                                       decoration: BoxDecoration(
                                                         color: Color.fromRGBO(
                                                             0, 0, 0, 0.1),
@@ -838,12 +841,9 @@ class _HomePageState extends State<HomePage> {
                                                       ),
                                                     ),
                                                     Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
+                                                          width: 490.w *
                                                               0.9,
-                                                      height: 187,
+                                                          height: 187.h,
                                                       margin: EdgeInsets.only(
                                                           top: 25),
                                                       child: Column(
@@ -859,7 +859,8 @@ class _HomePageState extends State<HomePage> {
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   'Gilroy-ExtraBold',
-                                                              fontSize: 24,
+                                                                  fontSize:
+                                                                      24.w,
                                                               color: Color
                                                                   .fromRGBO(
                                                                       76,
@@ -882,7 +883,8 @@ class _HomePageState extends State<HomePage> {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Gilroy-ExtraBold',
-                                                                  fontSize: 16,
+                                                                      fontSize:
+                                                                          16.w,
                                                                   color: Color
                                                                       .fromRGBO(
                                                                           76,
@@ -892,8 +894,10 @@ class _HomePageState extends State<HomePage> {
                                                                 ),
                                                               ),
                                                               Container(
-                                                                width: 120,
-                                                                height: 20,
+                                                                    width:
+                                                                        120.w,
+                                                                    height:
+                                                                        20.h,
                                                                 child: Row(
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
@@ -905,7 +909,8 @@ class _HomePageState extends State<HomePage> {
                                                                     Icon(
                                                                       Icons
                                                                           .wallet,
-                                                                      size: 20,
+                                                                          size:
+                                                                              20.w,
                                                                       color: Color
                                                                           .fromRGBO(
                                                                               255,
@@ -920,7 +925,7 @@ class _HomePageState extends State<HomePage> {
                                                                         fontFamily:
                                                                             'Gilroy-ExtraBold',
                                                                         fontSize:
-                                                                            16,
+                                                                                16.w,
                                                                         color: Color.fromRGBO(
                                                                             76,
                                                                             81,
@@ -938,7 +943,8 @@ class _HomePageState extends State<HomePage> {
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   'Gilroy-Light',
-                                                              fontSize: 16,
+                                                                  fontSize:
+                                                                      16.w,
                                                               color: Color
                                                                   .fromRGBO(
                                                                       76,
@@ -948,12 +954,10 @@ class _HomePageState extends State<HomePage> {
                                                             ),
                                                           ),
                                                           Container(
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
+                                                                width:
+                                                                    490.w *
                                                                 0.9,
-                                                            height: 40,
+                                                                height: 40.h,
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Color
@@ -980,7 +984,8 @@ class _HomePageState extends State<HomePage> {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Gilroy-Light',
-                                                                  fontSize: 16,
+                                                                      fontSize:
+                                                                          16.w,
                                                                   color: Color
                                                                       .fromRGBO(
                                                                           76,
@@ -997,7 +1002,7 @@ class _HomePageState extends State<HomePage> {
                                                                     fontFamily:
                                                                         'Gilroy-Light',
                                                                     fontSize:
-                                                                        16,
+                                                                            16.w,
                                                                     color: Color
                                                                         .fromRGBO(
                                                                             76,
@@ -1020,8 +1025,8 @@ class _HomePageState extends State<HomePage> {
                                                       alignment:
                                                           Alignment(0.8, 0.0),
                                                       child: Container(
-                                                        width: 106,
-                                                        height: 30,
+                                                            width: 106.w,
+                                                            height: 30.h,
                                                         margin: EdgeInsets.only(
                                                             top: 100),
                                                         decoration:
@@ -1037,7 +1042,8 @@ class _HomePageState extends State<HomePage> {
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   'Gilroy-Light',
-                                                              fontSize: 16,
+                                                                  fontSize:
+                                                                      16.w,
                                                               color:
                                                                   Colors.white,
                                                             ),
@@ -1052,10 +1058,9 @@ class _HomePageState extends State<HomePage> {
                                       },
                                       child: Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                0.24,
+                                            490.w * 0.24.w,
                                         height:
-                                            MediaQuery.of(context).size.height *
+                                            980.h *
                                                 0.047,
                                         child: Column(
                                           crossAxisAlignment:
@@ -1067,13 +1072,13 @@ class _HomePageState extends State<HomePage> {
                                               Icons.add_box_rounded,
                                               color: Color.fromRGBO(
                                                   255, 199, 0, 1),
-                                              size: 21,
+                                                  size: 21.w,
                                             ),
                                             Text(
                                               'Top Up',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 16,
+                                                    fontSize: 16.w,
                                                 color: Color.fromRGBO(
                                                     76, 81, 97, 1),
                                               ),
@@ -1098,7 +1103,7 @@ class _HomePageState extends State<HomePage> {
                                             context: context,
                                             builder: (context) {
                                               return Container(
-                                                height: 574,
+                                                    height: 574.h,
                                                 padding: EdgeInsets.symmetric(
                                                   vertical: 20,
                                                 ),
@@ -1118,8 +1123,8 @@ class _HomePageState extends State<HomePage> {
                                                       CrossAxisAlignment.center,
                                                   children: [
                                                     Container(
-                                                      width: 66,
-                                                      height: 2,
+                                                          width: 66.w,
+                                                          height: 2.h,
                                                       decoration: BoxDecoration(
                                                         color: Color.fromRGBO(
                                                             0, 0, 0, 0.1),
@@ -1131,12 +1136,9 @@ class _HomePageState extends State<HomePage> {
                                                       ),
                                                     ),
                                                     Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
+                                                          width: 490.w *
                                                               0.9,
-                                                      height: 187,
+                                                          height: 187.h,
                                                       margin: EdgeInsets.only(
                                                           top: 25),
                                                       child: Column(
@@ -1152,7 +1154,8 @@ class _HomePageState extends State<HomePage> {
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   'Gilroy-ExtraBold',
-                                                              fontSize: 24,
+                                                                  fontSize:
+                                                                      24.w,
                                                               color: Color
                                                                   .fromRGBO(
                                                                       76,
@@ -1175,7 +1178,8 @@ class _HomePageState extends State<HomePage> {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Gilroy-ExtraBold',
-                                                                  fontSize: 16,
+                                                                      fontSize:
+                                                                          16.w,
                                                                   color: Color
                                                                       .fromRGBO(
                                                                           76,
@@ -1185,8 +1189,10 @@ class _HomePageState extends State<HomePage> {
                                                                 ),
                                                               ),
                                                               Container(
-                                                                width: 120,
-                                                                height: 20,
+                                                                    width:
+                                                                        120.w,
+                                                                    height:
+                                                                        20.h,
                                                                 child: Row(
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
@@ -1198,7 +1204,8 @@ class _HomePageState extends State<HomePage> {
                                                                     Icon(
                                                                       Icons
                                                                           .wallet,
-                                                                      size: 20,
+                                                                          size:
+                                                                              20.w,
                                                                       color: Color
                                                                           .fromRGBO(
                                                                               255,
@@ -1213,7 +1220,7 @@ class _HomePageState extends State<HomePage> {
                                                                         fontFamily:
                                                                             'Gilroy-ExtraBold',
                                                                         fontSize:
-                                                                            16,
+                                                                                16.w,
                                                                         color: Color.fromRGBO(
                                                                             76,
                                                                             81,
@@ -1231,7 +1238,8 @@ class _HomePageState extends State<HomePage> {
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   'Gilroy-Light',
-                                                              fontSize: 16,
+                                                                  fontSize:
+                                                                      16.w,
                                                               color: Color
                                                                   .fromRGBO(
                                                                       76,
@@ -1241,12 +1249,9 @@ class _HomePageState extends State<HomePage> {
                                                             ),
                                                           ),
                                                           Container(
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width *
-                                                                0.9,
-                                                            height: 40,
+                                                                width:
+                                                                    490.w * 0.9,
+                                                                height: 40.h,
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Color
@@ -1273,7 +1278,8 @@ class _HomePageState extends State<HomePage> {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Gilroy-Light',
-                                                                  fontSize: 16,
+                                                                      fontSize:
+                                                                          16.w,
                                                                   color: Color
                                                                       .fromRGBO(
                                                                           76,
@@ -1290,7 +1296,7 @@ class _HomePageState extends State<HomePage> {
                                                                     fontFamily:
                                                                         'Gilroy-Light',
                                                                     fontSize:
-                                                                        16,
+                                                                            16.w,
                                                                     color: Color
                                                                         .fromRGBO(
                                                                             76,
@@ -1313,8 +1319,8 @@ class _HomePageState extends State<HomePage> {
                                                       alignment:
                                                           Alignment(0.8, 0.0),
                                                       child: Container(
-                                                        width: 106,
-                                                        height: 30,
+                                                            width: 106.w,
+                                                            height: 30.h,
                                                         margin: EdgeInsets.only(
                                                             top: 100),
                                                         decoration:
@@ -1330,7 +1336,8 @@ class _HomePageState extends State<HomePage> {
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   'Gilroy-Light',
-                                                              fontSize: 16,
+                                                                  fontSize:
+                                                                      16.w,
                                                               color:
                                                                   Colors.white,
                                                             ),
@@ -1345,10 +1352,9 @@ class _HomePageState extends State<HomePage> {
                                       },
                                       child: Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                0.24,
+                                            490.w * 0.24.w,
                                         height:
-                                            MediaQuery.of(context).size.height *
+                                            980.h *
                                                 0.047,
                                         child: Column(
                                           crossAxisAlignment:
@@ -1360,13 +1366,13 @@ class _HomePageState extends State<HomePage> {
                                               Icons.ios_share_outlined,
                                               color: Color.fromRGBO(
                                                   255, 199, 0, 1),
-                                              size: 21,
+                                                  size: 21.w,
                                             ),
                                             Text(
                                               'Tarik',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 16,
+                                                    fontSize: 16.w,
                                                 color: Color.fromRGBO(
                                                     76, 81, 97, 1),
                                               ),
@@ -1391,8 +1397,8 @@ class _HomePageState extends State<HomePage> {
                                                   JadwalPage()));
                                     },
                                     child: Container(
-                                      width: 56,
-                                      height: 83,
+                                          width: 56.w,
+                                          height: 83.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
@@ -1429,8 +1435,8 @@ class _HomePageState extends State<HomePage> {
                                                   RaporPage()));
                                     },
                                     child: Container(
-                                      width: 56,
-                                      height: 83,
+                                          width: 56.w,
+                                          height: 83.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
@@ -1467,8 +1473,8 @@ class _HomePageState extends State<HomePage> {
                                                   AbsensiPage()));
                                     },
                                     child: Container(
-                                      width: 56,
-                                      height: 83,
+                                          width: 56.w,
+                                          height: 83.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
@@ -1505,8 +1511,8 @@ class _HomePageState extends State<HomePage> {
                                                   FasilitasPage()));
                                     },
                                     child: Container(
-                                      width: 56,
-                                      height: 83,
+                                          width: 56.w,
+                                          height: 83.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
@@ -1549,15 +1555,20 @@ class _HomePageState extends State<HomePage> {
                                                   PerpustakaanPage()));
                                     },
                                     child: Container(
-                                      width: 71,
-                                      height: 72,
+                                          width: 74,
+                                          height: 62,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
-                                      child: Stack(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                         children: [
-                                          Align(
-                                            alignment: Alignment(0.0, -1.0),
+                                              Container(
+                                                width: 47.w,
+                                                height: 46.h,
                                             child: new Image.asset(
                                               'assets/images/Frame 129.png',
                                             ),
@@ -1588,14 +1599,19 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: Container(
                                       width: 77,
-                                      height: 84.5,
+                                          height: 75,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
-                                      child: Stack(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                         children: [
-                                          Align(
-                                            alignment: Alignment(0.0, -1.0),
+                                              Container(
+                                                width: 70,
+                                                height: 60,
                                             child: new Image.asset(
                                               'assets/images/Frame 130.png',
                                             ),
@@ -1625,15 +1641,20 @@ class _HomePageState extends State<HomePage> {
                                                   KantinPage()));
                                     },
                                     child: Container(
-                                      width: 57,
-                                      height: 69,
+                                          width: 70,
+                                          height: 57,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
-                                      child: Stack(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                         children: [
-                                          Align(
-                                            alignment: Alignment(0.0, -1.0),
+                                              Container(
+                                                width: 70,
+                                                height: 43,
                                             child: new Image.asset(
                                               'assets/images/Frame 131.png',
                                             ),
@@ -1663,29 +1684,31 @@ class _HomePageState extends State<HomePage> {
                                                   HomePage()));
                                     },
                                     child: Container(
-                                      width: 85,
-                                      height: 80,
+                                          width: 70,
+                                          height: 70,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
-                                      child: Stack(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                         children: [
-                                          Align(
-                                            alignment: Alignment(0.0, -1.0),
+                                              Container(
+                                                width: 53,
+                                                height: 43,
                                             child: new Image.asset(
                                               'assets/images/Frame 132.png',
                                             ),
                                           ),
-                                          Align(
-                                            alignment: Alignment(0.0, 0.8),
-                                            child: Text(
-                                              'Pembayaran SPP',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
-                                                color: Colors.black,
-                                              ),
+                                              Text(
+                                                'Pembayaran SPP',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy-Light',
+                                                  fontSize: 11,
+                                                  color: Colors.black,
                                             ),
                                           ),
                                         ],
@@ -1698,8 +1721,8 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.48,
+                              width: 490.w,
+                              height: 980.h * 0.48,
                           padding: EdgeInsets.symmetric(
                             vertical: 30,
                             horizontal: 20,
@@ -1722,7 +1745,7 @@ class _HomePageState extends State<HomePage> {
                                       'Berita Sekolah',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
+                                            fontSize: 20.w,
                                       ),
                                     ),
                                   ),
@@ -1733,10 +1756,10 @@ class _HomePageState extends State<HomePage> {
                                               (Route<dynamic> route) => false);
                                     },
                                     child: Container(
-                                      width: MediaQuery.of(context).size.width *
+                                          width: 490.w *
                                           0.18,
                                       height:
-                                          MediaQuery.of(context).size.height *
+                                          980.h *
                                               0.018,
                                       margin: EdgeInsets.only(right: 20),
                                       decoration: BoxDecoration(
@@ -1753,7 +1776,7 @@ class _HomePageState extends State<HomePage> {
                                           "Lihat Semua",
                                           style: TextStyle(
                                             fontFamily: 'Gilroy-ExtraBold',
-                                            fontSize: 12,
+                                                fontSize: 12.w,
                                             color: Color.fromRGBO(
                                                 119, 115, 205, 1),
                                           ),
@@ -1764,16 +1787,16 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.85,
+                                    width: 490.w * 0.85,
                                 height:
-                                    MediaQuery.of(context).size.height * 0.35,
-                                margin: EdgeInsets.only(top: 10),
+                                    980.h * 0.27,
+                                    margin: EdgeInsets.only(top: 20),
                                 child: GridView.builder(
-                                  itemCount: _siswa.length,
+                                      itemCount: 3,
                                   gridDelegate:
                                       SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: 445,
-                                    mainAxisExtent: 89,
+                                        maxCrossAxisExtent: 445.w,
+                                        mainAxisExtent: 89.h,
                                     crossAxisSpacing: 15,
                                   ),
                                   itemBuilder: (context, i) {
@@ -1791,9 +1814,7 @@ class _HomePageState extends State<HomePage> {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return Container(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                  height: 980.h *
                                                   0.87,
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.only(
@@ -1814,8 +1835,8 @@ class _HomePageState extends State<HomePage> {
                                                             .spaceBetween,
                                                     children: [
                                                       Container(
-                                                        width: 50,
-                                                        height: 50,
+                                                            width: 50.w,
+                                                            height: 50.h,
                                                       ),
                                                       Container(
                                                         width: MediaQuery.of(
@@ -1834,21 +1855,15 @@ class _HomePageState extends State<HomePage> {
                                                         ),
                                                       ),
                                                       Container(
-                                                        width: 50,
-                                                        height: 50,
+                                                            width: 50.w,
+                                                            height: 50.h,
                                                       ),
                                                     ],
                                                   ),
                                                   Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
+                                                        width: 490.w *
                                                             0.8,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
+                                                        height: 980.h *
                                                             0.16,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
@@ -1861,10 +1876,7 @@ class _HomePageState extends State<HomePage> {
                                                     ),
                                                   ),
                                                   Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
+                                                        width: 490.w *
                                                             0.8,
                                                     margin: EdgeInsets.only(
                                                         top: 10),
@@ -1878,7 +1890,7 @@ class _HomePageState extends State<HomePage> {
                                                       style: TextStyle(
                                                         fontFamily:
                                                             'Gilroy-ExtraBold',
-                                                        fontSize: 24,
+                                                            fontSize: 24.w,
                                                         color: Color.fromRGBO(
                                                             76, 81, 97, 1),
                                                       ),
@@ -1886,11 +1898,9 @@ class _HomePageState extends State<HomePage> {
                                                   ),
                                                   Container(
                                                     width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
+                                                        490.w *
                                                             0.8,
-                                                    height: 31,
+                                                        height: 31.h,
                                                     margin: EdgeInsets.only(
                                                         top: 15),
                                                     decoration: BoxDecoration(
@@ -1906,7 +1916,7 @@ class _HomePageState extends State<HomePage> {
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-ExtraBold',
-                                                          fontSize: 16,
+                                                              fontSize: 16.w,
                                                           color: Colors.white,
                                                         ),
                                                       ),
@@ -1914,14 +1924,10 @@ class _HomePageState extends State<HomePage> {
                                                   ),
                                                   Container(
                                                     width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
+                                                        490.w *
                                                             0.8,
                                                     height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
+                                                        980.h *
                                                             0.5,
                                                     margin: EdgeInsets.only(
                                                         top: 15),
@@ -1932,7 +1938,7 @@ class _HomePageState extends State<HomePage> {
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-Light',
-                                                          fontSize: 15,
+                                                              fontSize: 15.w,
                                                           color: Color.fromRGBO(
                                                               76, 81, 97, 1),
                                                         ),
@@ -1968,11 +1974,8 @@ class _HomePageState extends State<HomePage> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.6,
-                                              height: 64,
+                                                  width: 490.w * 0.55,
+                                                  height: 64.h,
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
@@ -1988,7 +1991,7 @@ class _HomePageState extends State<HomePage> {
                                                     style: TextStyle(
                                                       fontFamily:
                                                           'Gilroy-ExtraBold',
-                                                      fontSize: 16,
+                                                          fontSize: 16.w,
                                                       color: Color.fromRGBO(
                                                           76, 81, 97, 1),
                                                     ),
@@ -1998,7 +2001,7 @@ class _HomePageState extends State<HomePage> {
                                                     style: TextStyle(
                                                       fontFamily:
                                                           'Gilroy-Light',
-                                                      fontSize: 13,
+                                                          fontSize: 13.w,
                                                       color: Color.fromRGBO(
                                                           76, 81, 97, 1),
                                                     ),
@@ -2007,8 +2010,8 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                             ),
                                             Container(
-                                              width: 67,
-                                              height: 67,
+                                                  width: 67.w,
+                                                  height: 67.h,
                                               decoration: BoxDecoration(
                                                   borderRadius:
                                                       BorderRadius.circular(7)),
@@ -2036,7 +2039,7 @@ class _HomePageState extends State<HomePage> {
                                         MutasiPage(profil: profil)));
                           },
                           child: Container(
-                            width: MediaQuery.of(context).size.width,
+                                width: 490.w,
                             child: Image.asset(
                               'assets/images/mutasi.png',
                               fit: BoxFit.cover,
@@ -2049,6 +2052,9 @@ class _HomePageState extends State<HomePage> {
                 ),
         ),
       ),
+    );
+  
+      },
     );
   }
 }

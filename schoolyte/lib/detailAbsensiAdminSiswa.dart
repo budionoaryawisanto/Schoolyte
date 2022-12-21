@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'model.dart';
@@ -58,14 +59,14 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
               borderRadius: BorderRadius.circular(14),
             ),
             child: Container(
-              height: 357,
+              height: 357.h,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: 177,
-                    height: 177,
+                    width: 177.w,
+                    height: 177.h,
                     child: Image.asset(
                       'assets/images/alertDialog.png',
                       fit: BoxFit.fill,
@@ -75,12 +76,12 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                     'Kamu Yakin ?',
                     style: TextStyle(
                       fontFamily: 'Gilroy-ExtraBold',
-                      fontSize: 32,
+                      fontSize: 32.w.w,
                     ),
                   ),
                   Container(
-                    width: 253,
-                    height: 43,
+                    width: 253.w.w,
+                    height: 43.h.h,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -90,8 +91,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                             Navigator.pop(context);
                           },
                           child: Container(
-                            width: 107,
-                            height: 43,
+                            width: 107.w.w,
+                            height: 43.h.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               border: Border.all(
@@ -105,7 +106,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                 'Tidak',
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
-                                  fontSize: 20,
+                                  fontSize: 20.w,
                                 ),
                               ),
                             ),
@@ -114,8 +115,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                         GestureDetector(
                           onTap: () {},
                           child: Container(
-                            width: 107,
-                            height: 43,
+                            width: 107.w,
+                            height: 43.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: Color.fromRGBO(242, 78, 26, 1),
@@ -125,7 +126,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                 'Ya',
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
-                                  fontSize: 20,
+                                  fontSize: 20.w,
                                   color: Colors.white,
                                 ),
                               ),
@@ -168,15 +169,15 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
               borderRadius: BorderRadius.circular(7),
             ),
             child: Container(
-              height: 470,
+              height: 470.h,
               padding: EdgeInsets.all(10),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.85,
-                    height: 56,
+                    width: 490.w * 0.85,
+                    height: 56.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: Color.fromRGBO(246, 246, 246, 1),
@@ -186,15 +187,15 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                         'Edit Data',
                         style: TextStyle(
                           fontFamily: 'Gilroy-ExtraBold',
-                          fontSize: 16,
+                          fontSize: 16.w,
                           color: Color.fromRGBO(242, 78, 26, 0.80),
                         ),
                       ),
                     ),
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.85,
-                    height: 390,
+                    width: 490.w * 0.85,
+                    height: 390.h,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: Color.fromRGBO(246, 246, 246, 1),
@@ -204,8 +205,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          height: 140,
+                          width: 490.w * 0.7,
+                          height: 140.h,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,14 +219,14 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                     'Nama   :   ',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-ExtraBold',
-                                      fontSize: 16,
+                                      fontSize: 16.w,
                                     ),
                                   ),
                                   Text(
                                     siswa.name,
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
-                                      fontSize: 16,
+                                      fontSize: 16.w,
                                     ),
                                   ),
                                 ],
@@ -238,14 +239,14 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                     'Kelas    :   ',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-ExtraBold',
-                                      fontSize: 16,
+                                      fontSize: 16.w,
                                     ),
                                   ),
                                   Text(
                                     'XII IPA 1',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
-                                      fontSize: 16,
+                                      fontSize: 16.w,
                                     ),
                                   ),
                                 ],
@@ -258,14 +259,14 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                     'Waktu  :   ',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-ExtraBold',
-                                      fontSize: 16,
+                                      fontSize: 16.w,
                                     ),
                                   ),
                                   Text(
                                     '12 December 2022 07:0${siswa.id} ${DateTime.now().timeZoneName}',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
-                                      fontSize: 16,
+                                      fontSize: 16.w,
                                     ),
                                   ),
                                 ],
@@ -278,12 +279,12 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                     'Kehadiran   :    ',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-ExtraBold',
-                                      fontSize: 16,
+                                      fontSize: 16.w,
                                     ),
                                   ),
                                   Container(
-                                    width: 200,
-                                    height: 30,
+                                    width: 200.w,
+                                    height: 30.h,
                                     color: Colors.white,
                                     child: Form(
                                       key: _formKey,
@@ -292,13 +293,13 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                         maxLines: 1,
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
-                                          fontSize: 16,
+                                          fontSize: 16.w,
                                         ),
                                         decoration: InputDecoration(
                                           labelText: 'New Input',
                                           labelStyle: TextStyle(
                                             fontFamily: 'Gilroy-Light',
-                                            fontSize: 16,
+                                            fontSize: 16.w,
                                             color:
                                                 Color.fromRGBO(76, 81, 97, 1),
                                           ),
@@ -320,7 +321,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                           ),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.7,
+                          width: 490.w * 0.7,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -329,8 +330,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                   Navigator.pop(context);
                                 },
                                 child: Container(
-                                  width: 106,
-                                  height: 30,
+                                  width: 106.w,
+                                  height: 30.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),
                                     color: Color.fromRGBO(242, 78, 26, 1),
@@ -340,7 +341,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                       'Cancel',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
-                                        fontSize: 14,
+                                        fontSize: 14.w,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -350,8 +351,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                               GestureDetector(
                                 onTap: () {},
                                 child: Container(
-                                  width: 106,
-                                  height: 30,
+                                  width: 106.w,
+                                  height: 30.h,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(8),
                                     color: Colors.black,
@@ -361,7 +362,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                       'Kirim',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
-                                        fontSize: 14,
+                                        fontSize: 14.w,
                                         color: Colors.white,
                                       ),
                                     ),
@@ -391,14 +392,17 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
-    return new MaterialApp(
+    return ScreenUtilInit(
+      designSize: const Size(490, 980),
+      builder: (context, child) {
+        return new MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(75),
+                preferredSize: Size.fromHeight(75.h),
             child: AppBar(
               backgroundColor: Color.fromRGBO(180, 176, 255, 1),
               title: Align(
@@ -407,7 +411,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                   'Siswa',
                   style: TextStyle(
                     fontFamily: 'Gilroy-ExtraBold',
-                    fontSize: 24,
+                        fontSize: 24.w,
                     color: Colors.white,
                   ),
                 ),
@@ -423,15 +427,15 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                   child: Icon(
                     Icons.chevron_left_rounded,
                     color: Colors.white,
-                    size: 40,
+                        size: 40.w,
                   ),
                 ),
               ),
             ),
           ),
           body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+                width: 490.w,
+                height: 980.h,
             child: loading
                 ? Center(
                     child: CircularProgressIndicator(
@@ -443,8 +447,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.82,
-                          height: 46,
+                              width: 490.w * 0.82,
+                              height: 46.h,
                           margin: EdgeInsets.only(top: 20),
                           decoration: BoxDecoration(
                             color: Color.fromRGBO(243, 243, 243, 1),
@@ -462,12 +466,12 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.7,
+                                    width: 490.w * 0.7,
                                 child: Form(
                                   child: TextFormField(
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
-                                      fontSize: 16,
+                                          fontSize: 16.w,
                                     ),
                                     textInputAction: TextInputAction.done,
                                     controller: searchController,
@@ -480,14 +484,14 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                     decoration: new InputDecoration(
                                       icon: Icon(
                                         Icons.search,
-                                        size: 24,
+                                            size: 24.w,
                                       ),
                                       enabledBorder: InputBorder.none,
                                       focusedBorder: InputBorder.none,
                                       hintText: 'Cari Siswa',
                                       hintStyle: TextStyle(
                                         fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
+                                            fontSize: 16.w,
                                       ),
                                     ),
                                   ),
@@ -495,7 +499,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                               ),
                               IconButton(
                                 icon: Icon(Icons.cancel,
-                                    size: 24,
+                                        size: 24.w,
                                     color: searchController.text.length != 0
                                         ? Colors.red
                                         : Color.fromRGBO(76, 81, 97, 58)),
@@ -508,8 +512,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                           ),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 70,
+                              width: 490.w,
+                              height: 70.h,
                           margin: EdgeInsets.only(top: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -522,8 +526,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                   });
                                 },
                                 child: Container(
-                                  width: 120,
-                                  height: 40,
+                                      width: 120.w,
+                                      height: 40.h,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     boxShadow: [
@@ -540,7 +544,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                       'Semua',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
-                                        fontSize: 15,
+                                            fontSize: 15.w,
                                         color: Color.fromRGBO(76, 81, 97, 1),
                                       ),
                                     ),
@@ -548,7 +552,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                 ),
                               ),
                               Container(
-                                width: MediaQuery.of(context).size.width * 0.52,
+                                    width: 490.w * 0.52,
                                 child: DateTimePicker(
                                   controller: filterController,
                                   type: DateTimePickerType.date,
@@ -559,7 +563,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                   lastDate: DateTime.now(),
                                   style: TextStyle(
                                     fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
+                                        fontSize: 16.w,
                                     color: Colors.black,
                                   ),
                                   onChanged: (val) => setState(() {
@@ -574,8 +578,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                           ),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.72,
+                              width: 490.w,
+                              height: 980.h * 0.72,
                           child: searchController.text.isNotEmpty
                               ? GridView.builder(
                                   itemCount: _search.length,
@@ -583,7 +587,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 1,
-                                    mainAxisExtent: 68,
+                                        mainAxisExtent: 68.h,
                                     mainAxisSpacing: 10,
                                   ),
                                   itemBuilder: (context, i) {
@@ -609,11 +613,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.38,
-                                            height: 38,
+                                                width: 490.w * 0.38,
+                                                height: 38.h,
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
@@ -628,7 +629,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                                   style: TextStyle(
                                                     fontFamily:
                                                         'Gilroy-ExtraBold',
-                                                    fontSize: 16,
+                                                        fontSize: 16.w,
                                                     color: Colors.black,
                                                   ),
                                                 ),
@@ -636,7 +637,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                                   '12 December 2022  07:0${siswa.id} ${DateTime.now().timeZoneName}',
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
-                                                    fontSize: 12,
+                                                        fontSize: 12.w,
                                                     color: Color.fromRGBO(
                                                         76, 81, 97, 1),
                                                   ),
@@ -647,8 +648,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                           GestureDetector(
                                             onTap: () {},
                                             child: Container(
-                                              width: 78,
-                                              height: 23,
+                                                  width: 78.w,
+                                                  height: 23.h,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(4),
@@ -675,7 +676,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                                     style: TextStyle(
                                                       fontFamily:
                                                           'Gilroy-Light',
-                                                      fontSize: 12,
+                                                          fontSize: 12.w,
                                                       color: Color.fromRGBO(
                                                           76, 81, 97, 0.54),
                                                     ),
@@ -689,8 +690,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                               onEdit(siswa);
                                             },
                                             child: Container(
-                                              width: 89.7,
-                                              height: 26,
+                                                  width: 89.7.w,
+                                                  height: 26.h,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(4),
@@ -699,7 +700,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                                 border: Border.all(
                                                   color: Colors.black,
                                                   width: 1,
-                                                ),
+                                                    ),
                                               ),
                                               child: Row(
                                                 mainAxisAlignment:
@@ -713,7 +714,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                                     style: TextStyle(
                                                       fontFamily:
                                                           'Gilroy-Light',
-                                                      fontSize: 13,
+                                                          fontSize: 13.w,
                                                       color: Color.fromRGBO(
                                                           76, 81, 97, 1),
                                                     ),
@@ -722,7 +723,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                                     Icons.edit,
                                                     color: Color.fromRGBO(
                                                         76, 81, 97, 1),
-                                                    size: 16,
+                                                        size: 16.w,
                                                   ),
                                                 ],
                                               ),
@@ -734,7 +735,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                             },
                                             child: Icon(
                                               Icons.delete,
-                                              size: 24,
+                                                  size: 24.w,
                                               color:
                                                   Color.fromRGBO(76, 81, 97, 1),
                                             ),
@@ -749,7 +750,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 1,
-                                    mainAxisExtent: 68,
+                                        mainAxisExtent: 68.h,
                                     mainAxisSpacing: 10,
                                   ),
                                   itemBuilder: (context, i) {
@@ -775,11 +776,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.38,
-                                            height: 38,
+                                                width: 490.w * 0.38,
+                                                height: 38.h,
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
@@ -794,7 +792,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                                   style: TextStyle(
                                                     fontFamily:
                                                         'Gilroy-ExtraBold',
-                                                    fontSize: 16,
+                                                        fontSize: 16.w,
                                                     color: Colors.black,
                                                   ),
                                                 ),
@@ -802,7 +800,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                                   '12 December 2022  07:0${siswa.id} ${DateTime.now().timeZoneName}',
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
-                                                    fontSize: 12,
+                                                        fontSize: 12.w,
                                                     color: Color.fromRGBO(
                                                         76, 81, 97, 1),
                                                   ),
@@ -813,8 +811,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                           GestureDetector(
                                             onTap: () {},
                                             child: Container(
-                                              width: 78,
-                                              height: 23,
+                                                  width: 78.w,
+                                                  height: 23.h,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(4),
@@ -830,7 +828,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                                 children: [
                                                   Icon(
                                                     Icons.play_arrow,
-                                                    size: 15,
+                                                        size: 15.w,
                                                     color: Colors.black,
                                                   ),
                                                   Text(
@@ -841,7 +839,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                                     style: TextStyle(
                                                       fontFamily:
                                                           'Gilroy-Light',
-                                                      fontSize: 12,
+                                                          fontSize: 12.w,
                                                       color: Color.fromRGBO(
                                                           76, 81, 97, 0.54),
                                                     ),
@@ -855,8 +853,8 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                               onEdit(siswa);
                                             },
                                             child: Container(
-                                              width: 89.7,
-                                              height: 26,
+                                                  width: 89.7.w,
+                                                  height: 26.h,
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(4),
@@ -879,7 +877,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                                     style: TextStyle(
                                                       fontFamily:
                                                           'Gilroy-Light',
-                                                      fontSize: 13,
+                                                          fontSize: 13.w,
                                                       color: Color.fromRGBO(
                                                           76, 81, 97, 1),
                                                     ),
@@ -888,7 +886,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                                     Icons.edit,
                                                     color: Color.fromRGBO(
                                                         76, 81, 97, 1),
-                                                    size: 16,
+                                                        size: 16.w,
                                                   ),
                                                 ],
                                               ),
@@ -900,7 +898,7 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
                                             },
                                             child: Icon(
                                               Icons.delete,
-                                              size: 24,
+                                                  size: 24.w,
                                               color:
                                                   Color.fromRGBO(76, 81, 97, 1),
                                             ),
@@ -916,6 +914,9 @@ class _DetailAbsensiAdminSiswaState extends State<DetailAbsensiAdminSiswa> {
           ),
         ),
       ),
+    );
+ 
+      },
     );
   }
 }
