@@ -1389,8 +1389,8 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  TextButton(
-                                    onPressed: () {
+                                      GestureDetector(
+                                        onTap: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -1398,37 +1398,35 @@ class _HomePageState extends State<HomePage> {
                                                       JadwalGuruPage()));
                                     },
                                     child: Container(
-                                          width: 56.w,
-                                          height: 83.h,
+                                          width: 57.54.w,
+                                          height: 84.61.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
-                                      child: Stack(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                         children: [
-                                          Align(
-                                            alignment: Alignment(0.0, -1.0),
-                                            child: new Image.asset(
-                                              'assets/images/Frame 125.png',
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment(0.0, 0.8),
-                                            child: Text(
-                                              'Jadwal Kelas',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
-                                                color: Colors.black,
+                                              Image.asset(
+                                                'assets/images/Frame 125.png',
                                               ),
-                                            ),
-                                          ),
+                                              Text(
+                                                'Jadwal Kelas',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy-Light',
+                                                  fontSize: 11.w,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
+                                      GestureDetector(
+                                        onTap: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -1436,37 +1434,35 @@ class _HomePageState extends State<HomePage> {
                                                   RaporPage()));
                                     },
                                     child: Container(
-                                          width: 56.w,
-                                          height: 83.h,
+                                          width: 55.56.w,
+                                          height: 78.05.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
-                                      child: Stack(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                         children: [
-                                          Align(
-                                            alignment: Alignment(0.0, -1.0),
-                                            child: new Image.asset(
-                                              'assets/images/Frame 126.png',
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment(0.0, 0.7),
-                                            child: Text(
-                                              'Rapor',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
-                                                color: Colors.black,
+                                              Image.asset(
+                                                'assets/images/Frame 126.png',
                                               ),
-                                            ),
-                                          ),
+                                              Text(
+                                                'Rapor',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy-Light',
+                                                  fontSize: 11.w,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
+                                      GestureDetector(
+                                        onTap: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -1474,37 +1470,35 @@ class _HomePageState extends State<HomePage> {
                                                   AbsensiPage()));
                                     },
                                     child: Container(
-                                          width: 56.w,
-                                          height: 83.h,
+                                          width: 55.56.w,
+                                          height: 78.05.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
-                                      child: Stack(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                         children: [
-                                          Align(
-                                            alignment: Alignment(0.0, -1.0),
-                                            child: new Image.asset(
-                                              'assets/images/Frame 127.png',
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment(0.0, 0.5),
-                                            child: Text(
-                                              'Absensi',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
-                                                color: Colors.black,
+                                              Image.asset(
+                                                'assets/images/Frame 127.png',
                                               ),
-                                            ),
-                                          ),
+                                              Text(
+                                                'Absensi',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy-Light',
+                                                  fontSize: 11.w,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
+                                      GestureDetector(
+                                        onTap: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -1512,29 +1506,27 @@ class _HomePageState extends State<HomePage> {
                                                   FasilitasPage()));
                                     },
                                     child: Container(
-                                          width: 56.w,
-                                          height: 83.h,
+                                          width: 58.w,
+                                          height: 71.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
-                                      child: Stack(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
                                         children: [
-                                          Align(
-                                            alignment: Alignment(0.0, -1.0),
-                                            child: new Image.asset(
-                                              'assets/images/Frame 128.png',
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment(0.0, 0.5),
-                                            child: Text(
-                                              'Fasilitas',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
-                                                color: Colors.black,
+                                              Image.asset(
+                                                'assets/images/Frame 128.png',
                                               ),
+                                              Text(
+                                                'Fasilitas',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy-Light',
+                                                  fontSize: 11.w,
+                                                  color: Colors.black,
                                             ),
                                           ),
                                         ],
@@ -1547,8 +1539,8 @@ class _HomePageState extends State<HomePage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  TextButton(
-                                    onPressed: () {
+                                      GestureDetector(
+                                        onTap: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -1556,42 +1548,35 @@ class _HomePageState extends State<HomePage> {
                                                   PerpustakaanPage()));
                                     },
                                     child: Container(
-                                          width: 74,
-                                          height: 62,
+                                          width: 71.w,
+                                          height: 72.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
                                           child: Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                         children: [
-                                              Container(
-                                                width: 47.w,
-                                                height: 46.h,
-                                            child: new Image.asset(
-                                              'assets/images/Frame 129.png',
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment(0.0, 0.7),
-                                            child: Text(
-                                              'Perpustakaan',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
-                                                color: Colors.black,
+                                              Image.asset(
+                                                'assets/images/Frame 129.png',
                                               ),
+                                              Text(
+                                                'Perpustakaan',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy-Light',
+                                                  fontSize: 11.w,
+                                                  color: Colors.black,
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
+                                      GestureDetector(
+                                        onTap: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -1599,42 +1584,35 @@ class _HomePageState extends State<HomePage> {
                                                   EkstrakurikulerPage()));
                                     },
                                     child: Container(
-                                      width: 77,
-                                          height: 75,
+                                          width: 77.w,
+                                          height: 84.5.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
                                           child: Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                         children: [
-                                              Container(
-                                                width: 70,
-                                                height: 60,
-                                            child: new Image.asset(
-                                              'assets/images/Frame 130.png',
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment(0.0, 0.7),
-                                            child: Text(
-                                              'Ekstrakurikuler',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
-                                                color: Colors.black,
+                                              Image.asset(
+                                                'assets/images/Frame 130.png',
                                               ),
+                                              Text(
+                                                'Ekstrakurikuler',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy-Light',
+                                                  fontSize: 11.w,
+                                                  color: Colors.black,
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
+                                      GestureDetector(
+                                        onTap: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -1642,42 +1620,35 @@ class _HomePageState extends State<HomePage> {
                                                   KantinPage()));
                                     },
                                     child: Container(
-                                          width: 70,
-                                          height: 57,
+                                          width: 57.w,
+                                          height: 69.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
                                           child: Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                         children: [
-                                              Container(
-                                                width: 70,
-                                                height: 43,
-                                            child: new Image.asset(
-                                              'assets/images/Frame 131.png',
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment(0.0, 0.9),
-                                            child: Text(
-                                              'Kantin',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
-                                                color: Colors.black,
+                                              Image.asset(
+                                                'assets/images/Frame 131.png',
                                               ),
+                                              Text(
+                                                'Kantin',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontFamily: 'Gilroy-Light',
+                                                  fontSize: 11.w,
+                                                  color: Colors.black,
                                             ),
                                           ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
+                                      GestureDetector(
+                                        onTap: () {
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -1685,30 +1656,26 @@ class _HomePageState extends State<HomePage> {
                                                       AdministrasiPage()));
                                     },
                                     child: Container(
-                                          width: 70,
-                                          height: 70,
+                                          width: 88.w,
+                                          height: 80.h,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
                                           child: Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                MainAxisAlignment.spaceEvenly,
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.center,
                                         children: [
-                                              Container(
-                                                width: 53,
-                                                height: 43,
-                                            child: new Image.asset(
+                                              Image.asset(
                                               'assets/images/Frame 132.png',
-                                            ),
-                                          ),
+                                              ),
                                               Text(
                                                 'Administrasi Keuangan',
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontFamily: 'Gilroy-Light',
-                                                  fontSize: 11,
+                                                  fontSize: 11.w,
                                                   color: Colors.black,
                                             ),
                                           ),
