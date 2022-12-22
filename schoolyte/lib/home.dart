@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:schoolyte/jadwalGuru.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'absensiPegawai.dart';
 import 'ekstrakurikuler.dart';
@@ -1394,7 +1395,7 @@ class _HomePageState extends State<HomePage> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  JadwalPage()));
+                                                      JadwalGuruPage()));
                                     },
                                     child: Container(
                                           width: 56.w,

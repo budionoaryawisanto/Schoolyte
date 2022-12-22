@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:schoolyte/absensi.dart';
 import 'package:schoolyte/berita.dart';
@@ -15,6 +16,9 @@ import 'osis.dart';
 import 'ekstrakurikuler.dart';
 import 'profil.dart';
 import 'administrasi.dart';
+import 'model.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class RaporPage extends StatefulWidget {
   @override
@@ -22,9 +26,32 @@ class RaporPage extends StatefulWidget {
 }
 
 class _RaporPageState extends State<RaporPage> {
+  List<Test> _nilai = [];
+  var loading = false;
+
+  Future fetchNilai() async {
+    setState(() {
+      loading = true;
+    });
+    _nilai.clear();
+    final response =
+        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    print(response.body);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _nilai.add(Test.formJson(i));
+          loading = false;
+        }
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    fetchNilai();
   }
 
   _logOut() async {
@@ -74,1446 +101,1599 @@ class _RaporPageState extends State<RaporPage> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
-    return new MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SafeArea(
-        child: Scaffold(
-          backgroundColor: Color.fromRGBO(243, 243, 243, 1),
-          appBar: AppBar(
-            title: Align(
-              alignment: Alignment(-0.7, 0.0),
-              child: Text(
-                'Rapor',
-                style: TextStyle(
-                  fontFamily: 'Gilroy-ExtraBold',
-                  fontSize: 24,
-                  color: Color.fromRGBO(76, 81, 97, 1),
+    return ScreenUtilInit(
+      designSize: const Size(490, 980),
+      builder: (context, child) {
+        return new MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: SafeArea(
+            child: Scaffold(
+              backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+              appBar: PreferredSize(
+                preferredSize: Size.fromHeight(75.h),
+                child: AppBar(
+                  title: Align(
+                    alignment: Alignment(-0.7, 0.0),
+                    child: Text(
+                      'Rapor',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy-ExtraBold',
+                        fontSize: 24.w,
+                        color: Color.fromRGBO(76, 81, 97, 1),
+                      ),
+                    ),
+                  ),
+                  elevation: 0,
+                  iconTheme:
+                      IconThemeData(color: Color.fromARGB(255, 66, 65, 65)),
+                  backgroundColor: Colors.white,
                 ),
               ),
-            ),
-            elevation: 0,
-            iconTheme: IconThemeData(color: Color.fromARGB(255, 66, 65, 65)),
-            backgroundColor: Colors.white,
-          ),
-          drawer: Drawer(
-            backgroundColor: Colors.white,
-            width: 257,
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: Image(
-                    image: AssetImage('assets/images/logolanding.png'),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.home,
-                    color: Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Beranda',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
-                      color: Color.fromRGBO(76, 81, 97, 1),
+              drawer: Drawer(
+                backgroundColor: Colors.white,
+                width: 257.w,
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                      ),
+                      child: Image(
+                        image: AssetImage('assets/images/logolanding.png'),
+                      ),
                     ),
-                  ),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  },
-                ),
-                ListTile(
-                  tileColor: (akademikClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
-                  leading: Icon(
-                    Icons.school_rounded,
-                    color: (akademikClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Akademik',
-                    style: TextStyle(
-                      fontFamily: (akademikClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
-                      fontSize: 16,
-                      color: (akademikClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    closeDrawer();
-                    setState(() {
-                      closeDrawer();
-                      akademikClick = !akademikClick;
-                    });
-                  },
-                ),
-                Visibility(
-                  visible: (akademikClick == false) ? true : false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Jadwal Kelas',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
+                    ListTile(
+                      leading: Icon(
+                        Icons.home,
+                        color: Color.fromRGBO(255, 199, 0, 1),
+                      ),
+                      title: Text(
+                        'Beranda',
+                        style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => JadwalPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (akademikClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Rapor',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-ExtraBold',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => RaporPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (akademikClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Absensi',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AbsensiPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (akademikClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Nilai Belajar',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => NilaiBelajarPage()));
-                    },
-                  ),
-                ),
-                ListTile(
-                  tileColor: (peminjamanClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
-                  leading: Icon(
-                    Icons.book,
-                    color: (peminjamanClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Peminjaman',
-                    style: TextStyle(
-                      fontFamily: (peminjamanClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
-                      fontSize: 16,
-                      color: (peminjamanClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      closeDrawer();
-                      peminjamanClick = !peminjamanClick;
-                    });
-                  },
-                ),
-                Visibility(
-                  visible: (peminjamanClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Perpustakaan',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PerpustakaanPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (peminjamanClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Fasilitas',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FasilitasPage()));
-                    },
-                  ),
-                ),
-                ListTile(
-                  tileColor: (pembelianClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
-                  leading: Icon(
-                    Icons.payment_rounded,
-                    color: (pembelianClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Pembelian',
-                    style: TextStyle(
-                      fontFamily: (pembelianClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
-                      fontSize: 16,
-                      color: (pembelianClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      closeDrawer();
-                      pembelianClick = !pembelianClick;
-                    });
-                  },
-                ),
-                Visibility(
-                  visible: (pembelianClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Koperasi',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => KoperasiPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (pembelianClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Kantin',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => KantinPage()));
-                    },
-                  ),
-                ),
-                ListTile(
-                  tileColor: Colors.white,
-                  leading: Icon(
-                    Icons.newspaper_rounded,
-                    color: Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Berita',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BeritaPage()));
-                    });
-                  },
-                ),
-                ListTile(
-                  tileColor: Colors.white,
-                  leading: Icon(
-                    Icons.point_of_sale,
-                    color: Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Administrasi',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AdministrasiPage()));
-                  },
-                ),
-                ListTile(
-                  tileColor: (kegiatanClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
-                  leading: Icon(
-                    Icons.people_rounded,
-                    color: (kegiatanClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Kegiatan Sekolah',
-                    style: TextStyle(
-                      fontFamily: (kegiatanClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
-                      fontSize: 16,
-                      color: (kegiatanClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      closeDrawer();
-                      kegiatanClick = !kegiatanClick;
-                    });
-                  },
-                ),
-                Visibility(
-                  visible: (kegiatanClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'OSIS',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => OsisPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (kegiatanClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Ekstrakurikuler',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => EkstrakurikulerPage()));
-                    },
-                  ),
-                ),
-                ListTile(
-                  tileColor: Colors.white,
-                  leading: Icon(
-                    Icons.person_rounded,
-                    color: Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Profil',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ProfilPage()));
-                  },
-                ),
-                Container(
-                  child: Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: Column(
-                      children: <Widget>[
-                        Divider(),
-                        ListTile(
-                          leading: Icon(
-                            Icons.logout_rounded,
-                          ),
-                          title: Text(
-                            'Log Out',
-                            style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 14,
-                                color: Color.fromRGBO(76, 81, 91, 1)),
-                          ),
-                          onTap: () {
-                            _logOut();
-                          },
+                          fontSize: 16.w,
+                          color: Color.fromRGBO(76, 81, 97, 1),
                         ),
-                      ],
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                      },
                     ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 10),
-                  width: MediaQuery.of(context).size.width,
-                  height: 168,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(left: 40),
-                        width: 275,
-                        height: 49,
+                    ListTile(
+                      tileColor: (akademikClick == false)
+                          ? Color.fromRGBO(255, 199, 0, 1)
+                          : Colors.white,
+                      leading: Icon(
+                        Icons.school_rounded,
+                        color: (akademikClick == false)
+                            ? Colors.white
+                            : Color.fromRGBO(255, 199, 0, 1),
+                      ),
+                      title: Text(
+                        'Akademik',
+                        style: TextStyle(
+                          fontFamily: (akademikClick == false)
+                              ? 'Gilroy-ExtraBold'
+                              : 'Gilroy-Light',
+                          fontSize: 16.w,
+                          color: (akademikClick == false)
+                              ? Colors.white
+                              : Color.fromRGBO(76, 81, 97, 1),
+                        ),
+                      ),
+                      onTap: () {
+                        closeDrawer();
+                        setState(() {
+                          closeDrawer();
+                          akademikClick = !akademikClick;
+                        });
+                      },
+                    ),
+                    Visibility(
+                      visible: (akademikClick == false) ? true : false,
+                      child: ListTile(
+                        tileColor: Color.fromRGBO(237, 237, 237, 1),
+                        title: Text(
+                          'Jadwal Kelas',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 14.w,
+                              color: Color.fromRGBO(76, 81, 91, 1)),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => JadwalPage()));
+                        },
+                      ),
+                    ),
+                    Visibility(
+                      visible: (akademikClick == false) ? true : false,
+                      maintainAnimation: false,
+                      maintainState: false,
+                      child: ListTile(
+                        tileColor: Color.fromRGBO(237, 237, 237, 1),
+                        title: Text(
+                          'Rapor',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Gilroy-ExtraBold',
+                              fontSize: 14.w,
+                              color: Color.fromRGBO(76, 81, 91, 1)),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => RaporPage()));
+                        },
+                      ),
+                    ),
+                    Visibility(
+                      visible: (akademikClick == false) ? true : false,
+                      maintainAnimation: false,
+                      maintainState: false,
+                      child: ListTile(
+                        tileColor: Color.fromRGBO(237, 237, 237, 1),
+                        title: Text(
+                          'Absensi',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 14.w,
+                              color: Color.fromRGBO(76, 81, 91, 1)),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => AbsensiPage()));
+                        },
+                      ),
+                    ),
+                    Visibility(
+                      visible: (akademikClick == false) ? true : false,
+                      maintainAnimation: false,
+                      maintainState: false,
+                      child: ListTile(
+                        tileColor: Color.fromRGBO(237, 237, 237, 1),
+                        title: Text(
+                          'Nilai Belajar',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 14.w,
+                              color: Color.fromRGBO(76, 81, 91, 1)),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NilaiBelajarPage()));
+                        },
+                      ),
+                    ),
+                    ListTile(
+                      tileColor: (peminjamanClick == false)
+                          ? Color.fromRGBO(255, 199, 0, 1)
+                          : Colors.white,
+                      leading: Icon(
+                        Icons.book,
+                        color: (peminjamanClick == false)
+                            ? Colors.white
+                            : Color.fromRGBO(255, 199, 0, 1),
+                      ),
+                      title: Text(
+                        'Peminjaman',
+                        style: TextStyle(
+                          fontFamily: (peminjamanClick == false)
+                              ? 'Gilroy-ExtraBold'
+                              : 'Gilroy-Light',
+                          fontSize: 16.w,
+                          color: (peminjamanClick == false)
+                              ? Colors.white
+                              : Color.fromRGBO(76, 81, 97, 1),
+                        ),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          closeDrawer();
+                          peminjamanClick = !peminjamanClick;
+                        });
+                      },
+                    ),
+                    Visibility(
+                      visible: (peminjamanClick == false) ? true : false,
+                      maintainAnimation: false,
+                      maintainState: false,
+                      child: ListTile(
+                        tileColor: Color.fromRGBO(237, 237, 237, 1),
+                        title: Text(
+                          'Perpustakaan',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 14.w,
+                              color: Color.fromRGBO(76, 81, 91, 1)),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PerpustakaanPage()));
+                        },
+                      ),
+                    ),
+                    Visibility(
+                      visible: (peminjamanClick == false) ? true : false,
+                      maintainAnimation: false,
+                      maintainState: false,
+                      child: ListTile(
+                        tileColor: Color.fromRGBO(237, 237, 237, 1),
+                        title: Text(
+                          'Fasilitas',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 14.w,
+                              color: Color.fromRGBO(76, 81, 91, 1)),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => FasilitasPage()));
+                        },
+                      ),
+                    ),
+                    ListTile(
+                      tileColor: (pembelianClick == false)
+                          ? Color.fromRGBO(255, 199, 0, 1)
+                          : Colors.white,
+                      leading: Icon(
+                        Icons.payment_rounded,
+                        color: (pembelianClick == false)
+                            ? Colors.white
+                            : Color.fromRGBO(255, 199, 0, 1),
+                      ),
+                      title: Text(
+                        'Pembelian',
+                        style: TextStyle(
+                          fontFamily: (pembelianClick == false)
+                              ? 'Gilroy-ExtraBold'
+                              : 'Gilroy-Light',
+                          fontSize: 16.w,
+                          color: (pembelianClick == false)
+                              ? Colors.white
+                              : Color.fromRGBO(76, 81, 97, 1),
+                        ),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          closeDrawer();
+                          pembelianClick = !pembelianClick;
+                        });
+                      },
+                    ),
+                    Visibility(
+                      visible: (pembelianClick == false) ? true : false,
+                      maintainAnimation: false,
+                      maintainState: false,
+                      child: ListTile(
+                        tileColor: Color.fromRGBO(237, 237, 237, 1),
+                        title: Text(
+                          'Koperasi',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 14.w,
+                              color: Color.fromRGBO(76, 81, 91, 1)),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => KoperasiPage()));
+                        },
+                      ),
+                    ),
+                    Visibility(
+                      visible: (pembelianClick == false) ? true : false,
+                      maintainAnimation: false,
+                      maintainState: false,
+                      child: ListTile(
+                        tileColor: Color.fromRGBO(237, 237, 237, 1),
+                        title: Text(
+                          'Kantin',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 14.w,
+                              color: Color.fromRGBO(76, 81, 91, 1)),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => KantinPage()));
+                        },
+                      ),
+                    ),
+                    ListTile(
+                      tileColor: Colors.white,
+                      leading: Icon(
+                        Icons.newspaper_rounded,
+                        color: Color.fromRGBO(255, 199, 0, 1),
+                      ),
+                      title: Text(
+                        'Berita',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 16.w,
+                          color: Color.fromRGBO(76, 81, 97, 1),
+                        ),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BeritaPage()));
+                        });
+                      },
+                    ),
+                    ListTile(
+                      tileColor: Colors.white,
+                      leading: Icon(
+                        Icons.point_of_sale,
+                        color: Color.fromRGBO(255, 199, 0, 1),
+                      ),
+                      title: Text(
+                        'Administrasi',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 16.w,
+                          color: Color.fromRGBO(76, 81, 97, 1),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AdministrasiPage()));
+                      },
+                    ),
+                    ListTile(
+                      tileColor: (kegiatanClick == false)
+                          ? Color.fromRGBO(255, 199, 0, 1)
+                          : Colors.white,
+                      leading: Icon(
+                        Icons.people_rounded,
+                        color: (kegiatanClick == false)
+                            ? Colors.white
+                            : Color.fromRGBO(255, 199, 0, 1),
+                      ),
+                      title: Text(
+                        'Kegiatan Sekolah',
+                        style: TextStyle(
+                          fontFamily: (kegiatanClick == false)
+                              ? 'Gilroy-ExtraBold'
+                              : 'Gilroy-Light',
+                          fontSize: 16.w,
+                          color: (kegiatanClick == false)
+                              ? Colors.white
+                              : Color.fromRGBO(76, 81, 97, 1),
+                        ),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          closeDrawer();
+                          kegiatanClick = !kegiatanClick;
+                        });
+                      },
+                    ),
+                    Visibility(
+                      visible: (kegiatanClick == false) ? true : false,
+                      maintainAnimation: false,
+                      maintainState: false,
+                      child: ListTile(
+                        tileColor: Color.fromRGBO(237, 237, 237, 1),
+                        title: Text(
+                          'OSIS',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 14.w,
+                              color: Color.fromRGBO(76, 81, 91, 1)),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => OsisPage()));
+                        },
+                      ),
+                    ),
+                    Visibility(
+                      visible: (kegiatanClick == false) ? true : false,
+                      maintainAnimation: false,
+                      maintainState: false,
+                      child: ListTile(
+                        tileColor: Color.fromRGBO(237, 237, 237, 1),
+                        title: Text(
+                          'Ekstrakurikuler',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 14.w,
+                              color: Color.fromRGBO(76, 81, 91, 1)),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EkstrakurikulerPage()));
+                        },
+                      ),
+                    ),
+                    ListTile(
+                      tileColor: Colors.white,
+                      leading: Icon(
+                        Icons.person_rounded,
+                        color: Color.fromRGBO(255, 199, 0, 1),
+                      ),
+                      title: Text(
+                        'Profil',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 16.w,
+                          color: Color.fromRGBO(76, 81, 97, 1),
+                        ),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfilPage()));
+                      },
+                    ),
+                    Container(
+                      child: Align(
+                        alignment: FractionalOffset.bottomCenter,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Hasil Nilai',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-ExtraBold',
-                                fontSize: 20,
-                                color: Color.fromRGBO(76, 81, 97, 1),
+                          children: <Widget>[
+                            Divider(),
+                            ListTile(
+                              leading: Icon(
+                                Icons.logout_rounded,
                               ),
-                            ),
-                            Text(
-                              'Pantau nilai kalian disetiap kelasnya!',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 16,
-                                color: Color.fromRGBO(76, 81, 97, 1),
+                              title: Text(
+                                'Log Out',
+                                style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 14.w,
+                                    color: Color.fromRGBO(76, 81, 91, 1)),
                               ),
+                              onTap: () {
+                                _logOut();
+                              },
                             ),
                           ],
                         ),
                       ),
-                      Container(
-                        height: 65,
-                        width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.only(bottom: 10),
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 186,
-                                  height: 55,
-                                  margin: EdgeInsets.only(
-                                    right: 20,
-                                    left: 20,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 0,
-                                        blurRadius: 1.5,
-                                        offset: Offset(0, 0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 117,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10),
-                                          ),
-                                          color:
-                                              Color.fromRGBO(220, 218, 255, 1),
-                                        ),
-                                        child: Column(
+                    ),
+                  ],
+                ),
+              ),
+              body: Container(
+                width: 490.w,
+                height: 980.h,
+                child: loading
+                    ? Center(
+                        child: CircularProgressIndicator(
+                            color: Color.fromRGBO(76, 81, 97, 1)),
+                      )
+                    : SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 490 * 0.873,
+                              height: 400.h,
+                              margin: EdgeInsets.only(top: 20),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 0,
+                                    blurRadius: 1.5,
+                                    offset: Offset(0, 0),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 490.w * 0.873,
+                                    height: 70.h,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(220, 218, 255, 1),
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               'Kelas X',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 16,
+                                                fontSize: 20.w,
+                                                color: Colors.black,
                                               ),
                                             ),
                                             Text(
-                                              'Semester Gasal',
+                                              'Semester Ganjil',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
+                                                fontSize: 12.w,
+                                                color: Colors.black,
                                               ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Container(
-                                        width: 67,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                            color: Color.fromRGBO(
-                                                119, 115, 205, 1),
-                                            borderRadius: BorderRadius.only(
-                                              topRight: Radius.circular(10),
-                                              bottomRight: Radius.circular(10),
-                                            )),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              'Nilai Total',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 10,
-                                                color: Colors.white,
+                                        Container(
+                                          width: 189.w,
+                                          height: 16.h,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Pengetahuan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 12.w,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              '92',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 24,
-                                                color: Colors.white,
+                                              Text(
+                                                'Keterampilan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 12.w,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 490.w * 0.873,
+                                    height: 264.h,
+                                    child: GridView.builder(
+                                      itemCount: _nilai.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1,
+                                        mainAxisExtent: 52.h,
+                                        mainAxisSpacing: 0,
                                       ),
-                                    ],
+                                      itemBuilder: (context, i) {
+                                        return Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 20,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Matematika',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 16.w,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 145.w,
+                                                height: 22.h,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      '88',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '88',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                              ),
+                            ),
+                            Container(
+                              width: 157,
+                              height: 34,
+                              margin: EdgeInsets.only(top: 20),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.black,
+                              ),
+                              child: TextButton(
+                                onPressed: () {
+                                  print('clicked');
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'Cetak',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      color: Colors.white,
+                                            fontSize: 16.w,
+                                    ),
                                   ),
                                 ),
-                                Container(
-                                  width: 186,
-                                  height: 55,
-                                  margin: EdgeInsets.only(right: 20),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 0,
-                                        blurRadius: 1.5,
-                                        offset: Offset(0, 0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 117,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10),
-                                          ),
-                                          color:
-                                              Color.fromRGBO(255, 217, 102, 1),
-                                        ),
-                                        child: Column(
+                              ),
+                            ),
+                          ],
+                        ),
+                            ),
+                            Container(
+                              width: 490 * 0.873,
+                              height: 400.h,
+                              margin: EdgeInsets.only(top: 20),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 0,
+                              blurRadius: 1.5,
+                              offset: Offset(0, 0),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                                    width: 490.w * 0.873,
+                                    height: 70.h,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(255, 217, 102, 1),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                              ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               'Kelas X',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 16,
+                                                fontSize: 20.w,
+                                                color: Colors.black,
                                               ),
                                             ),
                                             Text(
                                               'Semester Genap',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
+                                                fontSize: 12.w,
+                                                color: Colors.black,
                                               ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Container(
-                                        width: 67,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                            color:
-                                                Color.fromRGBO(255, 199, 0, 1),
-                                            borderRadius: BorderRadius.only(
-                                              topRight: Radius.circular(10),
-                                              bottomRight: Radius.circular(10),
-                                            )),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              'Nilai Total',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 10,
-                                                color: Colors.white,
+                                        Container(
+                                          width: 189.w,
+                                          height: 16.h,
+                                          child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                      children: [
+                                              Text(
+                                                'Pengetahuan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 12.w,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              '92',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 24,
-                                                color: Colors.white,
+                                              Text(
+                                                'Keterampilan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 12.w,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 186,
-                                  height: 55,
-                                  margin: EdgeInsets.only(right: 20),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 0,
-                                        blurRadius: 1.5,
-                                        offset: Offset(0, 0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 117,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10),
+                                            ],
                                           ),
-                                          color:
-                                              Color.fromRGBO(220, 218, 255, 1),
                                         ),
-                                        child: Column(
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 490.w * 0.873,
+                                    height: 264.h,
+                                    child: GridView.builder(
+                                      itemCount: _nilai.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1,
+                                        mainAxisExtent: 52.h,
+                                        mainAxisSpacing: 0,
+                                      ),
+                                      itemBuilder: (context, i) {
+                                        return Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 20,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Matematika',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 16.w,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 145.w,
+                                                height: 22.h,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      '88',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '88',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                              ),
+                            ),
+                            Container(
+                              width: 157,
+                              height: 34,
+                              margin: EdgeInsets.only(top: 20),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.black,
+                              ),
+                              child: TextButton(
+                                onPressed: () {
+                                  print('clicked');
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'Cetak',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      color: Colors.white,
+                                            fontSize: 16.w,
+                                    ),
+                                  ),
+                                      ),
+                              ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 490 * 0.873,
+                              height: 400.h,
+                              margin: EdgeInsets.only(top: 20),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 0,
+                                    blurRadius: 1.5,
+                                    offset: Offset(0, 0),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 490.w * 0.873,
+                                    height: 70.h,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(220, 218, 255, 1),
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               'Kelas XI',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 16,
+                                                fontSize: 20.w,
+                                                color: Colors.black,
                                               ),
                                             ),
                                             Text(
-                                              'Semester Gasal',
+                                              'Semester Ganjil',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
+                                                fontSize: 12.w,
+                                                color: Colors.black,
                                               ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Container(
-                                        width: 67,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                            color: Color.fromRGBO(
-                                                119, 115, 205, 1),
-                                            borderRadius: BorderRadius.only(
-                                              topRight: Radius.circular(10),
-                                              bottomRight: Radius.circular(10),
-                                            )),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              'Nilai Total',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 10,
-                                                color: Colors.white,
+                                        Container(
+                                          width: 189.w,
+                                          height: 16.h,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Pengetahuan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 12.w,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              '92',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 24,
-                                                color: Colors.white,
+                                              Text(
+                                                'Keterampilan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 12.w,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 490.w * 0.873,
+                                    height: 264.h,
+                                    child: GridView.builder(
+                                      itemCount: _nilai.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1,
+                                        mainAxisExtent: 52.h,
+                                        mainAxisSpacing: 0,
                                       ),
-                                    ],
+                                      itemBuilder: (context, i) {
+                                        return Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 20,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Matematika',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 16.w,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 145.w,
+                                                height: 22.h,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      '88',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '88',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                              ),
+                            ),
+                            Container(
+                              width: 157,
+                              height: 34,
+                              margin: EdgeInsets.only(top: 20),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.black,
+                              ),
+                              child: TextButton(
+                                onPressed: () {
+                                  print('clicked');
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'Cetak',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      color: Colors.white,
+                                            fontSize: 16.w,
+                                    ),
                                   ),
                                 ),
-                                Container(
-                                  width: 186,
-                                  height: 55,
-                                  margin: EdgeInsets.only(right: 20),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 0,
-                                        blurRadius: 1.5,
-                                        offset: Offset(0, 0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 117,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10),
-                                          ),
-                                          color:
-                                              Color.fromRGBO(255, 217, 102, 1),
-                                        ),
-                                        child: Column(
+                              ),
+                            ),
+                          ],
+                        ),
+                            ),
+                            Container(
+                              width: 490 * 0.873,
+                              height: 400.h,
+                              margin: EdgeInsets.only(top: 20),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 0,
+                              blurRadius: 1.5,
+                              offset: Offset(0, 0),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                                    width: 490.w * 0.873,
+                                    height: 70.h,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                              decoration: BoxDecoration(
+                                      color: Color.fromRGBO(255, 217, 102, 1),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                              ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               'Kelas XI',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 16,
+                                                fontSize: 20.w,
+                                                color: Colors.black,
                                               ),
                                             ),
                                             Text(
                                               'Semester Genap',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
+                                                fontSize: 12.w,
+                                                color: Colors.black,
                                               ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Container(
-                                        width: 67,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                            color:
-                                                Color.fromRGBO(255, 199, 0, 1),
-                                            borderRadius: BorderRadius.only(
-                                              topRight: Radius.circular(10),
-                                              bottomRight: Radius.circular(10),
-                                            )),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              'Nilai Total',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 10,
-                                                color: Colors.white,
+                                        Container(
+                                          width: 189.w,
+                                          height: 16.h,
+                                          child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                      children: [
+                                              Text(
+                                                'Pengetahuan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 12.w,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              '92',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 24,
-                                                color: Colors.white,
+                                              Text(
+                                                'Keterampilan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 12.w,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Container(
-                                  width: 186,
-                                  height: 55,
-                                  margin: EdgeInsets.only(right: 20),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 0,
-                                        blurRadius: 1.5,
-                                        offset: Offset(0, 0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 117,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10),
+                                            ],
                                           ),
-                                          color:
-                                              Color.fromRGBO(220, 218, 255, 1),
                                         ),
-                                        child: Column(
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 490.w * 0.873,
+                                    height: 264.h,
+                                    child: GridView.builder(
+                                      itemCount: _nilai.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1,
+                                        mainAxisExtent: 52.h,
+                                        mainAxisSpacing: 0,
+                                      ),
+                                      itemBuilder: (context, i) {
+                                        return Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 20,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Matematika',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 16.w,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 145.w,
+                                                height: 22.h,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      '88',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '88',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                              ),
+                            ),
+                            Container(
+                              width: 157,
+                              height: 34,
+                              margin: EdgeInsets.only(top: 20),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.black,
+                              ),
+                              child: TextButton(
+                                onPressed: () {
+                                        print('click');
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'Cetak',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      color: Colors.white,
+                                            fontSize: 16.w,
+                                    ),
+                                  ),
+                                      ),
+                              ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 490 * 0.873,
+                              height: 400.h,
+                              margin: EdgeInsets.only(top: 20),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 0,
+                                    blurRadius: 1.5,
+                                    offset: Offset(0, 0),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                              ),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 490.w * 0.873,
+                                    height: 70.h,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(220, 218, 255, 1),
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               'Kelas XII',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 16,
+                                                fontSize: 20.w,
+                                                color: Colors.black,
                                               ),
                                             ),
                                             Text(
-                                              'Semester Gasal',
+                                              'Semester Ganjil',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
+                                                fontSize: 12.w,
+                                                color: Colors.black,
                                               ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Container(
-                                        width: 67,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                            color: Color.fromRGBO(
-                                                119, 115, 205, 1),
-                                            borderRadius: BorderRadius.only(
-                                              topRight: Radius.circular(10),
-                                              bottomRight: Radius.circular(10),
-                                            )),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              'Nilai Total',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 10,
-                                                color: Colors.white,
+                                        Container(
+                                          width: 189.w,
+                                          height: 16.h,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Pengetahuan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 12.w,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              '92',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 24,
-                                                color: Colors.white,
+                                              Text(
+                                                'Keterampilan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 12.w,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
+                                      ],
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 490.w * 0.873,
+                                    height: 264.h,
+                                    child: GridView.builder(
+                                      itemCount: _nilai.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1,
+                                        mainAxisExtent: 52.h,
+                                        mainAxisSpacing: 0,
                                       ),
-                                    ],
+                                      itemBuilder: (context, i) {
+                                        return Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 20,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Matematika',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 16.w,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 145.w,
+                                                height: 22.h,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      '88',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '88',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                              ),
+                            ),
+                            Container(
+                              width: 157,
+                              height: 34,
+                              margin: EdgeInsets.only(top: 20),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.black,
+                              ),
+                              child: TextButton(
+                                onPressed: () {
+                                  print('clicked');
+                                },
+                                child: Center(
+                                  child: Text(
+                                    'Cetak',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      color: Colors.white,
+                                            fontSize: 16.w,
+                                    ),
                                   ),
                                 ),
-                                Container(
-                                  width: 186,
-                                  height: 55,
-                                  margin: EdgeInsets.only(right: 20),
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black.withOpacity(0.2),
-                                        spreadRadius: 0,
-                                        blurRadius: 1.5,
-                                        offset: Offset(0, 0),
-                                      )
-                                    ],
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: 117,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10),
-                                          ),
-                                          color:
-                                              Color.fromRGBO(255, 217, 102, 1),
-                                        ),
-                                        child: Column(
+                              ),
+                            ),
+                          ],
+                        ),
+                            ),
+                            Container(
+                              width: 490 * 0.873,
+                              height: 400.h,
+                              margin: EdgeInsets.only(
+                                top: 20,
+                                bottom: 20,
+                              ),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.3),
+                              spreadRadius: 0,
+                              blurRadius: 1.5,
+                              offset: Offset(0, 0),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                                    width: 490.w * 0.873,
+                                    height: 70.h,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                    ),
+                              decoration: BoxDecoration(
+                                color: Color.fromRGBO(255, 217, 102, 1),
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
+                              ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.center,
                                           children: [
                                             Text(
                                               'Kelas XII',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 16,
+                                                fontSize: 20.w,
+                                                color: Colors.black,
                                               ),
                                             ),
                                             Text(
                                               'Semester Genap',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-Light',
-                                                fontSize: 11,
+                                                fontSize: 12.w,
+                                                color: Colors.black,
                                               ),
                                             ),
                                           ],
                                         ),
-                                      ),
-                                      Container(
-                                        width: 67,
-                                        height: 55,
-                                        decoration: BoxDecoration(
-                                            color:
-                                                Color.fromRGBO(255, 199, 0, 1),
-                                            borderRadius: BorderRadius.only(
-                                              topRight: Radius.circular(10),
-                                              bottomRight: Radius.circular(10),
-                                            )),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              'Nilai Total',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 10,
-                                                color: Colors.white,
+                                        Container(
+                                          width: 189.w,
+                                          height: 16.h,
+                                          child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                      children: [
+                                              Text(
+                                                'Pengetahuan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 12.w,
+                                                ),
                                               ),
-                                            ),
-                                            Text(
-                                              '92',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 24,
-                                                color: Colors.white,
+                                              Text(
+                                                'Keterampilan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 12.w,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 2600,
-                  margin: EdgeInsets.only(bottom: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 428,
-                        height: 400,
-                        margin: EdgeInsets.only(top: 10),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 0,
-                              blurRadius: 1.5,
-                              offset: Offset(0, 0),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 428,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(220, 218, 255, 1),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Kelas X',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                      ),
+                                      ],
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Semester Gasal Tahun Ajaran 2020/2021',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 12,
-                                        color: Colors.black,
+                                    width: 490.w * 0.873,
+                                    height: 264.h,
+                                    child: GridView.builder(
+                                      itemCount: _nilai.length,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 1,
+                                        mainAxisExtent: 52.h,
+                                        mainAxisSpacing: 0,
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 428,
-                              height: 264,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
+                                      itemBuilder: (context, i) {
+                                        return Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: 20,
                                           ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Matematika',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 16.w,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 145.w,
+                                                height: 22.h,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      '88',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      '88',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                        );
+                                      },
                               ),
                             ),
                             Container(
@@ -1526,7 +1706,7 @@ class _RaporPageState extends State<RaporPage> {
                               ),
                               child: TextButton(
                                 onPressed: () {
-                                  print('clicked');
+                                        print('click');
                                 },
                                 child: Center(
                                   child: Text(
@@ -1534,2113 +1714,23 @@ class _RaporPageState extends State<RaporPage> {
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
                                       color: Colors.white,
-                                      fontSize: 16,
+                                            fontSize: 16.w,
                                     ),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 428,
-                        height: 400,
-                        margin: EdgeInsets.only(top: 10),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 0,
-                              blurRadius: 1.5,
-                              offset: Offset(0, 0),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 428,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(255, 217, 102, 1),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Kelas X',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Colors.black,
                                       ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Semester Genap Tahun Ajaran 2020/2021',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                      ),
-                                    ),
+                              ),
                                   ),
                                 ],
                               ),
                             ),
-                            Container(
-                              width: 428,
-                              height: 264,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 157,
-                              height: 34,
-                              margin: EdgeInsets.only(top: 20),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.black,
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  print('clicked');
-                                },
-                                child: Center(
-                                  child: Text(
-                                    'Cetak',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       ),
-                      Container(
-                        width: 428,
-                        height: 400,
-                        margin: EdgeInsets.only(top: 10),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 0,
-                              blurRadius: 1.5,
-                              offset: Offset(0, 0),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 428,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(220, 218, 255, 1),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Kelas XI',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Semester Gasal Tahun Ajaran 2020/2021',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 428,
-                              height: 264,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 157,
-                              height: 34,
-                              margin: EdgeInsets.only(top: 20),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.black,
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  print('clicked');
-                                },
-                                child: Center(
-                                  child: Text(
-                                    'Cetak',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 428,
-                        height: 400,
-                        margin: EdgeInsets.only(top: 10),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 0,
-                              blurRadius: 1.5,
-                              offset: Offset(0, 0),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 428,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(255, 217, 102, 1),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Kelas XI',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Semester Genap Tahun Ajaran 2020/2021',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 428,
-                              height: 264,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 157,
-                              height: 34,
-                              margin: EdgeInsets.only(top: 20),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.black,
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  print('clicked');
-                                },
-                                child: Center(
-                                  child: Text(
-                                    'Cetak',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 428,
-                        height: 400,
-                        margin: EdgeInsets.only(top: 10),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 0,
-                              blurRadius: 1.5,
-                              offset: Offset(0, 0),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 428,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(220, 218, 255, 1),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Kelas XII',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Semester Gasal Tahun Ajaran 2020/2021',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 428,
-                              height: 264,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 157,
-                              height: 34,
-                              margin: EdgeInsets.only(top: 20),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.black,
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  print('clicked');
-                                },
-                                child: Center(
-                                  child: Text(
-                                    'Cetak',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 428,
-                        height: 400,
-                        margin: EdgeInsets.only(top: 10),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.3),
-                              spreadRadius: 0,
-                              blurRadius: 1.5,
-                              offset: Offset(0, 0),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: 428,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(255, 217, 102, 1),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Kelas XII',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      'Semester Genap Tahun Ajaran 2020/2021',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 428,
-                              height: 264,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                ),
-                              ),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            left: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            'Bahasa Indonesia',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                            right: 15,
-                                            top: 30,
-                                          ),
-                                          child: Text(
-                                            '88',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              width: 157,
-                              height: 34,
-                              margin: EdgeInsets.only(top: 20),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.black,
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  print('clicked');
-                                },
-                                child: Center(
-                                  child: Text(
-                                    'Cetak',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }

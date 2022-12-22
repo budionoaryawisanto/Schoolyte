@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:schoolyte/detailNilaiBelajarAdminProfil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -72,14 +73,17 @@ class _DetailNilaiBelajarAdminSiswaState
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
-    return new MaterialApp(
+    return ScreenUtilInit(
+      designSize: const Size(490, 980),
+      builder: (context, child) {
+        return new MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: Color.fromRGBO(243, 243, 243, 1),
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(75),
+                preferredSize: Size.fromHeight(75.h),
             child: AppBar(
               backgroundColor: Color.fromRGBO(255, 217, 102, 1),
               title: Align(
@@ -88,7 +92,7 @@ class _DetailNilaiBelajarAdminSiswaState
                   'Nilai Belajar',
                   style: TextStyle(
                     fontFamily: 'Gilroy-ExtraBold',
-                    fontSize: 24,
+                        fontSize: 24.w,
                     color: Colors.white,
                   ),
                 ),
@@ -104,15 +108,15 @@ class _DetailNilaiBelajarAdminSiswaState
                   child: Icon(
                     Icons.chevron_left_rounded,
                     color: Colors.white,
-                    size: 40,
+                        size: 40.w,
                   ),
                 ),
               ),
             ),
           ),
           body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
+                width: 490.w,
+                height: 980.h,
             child: loading
                 ? Center(
                     child: CircularProgressIndicator(
@@ -124,13 +128,13 @@ class _DetailNilaiBelajarAdminSiswaState
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 99,
+                              width: 490.w,
+                              height: 99.h,
                           color: Colors.white,
                           child: Center(
                             child: Container(
-                              width: MediaQuery.of(context).size.width * 0.82,
-                              height: 46,
+                                  width: 490.w * 0.82,
+                                  height: 46.h,
                               decoration: BoxDecoration(
                                 color: Color.fromRGBO(243, 243, 243, 1),
                                 borderRadius: BorderRadius.circular(10),
@@ -148,12 +152,12 @@ class _DetailNilaiBelajarAdminSiswaState
                                 children: [
                                   Container(
                                     width:
-                                        MediaQuery.of(context).size.width * 0.7,
+                                        490.w * 0.7,
                                     child: Form(
                                       child: TextFormField(
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
-                                          fontSize: 16,
+                                              fontSize: 16.w,
                                         ),
                                         textInputAction: TextInputAction.done,
                                         controller: searchController,
@@ -166,14 +170,14 @@ class _DetailNilaiBelajarAdminSiswaState
                                         decoration: new InputDecoration(
                                           icon: Icon(
                                             Icons.search,
-                                            size: 24,
+                                                size: 24.w,
                                           ),
                                           enabledBorder: InputBorder.none,
                                           focusedBorder: InputBorder.none,
                                           hintText: 'Cari Siswa',
                                           hintStyle: TextStyle(
                                             fontFamily: 'Gilroy-Light',
-                                            fontSize: 16,
+                                                fontSize: 16.w,
                                           ),
                                         ),
                                       ),
@@ -196,8 +200,8 @@ class _DetailNilaiBelajarAdminSiswaState
                           ),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.77,
+                              width: 490.w,
+                              height: 980.h * 0.77,
                           child: searchController.text.isNotEmpty
                               ? GridView.builder(
                                   itemCount: _search.length,
@@ -205,7 +209,7 @@ class _DetailNilaiBelajarAdminSiswaState
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 1,
-                                    mainAxisExtent: 68,
+                                        mainAxisExtent: 68.h,
                                     mainAxisSpacing: 10,
                                   ),
                                   itemBuilder: (context, i) {
@@ -256,7 +260,7 @@ class _DetailNilaiBelajarAdminSiswaState
                                                   style: TextStyle(
                                                     fontFamily:
                                                         'Gilroy-ExtraBold',
-                                                    fontSize: 16,
+                                                        fontSize: 16.w,
                                                     color: Colors.black,
                                                   ),
                                                 ),
@@ -264,7 +268,7 @@ class _DetailNilaiBelajarAdminSiswaState
                                                   'NIS : ${siswa.phone}',
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
-                                                    fontSize: 12,
+                                                        fontSize: 12.w,
                                                     color: Color.fromRGBO(
                                                         76, 81, 97, 1),
                                                   ),
@@ -273,7 +277,7 @@ class _DetailNilaiBelajarAdminSiswaState
                                             ),
                                             Icon(
                                               Icons.chevron_right_rounded,
-                                              size: 24,
+                                                  size: 24.w,
                                               color: Colors.black,
                                             ),
                                           ],
@@ -287,7 +291,7 @@ class _DetailNilaiBelajarAdminSiswaState
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 1,
-                                    mainAxisExtent: 68,
+                                        mainAxisExtent: 68.h,
                                     mainAxisSpacing: 10,
                                   ),
                                   itemBuilder: (context, i) {
@@ -339,7 +343,7 @@ class _DetailNilaiBelajarAdminSiswaState
                                                   style: TextStyle(
                                                     fontFamily:
                                                         'Gilroy-ExtraBold',
-                                                    fontSize: 16,
+                                                        fontSize: 16.w,
                                                     color: Colors.black,
                                                   ),
                                                 ),
@@ -347,7 +351,7 @@ class _DetailNilaiBelajarAdminSiswaState
                                                   'NIS : ${siswa.phone}',
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
-                                                    fontSize: 12,
+                                                        fontSize: 12.w,
                                                     color: Color.fromRGBO(
                                                         76, 81, 97, 1),
                                                   ),
@@ -356,7 +360,7 @@ class _DetailNilaiBelajarAdminSiswaState
                                             ),
                                             Icon(
                                               Icons.chevron_right_rounded,
-                                              size: 24,
+                                                  size: 24.w,
                                               color: Colors.black,
                                             ),
                                           ],
@@ -371,6 +375,9 @@ class _DetailNilaiBelajarAdminSiswaState
           ),
         ),
       ),
+    );
+  
+      },
     );
   }
 }

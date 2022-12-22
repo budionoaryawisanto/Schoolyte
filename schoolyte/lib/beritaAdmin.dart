@@ -1,26 +1,18 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:schoolyte/absensiAdmin.dart';
 import 'package:schoolyte/editBerita.dart';
+import 'package:schoolyte/nilaiBelajarAdmin.dart';
+import 'package:schoolyte/perpustakaanPegawai.dart';
 import 'package:schoolyte/postingBerita.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'koperasi.dart';
 import 'model.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:schoolyte/absensi.dart';
-import 'package:schoolyte/fasilitas.dart';
-import 'package:schoolyte/jadwal.dart';
-import 'package:schoolyte/nilaiBelajar.dart';
-import 'package:schoolyte/perpustakaan.dart';
-import 'package:schoolyte/rapor.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/home.dart';
-import 'osis.dart';
-import 'ekstrakurikuler.dart';
 import 'profil.dart';
-import 'administrasi.dart';
-import 'postingBerita.dart';
 
 class BeritaAdminPage extends StatefulWidget {
   @override
@@ -320,7 +312,7 @@ class _BeritaAdminPageState extends State<BeritaAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => JadwalPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -340,7 +332,7 @@ class _BeritaAdminPageState extends State<BeritaAdminPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => RaporPage()));
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -362,7 +354,7 @@ class _BeritaAdminPageState extends State<BeritaAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => AbsensiPage()));
+                              builder: (context) => AbsensiAdminPage()));
                     },
                   ),
                 ),
@@ -384,7 +376,7 @@ class _BeritaAdminPageState extends State<BeritaAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => NilaiBelajarPage()));
+                              builder: (context) => NilaiBelajarAdmin()));
                     },
                   ),
                 ),
@@ -435,7 +427,7 @@ class _BeritaAdminPageState extends State<BeritaAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PerpustakaanPage()));
+                              builder: (context) => PerpustakaanPegawaiPage()));
                     },
                   ),
                 ),
@@ -457,7 +449,7 @@ class _BeritaAdminPageState extends State<BeritaAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => FasilitasPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -575,7 +567,7 @@ class _BeritaAdminPageState extends State<BeritaAdminPage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AdministrasiPage()));
+                            builder: (context) => HomePage()));
                   },
                 ),
                 ListTile(
@@ -623,7 +615,7 @@ class _BeritaAdminPageState extends State<BeritaAdminPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => OsisPage()));
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -645,7 +637,7 @@ class _BeritaAdminPageState extends State<BeritaAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => EkstrakurikulerPage()));
+                              builder: (context) => HomePage()));
                     },
                   ),
                 ),
@@ -969,39 +961,47 @@ class _BeritaAdminPageState extends State<BeritaAdminPage> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
-                                                Container(
-                                                  width: 38,
-                                                  height: 38,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            180),
-                                                    color: Color.fromRGBO(
-                                                        243, 243, 243, 1),
-                                                  ),
-                                                  child: Center(
-                                                    child: Icon(
-                                                      Icons.check,
-                                                      size: 20,
-                                                      color: Colors.black,
+                                                GestureDetector(
+                                                  onTap: () {},
+                                                  child: Container(
+                                                    width: 38,
+                                                    height: 38,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              180),
+                                                      color: Color.fromRGBO(
+                                                          243, 243, 243, 1),
+                                                    ),
+                                                    child: Center(
+                                                      child: Icon(
+                                                        Icons.check,
+                                                        size: 20,
+                                                        color: Colors.black,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                                Container(
-                                                  width: 38,
-                                                  height: 38,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            180),
-                                                    color: Color.fromRGBO(
-                                                        243, 243, 243, 1),
-                                                  ),
-                                                  child: Center(
-                                                    child: Icon(
-                                                      Icons.close,
-                                                      size: 20,
-                                                      color: Colors.black,
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    konfirmasi();
+                                                  },
+                                                  child: Container(
+                                                    width: 38,
+                                                    height: 38,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              180),
+                                                      color: Color.fromRGBO(
+                                                          243, 243, 243, 1),
+                                                    ),
+                                                    child: Center(
+                                                      child: Icon(
+                                                        Icons.close,
+                                                        size: 20,
+                                                        color: Colors.black,
+                                                      ),
                                                     ),
                                                   ),
                                                 ),

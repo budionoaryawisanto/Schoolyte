@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:schoolyte/absensiPegawai.dart';
 import 'package:schoolyte/ekstrakurikuler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:schoolyte/absensi.dart';
@@ -20,12 +21,12 @@ import 'model.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class JadwalPage extends StatefulWidget {
+class JadwalGuruPage extends StatefulWidget {
   @override
-  _JadwalPageState createState() => new _JadwalPageState();
+  _JadwalGuruPageState createState() => new _JadwalGuruPageState();
 }
 
-class _JadwalPageState extends State<JadwalPage> {
+class _JadwalGuruPageState extends State<JadwalGuruPage> {
   List<Test> _jadwal = [];
   var loading = false;
 
@@ -269,7 +270,7 @@ class _JadwalPageState extends State<JadwalPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => JadwalPage()));
+                                  builder: (context) => JadwalGuruPage()));
                         },
                       ),
                     ),
@@ -313,7 +314,7 @@ class _JadwalPageState extends State<JadwalPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AbsensiPage()));
+                                  builder: (context) => AbsensiPegawaiPage()));
                         },
                       ),
                     ),
@@ -700,85 +701,40 @@ class _JadwalPageState extends State<JadwalPage> {
                                         ),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.start,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
                                             Container(
-                                              width: 273.w,
-                                              height: 93.h,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 30),
-                                                      child: new Image.asset(
-                                                        'assets/images/garis.png',
-                                                      )),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        jadwal.id == 2
-                                                            ? 'Bahasa Indonesia'
-                                                            : 'IPA',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-ExtraBold',
-                                                          fontSize: 24.w,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        '07:00 - 09:00 WIB',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 14.w,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                margin:
+                                                    EdgeInsets.only(right: 40),
+                                                child: new Image.asset(
+                                                  'assets/images/garis.png',
+                                                )),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Kelas 10 IPA ${jadwal.id}',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 24.w,
+                                                    color: Colors.black,
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              width: 110.w,
-                                              height: 66.75.h,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  ClipOval(
-                                                    child: new Image.asset(
-                                                      'assets/images/ppguru.png',
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                ),
+                                                Text(
+                                                  '07:00 - 09:00 WIB',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 14.w,
+                                                    color: Colors.black,
                                                   ),
-                                                  Text(
-                                                    jadwal.name,
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-Light',
-                                                      fontSize: 10.w,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -834,85 +790,40 @@ class _JadwalPageState extends State<JadwalPage> {
                                         ),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.start,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
                                             Container(
-                                              width: 273.w,
-                                              height: 93.h,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 30),
-                                                      child: new Image.asset(
-                                                        'assets/images/garis.png',
-                                                      )),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        jadwal.id == 2
-                                                            ? 'Bahasa Indonesia'
-                                                            : 'IPA',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-ExtraBold',
-                                                          fontSize: 24.w,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        '07:00 - 09:00 WIB',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 14.w,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                margin:
+                                                    EdgeInsets.only(right: 40),
+                                                child: new Image.asset(
+                                                  'assets/images/garis.png',
+                                                )),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Kelas 10 IPA ${jadwal.id}',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 24.w,
+                                                    color: Colors.black,
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              width: 110.w,
-                                              height: 66.75.h,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  ClipOval(
-                                                    child: new Image.asset(
-                                                      'assets/images/ppguru.png',
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                ),
+                                                Text(
+                                                  '07:00 - 09:00 WIB',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 14.w,
+                                                    color: Colors.black,
                                                   ),
-                                                  Text(
-                                                    jadwal.name,
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-Light',
-                                                      fontSize: 10.w,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -968,85 +879,40 @@ class _JadwalPageState extends State<JadwalPage> {
                                         ),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.start,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
                                             Container(
-                                              width: 273.w,
-                                              height: 93.h,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 30),
-                                                      child: new Image.asset(
-                                                        'assets/images/garis.png',
-                                                      )),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        jadwal.id == 2
-                                                            ? 'Bahasa Indonesia'
-                                                            : 'IPA',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-ExtraBold',
-                                                          fontSize: 24.w,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        '07:00 - 09:00 WIB',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 14.w,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                margin:
+                                                    EdgeInsets.only(right: 40),
+                                                child: new Image.asset(
+                                                  'assets/images/garis.png',
+                                                )),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Kelas 10 IPA ${jadwal.id}',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 24.w,
+                                                    color: Colors.black,
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              width: 110.w,
-                                              height: 66.75.h,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  ClipOval(
-                                                    child: new Image.asset(
-                                                      'assets/images/ppguru.png',
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                ),
+                                                Text(
+                                                  '07:00 - 09:00 WIB',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 14.w,
+                                                    color: Colors.black,
                                                   ),
-                                                  Text(
-                                                    jadwal.name,
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-Light',
-                                                      fontSize: 10.w,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -1102,85 +968,40 @@ class _JadwalPageState extends State<JadwalPage> {
                                         ),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.start,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
                                             Container(
-                                              width: 273.w,
-                                              height: 93.h,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 30),
-                                                      child: new Image.asset(
-                                                        'assets/images/garis.png',
-                                                      )),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        jadwal.id == 2
-                                                            ? 'Bahasa Indonesia'
-                                                            : 'IPA',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-ExtraBold',
-                                                          fontSize: 24.w,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        '07:00 - 09:00 WIB',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 14.w,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                margin:
+                                                    EdgeInsets.only(right: 40),
+                                                child: new Image.asset(
+                                                  'assets/images/garis.png',
+                                                )),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Kelas 10 IPA ${jadwal.id}',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 24.w,
+                                                    color: Colors.black,
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              width: 110.w,
-                                              height: 66.75.h,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  ClipOval(
-                                                    child: new Image.asset(
-                                                      'assets/images/ppguru.png',
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                ),
+                                                Text(
+                                                  '07:00 - 09:00 WIB',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 14.w,
+                                                    color: Colors.black,
                                                   ),
-                                                  Text(
-                                                    jadwal.name,
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-Light',
-                                                      fontSize: 10.w,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
@@ -1236,219 +1057,40 @@ class _JadwalPageState extends State<JadwalPage> {
                                         ),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.start,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
                                             Container(
-                                              width: 273.w,
-                                              height: 93.h,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 30),
-                                                      child: new Image.asset(
-                                                        'assets/images/garis.png',
-                                                      )),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        jadwal.id == 2
-                                                            ? 'Bahasa Indonesia'
-                                                            : 'IPA',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-ExtraBold',
-                                                          fontSize: 24.w,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        '07:00 - 09:00 WIB',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 14.w,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                    ],
+                                                margin:
+                                                    EdgeInsets.only(right: 40),
+                                                child: new Image.asset(
+                                                  'assets/images/garis.png',
+                                                )),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  'Kelas 10 IPA ${jadwal.id}',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 24.w,
+                                                    color: Colors.black,
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              width: 110.w,
-                                              height: 66.75.h,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  ClipOval(
-                                                    child: new Image.asset(
-                                                      'assets/images/ppguru.png',
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                                ),
+                                                Text(
+                                                  '07:00 - 09:00 WIB',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 14.w,
+                                                    color: Colors.black,
                                                   ),
-                                                  Text(
-                                                    jadwal.name,
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-Light',
-                                                      fontSize: 10.w,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    },
-                                  ),
-                          ),
-                        ),
-                  loading
-                      ? Center(
-                          child: CircularProgressIndicator(
-                              color: Color.fromRGBO(76, 81, 97, 1)),
-                        )
-                      : SingleChildScrollView(
-                          child: Container(
-                            width: 490.w,
-                            height: 980.h * 0.8,
-                            margin: EdgeInsets.symmetric(
-                              horizontal: 20,
-                            ),
-                            child: loading
-                                ? Center(
-                                    child: CircularProgressIndicator(),
-                                  )
-                                : GridView.builder(
-                                    itemCount: 9,
-                                    padding: EdgeInsets.all(10),
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 1,
-                                      mainAxisExtent: 93.h,
-                                      mainAxisSpacing: 15,
-                                    ),
-                                    itemBuilder: (context, i) {
-                                      final jadwal = _jadwal[i];
-                                      return Container(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 20,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.3),
-                                              spreadRadius: 0,
-                                              blurRadius: 1.5,
-                                              offset: Offset(0, 1),
-                                            )
-                                          ],
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 273.w,
-                                              height: 93.h,
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                      margin: EdgeInsets.only(
-                                                          right: 30),
-                                                      child: new Image.asset(
-                                                        'assets/images/garis.png',
-                                                      )),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        jadwal.id == 2
-                                                            ? 'Bahasa Indonesia'
-                                                            : 'IPA',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-ExtraBold',
-                                                          fontSize: 24.w,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        '07:00 - 09:00 WIB',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 14.w,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              width: 110.w,
-                                              height: 66.75.h,
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  ClipOval(
-                                                    child: new Image.asset(
-                                                      'assets/images/ppguru.png',
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    jadwal.name,
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Gilroy-Light',
-                                                      fontSize: 10.w,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
