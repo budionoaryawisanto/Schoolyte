@@ -602,7 +602,7 @@ class _DetailDivisiState extends State<DetailDivisi> {
                   Align(
                     alignment: Alignment(-0.9, 0.0),
                     child: Text(
-                      'Dokumentasi Kegiatan',
+                      'Informasi Osis',
                       style: TextStyle(
                         fontFamily: 'Gilroy-ExtraBold',
                         fontSize: 16,

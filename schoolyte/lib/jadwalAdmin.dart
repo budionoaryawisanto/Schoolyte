@@ -3,13 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:schoolyte/beritaAdmin.dart';
 import 'package:schoolyte/detailAbsensiAdminJabatan.dart';
+import 'package:schoolyte/detailJadwalAdminGuru.dart';
 import 'package:schoolyte/detailJadwalAdminKelas.dart';
 import 'package:schoolyte/nilaiBelajarAdmin.dart';
 import 'package:schoolyte/perpustakaanPegawai.dart';
+import 'package:schoolyte/raporAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:schoolyte/home.dart';
 import 'profil.dart';
-import 'detailAbsensiAdminKelas.dart';
 import 'absensiAdmin.dart';
 
 class JadwalAdminPage extends StatefulWidget {
@@ -197,7 +198,7 @@ class _JadwalAdminPageState extends State<JadwalAdminPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomePage()));
+                                  builder: (context) => RaporAdmin()));
                         },
                       ),
                     ),
@@ -587,7 +588,7 @@ class _JadwalAdminPageState extends State<JadwalAdminPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            DetailJadwalAdminKelas()));
+                                            DetailJadwalAdminGuru()));
                               },
                               child: Container(
                                 width: 81.w,
@@ -641,7 +642,7 @@ class _JadwalAdminPageState extends State<JadwalAdminPage> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            DetailAbsensiAdminJabatan()));
+                                            DetailJadwalAdminKelas()));
                               },
                               child: Container(
                                 width: 81.w,

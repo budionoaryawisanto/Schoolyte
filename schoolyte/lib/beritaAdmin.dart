@@ -7,6 +7,7 @@ import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/nilaiBelajarAdmin.dart';
 import 'package:schoolyte/perpustakaanPegawai.dart';
 import 'package:schoolyte/postingBerita.dart';
+import 'package:schoolyte/raporAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'koperasi.dart';
@@ -333,7 +334,8 @@ class _BeritaAdminPageState extends State<BeritaAdminPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                          MaterialPageRoute(
+                              builder: (context) => RaporAdmin()));
                     },
                   ),
                 ),

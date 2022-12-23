@@ -6,6 +6,7 @@ import 'package:schoolyte/detailAbsensiAdminJabatan.dart';
 import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/nilaiBelajarAdmin.dart';
 import 'package:schoolyte/perpustakaanPegawai.dart';
+import 'package:schoolyte/raporAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:schoolyte/home.dart';
 import 'profil.dart';
@@ -192,7 +193,8 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                              MaterialPageRoute(
+                                  builder: (context) => RaporAdmin()));
                     },
                   ),
                 ),

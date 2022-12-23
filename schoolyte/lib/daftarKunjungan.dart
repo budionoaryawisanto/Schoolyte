@@ -364,16 +364,15 @@ class _DaftarKunjunganState extends State<DaftarKunjungan> {
                   ],
                 ),
               ),
-              SingleChildScrollView(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.79,
-                  margin: EdgeInsets.symmetric(
-                    vertical: 20,
-                    horizontal: 10,
-                  ),
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.79,
+                margin: EdgeInsets.symmetric(
+                  vertical: 20,
+                ),
+                child: SingleChildScrollView(
+                  child: Align(
+                    alignment: Alignment.center,
                     child: DataTable(
                       border: TableBorder.all(
                         color: Color.fromRGBO(0, 0, 0, 0.28),
@@ -417,15 +416,6 @@ class _DaftarKunjunganState extends State<DaftarKunjungan> {
                         )),
                         DataColumn(
                             label: Text(
-                          'Keterangan',
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-Extrabold',
-                            fontSize: 16,
-                            color: Color.fromRGBO(76, 81, 97, 1),
-                          ),
-                        )),
-                        DataColumn(
-                            label: Text(
                           'Aksi',
                           style: TextStyle(
                             fontFamily: 'Gilroy-Extrabold',
@@ -460,16 +450,6 @@ class _DaftarKunjunganState extends State<DaftarKunjungan> {
                                   DataCell(
                                     Text(
                                       'Siswa',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 12,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                  ),
-                                  DataCell(
-                                    Text(
-                                      'Membaca Buku',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
                                         fontSize: 12,
