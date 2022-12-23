@@ -2,23 +2,20 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
-import 'package:schoolyte/beritaAdmin.dart';
-import 'package:schoolyte/detailNilaiBelajarAdminSiswa.dart';
-import 'package:schoolyte/home.dart';
-import 'package:schoolyte/jadwalAdmin.dart';
-import 'package:schoolyte/perpustakaanPegawai.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'absensiAdmin.dart';
-import 'model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart' as http;
+import 'package:schoolyte/detailJadwalAdminSiswa.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'model.dart';
+import 'detailAbsensiAdminSiswa.dart';
 
-class NilaiBelajarAdmin extends StatefulWidget {
+class DetailJadwalAdminKelas extends StatefulWidget {
   @override
-  _NilaiBelajarAdminState createState() => new _NilaiBelajarAdminState();
+  _DetailJadwalAdminKelasState createState() =>
+      new _DetailJadwalAdminKelasState();
 }
 
-class _NilaiBelajarAdminState extends State<NilaiBelajarAdmin> {
+class _DetailJadwalAdminKelasState extends State<DetailJadwalAdminKelas> {
   List<Test> _list = [];
 
   var loading = false;
@@ -45,43 +42,6 @@ class _NilaiBelajarAdminState extends State<NilaiBelajarAdmin> {
   void initState() {
     super.initState();
     fetchData();
-  }
-
-  _logOut() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('slogin', false);
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
-  }
-
-  bool akademikClick = true;
-  bool peminjamanClick = true;
-  bool pembelianClick = true;
-  bool keuanganClick = true;
-  bool kegiatanClick = true;
-  bool profilClick = true;
-
-  bool senClick = true;
-  bool selClick = true;
-  bool rabClick = true;
-  bool kamClick = true;
-  bool jumClick = true;
-
-  closeDrawer() {
-    akademikClick = true;
-    peminjamanClick = true;
-    pembelianClick = true;
-    keuanganClick = true;
-    kegiatanClick = true;
-    profilClick = true;
-  }
-
-  close() {
-    senClick = true;
-    selClick = true;
-    rabClick = true;
-    kamClick = true;
-    jumClick = true;
   }
 
   List<Tab> myTabs = <Tab>[
@@ -397,8 +357,8 @@ class _NilaiBelajarAdminState extends State<NilaiBelajarAdmin> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Color.fromRGBO(255, 217, 102, 1),
-        statusBarIconBrightness: Brightness.light,
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
         systemNavigationBarColor: Colors.white,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
@@ -416,465 +376,36 @@ class _NilaiBelajarAdminState extends State<NilaiBelajarAdmin> {
                 appBar: PreferredSize(
                   preferredSize: Size.fromHeight(75.h),
                   child: AppBar(
-                    backgroundColor: Color.fromRGBO(255, 217, 102, 1),
+                    backgroundColor: Colors.white,
                     title: Align(
                       alignment: Alignment(-0.7, 0.0),
                       child: Text(
-                        'Siswa',
+                        'Jadwal Kelas',
                         style: TextStyle(
                           fontFamily: 'Gilroy-ExtraBold',
                           fontSize: 24.w,
-                          color: Colors.white,
+                          color: Color.fromRGBO(76, 81, 97, 1),
                         ),
                       ),
                     ),
                     elevation: 0.0,
-                    iconTheme: IconThemeData(color: Colors.white),
-                  ),
-                ),
-                drawer: Drawer(
-            backgroundColor: Colors.white,
-                  width: 257.w,
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                DrawerHeader(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: Image(
-                    image: AssetImage('assets/images/logolanding.png'),
-                  ),
-                ),
-                ListTile(
-                  leading: Icon(
-                    Icons.home,
-                    color: Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Beranda',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
-                            fontSize: 16.w,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  },
-                ),
-                ListTile(
-                  tileColor: (akademikClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
-                  leading: Icon(
-                    Icons.school_rounded,
-                    color: (akademikClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Akademik',
-                    style: TextStyle(
-                      fontFamily: (akademikClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
-                            fontSize: 16.w,
-                      color: (akademikClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    closeDrawer();
-                    setState(() {
-                      closeDrawer();
-                      akademikClick = !akademikClick;
-                    });
-                  },
-                ),
-                Visibility(
-                  visible: (akademikClick == false) ? true : false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Jadwal Kelas',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                                fontSize: 14.w,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                                MaterialPageRoute(
-                                    builder: (context) => JadwalAdminPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (akademikClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Rapor',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                                fontSize: 14.w,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (akademikClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Absensi',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                                fontSize: 14.w,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => AbsensiAdminPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (akademikClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Nilai Belajar',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-ExtraBold',
-                                fontSize: 14.w,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => NilaiBelajarAdmin()));
-                    },
-                  ),
-                ),
-                ListTile(
-                  tileColor: (peminjamanClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
-                  leading: Icon(
-                    Icons.book,
-                    color: (peminjamanClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Peminjaman',
-                    style: TextStyle(
-                      fontFamily: (peminjamanClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
-                            fontSize: 16.w,
-                      color: (peminjamanClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      closeDrawer();
-                      peminjamanClick = !peminjamanClick;
-                    });
-                  },
-                ),
-                Visibility(
-                  visible: (peminjamanClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Perpustakaan',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                                fontSize: 14.w,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PerpustakaanPegawaiPage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (peminjamanClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Fasilitas',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                                fontSize: 14.w,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    },
-                  ),
-                ),
-                ListTile(
-                  tileColor: (pembelianClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
-                  leading: Icon(
-                    Icons.payment_rounded,
-                    color: (pembelianClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Pembelian',
-                    style: TextStyle(
-                      fontFamily: (pembelianClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
-                            fontSize: 16.w,
-                      color: (pembelianClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      closeDrawer();
-                      pembelianClick = !pembelianClick;
-                    });
-                  },
-                ),
-                Visibility(
-                  visible: (pembelianClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Koperasi',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                                fontSize: 14.w,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (pembelianClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Kantin',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                                fontSize: 14.w,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    },
-                  ),
-                ),
-                ListTile(
-                  tileColor: Colors.white,
-                  leading: Icon(
-                    Icons.newspaper_rounded,
-                    color: Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Berita',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
-                            fontSize: 16.w,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => BeritaAdminPage()));
-                    });
-                  },
-                ),
-                ListTile(
-                  tileColor: Colors.white,
-                  leading: Icon(
-                    Icons.point_of_sale,
-                    color: Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Administrasi',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
-                            fontSize: 16.w,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  },
-                ),
-                ListTile(
-                  tileColor: (kegiatanClick == false)
-                      ? Color.fromRGBO(255, 199, 0, 1)
-                      : Colors.white,
-                  leading: Icon(
-                    Icons.people_rounded,
-                    color: (kegiatanClick == false)
-                        ? Colors.white
-                        : Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Kegiatan Sekolah',
-                    style: TextStyle(
-                      fontFamily: (kegiatanClick == false)
-                          ? 'Gilroy-ExtraBold'
-                          : 'Gilroy-Light',
-                            fontSize: 16.w,
-                      color: (kegiatanClick == false)
-                          ? Colors.white
-                          : Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    setState(() {
-                      closeDrawer();
-                      kegiatanClick = !kegiatanClick;
-                    });
-                  },
-                ),
-                Visibility(
-                  visible: (kegiatanClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'OSIS',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                                fontSize: 14.w,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    },
-                  ),
-                ),
-                Visibility(
-                  visible: (kegiatanClick == false) ? true : false,
-                  maintainAnimation: false,
-                  maintainState: false,
-                  child: ListTile(
-                    tileColor: Color.fromRGBO(237, 237, 237, 1),
-                    title: Text(
-                      'Ekstrakurikuler',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Gilroy-Light',
-                                fontSize: 14.w,
-                          color: Color.fromRGBO(76, 81, 91, 1)),
-                    ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    },
-                  ),
-                ),
-                ListTile(
-                  tileColor: Colors.white,
-                  leading: Icon(
-                    Icons.person_rounded,
-                    color: Color.fromRGBO(255, 199, 0, 1),
-                  ),
-                  title: Text(
-                    'Profil',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy-Light',
-                            fontSize: 16.w,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  },
-                ),
-                Container(
-                  child: Align(
-                    alignment: FractionalOffset.bottomCenter,
-                    child: Column(
-                      children: <Widget>[
-                        Divider(),
-                        ListTile(
-                          leading: Icon(
-                            Icons.logout_rounded,
-                          ),
-                          title: Text(
-                            'Log Out',
-                            style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                      fontSize: 14.w,
-                                color: Color.fromRGBO(76, 81, 91, 1)),
-                          ),
-                          onTap: () {
-                            _logOut();
-                          },
+                    iconTheme:
+                        IconThemeData(color: Color.fromRGBO(76, 81, 97, 1)),
+                    leading: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Align(
+                        alignment: Alignment(1.0, 0.0),
+                        child: Icon(
+                          Icons.chevron_left_rounded,
+                          color: Color.fromRGBO(76, 81, 97, 1),
+                          size: 40.w,
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
                 body: Container(
                   width: 490.w,
                   height: 980.h,
@@ -888,14 +419,6 @@ class _NilaiBelajarAdminState extends State<NilaiBelajarAdmin> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Container(
-                                width: 490.w,
-                                height: 980.h * 0.239,
-                          child: Image.asset(
-                            'assets/images/infonilai.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
                               Container(
                                 width: 490.w,
                                 height: 220.h,
@@ -955,7 +478,7 @@ class _NilaiBelajarAdminState extends State<NilaiBelajarAdmin> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        DetailNilaiBelajarAdminSiswa()));
+                                                        DetailJadwalAdminSiswa()));
                                           },
                                           child: Container(
                                             margin: EdgeInsets.all(2),
@@ -1019,7 +542,7 @@ class _NilaiBelajarAdminState extends State<NilaiBelajarAdmin> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        DetailNilaiBelajarAdminSiswa()));
+                                                        DetailJadwalAdminSiswa()));
                                           },
                                           child: Container(
                                             margin: EdgeInsets.all(2),
@@ -1083,7 +606,7 @@ class _NilaiBelajarAdminState extends State<NilaiBelajarAdmin> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        DetailNilaiBelajarAdminSiswa()));
+                                                        DetailJadwalAdminSiswa()));
                                           },
                                           child: Container(
                                             margin: EdgeInsets.all(2),
@@ -1130,18 +653,17 @@ class _NilaiBelajarAdminState extends State<NilaiBelajarAdmin> {
                                             ),
                                           ),
                                         );
-                                      }),                             
+                                      }),
                                 ]),
                               ),
                             ],
                           ),
-                    ),
+                        ),
                 ),
+              ),
+            ),
           ),
-        ),
-      ),
-    );
-  
+        );
       },
     );
   }

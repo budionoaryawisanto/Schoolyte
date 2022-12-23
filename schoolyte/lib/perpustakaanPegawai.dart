@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:schoolyte/absensiAdmin.dart';
 import 'package:schoolyte/beritaAdmin.dart';
+import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/nilaiBelajarAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:schoolyte/home.dart';
@@ -169,7 +170,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HomePage()));
+                              builder: (context) => JadwalAdminPage()));
                     },
                   ),
                 ),

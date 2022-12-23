@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:schoolyte/beritaAdmin.dart';
 import 'package:schoolyte/detailAbsensiAdminJabatan.dart';
+import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/nilaiBelajarAdmin.dart';
 import 'package:schoolyte/perpustakaanPegawai.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -171,7 +172,7 @@ class _AbsensiAdminPageState extends State<AbsensiAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HomePage()));
+                                  builder: (context) => JadwalAdminPage()));
                     },
                   ),
                 ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:schoolyte/absensiAdmin.dart';
 import 'package:schoolyte/editBerita.dart';
+import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/nilaiBelajarAdmin.dart';
 import 'package:schoolyte/perpustakaanPegawai.dart';
 import 'package:schoolyte/postingBerita.dart';
@@ -312,7 +313,7 @@ class _BeritaAdminPageState extends State<BeritaAdminPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HomePage()));
+                              builder: (context) => JadwalAdminPage()));
                     },
                   ),
                 ),
