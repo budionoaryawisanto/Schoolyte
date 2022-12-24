@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:schoolyte/perpustakaanPegawai.dart';
 import 'package:schoolyte/pinjamBuku.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -95,14 +96,14 @@ class _TambahBukuState extends State<TambahBuku> {
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Container(
-                height: 357,
+                height: 357.h,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      width: 177,
-                      height: 177,
+                      width: 177.w,
+                      height: 177.h,
                       child: Image.asset(
                         'assets/images/alertDialog.png',
                         fit: BoxFit.fill,
@@ -112,7 +113,7 @@ class _TambahBukuState extends State<TambahBuku> {
                       'Gagal',
                       style: TextStyle(
                         fontFamily: 'Gilroy-ExtraBold',
-                        fontSize: 32,
+                        fontSize: 32.w,
                       ),
                     ),
                     GestureDetector(
@@ -120,8 +121,8 @@ class _TambahBukuState extends State<TambahBuku> {
                         Navigator.pop(context);
                       },
                       child: Container(
-                        width: 107,
-                        height: 43,
+                        width: 107.w,
+                        height: 43.h,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Color.fromRGBO(242, 78, 26, 1),
@@ -131,7 +132,7 @@ class _TambahBukuState extends State<TambahBuku> {
                             'OK',
                             style: TextStyle(
                               fontFamily: 'Gilroy-Light',
-                              fontSize: 20,
+                              fontSize: 20.w,
                               color: Colors.white,
                             ),
                           ),
@@ -172,14 +173,14 @@ class _TambahBukuState extends State<TambahBuku> {
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Container(
-                    height: 357,
+                    height: 357.h,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: 177,
-                          height: 177,
+                          width: 177.w,
+                          height: 177.h,
                           child: Image.asset(
                             'assets/images/dialog.png',
                             fit: BoxFit.fill,
@@ -189,7 +190,7 @@ class _TambahBukuState extends State<TambahBuku> {
                           'Sukses',
                           style: TextStyle(
                             fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 32,
+                            fontSize: 32.w,
                           ),
                         ),
                         GestureDetector(
@@ -200,8 +201,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                     builder: (context) => TambahBuku()));
                           },
                           child: Container(
-                            width: 107,
-                            height: 43,
+                            width: 107.w,
+                            height: 43.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: Color.fromRGBO(119, 115, 205, 1),
@@ -211,7 +212,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                 'OK',
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
-                                  fontSize: 20,
+                                  fontSize: 20.w,
                                   color: Colors.white,
                                 ),
                               ),
@@ -242,14 +243,14 @@ class _TambahBukuState extends State<TambahBuku> {
               borderRadius: BorderRadius.circular(14),
             ),
             child: Container(
-              height: 357,
+              height: 357.h,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: 177,
-                    height: 177,
+                    width: 177.w,
+                    height: 177.h,
                     child: Image.asset(
                       'assets/images/alertDialog.png',
                       fit: BoxFit.fill,
@@ -259,12 +260,12 @@ class _TambahBukuState extends State<TambahBuku> {
                     'Kamu Yakin ?',
                     style: TextStyle(
                       fontFamily: 'Gilroy-ExtraBold',
-                      fontSize: 32,
+                      fontSize: 32.w,
                     ),
                   ),
                   Container(
-                    width: 253,
-                    height: 43,
+                    width: 253.w,
+                    height: 43.h,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -274,8 +275,8 @@ class _TambahBukuState extends State<TambahBuku> {
                             Navigator.pop(context);
                           },
                           child: Container(
-                            width: 107,
-                            height: 43,
+                            width: 107.w,
+                            height: 43.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               border: Border.all(
@@ -289,7 +290,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                 'Tidak',
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
-                                  fontSize: 20,
+                                  fontSize: 20.w,
                                 ),
                               ),
                             ),
@@ -298,8 +299,8 @@ class _TambahBukuState extends State<TambahBuku> {
                         GestureDetector(
                           onTap: () {},
                           child: Container(
-                            width: 107,
-                            height: 43,
+                            width: 107.w,
+                            height: 43.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: Color.fromRGBO(242, 78, 26, 1),
@@ -309,7 +310,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                 'Ya',
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
-                                  fontSize: 20,
+                                  fontSize: 20.w,
                                   color: Colors.white,
                                 ),
                               ),
@@ -366,7 +367,10 @@ class _TambahBukuState extends State<TambahBuku> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
-    return MaterialApp(
+    return ScreenUtilInit(
+      designSize: const Size(490, 980),
+      builder: (context, child) {
+        return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DefaultTabController(
         length: myTabs.length,
@@ -374,7 +378,7 @@ class _TambahBukuState extends State<TambahBuku> {
           resizeToAvoidBottomInset: false,
           backgroundColor: Colors.white,
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(138),
+                preferredSize: Size.fromHeight(138.h),
             child: AppBar(
               backgroundColor: Color.fromRGBO(255, 217, 102, 1),
               title: Align(
@@ -383,7 +387,7 @@ class _TambahBukuState extends State<TambahBuku> {
                   'Tambah',
                   style: TextStyle(
                     fontFamily: 'Gilroy-ExtraBold',
-                    fontSize: 24,
+                        fontSize: 24.w,
                     color: Colors.white,
                   ),
                 ),
@@ -398,11 +402,11 @@ class _TambahBukuState extends State<TambahBuku> {
                 isScrollable: false,
                 labelStyle: TextStyle(
                   fontFamily: 'Gilroy-ExtraBold',
-                  fontSize: 20,
+                      fontSize: 20.w,
                 ),
                 unselectedLabelStyle: TextStyle(
                   fontFamily: 'Gilroy-Light',
-                  fontSize: 20,
+                      fontSize: 20.w,
                 ),
                 tabs: myTabs,
               ),
@@ -426,10 +430,10 @@ class _TambahBukuState extends State<TambahBuku> {
           body: TabBarView(
             children: [
               Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.8,
+                    width: 490.w,
+                    height: 980.h * 0.8,
                 padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width * 0.09),
+                    horizontal: 490.w * 0.09),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -438,24 +442,24 @@ class _TambahBukuState extends State<TambahBuku> {
                       'Tambah Buku',
                       style: TextStyle(
                         fontFamily: 'Gilroy-ExtraBold',
-                        fontSize: 20,
+                            fontSize: 20.w,
                         color: Color.fromRGBO(76, 81, 97, 1),
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.06,
+                          width: 490.w * 0.85,
+                          height: 980.h * 0.06,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
+                                width: 490.w * 0.15,
                             child: Text(
                               'Nama Buku',
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
+                                    fontSize: 18.w,
                                 color: Color.fromRGBO(76, 81, 97, 1),
                               ),
                             ),
@@ -467,14 +471,14 @@ class _TambahBukuState extends State<TambahBuku> {
                             ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
+                                width: 490.w * 0.6,
                             child: Form(
                               key: _formKey,
                               child: TextFormField(
                                 controller: namaController,
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
-                                  fontSize: 16,
+                                      fontSize: 16.w,
                                   color: Color.fromRGBO(76, 81, 97, 1),
                                 ),
                                 textAlignVertical: TextAlignVertical(y: -0.7),
@@ -482,7 +486,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                   labelText: 'Nama',
                                   labelStyle: TextStyle(
                                     fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
+                                        fontSize: 16.w,
                                     color: Color.fromRGBO(76, 81, 97, 0.54),
                                   ),
                                   border: OutlineInputBorder(
@@ -500,20 +504,20 @@ class _TambahBukuState extends State<TambahBuku> {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.06,
+                          width: 490.w * 0.85,
+                          height: 980.h * 0.06,
                       margin: EdgeInsets.only(top: 22),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
+                                width: 490.w * 0.15,
                             child: Text(
                               'Tahun Terbit',
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
+                                    fontSize: 18.w,
                                 color: Color.fromRGBO(76, 81, 97, 1),
                               ),
                             ),
@@ -525,14 +529,14 @@ class _TambahBukuState extends State<TambahBuku> {
                             ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
+                                width: 490.w * 0.6,
                             child: Form(
                               key: _formKey2,
                               child: TextFormField(
                                 controller: tahunController,
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
-                                  fontSize: 16,
+                                      fontSize: 16.w,
                                   color: Color.fromRGBO(76, 81, 97, 1),
                                 ),
                                 textAlignVertical: TextAlignVertical(y: -0.7),
@@ -540,7 +544,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                   labelText: 'Tahun',
                                   labelStyle: TextStyle(
                                     fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
+                                        fontSize: 16.w,
                                     color: Color.fromRGBO(76, 81, 97, 0.54),
                                   ),
                                   border: OutlineInputBorder(
@@ -558,20 +562,20 @@ class _TambahBukuState extends State<TambahBuku> {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.06,
+                          width: 490.w * 0.85,
+                          height: 980.h * 0.06,
                       margin: EdgeInsets.only(top: 22),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
+                                width: 490.w * 0.15,
                             child: Text(
                               'Penulis',
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
+                                    fontSize: 18.w,
                                 color: Color.fromRGBO(76, 81, 97, 1),
                               ),
                             ),
@@ -583,14 +587,14 @@ class _TambahBukuState extends State<TambahBuku> {
                             ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
+                                width: 490.w * 0.6,
                             child: Form(
                               key: _formKey3,
                               child: TextFormField(
                                 controller: penulisController,
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
-                                  fontSize: 16,
+                                      fontSize: 16.w,
                                   color: Color.fromRGBO(76, 81, 97, 1),
                                 ),
                                 textAlignVertical: TextAlignVertical(y: -0.7),
@@ -598,7 +602,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                   labelText: 'Nama Penulis',
                                   labelStyle: TextStyle(
                                     fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
+                                        fontSize: 16.w,
                                     color: Color.fromRGBO(76, 81, 97, 0.54),
                                   ),
                                   border: OutlineInputBorder(
@@ -616,20 +620,20 @@ class _TambahBukuState extends State<TambahBuku> {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.06,
+                          width: 490.w * 0.85,
+                          height: 980.h * 0.06,
                       margin: EdgeInsets.only(top: 22),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
+                                width: 490.w * 0.15,
                             child: Text(
                               'Kategori',
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
+                                    fontSize: 18.w,
                                 color: Color.fromRGBO(76, 81, 97, 1),
                               ),
                             ),
@@ -641,14 +645,14 @@ class _TambahBukuState extends State<TambahBuku> {
                             ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
+                                width: 490.w * 0.6,
                             child: Form(
                               key: _formKey4,
                               child: TextFormField(
                                 controller: kategoriController,
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
-                                  fontSize: 16,
+                                      fontSize: 16.w,
                                   color: Color.fromRGBO(76, 81, 97, 1),
                                 ),
                                 textAlignVertical: TextAlignVertical(y: -0.7),
@@ -656,7 +660,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                   labelText: 'Kategori Buku',
                                   labelStyle: TextStyle(
                                     fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
+                                        fontSize: 16.w,
                                     color: Color.fromRGBO(76, 81, 97, 0.54),
                                   ),
                                   border: OutlineInputBorder(
@@ -674,20 +678,20 @@ class _TambahBukuState extends State<TambahBuku> {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: MediaQuery.of(context).size.height * 0.11,
+                          width: 490.w * 0.85,
+                          height: 980.h * 0.11,
                       margin: EdgeInsets.only(top: 22),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
+                                width: 490.w * 0.15,
                             child: Text(
                               'Rincian Buku',
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
+                                    fontSize: 18.w,
                                 color: Color.fromRGBO(76, 81, 97, 1),
                               ),
                             ),
@@ -699,7 +703,7 @@ class _TambahBukuState extends State<TambahBuku> {
                             ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
+                                width: 490.w * 0.6,
                             child: Form(
                               key: _formKey5,
                               child: TextFormField(
@@ -708,14 +712,14 @@ class _TambahBukuState extends State<TambahBuku> {
                                 maxLines: 400,
                                 style: TextStyle(
                                   fontFamily: 'Gilroy-Light',
-                                  fontSize: 16,
+                                      fontSize: 16.w,
                                   color: Color.fromRGBO(76, 81, 97, 1),
                                 ),
                                 decoration: InputDecoration(
                                   labelText: 'Keterangan Buku',
                                   labelStyle: TextStyle(
                                     fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
+                                        fontSize: 16.w,
                                     color: Color.fromRGBO(76, 81, 97, 0.54),
                                   ),
                                   border: OutlineInputBorder(
@@ -733,18 +737,18 @@ class _TambahBukuState extends State<TambahBuku> {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.42,
-                      height: MediaQuery.of(context).size.height * 0.042,
+                          width: 490.w * 0.42,
+                          height: 980.h * 0.042,
                       margin: EdgeInsets.only(top: 22),
                       child: Row(
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.14,
+                                width: 490.w * 0.14,
                             child: Text(
                               'Jumlah Buku',
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
+                                    fontSize: 18.w,
                                 color: Color.fromRGBO(76, 81, 97, 1),
                               ),
                             ),
@@ -756,8 +760,8 @@ class _TambahBukuState extends State<TambahBuku> {
                             ),
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.17,
-                            height: MediaQuery.of(context).size.height * 0.026,
+                                width: 490.w * 0.17,
+                                height: 980.h * 0.026,
                             margin: EdgeInsets.only(left: 20),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -767,8 +771,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                     jumlahBuku--;
                                   }),
                                   child: Container(
-                                    width: 25,
-                                    height: 25,
+                                        width: 25.w,
+                                        height: 25.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(180),
                                       border: Border.all(
@@ -788,7 +792,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                   jumlahBuku.toString(),
                                   style: TextStyle(
                                     fontFamily: 'Gilroy-Light',
-                                    fontSize: 16,
+                                        fontSize: 16.w,
                                     color: Colors.black,
                                   ),
                                 ),
@@ -797,8 +801,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                     jumlahBuku++;
                                   }),
                                   child: Container(
-                                    width: 25,
-                                    height: 25,
+                                        width: 25.w,
+                                        height: 25.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(180),
                                       border: Border.all(
@@ -821,18 +825,18 @@ class _TambahBukuState extends State<TambahBuku> {
                       ),
                     ),
                     Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      height: MediaQuery.of(context).size.height * 0.042,
+                          width: 490.w * 0.6,
+                          height: 980.h * 0.042,
                       margin: EdgeInsets.only(top: 22),
                       child: Row(
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.15,
+                                width: 490.w * 0.15,
                             child: Text(
                               'Tambah Foto',
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
-                                fontSize: 18,
+                                    fontSize: 18.w,
                                 color: Color.fromRGBO(76, 81, 97, 1),
                               ),
                             ),
@@ -858,9 +862,9 @@ class _TambahBukuState extends State<TambahBuku> {
                                         });
                                   },
                                   child: Container(
-                                    width: MediaQuery.of(context).size.width *
+                                        width: 490.w *
                                         0.27,
-                                    height: MediaQuery.of(context).size.height *
+                                        height: 980.h *
                                         0.04,
                                     margin: EdgeInsets.only(left: 25),
                                     decoration: BoxDecoration(
@@ -880,7 +884,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                         'Lihat Foto',
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
-                                          fontSize: 16,
+                                              fontSize: 16.w,
                                           color:
                                               Color.fromRGBO(76, 81, 97, 0.54),
                                         ),
@@ -893,9 +897,9 @@ class _TambahBukuState extends State<TambahBuku> {
                                     await getImage();
                                   },
                                   child: Container(
-                                    width: MediaQuery.of(context).size.width *
+                                        width: 490.w *
                                         0.27,
-                                    height: MediaQuery.of(context).size.height *
+                                        height: 980.h *
                                         0.04,
                                     margin: EdgeInsets.only(left: 25),
                                     decoration: BoxDecoration(
@@ -915,7 +919,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                         'Pilih foto',
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-Light',
-                                          fontSize: 16,
+                                              fontSize: 16.w,
                                           color:
                                               Color.fromRGBO(76, 81, 97, 0.54),
                                         ),
@@ -947,8 +951,8 @@ class _TambahBukuState extends State<TambahBuku> {
                           sendBuku();
                         },
                         child: Container(
-                          width: 119,
-                          height: 36,
+                              width: 119.w,
+                              height: 36.h,
                           margin: EdgeInsets.only(top: 30),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(4),
@@ -959,7 +963,7 @@ class _TambahBukuState extends State<TambahBuku> {
                               'Selesai',
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
-                                fontSize: 15,
+                                    fontSize: 15.w,
                                 color: Colors.white,
                               ),
                             ),
@@ -976,8 +980,8 @@ class _TambahBukuState extends State<TambahBuku> {
                           color: Color.fromRGBO(255, 199, 0, 1)),
                     )
                   : Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.7,
+                          width: 490.w,
+                          height: 980.h * 0.7,
                       padding: EdgeInsets.all(10),
                       color: Color.fromRGBO(243, 243, 243, 1),
                       child: GridView.builder(
@@ -985,8 +989,8 @@ class _TambahBukuState extends State<TambahBuku> {
                           padding: EdgeInsets.all(10),
                           gridDelegate:
                               SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: 140,
-                            mainAxisExtent: 283,
+                                maxCrossAxisExtent: 140.w,
+                                mainAxisExtent: 283.h,
                             crossAxisSpacing: 15,
                             mainAxisSpacing: 12,
                           ),
@@ -1001,9 +1005,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                     builder: (BuildContext context) {
                                       return SafeArea(
                                         child: Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
+                                              height: 980.h *
                                               0.964,
                                           padding: EdgeInsets.symmetric(
                                             horizontal: 30,
@@ -1026,7 +1028,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                           Icons.chevron_left,
                                                           color: Color.fromRGBO(
                                                               200, 200, 200, 1),
-                                                          size: 40,
+                                                              size: 40.w,
                                                         ),
                                                       ),
                                                       Container(
@@ -1037,7 +1039,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-ExtraBold',
-                                                            fontSize: 20,
+                                                                fontSize: 20.w,
                                                             color:
                                                                 Color.fromRGBO(
                                                                     76,
@@ -1070,8 +1072,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                           });
                                                     },
                                                     child: Container(
-                                                      width: 167,
-                                                      height: 226,
+                                                          width: 167.w,
+                                                          height: 226.h,
                                                       child: Image.network(
                                                         Api.image + book.image,
                                                         fit: BoxFit.cover,
@@ -1081,15 +1083,9 @@ class _TambahBukuState extends State<TambahBuku> {
                                                 ),
                                                 Center(
                                                   child: Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
+                                                        width: 490.w *
                                                             0.67,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
+                                                        height: 980.h *
                                                             0.2,
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -1106,7 +1102,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-ExtraBold',
-                                                            fontSize: 32,
+                                                                fontSize: 32.w,
                                                             color: Colors.black,
                                                           ),
                                                         ),
@@ -1116,7 +1112,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
-                                                            fontSize: 13,
+                                                                fontSize: 13.w,
                                                             color:
                                                                 Color.fromRGBO(
                                                                     76,
@@ -1131,7 +1127,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
-                                                            fontSize: 13,
+                                                                fontSize: 13.w,
                                                             color:
                                                                 Color.fromRGBO(
                                                                     76,
@@ -1141,15 +1137,11 @@ class _TambahBukuState extends State<TambahBuku> {
                                                           ),
                                                         ),
                                                         Container(
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
+                                                              width:
+                                                                  490.w *
                                                               0.12,
-                                                          height: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .height *
+                                                              height:
+                                                                  980.h *
                                                               0.018,
                                                           decoration:
                                                               BoxDecoration(
@@ -1183,7 +1175,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                               style: TextStyle(
                                                                 fontFamily:
                                                                     'Gilroy-Light',
-                                                                fontSize: 10,
+                                                                    fontSize:
+                                                                        10.w,
                                                                 color: book.jumlah_buku !=
                                                                         '0'
                                                                     ? Colors
@@ -1200,15 +1193,9 @@ class _TambahBukuState extends State<TambahBuku> {
                                                 ),
                                                 Center(
                                                   child: Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
+                                                        width: 490.w *
                                                             0.8,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
+                                                        height: 980.h *
                                                             0.40,
                                                     child:
                                                         SingleChildScrollView(
@@ -1217,7 +1204,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-Light',
-                                                          fontSize: 12,
+                                                              fontSize: 12.w,
                                                           color: Color.fromRGBO(
                                                               76, 81, 97, 1),
                                                         ),
@@ -1258,8 +1245,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Container(
-                                          width: 119,
-                                          height: 161,
+                                              width: 119.w,
+                                              height: 161.h,
                                           decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(5)),
@@ -1269,7 +1256,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                           ),
                                         ),
                                         Container(
-                                          height: 100,
+                                              height: 100.h,
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceEvenly,
@@ -1281,7 +1268,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                   style: TextStyle(
                                                     fontFamily:
                                                         'Gilroy-ExtraBold',
-                                                    fontSize: 13,
+                                                        fontSize: 13.w,
                                                   ),
                                                 ),
                                               ),
@@ -1292,7 +1279,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                       book.tahun_terbit,
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
-                                                    fontSize: 10,
+                                                        fontSize: 10.w,
                                                   ),
                                                 ),
                                               ),
@@ -1302,7 +1289,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                   'Oleh: ' + book.nama_penulis,
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
-                                                    fontSize: 10,
+                                                        fontSize: 10.w,
                                                   ),
                                                   maxLines: 1,
                                                   overflow:
@@ -1316,7 +1303,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                       book.kategori_buku,
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
-                                                    fontSize: 10,
+                                                        fontSize: 10.w,
                                                   ),
                                                 ),
                                               ),
@@ -1327,7 +1314,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                       book.jumlah_buku,
                                                   style: TextStyle(
                                                     fontFamily: 'Gilroy-Light',
-                                                    fontSize: 10,
+                                                        fontSize: 10.w,
                                                   ),
                                                 ),
                                               ),
@@ -1343,8 +1330,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                           konfirmasi();
                                         },
                                         child: Container(
-                                          width: 24,
-                                          height: 24,
+                                              width: 24.w,
+                                              height: 24.h,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(180),
@@ -1363,8 +1350,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                     Align(
                                       alignment: Alignment(0.9, -0.93),
                                       child: Container(
-                                        width: 24,
-                                        height: 24,
+                                            width: 24.w,
+                                            height: 24.h,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(180),
@@ -1391,21 +1378,21 @@ class _TambahBukuState extends State<TambahBuku> {
                           color: Color.fromRGBO(255, 199, 0, 1)),
                     )
                   : Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
+                          width: 490.w,
+                          height: 980.h,
                       color: Color.fromRGBO(243, 243, 243, 1),
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width,
+                                  width: 490.w,
                               height: 85,
                               color: Colors.white,
                               child: Center(
                                 child: Container(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.88,
-                                  height: MediaQuery.of(context).size.height *
+                                      490.w * 0.88,
+                                      height: 980.h *
                                       0.050,
                                   decoration: BoxDecoration(
                                     color: Color.fromRGBO(243, 243, 243, 1),
@@ -1424,13 +1411,13 @@ class _TambahBukuState extends State<TambahBuku> {
                                     children: [
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
+                                            490.w *
                                                 0.73,
                                         child: Form(
                                           child: TextFormField(
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
-                                              fontSize: 16,
+                                                  fontSize: 16.w,
                                             ),
                                             textInputAction:
                                                 TextInputAction.done,
@@ -1444,7 +1431,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                             decoration: new InputDecoration(
                                               icon: Icon(
                                                 Icons.search,
-                                                size: 24,
+                                                    size: 24.w,
                                               ),
                                               enabledBorder: InputBorder.none,
                                               focusedBorder: InputBorder.none,
@@ -1452,7 +1439,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                   'Apa yang ingin kamu pinjam?',
                                               hintStyle: TextStyle(
                                                 fontFamily: 'Gilroy-Light',
-                                                fontSize: 16,
+                                                    fontSize: 16.w,
                                               ),
                                             ),
                                           ),
@@ -1460,7 +1447,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                       ),
                                       IconButton(
                                         icon: Icon(Icons.cancel,
-                                            size: 24,
+                                                size: 24.w,
                                             color:
                                                 searchController.text.length !=
                                                         0
@@ -1479,9 +1466,9 @@ class _TambahBukuState extends State<TambahBuku> {
                             ),
                             SingleChildScrollView(
                               child: Container(
-                                width: MediaQuery.of(context).size.width,
+                                    width: 490.w,
                                 height:
-                                    MediaQuery.of(context).size.height * 0.73,
+                                    980.h * 0.73,
                                 margin: EdgeInsets.symmetric(
                                   horizontal: 10,
                                   vertical: 10,
@@ -1493,10 +1480,10 @@ class _TambahBukuState extends State<TambahBuku> {
                                         padding: EdgeInsets.all(10),
                                         gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
-                                          maxCrossAxisExtent: 140,
-                                          mainAxisExtent: 282,
-                                          crossAxisSpacing: 15,
-                                          mainAxisSpacing: 12,
+                                              maxCrossAxisExtent: 140.h,
+                                              mainAxisExtent: 282.w,
+                                              crossAxisSpacing: 15.w,
+                                              mainAxisSpacing: 12.h,
                                         ),
                                         itemBuilder: (context, i) {
                                           final book = _search[i];
@@ -1511,8 +1498,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                             },
                                             child: Container(
                                               padding: EdgeInsets.symmetric(
-                                                horizontal: 8,
-                                                vertical: 8,
+                                                    horizontal: 8.w,
+                                                    vertical: 8.h,
                                               ),
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
@@ -1539,8 +1526,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                             .center,
                                                     children: [
                                                       Container(
-                                                        width: 119,
-                                                        height: 161,
+                                                            width: 119.w,
+                                                            height: 161.h,
                                                         decoration: BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
@@ -1553,7 +1540,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                         ),
                                                       ),
                                                       Container(
-                                                        height: 100,
+                                                            height: 100.h,
                                                         child: Column(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -1570,7 +1557,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Gilroy-ExtraBold',
-                                                                  fontSize: 13,
+                                                                      fontSize:
+                                                                          13.w,
                                                                 ),
                                                               ),
                                                             ),
@@ -1586,7 +1574,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Gilroy-Light',
-                                                                  fontSize: 10,
+                                                                      fontSize:
+                                                                          10.w,
                                                                 ),
                                                               ),
                                                             ),
@@ -1602,7 +1591,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Gilroy-Light',
-                                                                  fontSize: 10,
+                                                                      fontSize:
+                                                                          10.w,
                                                                 ),
                                                                 maxLines: 1,
                                                                 overflow:
@@ -1622,15 +1612,14 @@ class _TambahBukuState extends State<TambahBuku> {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Gilroy-Light',
-                                                                  fontSize: 10,
+                                                                      fontSize:
+                                                                          10.w,
                                                                 ),
                                                               ),
                                                             ),
                                                             Container(
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height *
+                                                                  height:
+                                                                      980.h *
                                                                   0.014,
                                                               decoration:
                                                                   BoxDecoration(
@@ -1664,8 +1653,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                                       TextStyle(
                                                                     fontFamily:
                                                                         'Gilroy-Light',
-                                                                    fontSize:
-                                                                        10,
+                                                                        fontSize:
+                                                                            10.w,
                                                                     color: book
                                                                                 .jumlah_buku !=
                                                                             '0'
@@ -1690,8 +1679,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                         print('edit click');
                                                       },
                                                       child: Container(
-                                                        width: 24,
-                                                        height: 24,
+                                                            width: 24.w,
+                                                            height: 24.h,
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:
@@ -1707,7 +1696,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                         child: Center(
                                                           child: Icon(
                                                             Icons.edit,
-                                                            size: 17,
+                                                                size: 17.w,
                                                             color:
                                                                 Color.fromRGBO(
                                                                     76,
@@ -1727,8 +1716,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                         konfirmasi();
                                                       },
                                                       child: Container(
-                                                        width: 24,
-                                                        height: 24,
+                                                            width: 24.w,
+                                                            height: 24.h,
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:
@@ -1744,7 +1733,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                         child: Center(
                                                           child: Icon(
                                                             Icons.delete,
-                                                            size: 17,
+                                                                size: 17.w,
                                                             color:
                                                                 Color.fromRGBO(
                                                                     76,
@@ -1766,10 +1755,10 @@ class _TambahBukuState extends State<TambahBuku> {
                                         padding: EdgeInsets.all(10),
                                         gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
-                                          maxCrossAxisExtent: 140,
-                                          mainAxisExtent: 282,
-                                          crossAxisSpacing: 15,
-                                          mainAxisSpacing: 12,
+                                              maxCrossAxisExtent: 140.w,
+                                              mainAxisExtent: 282.h,
+                                              crossAxisSpacing: 15.w,
+                                              mainAxisSpacing: 12.h,
                                         ),
                                         itemBuilder: (context, i) {
                                           final book = _books[i];
@@ -1784,8 +1773,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                             },
                                             child: Container(
                                               padding: EdgeInsets.symmetric(
-                                                horizontal: 8,
-                                                vertical: 8,
+                                                    horizontal: 8.w,
+                                                    vertical: 8.h,
                                               ),
                                               decoration: BoxDecoration(
                                                 color: Colors.white,
@@ -1812,8 +1801,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                             .center,
                                                     children: [
                                                       Container(
-                                                        width: 119,
-                                                        height: 161,
+                                                            width: 119.w,
+                                                            height: 161.h,
                                                         decoration: BoxDecoration(
                                                             borderRadius:
                                                                 BorderRadius
@@ -1826,7 +1815,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                         ),
                                                       ),
                                                       Container(
-                                                        height: 100,
+                                                            height: 100.h,
                                                         child: Column(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -1843,7 +1832,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Gilroy-ExtraBold',
-                                                                  fontSize: 13,
+                                                                      fontSize:
+                                                                          13.w,
                                                                 ),
                                                               ),
                                                             ),
@@ -1859,7 +1849,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Gilroy-Light',
-                                                                  fontSize: 10,
+                                                                      fontSize:
+                                                                          10.w,
                                                                 ),
                                                               ),
                                                             ),
@@ -1875,7 +1866,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Gilroy-Light',
-                                                                  fontSize: 10,
+                                                                      fontSize:
+                                                                          10.w,
                                                                 ),
                                                                 maxLines: 1,
                                                                 overflow:
@@ -1895,15 +1887,14 @@ class _TambahBukuState extends State<TambahBuku> {
                                                                     TextStyle(
                                                                   fontFamily:
                                                                       'Gilroy-Light',
-                                                                  fontSize: 10,
+                                                                      fontSize:
+                                                                          10.w,
                                                                 ),
                                                               ),
                                                             ),
                                                             Container(
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height *
+                                                                  height:
+                                                                      980.w *
                                                                   0.014,
                                                               decoration:
                                                                   BoxDecoration(
@@ -1937,8 +1928,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                                       TextStyle(
                                                                     fontFamily:
                                                                         'Gilroy-Light',
-                                                                    fontSize:
-                                                                        10,
+                                                                        fontSize:
+                                                                            10.w,
                                                                     color: book
                                                                                 .jumlah_buku !=
                                                                             '0'
@@ -1963,8 +1954,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                         print('edit click');
                                                       },
                                                       child: Container(
-                                                        width: 24,
-                                                        height: 24,
+                                                            width: 24.w,
+                                                            height: 24.h,
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:
@@ -1980,7 +1971,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                         child: Center(
                                                           child: Icon(
                                                             Icons.edit,
-                                                            size: 17,
+                                                                size: 17.w,
                                                             color:
                                                                 Color.fromRGBO(
                                                                     76,
@@ -2000,8 +1991,8 @@ class _TambahBukuState extends State<TambahBuku> {
                                                         konfirmasi();
                                                       },
                                                       child: Container(
-                                                        width: 24,
-                                                        height: 24,
+                                                            width: 24.w,
+                                                            height: 24.h,
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:
@@ -2017,7 +2008,7 @@ class _TambahBukuState extends State<TambahBuku> {
                                                         child: Center(
                                                           child: Icon(
                                                             Icons.delete,
-                                                            size: 17,
+                                                                size: 17.w,
                                                             color:
                                                                 Color.fromRGBO(
                                                                     76,
@@ -2044,6 +2035,9 @@ class _TambahBukuState extends State<TambahBuku> {
           ),
         ),
       ),
+    );
+ 
+      },
     );
   }
 }

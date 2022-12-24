@@ -621,7 +621,7 @@ class _DetailEkskulState extends State<DetailEkskul> {
                     child: Container(
                       margin: EdgeInsets.only(top: 20),
                       child: Text(
-                        'Daftar Prestasi',
+                        'Informasi Ekstrakurikuler',
                         style: TextStyle(
                           fontFamily: 'Gilroy-ExtraBold',
                           fontSize: 24,

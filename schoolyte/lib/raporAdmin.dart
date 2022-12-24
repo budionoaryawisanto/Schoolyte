@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:schoolyte/beritaAdmin.dart';
 import 'package:schoolyte/detailNilaiBelajarAdminSiswa.dart';
 import 'package:schoolyte/detailRaporAdminSiswa.dart';
+import 'package:schoolyte/fasilitasAdmin.dart';
 import 'package:schoolyte/home.dart';
 import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/perpustakaanPegawai.dart';
@@ -655,7 +656,7 @@ class _RaporAdminState extends State<RaporAdmin> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HomePage()));
+                                    builder: (context) => FasilitasAdmin()));
                           },
                         ),
                       ),

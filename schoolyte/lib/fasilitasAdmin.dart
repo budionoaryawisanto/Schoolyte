@@ -1,25 +1,27 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:schoolyte/absensiAdmin.dart';
 import 'package:schoolyte/beritaAdmin.dart';
-import 'package:schoolyte/detailAbsensiAdminJabatan.dart';
-import 'package:schoolyte/detailJadwalAdminGuru.dart';
-import 'package:schoolyte/detailJadwalAdminKelas.dart';
-import 'package:schoolyte/fasilitasAdmin.dart';
+import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/nilaiBelajarAdmin.dart';
-import 'package:schoolyte/perpustakaanPegawai.dart';
 import 'package:schoolyte/raporAdmin.dart';
+import 'package:schoolyte/tambahInventaris.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:schoolyte/home.dart';
+import 'daftarKunjungan.dart';
+import 'peminjamanBuku.dart';
+import 'perpustakaanPegawai.dart';
+import 'tambahBuku.dart';
 import 'profil.dart';
-import 'absensiAdmin.dart';
 
-class JadwalAdminPage extends StatefulWidget {
+class FasilitasAdmin extends StatefulWidget {
   @override
-  _JadwalAdminPageState createState() => new _JadwalAdminPageState();
+  _FasilitasAdminState createState() => new _FasilitasAdminState();
 }
 
-class _JadwalAdminPageState extends State<JadwalAdminPage> {
+class _FasilitasAdminState extends State<FasilitasAdmin> {
   @override
   void initState() {
     super.initState();
@@ -66,13 +68,12 @@ class _JadwalAdminPageState extends State<JadwalAdminPage> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: Color.fromRGBO(255, 217, 102, 1),
         systemNavigationBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
-    // ignore: unnecessary_new
     return ScreenUtilInit(
       designSize: const Size(490, 980),
       builder: (context, child) {
@@ -80,22 +81,22 @@ class _JadwalAdminPageState extends State<JadwalAdminPage> {
           debugShowCheckedModeBanner: false,
           home: SafeArea(
             child: Scaffold(
-              backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+              backgroundColor: Colors.white,
               appBar: AppBar(
                 title: Align(
                   alignment: Alignment(-0.7, 0.0),
                   child: Text(
-                    'Jadwal Kelas',
+                    'Fasilitas',
                     style: TextStyle(
                       fontFamily: 'Gilroy-ExtraBold',
                       fontSize: 24.w,
-                      color: Color.fromRGBO(76, 81, 97, 1),
+                      color: Colors.white,
                     ),
                   ),
                 ),
-                elevation: 0.0,
-                iconTheme: IconThemeData(color: Color.fromRGBO(76, 81, 97, 1)),
-                backgroundColor: Colors.white,
+                elevation: 0,
+                iconTheme: IconThemeData(color: Colors.white),
+                backgroundColor: Color.fromRGBO(255, 217, 102, 1),
               ),
               drawer: Drawer(
                 backgroundColor: Colors.white,
@@ -169,7 +170,7 @@ class _JadwalAdminPageState extends State<JadwalAdminPage> {
                           'Jadwal Kelas',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontFamily: 'Gilroy-ExtraBold',
+                              fontFamily: 'Gilroy-Light',
                               fontSize: 14.w,
                               color: Color.fromRGBO(76, 81, 91, 1)),
                         ),
@@ -309,7 +310,7 @@ class _JadwalAdminPageState extends State<JadwalAdminPage> {
                           'Fasilitas',
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              fontFamily: 'Gilroy-Light',
+                              fontFamily: 'Gilroy-ExtraBold',
                               fontSize: 14.w,
                               color: Color.fromRGBO(76, 81, 91, 1)),
                         ),
@@ -561,141 +562,163 @@ class _JadwalAdminPageState extends State<JadwalAdminPage> {
                 ),
               ),
               body: SingleChildScrollView(
-                child: Align(
-                  alignment: Alignment(0.0, 0.0),
-                  child: Container(
-                    width: 212.w,
-                    height: 190.h,
-                    margin: EdgeInsets.only(top: 260.h),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Pilih Kategori',
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 24.w,
-                            color: Color.fromRGBO(76, 81, 97, 1),
-                          ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            DetailJadwalAdminGuru()));
-                              },
-                              child: Container(
-                                width: 81.w,
-                                height: 108.71.h,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: 70.w,
-                                      height: 70.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(6),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.3),
-                                            spreadRadius: 0,
-                                            blurRadius: 1.5,
-                                            offset: Offset(0, 0),
-                                          )
-                                        ],
-                                        color: Colors.white,
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.face,
-                                          size: 40.w,
-                                          color:
-                                              Color.fromRGBO(119, 115, 205, 1),
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Jadwal Kelas',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 14.w,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            DetailJadwalAdminKelas()));
-                              },
-                              child: Container(
-                                width: 81.w,
-                                height: 108.71.h,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: 70.w,
-                                      height: 70.h,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(6),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.3),
-                                            spreadRadius: 0,
-                                            blurRadius: 1.5,
-                                            offset: Offset(0, 0),
-                                          )
-                                        ],
-                                        color: Colors.white,
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.support_agent,
-                                          size: 40.w,
-                                          color:
-                                              Color.fromRGBO(119, 115, 205, 1),
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      'Buat Jadwal',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 14.w,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/infoFasilitas.png',
+                      fit: BoxFit.fill,
                     ),
-                  ),
+                    Container(
+                      width: 220.w,
+                      height: 400.h,
+                      margin: EdgeInsets.only(top: 50.h),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Pilih Kategori',
+                            style: TextStyle(
+                                fontFamily: 'Gilroy-ExtraBold',
+                                fontSize: 24.w,
+                                color: Color.fromRGBO(
+                                  76,
+                                  81,
+                                  97,
+                                  1,
+                                )),
+                          ),
+                          Container(
+                            width: 220.w,
+                            height: 200.h,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    TambahInventaris()));
+                                      },
+                                      child: Container(
+                                        width: 88.h,
+                                        height: 114.w,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              width: 70.w,
+                                              height: 70.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.3),
+                                                    spreadRadius: 0,
+                                                    blurRadius: 1.5,
+                                                    offset: Offset(0, 1),
+                                                  ),
+                                                ],
+                                                color: Colors.white,
+                                              ),
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.post_add,
+                                                  size: 50.w,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              'Tambah Inventaris',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14.w,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PeminjamanBuku()));
+                                      },
+                                      child: Container(
+                                        width: 88.w,
+                                        height: 114.h,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              width: 70.w,
+                                              height: 70.h,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.3),
+                                                    spreadRadius: 0,
+                                                    blurRadius: 1.5,
+                                                    offset: Offset(0, 1),
+                                                  ),
+                                                ],
+                                                color: Colors.white,
+                                              ),
+                                              child: Center(
+                                                child: Icon(
+                                                  Icons.menu_book,
+                                                  size: 50.w,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              'Peminjaman Inventaris',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 14.w,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

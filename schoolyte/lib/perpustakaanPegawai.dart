@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:schoolyte/absensiAdmin.dart';
 import 'package:schoolyte/beritaAdmin.dart';
+import 'package:schoolyte/fasilitasAdmin.dart';
 import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/nilaiBelajarAdmin.dart';
 import 'package:schoolyte/raporAdmin.dart';
@@ -72,7 +74,10 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
-    return new MaterialApp(
+    return ScreenUtilInit(
+      designSize: const Size(490, 980),
+      builder: (context, child) {
+        return new MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
@@ -84,7 +89,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                 'Perpustakaan',
                 style: TextStyle(
                   fontFamily: 'Gilroy-ExtraBold',
-                  fontSize: 24,
+                      fontSize: 24.w,
                   color: Colors.white,
                 ),
               ),
@@ -95,7 +100,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
           ),
           drawer: Drawer(
             backgroundColor: Colors.white,
-            width: 257,
+                width: 257.w,
             child: ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
@@ -116,7 +121,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                     'Beranda',
                     style: TextStyle(
                       fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
@@ -141,7 +146,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       fontFamily: (akademikClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: (akademikClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
@@ -164,7 +169,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -186,7 +191,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -207,7 +212,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -229,7 +234,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -256,7 +261,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       fontFamily: (peminjamanClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: (peminjamanClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
@@ -280,7 +285,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-ExtraBold',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -302,14 +307,14 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HomePage()));
+                                  builder: (context) => FasilitasAdmin()));
                     },
                   ),
                 ),
@@ -329,7 +334,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       fontFamily: (pembelianClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: (pembelianClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
@@ -353,7 +358,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -375,7 +380,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -396,7 +401,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                     'Berita',
                     style: TextStyle(
                       fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
@@ -419,7 +424,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                     'Administrasi',
                     style: TextStyle(
                       fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
@@ -446,7 +451,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       fontFamily: (kegiatanClick == false)
                           ? 'Gilroy-ExtraBold'
                           : 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: (kegiatanClick == false)
                           ? Colors.white
                           : Color.fromRGBO(76, 81, 97, 1),
@@ -470,7 +475,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -490,7 +495,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Gilroy-Light',
-                          fontSize: 14,
+                              fontSize: 14.w,
                           color: Color.fromRGBO(76, 81, 91, 1)),
                     ),
                     onTap: () {
@@ -511,7 +516,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                     'Profil',
                     style: TextStyle(
                       fontFamily: 'Gilroy-Light',
-                      fontSize: 16,
+                          fontSize: 16.w,
                       color: Color.fromRGBO(76, 81, 97, 1),
                     ),
                   ),
@@ -534,7 +539,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                             'Log Out',
                             style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
-                                fontSize: 14,
+                                    fontSize: 14.w,
                                 color: Color.fromRGBO(76, 81, 91, 1)),
                           ),
                           onTap: () {
@@ -558,9 +563,9 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                   fit: BoxFit.fill,
                 ),
                 Container(
-                  width: 220,
-                  height: 400,
-                  margin: EdgeInsets.only(top: 50),
+                      width: 220.w,
+                      height: 400.h,
+                      margin: EdgeInsets.only(top: 50.h),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -569,7 +574,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                         'Pilih Kategori',
                         style: TextStyle(
                             fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 24,
+                                fontSize: 24.w,
                             color: Color.fromRGBO(
                               76,
                               81,
@@ -578,8 +583,8 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                             )),
                       ),
                       Container(
-                        width: 220,
-                        height: 263,
+                            width: 220.w,
+                            height: 263.h,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -595,8 +600,8 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                                                 TambahBuku()));
                                   },
                                   child: Container(
-                                    width: 88,
-                                    height: 114,
+                                        width: 88.h,
+                                        height: 114.w,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -604,8 +609,8 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Container(
-                                          width: 70,
-                                          height: 70,
+                                              width: 70.w,
+                                              height: 70.h,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(6),
@@ -623,7 +628,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                                           child: Center(
                                             child: Icon(
                                               Icons.post_add,
-                                              size: 50,
+                                                  size: 50.w,
                                               color:
                                                   Color.fromRGBO(76, 81, 97, 1),
                                             ),
@@ -634,7 +639,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Gilroy-Light',
-                                            fontSize: 14,
+                                                fontSize: 14.w,
                                           ),
                                         ),
                                       ],
@@ -650,8 +655,8 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                                                 PeminjamanBuku()));
                                   },
                                   child: Container(
-                                    width: 88,
-                                    height: 114,
+                                        width: 88.w,
+                                        height: 114.h,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -659,8 +664,8 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Container(
-                                          width: 70,
-                                          height: 70,
+                                              width: 70.w,
+                                              height: 70.h,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(6),
@@ -678,7 +683,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                                           child: Center(
                                             child: Icon(
                                               Icons.menu_book,
-                                              size: 50,
+                                                  size: 50.w,
                                               color:
                                                   Color.fromRGBO(76, 81, 97, 1),
                                             ),
@@ -689,7 +694,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Gilroy-Light',
-                                            fontSize: 14,
+                                                fontSize: 14.w,
                                           ),
                                         ),
                                       ],
@@ -707,16 +712,16 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                                             DaftarKunjungan()));
                               },
                               child: Container(
-                                width: 88,
-                                height: 114,
+                                    width: 88.w,
+                                    height: 114.h,
                                 child: Column(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Container(
-                                      width: 70,
-                                      height: 70,
+                                          width: 70.w,
+                                          height: 70.h,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(6),
                                         boxShadow: [
@@ -733,7 +738,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                                       child: Center(
                                         child: Icon(
                                           Icons.library_books,
-                                          size: 50,
+                                              size: 50.w,
                                           color: Color.fromRGBO(76, 81, 97, 1),
                                         ),
                                       ),
@@ -743,7 +748,7 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
-                                        fontSize: 14,
+                                            fontSize: 14.w,
                                       ),
                                     ),
                                   ],
@@ -761,6 +766,9 @@ class _PerpustakaanPegawaiPageState extends State<PerpustakaanPegawaiPage> {
           ),
         ),
       ),
+    );
+  
+      },
     );
   }
 }

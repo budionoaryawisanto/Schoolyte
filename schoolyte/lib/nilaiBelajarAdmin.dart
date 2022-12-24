@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:schoolyte/beritaAdmin.dart';
 import 'package:schoolyte/detailNilaiBelajarAdminSiswa.dart';
+import 'package:schoolyte/fasilitasAdmin.dart';
 import 'package:schoolyte/home.dart';
 import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/perpustakaanPegawai.dart';
@@ -646,7 +647,8 @@ class _NilaiBelajarAdminState extends State<NilaiBelajarAdmin> {
                     ),
                     onTap: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                                MaterialPageRoute(
+                                    builder: (context) => FasilitasAdmin()));
                     },
                   ),
                 ),

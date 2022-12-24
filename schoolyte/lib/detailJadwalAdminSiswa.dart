@@ -83,12 +83,12 @@ class _DetailJadwalAdminSiswaState extends State<DetailJadwalAdminSiswa> {
                     'Kamu Yakin ?',
                     style: TextStyle(
                       fontFamily: 'Gilroy-ExtraBold',
-                      fontSize: 32.w.w,
+                      fontSize: 32.w,
                     ),
                   ),
                   Container(
-                    width: 253.w.w,
-                    height: 43.h.h,
+                    width: 253.w,
+                    height: 43.h,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -98,8 +98,8 @@ class _DetailJadwalAdminSiswaState extends State<DetailJadwalAdminSiswa> {
                             Navigator.pop(context);
                           },
                           child: Container(
-                            width: 107.w.w,
-                            height: 43.h.h,
+                            width: 107.w,
+                            height: 43.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               border: Border.all(
