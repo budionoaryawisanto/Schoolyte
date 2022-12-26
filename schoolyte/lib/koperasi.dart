@@ -101,7 +101,6 @@ class _KoperasiPageState extends State<KoperasiPage> {
   List<Tab> myTabs = <Tab>[
     Tab(text: 'Produk'),
     Tab(text: 'Pesanan Saya'),
-    Tab(text: 'Diambil'),
     Tab(text: 'Selesai'),
   ];
 
@@ -1803,184 +1802,12 @@ class _KoperasiPageState extends State<KoperasiPage> {
                   itemCount: _list.length,
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: MediaQuery.of(context).size.width,
-                    mainAxisExtent: 200,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 10,
-                  ),
-                  itemBuilder: (context, i) {
-                    final a = _list[i];
-                    return Container(
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
-                            spreadRadius: 0,
-                            blurRadius: 1.5,
-                            offset: Offset(0, 0),
-                          )
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'No. Pesanan',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-ExtraBold',
-                                      fontSize: 13,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Waktu Pemesanan',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 13,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    a.id.toString(),
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 13,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Senin, 11 Januari 2023',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 13,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Divider(
-                            color: Color.fromRGBO(76, 81, 97, 1),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 80,
-                            child: GridView.builder(
-                              itemCount: 6,
-                              gridDelegate:
-                                  SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent:
-                                    MediaQuery.of(context).size.width,
-                                mainAxisExtent: 20,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 10,
-                              ),
-                              itemBuilder: (context, i) {
-                                return Container(
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Container(
-                                            margin: EdgeInsets.only(right: 5),
-                                            child: Text(
-                                              '1X',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Extrabold',
-                                                fontSize: 14,
-                                                color: Color.fromRGBO(
-                                                    242, 78, 26, 1),
-                                              ),
-                                            ),
-                                          ),
-                                          Text(
-                                            'Pensil',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Extrabold',
-                                              fontSize: 16,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        'Rp.10.000',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Extrabold',
-                                          fontSize: 16,
-                                          color: Color.fromRGBO(242, 78, 26, 1),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          Divider(
-                            color: Color.fromRGBO(76, 81, 97, 1),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                'Total Pembayaran',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Extrabold',
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                ),
-                              ),
-                              Text(
-                                'Rp.30.000',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Extrabold',
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(242, 78, 26, 1),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.85,
-                padding: EdgeInsets.all(10),
-                child: GridView.builder(
-                  itemCount: _list.length,
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: MediaQuery.of(context).size.width,
                     mainAxisExtent: 262,
                     mainAxisSpacing: 5,
                     crossAxisSpacing: 10,
                   ),
                   itemBuilder: (context, i) {
-                    final a = _list[i];
+                    final pesanan = _list[i];
                     return Container(
                       padding: EdgeInsets.all(10),
                       margin: EdgeInsets.all(5),
@@ -1997,54 +1824,50 @@ class _KoperasiPageState extends State<KoperasiPage> {
                         ],
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'No. Pesanan',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-ExtraBold',
-                                      fontSize: 13,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Waktu Pemesanan',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 13,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                ],
+                              Text(
+                                'No. Pesanan',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-ExtraBold',
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    a.id.toString(),
+                              Text(
+                                pesanan.id.toString(),
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
                                       fontSize: 13,
                                       color: Color.fromRGBO(76, 81, 97, 1),
                                     ),
                                   ),
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                              Text(
+                                'Waktu Pemesanan',
+                                    style: TextStyle(
+                                      fontFamily: 'Gilroy-Light',
+                                      fontSize: 13,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                              ),
                                   Text(
                                     'Senin, 11 Januari 2023',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
                                       fontSize: 13,
                                       color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ],
                           ),
@@ -2113,7 +1936,8 @@ class _KoperasiPageState extends State<KoperasiPage> {
                             color: Color.fromRGBO(76, 81, 97, 1),
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 'Total Pembayaran',
@@ -2133,36 +1957,33 @@ class _KoperasiPageState extends State<KoperasiPage> {
                               ),
                             ],
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              print('click');
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(top: 20),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(),
-                                  Container(
-                                    width: 119,
-                                    height: 36,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(6),
-                                      color: Color.fromRGBO(242, 78, 26, 1),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        'Selesai',
-                                        style: TextStyle(
-                                          fontFamily: 'Gilroy-Light',
-                                          fontSize: 15,
-                                          color: Colors.white,
-                                        ),
+                          Visibility(
+                            visible: pesanan.id == 2 || pesanan.id == 4
+                                ? false
+                                : true,
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: GestureDetector(
+                                onTap: () {},
+                                child: Container(
+                                  width: 119,
+                                  height: 36,
+                                  padding: EdgeInsets.symmetric(horizontal: 5),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(6),
+                                    color: Color.fromRGBO(242, 78, 26, 1),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Selesai',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 15,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
                             ),
                           ),
@@ -2180,12 +2001,12 @@ class _KoperasiPageState extends State<KoperasiPage> {
                   itemCount: _list.length,
                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: MediaQuery.of(context).size.width,
-                    mainAxisExtent: 200,
+                    mainAxisExtent: 240,
                     mainAxisSpacing: 5,
                     crossAxisSpacing: 10,
                   ),
                   itemBuilder: (context, i) {
-                    final a = _list[i];
+                    final pesanan = _list[i];
                     return Container(
                       padding: EdgeInsets.all(10),
                       margin: EdgeInsets.all(5),
@@ -2202,39 +2023,37 @@ class _KoperasiPageState extends State<KoperasiPage> {
                         ],
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'No. Pesanan',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-ExtraBold',
-                                      fontSize: 13,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Waktu Pemesanan',
+                              Text(
+                                'No. Pesanan',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-ExtraBold',
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(76, 81, 97, 1),
+                                ),
+                              ),
+                              Text(
+                                pesanan.id.toString(),
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
                                       fontSize: 13,
                                       color: Color.fromRGBO(76, 81, 97, 1),
                                     ),
                                   ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                            ],
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    a.id.toString(),
+                                'Waktu Pemesanan',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-Light',
                                       fontSize: 13,
@@ -2247,9 +2066,7 @@ class _KoperasiPageState extends State<KoperasiPage> {
                                       fontFamily: 'Gilroy-Light',
                                       fontSize: 13,
                                       color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ],
                           ),
@@ -2318,7 +2135,8 @@ class _KoperasiPageState extends State<KoperasiPage> {
                             color: Color.fromRGBO(76, 81, 97, 1),
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
                                 'Total Pembayaran',
@@ -2337,6 +2155,40 @@ class _KoperasiPageState extends State<KoperasiPage> {
                                 ),
                               ),
                             ],
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: Container(
+                              width: 130,
+                              height: 24,
+                              padding: EdgeInsets.symmetric(horizontal: 5),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: Color.fromRGBO(243, 243, 243, 1),
+                              ),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.wallet,
+                                      size: 18,
+                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                    ),
+                                    Text(
+                                      '-Rp. 300.000',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-ExtraBold',
+                                        fontSize: 16,
+                                        color: Color.fromRGBO(242, 78, 26, 1),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),

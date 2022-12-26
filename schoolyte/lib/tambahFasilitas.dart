@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:schoolyte/perpustakaanPegawai.dart';
-import 'package:schoolyte/pinjamBuku.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'model.dart';
@@ -12,19 +11,18 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:async/async.dart';
 
-class TambahInventaris extends StatefulWidget {
+class TambahFasilitas extends StatefulWidget {
   @override
-  _TambahInventarisState createState() => new _TambahInventarisState();
+  _TambahFasilitasState createState() => new _TambahFasilitasState();
 }
 
-class _TambahInventarisState extends State<TambahInventaris> {
+class _TambahFasilitasState extends State<TambahFasilitas> {
   final TextEditingController namaController = TextEditingController();
   final TextEditingController rincianController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
 
-  List<Book> _fasilitas = [];
-  List<Book> _search = [];
+  List<Test> _fasilitas = [];
   var loading = false;
 
   Future fetchData() async {
@@ -32,12 +30,13 @@ class _TambahInventarisState extends State<TambahInventaris> {
       loading = true;
     });
     _fasilitas.clear();
-    final response = await http.get(Uri.parse(Api.getBook));
+    final response =
+        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _fasilitas.add(Book.formJson(i));
+          _fasilitas.add(Test.formJson(i));
           loading = false;
         }
       });
@@ -67,7 +66,7 @@ class _TambahInventarisState extends State<TambahInventaris> {
     setState(() {});
   }
 
-  Future sendBuku() async {
+  Future sendFasilitas() async {
     setState(() {
       loading = true;
     });
@@ -184,7 +183,7 @@ class _TambahInventarisState extends State<TambahInventaris> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => TambahInventaris()));
+                                    builder: (context) => TambahFasilitas()));
                           },
                           child: Container(
                             width: 107.w,
@@ -304,6 +303,82 @@ class _TambahInventarisState extends State<TambahInventaris> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  showDialogFunc(context, a) {
+    return showModalBottomSheet<void>(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return Container(
+            height: 980.h * 0.85,
+            padding: EdgeInsets.only(top: 15.h),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15),
+                topRight: Radius.circular(15),
+              ),
+              color: Colors.white,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 60,
+                    height: 3,
+                    color: Color.fromRGBO(76, 81, 97, 0.5),
+                  ),
+                  Container(
+                    width: 490.w * 0.8,
+                    height: 980.h * 0.23,
+                    margin: EdgeInsets.only(top: 10),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                    child: new Image.asset(
+                      'assets/images/fasilitas.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Container(
+                    width: 490.w * 0.8,
+                    margin: EdgeInsets.only(top: 15),
+                    child: Center(
+                      child: Text(
+                        'Lapangan Depan',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-ExtraBold',
+                          fontSize: 32.w,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: 490.w * 0.8,
+                    height: 980.h * 0.08,
+                    margin: EdgeInsets.only(top: 15),
+                    child: Text(
+                      'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy-Light',
+                        fontSize: 15.w,
+                        color: Color.fromRGBO(76, 81, 97, 1),
+                      ),
                     ),
                   ),
                 ],
@@ -668,7 +743,7 @@ class _TambahInventarisState extends State<TambahInventaris> {
                           alignment: Alignment(1.0, 0.0),
                           child: GestureDetector(
                             onTap: () {
-                              sendBuku();
+                              sendFasilitas();
                             },
                             child: Container(
                               width: 119.w,
@@ -699,7 +774,96 @@ class _TambahInventarisState extends State<TambahInventaris> {
                           child: CircularProgressIndicator(
                               color: Color.fromRGBO(255, 199, 0, 1)),
                         )
-                      : Container(),
+                      : Container(
+                          width: 490.w,
+                          height: 980.h,
+                          child: Container(
+                            child: GridView.builder(
+                                itemCount: _fasilitas.length,
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 40.w,
+                                  vertical: 10.h,
+                                ),
+                                gridDelegate:
+                                    SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 182.w,
+                                  mainAxisExtent: 212.h,
+                                  crossAxisSpacing: 30.w,
+                                  mainAxisSpacing: 20.h,
+                                ),
+                                itemBuilder: (context, i) {
+                                  final a = _fasilitas[i];
+                                  return GestureDetector(
+                                    onTap: () {
+                                      showDialogFunc(context, a);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.3),
+                                            spreadRadius: 0,
+                                            blurRadius: 1.5,
+                                            offset: Offset(0, 0),
+                                          )
+                                        ],
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: 108.h,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: new Image.asset(
+                                              'assets/images/fasilitas.png',
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Container(
+                                              margin: EdgeInsets.only(top: 5.h),
+                                              child: Text(
+                                                'Lapangan Depan',
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 16.w,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin: EdgeInsets.only(top: 5.h),
+                                            child: Text(
+                                              'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
+                                              maxLines: 4,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Gilroy-Light',
+                                                fontSize: 10.w,
+                                                color: Color.fromRGBO(
+                                                    76, 81, 97, 1),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          ),
+                        ),
                 ],
               ),
             ),

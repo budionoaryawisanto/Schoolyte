@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'model.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class KartuDigital extends StatefulWidget {
   Test profil;
@@ -247,8 +248,12 @@ class _KartuDigitalState extends State<KartuDigital> {
                                   return Center(
                                     child: Material(
                                       type: MaterialType.transparency,
-                                      child: Image.asset(
-                                          'assets/images/exampqr.jpg'),
+                                      child: QrImage(
+                                        data: profil.email,
+                                        version: QrVersions.auto,
+                                        size: 300,
+                                        backgroundColor: Colors.white,
+                                      ),
                                     ),
                                   );
                                 });
@@ -267,9 +272,10 @@ class _KartuDigitalState extends State<KartuDigital> {
                               child: Container(
                                 width: 53.21,
                                 height: 53.21,
-                                child: Image.asset(
-                                  'assets/images/exampqr.jpg',
-                                  fit: BoxFit.cover,
+                                child: QrImage(
+                                  data: profil.email,
+                                  version: QrVersions.auto,
+                                  padding: EdgeInsets.zero,
                                 ),
                               ),
                             ),

@@ -7,7 +7,7 @@ import 'package:schoolyte/beritaAdmin.dart';
 import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/nilaiBelajarAdmin.dart';
 import 'package:schoolyte/raporAdmin.dart';
-import 'package:schoolyte/tambahInventaris.dart';
+import 'package:schoolyte/tambahFasilitas.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:schoolyte/home.dart';
 import 'daftarKunjungan.dart';
@@ -606,7 +606,7 @@ class _FasilitasAdminState extends State<FasilitasAdmin> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    TambahInventaris()));
+                                                    TambahFasilitas()));
                                       },
                                       child: Container(
                                         width: 88.h,
@@ -644,7 +644,7 @@ class _FasilitasAdminState extends State<FasilitasAdmin> {
                                               ),
                                             ),
                                             Text(
-                                              'Tambah Inventaris',
+                                              'Tambah Fasilitas',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-Light',
@@ -699,7 +699,7 @@ class _FasilitasAdminState extends State<FasilitasAdmin> {
                                               ),
                                             ),
                                             Text(
-                                              'Peminjaman Inventaris',
+                                              'Peminjaman Fasilitas',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-Light',

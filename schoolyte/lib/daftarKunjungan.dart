@@ -432,12 +432,12 @@ class _DaftarKunjunganState extends State<DaftarKunjungan> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         Icon(
-                                          Icons.filter_center_focus_rounded,
+                                          Icons.qr_code_scanner_rounded,
                                           size: 24,
                                           color: Color.fromRGBO(76, 81, 97, 1),
                                         ),
                                         Text(
-                                          'Scan',
+                                          'QR Code',
                                           style: TextStyle(
                                             fontFamily: 'Gilroy-Light',
                                             fontSize: 15,
