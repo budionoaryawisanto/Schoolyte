@@ -6,6 +6,7 @@ import 'package:schoolyte/absensiAdmin.dart';
 import 'package:schoolyte/beritaAdmin.dart';
 import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/nilaiBelajarAdmin.dart';
+import 'package:schoolyte/peminjamanFasilitas.dart';
 import 'package:schoolyte/raporAdmin.dart';
 import 'package:schoolyte/tambahFasilitas.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -661,7 +662,7 @@ class _FasilitasAdminState extends State<FasilitasAdmin> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    PeminjamanBuku()));
+                                                    PeminjamanFasilitas()));
                                       },
                                       child: Container(
                                         width: 88.w,

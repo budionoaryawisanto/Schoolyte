@@ -24,6 +24,7 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
 
   List<Test> _fasilitas = [];
   var loading = false;
+  var onEdit = false;
 
   Future fetchData() async {
     setState(() {
@@ -339,7 +340,7 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: 60,
+                    width: 60.w,
                     height: 3,
                     color: Color.fromRGBO(76, 81, 97, 0.5),
                   ),
@@ -471,7 +472,7 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Tambah Fasilitas',
+                          onEdit ? 'Edit Fasilitas' : 'Tambah Fasilitas',
                           style: TextStyle(
                             fontFamily: 'Gilroy-ExtraBold',
                             fontSize: 20.w,
@@ -739,31 +740,87 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                             ],
                           ),
                         ),
-                        Align(
-                          alignment: Alignment(1.0, 0.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              sendFasilitas();
-                            },
-                            child: Container(
-                              width: 119.w,
-                              height: 36.h,
-                              margin: EdgeInsets.only(top: 30),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: Colors.black,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Selesai',
-                                  style: TextStyle(
-                                    fontFamily: 'Gilroy-Light',
-                                    fontSize: 15.w,
-                                    color: Colors.white,
+                        Container(
+                          margin: EdgeInsets.only(top: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Visibility(
+                                visible: onEdit,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      onEdit = false;
+                                      namaController.clear();
+                                      rincianController.clear();
+                                      image = null;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 119.w,
+                                    height: 36.h,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.3),
+                                          spreadRadius: 0,
+                                          blurRadius: 1.5,
+                                          offset: Offset(0, 1),
+                                        )
+                                      ],
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.close,
+                                          size: 18,
+                                          color: Color.fromRGBO(242, 78, 26, 1),
+                                        ),
+                                        Text(
+                                          'Cancel',
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 15.w,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                              GestureDetector(
+                                onTap: () {
+                                  sendFasilitas();
+                                },
+                                child: Container(
+                                  width: 119.w,
+                                  height: 36.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                    color: Colors.black,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      'Selesai',
+                                      style: TextStyle(
+                                        fontFamily: 'Gilroy-Light',
+                                        fontSize: 15.w,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -777,91 +834,196 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                       : Container(
                           width: 490.w,
                           height: 980.h,
-                          child: Container(
-                            child: GridView.builder(
-                                itemCount: _fasilitas.length,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 40.w,
-                                  vertical: 10.h,
-                                ),
-                                gridDelegate:
-                                    SliverGridDelegateWithMaxCrossAxisExtent(
-                                  maxCrossAxisExtent: 182.w,
-                                  mainAxisExtent: 212.h,
-                                  crossAxisSpacing: 30.w,
-                                  mainAxisSpacing: 20.h,
-                                ),
-                                itemBuilder: (context, i) {
-                                  final a = _fasilitas[i];
-                                  return GestureDetector(
-                                    onTap: () {
-                                      showDialogFunc(context, a);
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.3),
-                                            spreadRadius: 0,
-                                            blurRadius: 1.5,
-                                            offset: Offset(0, 0),
-                                          )
-                                        ],
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            height: 108.h,
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: new Image.asset(
-                                              'assets/images/fasilitas.png',
-                                              fit: BoxFit.cover,
-                                            ),
+                          child: Stack(
+                            children: [
+                              Container(
+                                child: GridView.builder(
+                                    itemCount: _fasilitas.length,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 40.w,
+                                      vertical: 10.h,
+                                    ),
+                                    gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent: 182.w,
+                                      mainAxisExtent: 212.h,
+                                      crossAxisSpacing: 30.w,
+                                      mainAxisSpacing: 20.h,
+                                    ),
+                                    itemBuilder: (context, i) {
+                                      final fasilitas = _fasilitas[i];
+                                      return GestureDetector(
+                                        onTap: () {
+                                          showDialogFunc(context, fasilitas);
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.all(10),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.black
+                                                    .withOpacity(0.3),
+                                                spreadRadius: 0,
+                                                blurRadius: 1.5,
+                                                offset: Offset(0, 0),
+                                              )
+                                            ],
                                           ),
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: Container(
-                                              margin: EdgeInsets.only(top: 5.h),
-                                              child: Text(
-                                                'Lapangan Depan',
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Gilroy-ExtraBold',
-                                                  fontSize: 16.w,
-                                                  color: Colors.black,
+                                          child: Stack(
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Container(
+                                                    height: 108.h,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: new Image.asset(
+                                                      'assets/images/fasilitas.png',
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    child: Container(
+                                                      margin: EdgeInsets.only(
+                                                          top: 5.h),
+                                                      child: Text(
+                                                        'Lapangan Depan',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16.w,
+                                                          color: Colors.black,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 5.h),
+                                                    child: Text(
+                                                      'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
+                                                      maxLines: 4,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-Light',
+                                                        fontSize: 10.w,
+                                                        color: Color.fromRGBO(
+                                                            76, 81, 97, 1),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Align(
+                                                alignment:
+                                                    Alignment(-0.95, -0.92),
+                                                child: GestureDetector(
+                                                  onTap: () {
+                                                    setState(() {
+                                                      onEdit = true;
+                                                      namaController.text =
+                                                          fasilitas.name;
+                                                      rincianController.text =
+                                                          fasilitas.email;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    width: 29.w,
+                                                    height: 29.h,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              180),
+                                                      color: Colors.white,
+                                                    ),
+                                                    child: Center(
+                                                      child: Icon(
+                                                        Icons.edit,
+                                                        size: 18,
+                                                        color: Color.fromRGBO(
+                                                            76, 81, 97, 1),
+                                                      ),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(top: 5.h),
-                                            child: Text(
-                                              'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
-                                              maxLines: 4,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-Light',
-                                                fontSize: 10.w,
-                                                color: Color.fromRGBO(
-                                                    76, 81, 97, 1),
+                                              Align(
+                                                alignment:
+                                                    Alignment(0.95, -0.92),
+                                                child: GestureDetector(
+                                                  onTap: () => konfirmasi(),
+                                                  child: Container(
+                                                    width: 29.w,
+                                                    height: 29.h,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              180),
+                                                      color: Colors.white,
+                                                    ),
+                                                    child: Center(
+                                                      child: Icon(
+                                                        Icons.delete,
+                                                        size: 18,
+                                                        color: Color.fromRGBO(
+                                                            76, 81, 97, 1),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                            ],
                                           ),
-                                        ],
+                                        ),
+                                      );
+                                    }),
+                              ),
+                              Visibility(
+                                visible: onEdit,
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Container(
+                                    width: 200.w,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.3),
+                                          spreadRadius: 0,
+                                          blurRadius: 1.5,
+                                          offset: Offset(0, 1),
+                                        )
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        'On Editing Mode',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-ExtraBold',
+                                          fontSize: 16,
+                                          color: Color.fromRGBO(242, 78, 26, 1),
+                                        ),
                                       ),
                                     ),
-                                  );
-                                }),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                 ],
