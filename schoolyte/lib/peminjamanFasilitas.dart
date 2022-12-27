@@ -65,17 +65,12 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
       TextEditingController();
   final TextEditingController searchKembaliController = TextEditingController();
   final TextEditingController searchSelesaiController = TextEditingController();
-  final TextEditingController sanksiController = TextEditingController();
-  final TextEditingController telatController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   final _formKey2 = GlobalKey<FormState>();
 
   sendData() {
     print(tglDikembalikan);
-    print(dropdownvalue);
-    print(sanksi);
-    print(telat);
   }
 
   onSearchMenunggu(String text) async {
@@ -588,29 +583,30 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                             ),
                                             Container(
                                               width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.832,
-                                              height: 122,
+                                                  .size
+                                                  .width,
+                                              height: 113,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
                                                     width:
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            0.33,
-                                                    height: 122,
+                                                            0.346,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               10),
                                                     ),
+                                                    height: 113,
                                                     child: Image.asset(
                                                       'assets/images/fasilitas.png',
                                                       fit: BoxFit.cover,
@@ -621,8 +617,8 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            0.47,
-                                                    height: 122,
+                                                            0.55,
+                                                    height: 100,
                                                     child: Column(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -674,7 +670,7 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          '15.30 - 17.30 WIB',
+                                                          '15:30 - 17:30 WIB',
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
@@ -685,33 +681,6 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                                     81,
                                                                     97,
                                                                     0.78),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          width: 135,
-                                                          height: 19,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4),
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    217,
-                                                                    217,
-                                                                    217,
-                                                                    1),
-                                                          ),
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Menunggu Konfirmasi',
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Gilroy-Light',
-                                                                fontSize: 13,
-                                                              ),
-                                                            ),
                                                           ),
                                                         ),
                                                       ],
@@ -922,29 +891,30 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                             ),
                                             Container(
                                               width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.832,
-                                              height: 122,
+                                                  .size
+                                                  .width,
+                                              height: 113,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
                                                     width:
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            0.33,
-                                                    height: 122,
+                                                            0.346,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               10),
                                                     ),
+                                                    height: 113,
                                                     child: Image.asset(
                                                       'assets/images/fasilitas.png',
                                                       fit: BoxFit.cover,
@@ -955,8 +925,8 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            0.47,
-                                                    height: 122,
+                                                            0.55,
+                                                    height: 100,
                                                     child: Column(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -1008,7 +978,7 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          '15.30 - 17.30 WIB',
+                                                          '15:30 - 17:30 WIB',
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
@@ -1019,33 +989,6 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                                     81,
                                                                     97,
                                                                     0.78),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          width: 135,
-                                                          height: 19,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4),
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    217,
-                                                                    217,
-                                                                    217,
-                                                                    1),
-                                                          ),
-                                                          child: Center(
-                                                            child: Text(
-                                                              'Menunggu Konfirmasi',
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Gilroy-Light',
-                                                                fontSize: 13,
-                                                              ),
-                                                            ),
                                                           ),
                                                         ),
                                                       ],
@@ -1277,29 +1220,30 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                             ),
                                             Container(
                                               width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.832,
+                                                  .size
+                                                  .width,
                                               height: 113,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
                                                     width:
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            0.33,
-                                                    height: 113,
+                                                            0.346,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               10),
                                                     ),
+                                                    height: 113,
                                                     child: Image.asset(
                                                       'assets/images/fasilitas.png',
                                                       fit: BoxFit.cover,
@@ -1310,8 +1254,8 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            0.47,
-                                                    height: 113,
+                                                            0.55,
+                                                    height: 100,
                                                     child: Column(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -1363,7 +1307,7 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          '15.30 - 17.30 WIB',
+                                                          '15:30 - 17:30 WIB',
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
@@ -1510,29 +1454,30 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                             ),
                                             Container(
                                               width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.832,
+                                                  .size
+                                                  .width,
                                               height: 113,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
                                                     width:
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            0.33,
-                                                    height: 113,
+                                                            0.346,
                                                     decoration: BoxDecoration(
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               10),
                                                     ),
+                                                    height: 113,
                                                     child: Image.asset(
                                                       'assets/images/fasilitas.png',
                                                       fit: BoxFit.cover,
@@ -1543,8 +1488,8 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            0.47,
-                                                    height: 113,
+                                                            0.55,
+                                                    height: 100,
                                                     child: Column(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -1596,7 +1541,7 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          '15.30 - 17.30 WIB',
+                                                          '15:30 - 17:30 WIB',
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
@@ -1689,7 +1634,8 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                 IconButton(
                                   icon: Icon(Icons.cancel,
                                       size: 24,
-                                      color: searchDipinjamController
+                                      color:
+                                          searchKembaliController
                                                   .text.length !=
                                               0
                                           ? Colors.red
@@ -1725,7 +1671,7 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                       mainAxisSpacing: 15,
                                     ),
                                     itemBuilder: (context, i) {
-                                      final ds = _searchKembali[i];
+                                      final fasilitas = _searchKembali[i];
                                       return Container(
                                         color: Colors.white,
                                         child: Column(
@@ -1755,7 +1701,7 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        ds.name,
+                                                        fasilitas.name,
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-ExtraBold',
@@ -1836,22 +1782,33 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                             ),
                                             Container(
                                               width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.68,
-                                              height: 122,
+                                                  .size
+                                                  .width,
+                                              height: 113,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
-                                                    height: 100,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.346,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    height: 113,
                                                     child: Image.asset(
-                                                      'assets/images/samplebook.png',
-                                                      fit: BoxFit.fill,
+                                                      'assets/images/fasilitas.png',
+                                                      fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                   Container(
@@ -1859,7 +1816,7 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            0.47,
+                                                            0.55,
                                                     height: 100,
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -1871,7 +1828,8 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                       children: [
                                                         Text(
                                                           'ID Peminjaman : ' +
-                                                              ds.id.toString(),
+                                                              fasilitas.id
+                                                                  .toString(),
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
@@ -1897,7 +1855,7 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          'Mulai : Monday, 07 September 2022',
+                                                          'Monday, 07 September 2022',
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
@@ -1911,21 +1869,7 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          'Berakhir : Friday, 11 September 2022',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 13,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    76,
-                                                                    81,
-                                                                    97,
-                                                                    0.78),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'Jumlah Buku : 1',
+                                                          '15:30 - 17:30 WIB',
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
@@ -1944,651 +1888,400 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                 ],
                                               ),
                                             ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    showModalBottomSheet(
-                                                      isScrollControlled: true,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  20),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  20),
-                                                        ),
-                                                      ),
-                                                      context: context,
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return Container(
-                                                          height: 733,
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 20),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .only(
-                                                              topLeft: Radius
-                                                                  .circular(20),
-                                                              topRight: Radius
-                                                                  .circular(20),
-                                                            ),
-                                                            color: Colors.white,
+                                            Visibility(
+                                              visible: fasilitas.id % 2 == 0
+                                                  ? false
+                                                  : true,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    20),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    20),
                                                           ),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Align(
-                                                                alignment:
-                                                                    Alignment(
-                                                                        0.0,
-                                                                        0.0),
-                                                                child:
-                                                                    Container(
-                                                                  width: 32,
-                                                                  height: 2,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      width: 1,
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              0,
-                                                                              0,
-                                                                              0,
-                                                                              0.12),
+                                                        ),
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return Container(
+                                                            height: 733,
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    top: 20),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        20),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        20),
+                                                              ),
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Align(
+                                                                  alignment:
+                                                                      Alignment(
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      Container(
+                                                                    width: 60,
+                                                                    height: 2,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      border:
+                                                                          Border
+                                                                              .all(
+                                                                        width:
+                                                                            1,
+                                                                        color: Color.fromRGBO(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            0.12),
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              Container(
-                                                                width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width,
-                                                                height: 219,
-                                                                color: Colors
-                                                                    .white,
-                                                                child: Column(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceEvenly,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Container(
-                                                                      width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width,
-                                                                      height:
-                                                                          54,
-                                                                      padding: EdgeInsets.symmetric(
-                                                                          horizontal:
-                                                                              20),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Column(
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.spaceEvenly,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              Text(
-                                                                                ds.name,
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy-ExtraBold',
-                                                                                  fontSize: 16,
-                                                                                ),
-                                                                              ),
-                                                                              Row(
-                                                                                children: [
-                                                                                  Text(
-                                                                                    'Status : ',
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Gilroy-ExtraBold',
-                                                                                      fontSize: 14,
-                                                                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                                                                    ),
-                                                                                  ),
-                                                                                  Text(
-                                                                                    'Siswa',
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Gilroy-Light',
-                                                                                      fontSize: 14,
-                                                                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              Text(
-                                                                                'Monday, 01 January 2022  16:09 WIB',
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy-Light',
-                                                                                  fontSize: 14,
-                                                                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                111,
-                                                                            height:
-                                                                                19,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              borderRadius: BorderRadius.circular(4),
-                                                                              color: Color.fromRGBO(255, 199, 0, 1),
-                                                                            ),
-                                                                            child:
-                                                                                Center(
-                                                                              child: Text(
-                                                                                'Sedang Dipinjam',
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy-Light',
-                                                                                  fontSize: 13,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Divider(
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              0,
-                                                                              0,
-                                                                              0,
-                                                                              0.28),
-                                                                    ),
-                                                                    Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.78,
-                                                                      height:
-                                                                          122,
-                                                                      padding: EdgeInsets.symmetric(
-                                                                          horizontal:
-                                                                              20),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Container(
-                                                                            height:
-                                                                                100,
-                                                                            child:
-                                                                                Image.asset(
-                                                                              'assets/images/samplebook.png',
-                                                                              fit: BoxFit.fill,
-                                                                            ),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width * 0.47,
-                                                                            height:
-                                                                                100,
-                                                                            child:
-                                                                                Column(
+                                                                Container(
+                                                                  width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
+                                                                  height: 230,
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceEvenly,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Container(
+                                                                        width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width,
+                                                                        height:
+                                                                            54,
+                                                                        padding:
+                                                                            EdgeInsets.symmetric(horizontal: 20),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.center,
+                                                                          children: [
+                                                                            Column(
                                                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                                               children: [
                                                                                 Text(
-                                                                                  'ID Peminjaman : ' + ds.id.toString(),
+                                                                                  fasilitas.name,
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: 'Gilroy-ExtraBold',
+                                                                                    fontSize: 16,
+                                                                                  ),
+                                                                                ),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      'Status : ',
+                                                                                      style: TextStyle(
+                                                                                        fontFamily: 'Gilroy-ExtraBold',
+                                                                                        fontSize: 14,
+                                                                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Text(
+                                                                                      'Siswa',
+                                                                                      style: TextStyle(
+                                                                                        fontFamily: 'Gilroy-Light',
+                                                                                        fontSize: 14,
+                                                                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                Text(
+                                                                                  'Monday, 01 January 2022  16:09 WIB',
                                                                                   style: TextStyle(
                                                                                     fontFamily: 'Gilroy-Light',
-                                                                                    fontSize: 15,
+                                                                                    fontSize: 14,
                                                                                     color: Color.fromRGBO(76, 81, 97, 1),
                                                                                   ),
                                                                                 ),
-                                                                                Text(
-                                                                                  'Lapangan Depan',
-                                                                                  maxLines: 2,
-                                                                                  overflow: TextOverflow.ellipsis,
-                                                                                  style: TextStyle(
-                                                                                    fontFamily: 'Gilroy-ExtraBold',
-                                                                                    fontSize: 20,
-                                                                                    color: Colors.black,
-                                                                                  ),
-                                                                                ),
-                                                                                Text(
-                                                                                  'Mulai : Monday, 07 September 2022',
-                                                                                  style: TextStyle(
-                                                                                    fontFamily: 'Gilroy-Light',
-                                                                                    fontSize: 13,
-                                                                                    color: Color.fromRGBO(76, 81, 97, 0.78),
-                                                                                  ),
-                                                                                ),
-                                                                                Text(
-                                                                                  'Berakhir : Friday, 11 September 2022',
-                                                                                  style: TextStyle(
-                                                                                    fontFamily: 'Gilroy-Light',
-                                                                                    fontSize: 13,
-                                                                                    color: Color.fromRGBO(76, 81, 97, 0.78),
-                                                                                  ),
-                                                                                ),
-                                                                                Text(
-                                                                                  'Jumlah Buku : 1',
-                                                                                  style: TextStyle(
-                                                                                    fontFamily: 'Gilroy-Light',
-                                                                                    fontSize: 13,
-                                                                                    color: Color.fromRGBO(76, 81, 97, 0.78),
-                                                                                  ),
-                                                                                ),
                                                                               ],
                                                                             ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    0.9,
-                                                                height: 215,
-                                                                margin: EdgeInsets
-                                                                    .only(
-                                                                        top:
-                                                                            10),
-                                                                child: Column(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.9,
-                                                                      height:
-                                                                          40,
-                                                                      child:
-                                                                          Row(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Dikembalikan : ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontFamily: 'Gilroy-Light',
-                                                                              fontSize: 16,
-                                                                              color: Colors.black,
-                                                                            ),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width * 0.6,
-                                                                            margin:
-                                                                                EdgeInsets.only(left: 15),
-                                                                            child:
-                                                                                DateTimePicker(
-                                                                              type: DateTimePickerType.dateTimeSeparate,
-                                                                              dateMask: 'fasilitas MMMM yyyy',
-                                                                              initialValue: null,
-                                                                              firstDate: DateTime.now(),
-                                                                              lastDate: DateTime(DateTime.now().year + 1),
-                                                                              selectableDayPredicate: (date) {
-                                                                                if (date.weekday == 6 || date.weekday == 7) {
-                                                                                  return false;
-                                                                                }
-
-                                                                                return true;
-                                                                              },
-                                                                              onChanged: (val) => setState(() {
-                                                                                tglDikembalikan = val;
-                                                                              }),
-                                                                              validator: (val) {
-                                                                                return null;
-                                                                              },
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.85,
-                                                                      height:
-                                                                          40,
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Telat',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontFamily: 'Gilroy-Light',
-                                                                              fontSize: 18,
-                                                                              color: Color.fromRGBO(76, 81, 97, 1),
-                                                                            ),
-                                                                          ),
-                                                                          Text(
-                                                                            '                  :     ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Color.fromRGBO(76, 81, 97, 1),
-                                                                            ),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width * 0.5,
-                                                                            child:
-                                                                                Form(
-                                                                              key: _formKey2,
-                                                                              child: TextFormField(
-                                                                                controller: telatController,
-                                                                                keyboardType: TextInputType.number,
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy-Light',
-                                                                                  fontSize: 16,
-                                                                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                                                                ),
-                                                                                textAlignVertical: TextAlignVertical(y: -0.7),
-                                                                                decoration: InputDecoration(
-                                                                                  labelText: 'Telat Pengembalian (Hari)',
-                                                                                  labelStyle: TextStyle(
+                                                                            Container(
+                                                                              width: 111,
+                                                                              height: 19,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(4),
+                                                                                color: Color.fromRGBO(217, 217, 217, 1),
+                                                                              ),
+                                                                              child: Center(
+                                                                                child: Text(
+                                                                                  'Pengembalian',
+                                                                                  style: TextStyle(
                                                                                     fontFamily: 'Gilroy-Light',
-                                                                                    fontSize: 16,
-                                                                                    color: Color.fromRGBO(76, 81, 97, 0.54),
+                                                                                    fontSize: 13,
                                                                                   ),
-                                                                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
                                                                                 ),
-                                                                                validator: (value) {
-                                                                                  return null;
-                                                                                },
-                                                                                onChanged: (value) {
-                                                                                  setState(() {
-                                                                                    telat = value;
-                                                                                  });
-                                                                                },
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        ],
+                                                                          ],
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                    Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.8,
-                                                                      height:
-                                                                          44,
-                                                                      child:
-                                                                          Row(
-                                                                        children: [
-                                                                          Text(
-                                                                            'Status             :    ',
-                                                                            style:
-                                                                                TextStyle(fontFamily: 'Gilroy-Light', fontSize: 16),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                248,
-                                                                            height:
-                                                                                44,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              borderRadius: BorderRadius.circular(5),
-                                                                              boxShadow: [
-                                                                                BoxShadow(
-                                                                                  color: Colors.black.withOpacity(0.3),
-                                                                                  spreadRadius: 0,
-                                                                                  blurRadius: 1.5,
-                                                                                  offset: Offset(0, 1),
-                                                                                )
-                                                                              ],
-                                                                              color: Colors.white,
-                                                                            ),
-                                                                            child:
-                                                                                Center(
-                                                                              child: DropdownButton(
-                                                                                value: dropdownvalue,
-                                                                                elevation: 0,
-                                                                                underline: SizedBox(),
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy-Light',
-                                                                                  fontSize: 16,
-                                                                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                                                                ),
-                                                                                icon: Container(margin: EdgeInsets.only(left: 20), child: const Icon(Icons.keyboard_arrow_down)),
-                                                                                items: status.map((String items) {
-                                                                                  return DropdownMenuItem(
-                                                                                    value: items,
-                                                                                    child: Text(items),
-                                                                                  );
-                                                                                }).toList(),
-                                                                                onChanged: (String? newValue) {
-                                                                                  setState(() {
-                                                                                    dropdownvalue = newValue!;
-                                                                                  });
-                                                                                },
+                                                                      Divider(
+                                                                        color: Color.fromRGBO(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            0.28),
+                                                                      ),
+                                                                      Container(
+                                                                        width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width,
+                                                                        height:
+                                                                            151,
+                                                                        padding:
+                                                                            EdgeInsets.symmetric(horizontal: 20),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Container(
+                                                                              width: MediaQuery.of(context).size.width * 0.346,
+                                                                              height: 113,
+                                                                              child: Image.asset(
+                                                                                'assets/images/fasilitas.png',
+                                                                                fit: BoxFit.cover,
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.85,
-                                                                      height:
-                                                                          40,
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Sanksi',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontFamily: 'Gilroy-Light',
-                                                                              fontSize: 18,
-                                                                              color: Color.fromRGBO(76, 81, 97, 1),
-                                                                            ),
-                                                                          ),
-                                                                          Text(
-                                                                            '              :     ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Color.fromRGBO(76, 81, 97, 1),
-                                                                            ),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width * 0.5,
-                                                                            child:
-                                                                                Form(
-                                                                              key: _formKey,
-                                                                              child: TextFormField(
-                                                                                controller: sanksiController,
-                                                                                keyboardType: TextInputType.number,
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy-Light',
-                                                                                  fontSize: 16,
-                                                                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                                                                ),
-                                                                                textAlignVertical: TextAlignVertical(y: -0.7),
-                                                                                decoration: InputDecoration(
-                                                                                  labelText: 'Jumlah sanksi (Rp)',
-                                                                                  labelStyle: TextStyle(
-                                                                                    fontFamily: 'Gilroy-Light',
-                                                                                    fontSize: 16,
-                                                                                    color: Color.fromRGBO(76, 81, 97, 0.54),
+                                                                            Container(
+                                                                              width: MediaQuery.of(context).size.width * 0.55,
+                                                                              height: 100,
+                                                                              child: Column(
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'ID Peminjaman : ' + fasilitas.id.toString(),
+                                                                                    style: TextStyle(
+                                                                                      fontFamily: 'Gilroy-Light',
+                                                                                      fontSize: 15,
+                                                                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                                                                    ),
                                                                                   ),
-                                                                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-                                                                                ),
-                                                                                validator: (value) {
-                                                                                  return null;
-                                                                                },
-                                                                                onChanged: (value) {
-                                                                                  setState(() {
-                                                                                    sanksi = value;
-                                                                                  });
-                                                                                },
+                                                                                  Text(
+                                                                                    'Lapangan Depan',
+                                                                                    maxLines: 2,
+                                                                                    overflow: TextOverflow.ellipsis,
+                                                                                    style: TextStyle(
+                                                                                      fontFamily: 'Gilroy-ExtraBold',
+                                                                                      fontSize: 20,
+                                                                                      color: Colors.black,
+                                                                                    ),
+                                                                                  ),
+                                                                                  Text(
+                                                                                    'Monday, 07 September 2022',
+                                                                                    style: TextStyle(
+                                                                                      fontFamily: 'Gilroy-Light',
+                                                                                      fontSize: 13,
+                                                                                      color: Color.fromRGBO(76, 81, 97, 0.78),
+                                                                                    ),
+                                                                                  ),
+                                                                                  Text(
+                                                                                    '15:30 - 17:30 WIB',
+                                                                                    style: TextStyle(
+                                                                                      fontFamily: 'Gilroy-Light',
+                                                                                      fontSize: 13,
+                                                                                      color: Color.fromRGBO(76, 81, 97, 0.78),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        ],
+                                                                          ],
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    0.9,
-                                                                margin: EdgeInsets
-                                                                    .only(
-                                                                        top:
-                                                                            20),
-                                                                child: Text(
-                                                                  '*Apabila terjadi keterlambatan dan kehilangan buku maka peminjaman akan dikenakan sanksi',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-Light',
-                                                                    fontSize:
-                                                                        11,
-                                                                    color: Color
-                                                                        .fromRGBO(
-                                                                            76,
-                                                                            81,
-                                                                            97,
-                                                                            1),
+                                                                    ],
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              GestureDetector(
-                                                                onTap: () {
-                                                                  sendData();
-                                                                },
-                                                                child: Align(
-                                                                  alignment:
-                                                                      Alignment(
-                                                                          0.8,
-                                                                          0.0),
-                                                                  child:
-                                                                      Container(
-                                                                    width: 110,
-                                                                    height: 35,
-                                                                    margin: EdgeInsets
-                                                                        .only(
-                                                                            top:
-                                                                                60),
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              7),
-                                                                      color: Colors
-                                                                          .black,
-                                                                    ),
-                                                                    child:
-                                                                        Center(
-                                                                      child:
-                                                                          Text(
-                                                                        'Selesai',
+                                                                Container(
+                                                                  width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
+                                                                  height: 40,
+                                                                  padding: EdgeInsets
+                                                                      .symmetric(
+                                                                          horizontal:
+                                                                              20),
+                                                                  child: Row(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Text(
+                                                                        'Dikembalikan : ',
                                                                         style:
                                                                             TextStyle(
                                                                           fontFamily:
                                                                               'Gilroy-Light',
                                                                           fontSize:
-                                                                              15,
+                                                                              16,
                                                                           color:
-                                                                              Colors.white,
+                                                                              Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                      Container(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            0.6,
+                                                                        margin: EdgeInsets.only(
+                                                                            left:
+                                                                                15),
+                                                                        child:
+                                                                            DateTimePicker(
+                                                                          type:
+                                                                              DateTimePickerType.dateTimeSeparate,
+                                                                          dateMask:
+                                                                              'd MMMM yyyy',
+                                                                          initialValue:
+                                                                              null,
+                                                                          firstDate:
+                                                                              DateTime.now(),
+                                                                          lastDate:
+                                                                              DateTime(DateTime.now().year + 1),
+                                                                          selectableDayPredicate:
+                                                                              (date) {
+                                                                            return true;
+                                                                          },
+                                                                          onChanged: (val) =>
+                                                                              setState(() {
+                                                                            tglDikembalikan =
+                                                                                val;
+                                                                          }),
+                                                                          validator:
+                                                                              (val) {
+                                                                            return null;
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    sendData();
+                                                                  },
+                                                                  child: Align(
+                                                                    alignment:
+                                                                        Alignment(
+                                                                            0.8,
+                                                                            0.0),
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          110,
+                                                                      height:
+                                                                          35,
+                                                                      margin: EdgeInsets
+                                                                          .only(
+                                                                              top: 60),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(7),
+                                                                        color: Colors
+                                                                            .black,
+                                                                      ),
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Text(
+                                                                          'Selesai',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontFamily:
+                                                                                'Gilroy-Light',
+                                                                            fontSize:
+                                                                                15,
+                                                                            color:
+                                                                                Colors.white,
+                                                                          ),
                                                                         ),
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                    child: Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.46,
+                                                      height: 36,
+                                                      margin: EdgeInsets.only(
+                                                          right: 35),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(6),
+                                                        color: Color.fromRGBO(
+                                                            242, 78, 26, 1),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          'Konfirmasi Pengembalian',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy-ExtraBold',
+                                                            fontSize: 15,
+                                                            color: Colors.white,
                                                           ),
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                  child: Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.46,
-                                                    height: 36,
-                                                    margin: EdgeInsets.only(
-                                                        right: 35),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              6),
-                                                      color: Color.fromRGBO(
-                                                          242, 78, 26, 1),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        'Konfirmasi Pengembalian',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-ExtraBold',
-                                                          fontSize: 15,
-                                                          color: Colors.white,
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -2716,22 +2409,33 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                             ),
                                             Container(
                                               width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.68,
-                                              height: 122,
+                                                  .size
+                                                  .width,
+                                              height: 113,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Container(
-                                                    height: 100,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.346,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    height: 113,
                                                     child: Image.asset(
-                                                      'assets/images/samplebook.png',
-                                                      fit: BoxFit.fill,
+                                                      'assets/images/fasilitas.png',
+                                                      fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                   Container(
@@ -2739,7 +2443,7 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                         MediaQuery.of(context)
                                                                 .size
                                                                 .width *
-                                                            0.47,
+                                                            0.55,
                                                     height: 100,
                                                     child: Column(
                                                       mainAxisAlignment:
@@ -2778,7 +2482,7 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          'Mulai : Monday, 07 September 2022',
+                                                          'Monday, 07 September 2022',
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
@@ -2792,21 +2496,7 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          'Berakhir : Friday, 11 September 2022',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 13,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    76,
-                                                                    81,
-                                                                    97,
-                                                                    0.78),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          'Jumlah Buku : 1',
+                                                          '15:30 - 17:30 WIB',
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
@@ -2825,651 +2515,400 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                 ],
                                               ),
                                             ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(),
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    showModalBottomSheet(
-                                                      isScrollControlled: true,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  20),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  20),
-                                                        ),
-                                                      ),
-                                                      context: context,
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return Container(
-                                                          height: 733,
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 20),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .only(
-                                                              topLeft: Radius
-                                                                  .circular(20),
-                                                              topRight: Radius
-                                                                  .circular(20),
-                                                            ),
-                                                            color: Colors.white,
+                                            Visibility(
+                                              visible: fasilitas.id % 2 == 0
+                                                  ? false
+                                                  : true,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Container(),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.only(
+                                                            topLeft:
+                                                                Radius.circular(
+                                                                    20),
+                                                            topRight:
+                                                                Radius.circular(
+                                                                    20),
                                                           ),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Align(
-                                                                alignment:
-                                                                    Alignment(
-                                                                        0.0,
-                                                                        0.0),
-                                                                child:
-                                                                    Container(
-                                                                  width: 32,
-                                                                  height: 2,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      width: 1,
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              0,
-                                                                              0,
-                                                                              0,
-                                                                              0.12),
+                                                        ),
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return Container(
+                                                            height: 733,
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    top: 20),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        20),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        20),
+                                                              ),
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                            child: Column(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Align(
+                                                                  alignment:
+                                                                      Alignment(
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      Container(
+                                                                    width: 60,
+                                                                    height: 2,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      border:
+                                                                          Border
+                                                                              .all(
+                                                                        width:
+                                                                            1,
+                                                                        color: Color.fromRGBO(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            0.12),
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              Container(
-                                                                width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width,
-                                                                height: 219,
-                                                                color: Colors
-                                                                    .white,
-                                                                child: Column(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceEvenly,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Container(
-                                                                      width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width,
-                                                                      height:
-                                                                          54,
-                                                                      padding: EdgeInsets.symmetric(
-                                                                          horizontal:
-                                                                              20),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Column(
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.spaceEvenly,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              Text(
-                                                                                fasilitas.name,
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy-ExtraBold',
-                                                                                  fontSize: 16,
-                                                                                ),
-                                                                              ),
-                                                                              Row(
-                                                                                children: [
-                                                                                  Text(
-                                                                                    'Status : ',
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Gilroy-ExtraBold',
-                                                                                      fontSize: 14,
-                                                                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                                                                    ),
-                                                                                  ),
-                                                                                  Text(
-                                                                                    'Siswa',
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Gilroy-Light',
-                                                                                      fontSize: 14,
-                                                                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              Text(
-                                                                                'Monday, 01 January 2022  16:09 WIB',
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy-Light',
-                                                                                  fontSize: 14,
-                                                                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                111,
-                                                                            height:
-                                                                                19,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              borderRadius: BorderRadius.circular(4),
-                                                                              color: Color.fromRGBO(255, 199, 0, 1),
-                                                                            ),
-                                                                            child:
-                                                                                Center(
-                                                                              child: Text(
-                                                                                'Sedang Dipinjam',
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy-Light',
-                                                                                  fontSize: 13,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Divider(
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              0,
-                                                                              0,
-                                                                              0,
-                                                                              0.28),
-                                                                    ),
-                                                                    Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.78,
-                                                                      height:
-                                                                          122,
-                                                                      padding: EdgeInsets.symmetric(
-                                                                          horizontal:
-                                                                              20),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Container(
-                                                                            height:
-                                                                                100,
-                                                                            child:
-                                                                                Image.asset(
-                                                                              'assets/images/samplebook.png',
-                                                                              fit: BoxFit.fill,
-                                                                            ),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width * 0.47,
-                                                                            height:
-                                                                                100,
-                                                                            child:
-                                                                                Column(
+                                                                Container(
+                                                                  width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
+                                                                  height: 230,
+                                                                  child: Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceEvenly,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Container(
+                                                                        width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width,
+                                                                        height:
+                                                                            54,
+                                                                        padding:
+                                                                            EdgeInsets.symmetric(horizontal: 20),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.center,
+                                                                          children: [
+                                                                            Column(
                                                                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                                               children: [
                                                                                 Text(
-                                                                                  'ID Peminjaman : ' + fasilitas.id.toString(),
+                                                                                  fasilitas.name,
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: 'Gilroy-ExtraBold',
+                                                                                    fontSize: 16,
+                                                                                  ),
+                                                                                ),
+                                                                                Row(
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      'Status : ',
+                                                                                      style: TextStyle(
+                                                                                        fontFamily: 'Gilroy-ExtraBold',
+                                                                                        fontSize: 14,
+                                                                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Text(
+                                                                                      'Siswa',
+                                                                                      style: TextStyle(
+                                                                                        fontFamily: 'Gilroy-Light',
+                                                                                        fontSize: 14,
+                                                                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                                Text(
+                                                                                  'Monday, 01 January 2022  16:09 WIB',
                                                                                   style: TextStyle(
                                                                                     fontFamily: 'Gilroy-Light',
-                                                                                    fontSize: 15,
+                                                                                    fontSize: 14,
                                                                                     color: Color.fromRGBO(76, 81, 97, 1),
                                                                                   ),
                                                                                 ),
-                                                                                Text(
-                                                                                  'Lapangan Depan',
-                                                                                  maxLines: 2,
-                                                                                  overflow: TextOverflow.ellipsis,
-                                                                                  style: TextStyle(
-                                                                                    fontFamily: 'Gilroy-ExtraBold',
-                                                                                    fontSize: 20,
-                                                                                    color: Colors.black,
-                                                                                  ),
-                                                                                ),
-                                                                                Text(
-                                                                                  'Mulai : Monday, 07 September 2022',
-                                                                                  style: TextStyle(
-                                                                                    fontFamily: 'Gilroy-Light',
-                                                                                    fontSize: 13,
-                                                                                    color: Color.fromRGBO(76, 81, 97, 0.78),
-                                                                                  ),
-                                                                                ),
-                                                                                Text(
-                                                                                  'Berakhir : Friday, 11 September 2022',
-                                                                                  style: TextStyle(
-                                                                                    fontFamily: 'Gilroy-Light',
-                                                                                    fontSize: 13,
-                                                                                    color: Color.fromRGBO(76, 81, 97, 0.78),
-                                                                                  ),
-                                                                                ),
-                                                                                Text(
-                                                                                  'Jumlah Buku : 1',
-                                                                                  style: TextStyle(
-                                                                                    fontFamily: 'Gilroy-Light',
-                                                                                    fontSize: 13,
-                                                                                    color: Color.fromRGBO(76, 81, 97, 0.78),
-                                                                                  ),
-                                                                                ),
                                                                               ],
                                                                             ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    0.9,
-                                                                height: 215,
-                                                                margin: EdgeInsets
-                                                                    .only(
-                                                                        top:
-                                                                            10),
-                                                                child: Column(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.9,
-                                                                      height:
-                                                                          40,
-                                                                      child:
-                                                                          Row(
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Dikembalikan : ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontFamily: 'Gilroy-Light',
-                                                                              fontSize: 16,
-                                                                              color: Colors.black,
-                                                                            ),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width * 0.6,
-                                                                            margin:
-                                                                                EdgeInsets.only(left: 15),
-                                                                            child:
-                                                                                DateTimePicker(
-                                                                              type: DateTimePickerType.dateTimeSeparate,
-                                                                              dateMask: 'fasilitas MMMM yyyy',
-                                                                              initialValue: null,
-                                                                              firstDate: DateTime.now(),
-                                                                              lastDate: DateTime(DateTime.now().year + 1),
-                                                                              selectableDayPredicate: (date) {
-                                                                                if (date.weekday == 6 || date.weekday == 7) {
-                                                                                  return false;
-                                                                                }
-
-                                                                                return true;
-                                                                              },
-                                                                              onChanged: (val) => setState(() {
-                                                                                tglDikembalikan = val;
-                                                                              }),
-                                                                              validator: (val) {
-                                                                                return null;
-                                                                              },
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.85,
-                                                                      height:
-                                                                          40,
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Telat',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontFamily: 'Gilroy-Light',
-                                                                              fontSize: 18,
-                                                                              color: Color.fromRGBO(76, 81, 97, 1),
-                                                                            ),
-                                                                          ),
-                                                                          Text(
-                                                                            '                  :     ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Color.fromRGBO(76, 81, 97, 1),
-                                                                            ),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width * 0.5,
-                                                                            child:
-                                                                                Form(
-                                                                              key: _formKey2,
-                                                                              child: TextFormField(
-                                                                                controller: telatController,
-                                                                                keyboardType: TextInputType.number,
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy-Light',
-                                                                                  fontSize: 16,
-                                                                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                                                                ),
-                                                                                textAlignVertical: TextAlignVertical(y: -0.7),
-                                                                                decoration: InputDecoration(
-                                                                                  labelText: 'Telat Pengembalian (Hari)',
-                                                                                  labelStyle: TextStyle(
+                                                                            Container(
+                                                                              width: 111,
+                                                                              height: 19,
+                                                                              decoration: BoxDecoration(
+                                                                                borderRadius: BorderRadius.circular(4),
+                                                                                color: Color.fromRGBO(217, 217, 217, 1),
+                                                                              ),
+                                                                              child: Center(
+                                                                                child: Text(
+                                                                                  'Pengembalian',
+                                                                                  style: TextStyle(
                                                                                     fontFamily: 'Gilroy-Light',
-                                                                                    fontSize: 16,
-                                                                                    color: Color.fromRGBO(76, 81, 97, 0.54),
+                                                                                    fontSize: 13,
                                                                                   ),
-                                                                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
                                                                                 ),
-                                                                                validator: (value) {
-                                                                                  return null;
-                                                                                },
-                                                                                onChanged: (value) {
-                                                                                  setState(() {
-                                                                                    telat = value;
-                                                                                  });
-                                                                                },
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        ],
+                                                                          ],
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                    Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.8,
-                                                                      height:
-                                                                          44,
-                                                                      child:
-                                                                          Row(
-                                                                        children: [
-                                                                          Text(
-                                                                            'Status             :    ',
-                                                                            style:
-                                                                                TextStyle(fontFamily: 'Gilroy-Light', fontSize: 16),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                248,
-                                                                            height:
-                                                                                44,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              borderRadius: BorderRadius.circular(5),
-                                                                              boxShadow: [
-                                                                                BoxShadow(
-                                                                                  color: Colors.black.withOpacity(0.3),
-                                                                                  spreadRadius: 0,
-                                                                                  blurRadius: 1.5,
-                                                                                  offset: Offset(0, 1),
-                                                                                )
-                                                                              ],
-                                                                              color: Colors.white,
-                                                                            ),
-                                                                            child:
-                                                                                Center(
-                                                                              child: DropdownButton(
-                                                                                value: dropdownvalue,
-                                                                                elevation: 0,
-                                                                                underline: SizedBox(),
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy-Light',
-                                                                                  fontSize: 16,
-                                                                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                                                                ),
-                                                                                icon: Container(margin: EdgeInsets.only(left: 20), child: const Icon(Icons.keyboard_arrow_down)),
-                                                                                items: status.map((String items) {
-                                                                                  return DropdownMenuItem(
-                                                                                    value: items,
-                                                                                    child: Text(items),
-                                                                                  );
-                                                                                }).toList(),
-                                                                                onChanged: (String? newValue) {
-                                                                                  setState(() {
-                                                                                    dropdownvalue = newValue!;
-                                                                                  });
-                                                                                },
+                                                                      Divider(
+                                                                        color: Color.fromRGBO(
+                                                                            0,
+                                                                            0,
+                                                                            0,
+                                                                            0.28),
+                                                                      ),
+                                                                      Container(
+                                                                        width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width,
+                                                                        height:
+                                                                            151,
+                                                                        padding:
+                                                                            EdgeInsets.symmetric(horizontal: 20),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Container(
+                                                                              width: MediaQuery.of(context).size.width * 0.346,
+                                                                              height: 113,
+                                                                              child: Image.asset(
+                                                                                'assets/images/fasilitas.png',
+                                                                                fit: BoxFit.cover,
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                    Container(
-                                                                      width: MediaQuery.of(context)
-                                                                              .size
-                                                                              .width *
-                                                                          0.85,
-                                                                      height:
-                                                                          40,
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.start,
-                                                                        crossAxisAlignment:
-                                                                            CrossAxisAlignment.center,
-                                                                        children: [
-                                                                          Text(
-                                                                            'Sanksi',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              fontFamily: 'Gilroy-Light',
-                                                                              fontSize: 18,
-                                                                              color: Color.fromRGBO(76, 81, 97, 1),
-                                                                            ),
-                                                                          ),
-                                                                          Text(
-                                                                            '              :     ',
-                                                                            style:
-                                                                                TextStyle(
-                                                                              color: Color.fromRGBO(76, 81, 97, 1),
-                                                                            ),
-                                                                          ),
-                                                                          Container(
-                                                                            width:
-                                                                                MediaQuery.of(context).size.width * 0.5,
-                                                                            child:
-                                                                                Form(
-                                                                              key: _formKey,
-                                                                              child: TextFormField(
-                                                                                controller: sanksiController,
-                                                                                keyboardType: TextInputType.number,
-                                                                                style: TextStyle(
-                                                                                  fontFamily: 'Gilroy-Light',
-                                                                                  fontSize: 16,
-                                                                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                                                                ),
-                                                                                textAlignVertical: TextAlignVertical(y: -0.7),
-                                                                                decoration: InputDecoration(
-                                                                                  labelText: 'Jumlah sanksi (Rp)',
-                                                                                  labelStyle: TextStyle(
-                                                                                    fontFamily: 'Gilroy-Light',
-                                                                                    fontSize: 16,
-                                                                                    color: Color.fromRGBO(76, 81, 97, 0.54),
+                                                                            Container(
+                                                                              width: MediaQuery.of(context).size.width * 0.55,
+                                                                              height: 100,
+                                                                              child: Column(
+                                                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'ID Peminjaman : ' + fasilitas.id.toString(),
+                                                                                    style: TextStyle(
+                                                                                      fontFamily: 'Gilroy-Light',
+                                                                                      fontSize: 15,
+                                                                                      color: Color.fromRGBO(76, 81, 97, 1),
+                                                                                    ),
                                                                                   ),
-                                                                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-                                                                                ),
-                                                                                validator: (value) {
-                                                                                  return null;
-                                                                                },
-                                                                                onChanged: (value) {
-                                                                                  setState(() {
-                                                                                    sanksi = value;
-                                                                                  });
-                                                                                },
+                                                                                  Text(
+                                                                                    'Lapangan Depan',
+                                                                                    maxLines: 2,
+                                                                                    overflow: TextOverflow.ellipsis,
+                                                                                    style: TextStyle(
+                                                                                      fontFamily: 'Gilroy-ExtraBold',
+                                                                                      fontSize: 20,
+                                                                                      color: Colors.black,
+                                                                                    ),
+                                                                                  ),
+                                                                                  Text(
+                                                                                    'Monday, 07 September 2022',
+                                                                                    style: TextStyle(
+                                                                                      fontFamily: 'Gilroy-Light',
+                                                                                      fontSize: 13,
+                                                                                      color: Color.fromRGBO(76, 81, 97, 0.78),
+                                                                                    ),
+                                                                                  ),
+                                                                                  Text(
+                                                                                    '15:30 - 17:30 WIB',
+                                                                                    style: TextStyle(
+                                                                                      fontFamily: 'Gilroy-Light',
+                                                                                      fontSize: 13,
+                                                                                      color: Color.fromRGBO(76, 81, 97, 0.78),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
                                                                               ),
                                                                             ),
-                                                                          ),
-                                                                        ],
+                                                                          ],
+                                                                        ),
                                                                       ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    0.9,
-                                                                margin: EdgeInsets
-                                                                    .only(
-                                                                        top:
-                                                                            20),
-                                                                child: Text(
-                                                                  '*Apabila terjadi keterlambatan dan kehilangan buku maka peminjaman akan dikenakan sanksi',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-Light',
-                                                                    fontSize:
-                                                                        11,
-                                                                    color: Color
-                                                                        .fromRGBO(
-                                                                            76,
-                                                                            81,
-                                                                            97,
-                                                                            1),
+                                                                    ],
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              GestureDetector(
-                                                                onTap: () {
-                                                                  sendData();
-                                                                },
-                                                                child: Align(
-                                                                  alignment:
-                                                                      Alignment(
-                                                                          0.8,
-                                                                          0.0),
-                                                                  child:
-                                                                      Container(
-                                                                    width: 110,
-                                                                    height: 35,
-                                                                    margin: EdgeInsets
-                                                                        .only(
-                                                                            top:
-                                                                                60),
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              7),
-                                                                      color: Colors
-                                                                          .black,
-                                                                    ),
-                                                                    child:
-                                                                        Center(
-                                                                      child:
-                                                                          Text(
-                                                                        'Selesai',
+                                                                Container(
+                                                                  width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
+                                                                  height: 40,
+                                                                  padding: EdgeInsets
+                                                                      .symmetric(
+                                                                          horizontal:
+                                                                              20),
+                                                                  child: Row(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Text(
+                                                                        'Dikembalikan : ',
                                                                         style:
                                                                             TextStyle(
                                                                           fontFamily:
                                                                               'Gilroy-Light',
                                                                           fontSize:
-                                                                              15,
+                                                                              16,
                                                                           color:
-                                                                              Colors.white,
+                                                                              Colors.black,
+                                                                        ),
+                                                                      ),
+                                                                      Container(
+                                                                        width: MediaQuery.of(context).size.width *
+                                                                            0.6,
+                                                                        margin: EdgeInsets.only(
+                                                                            left:
+                                                                                15),
+                                                                        child:
+                                                                            DateTimePicker(
+                                                                          type:
+                                                                              DateTimePickerType.dateTimeSeparate,
+                                                                          dateMask:
+                                                                              'd MMMM yyyy',
+                                                                          initialValue:
+                                                                              null,
+                                                                          firstDate:
+                                                                              DateTime.now(),
+                                                                          lastDate:
+                                                                              DateTime(DateTime.now().year + 1),
+                                                                          selectableDayPredicate:
+                                                                              (date) {
+                                                                            return true;
+                                                                          },
+                                                                          onChanged: (val) =>
+                                                                              setState(() {
+                                                                            tglDikembalikan =
+                                                                                val;
+                                                                          }),
+                                                                          validator:
+                                                                              (val) {
+                                                                            return null;
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    sendData();
+                                                                  },
+                                                                  child: Align(
+                                                                    alignment:
+                                                                        Alignment(
+                                                                            0.8,
+                                                                            0.0),
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          110,
+                                                                      height:
+                                                                          35,
+                                                                      margin: EdgeInsets
+                                                                          .only(
+                                                                              top: 60),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(7),
+                                                                        color: Colors
+                                                                            .black,
+                                                                      ),
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Text(
+                                                                          'Selesai',
+                                                                          style:
+                                                                              TextStyle(
+                                                                            fontFamily:
+                                                                                'Gilroy-Light',
+                                                                            fontSize:
+                                                                                15,
+                                                                            color:
+                                                                                Colors.white,
+                                                                          ),
                                                                         ),
                                                                       ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                    child: Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.46,
+                                                      height: 36,
+                                                      margin: EdgeInsets.only(
+                                                          right: 35),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(6),
+                                                        color: Color.fromRGBO(
+                                                            242, 78, 26, 1),
+                                                      ),
+                                                      child: Center(
+                                                        child: Text(
+                                                          'Konfirmasi Pengembalian',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy-ExtraBold',
+                                                            fontSize: 15,
+                                                            color: Colors.white,
                                                           ),
-                                                        );
-                                                      },
-                                                    );
-                                                  },
-                                                  child: Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .width *
-                                                            0.46,
-                                                    height: 36,
-                                                    margin: EdgeInsets.only(
-                                                        right: 35),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              6),
-                                                      color: Color.fromRGBO(
-                                                          242, 78, 26, 1),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text(
-                                                        'Konfirmasi Pengembalian',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-ExtraBold',
-                                                          fontSize: 15,
-                                                          color: Colors.white,
                                                         ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -3560,184 +2999,72 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                           ),
                         ),
                       ),
-                      SingleChildScrollView(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.725,
-                          margin: EdgeInsets.only(top: 10),
-                          child: loading
-                              ? Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : _searchSelesai.length != 0 ||
-                                      searchSelesaiController.text.isNotEmpty
-                                  ? GridView.builder(
-                                      itemCount: _searchSelesai.length,
-                                      gridDelegate:
-                                          SliverGridDelegateWithMaxCrossAxisExtent(
-                                        maxCrossAxisExtent:
-                                            MediaQuery.of(context).size.width,
-                                        mainAxisExtent: 233,
-                                        crossAxisSpacing: 15,
-                                        mainAxisSpacing: 15,
-                                      ),
-                                      itemBuilder: (context, i) {
-                                        final ss = _searchSelesai[i];
-                                        return Container(
-                                          color: Colors.white,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                height: 54,
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 20),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          ss.name,
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-ExtraBold',
-                                                            fontSize: 16,
-                                                          ),
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              'Status : ',
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Gilroy-ExtraBold',
-                                                                fontSize: 14,
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        76,
-                                                                        81,
-                                                                        97,
-                                                                        1),
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'Siswa',
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Gilroy-Light',
-                                                                fontSize: 14,
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        76,
-                                                                        81,
-                                                                        97,
-                                                                        1),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Text(
-                                                          'Monday, 01 January 2022  16:09 WIB',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 14,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    76,
-                                                                    81,
-                                                                    97,
-                                                                    1),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      width: 132,
-                                                      height: 19,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(4),
-                                                        color: Color.fromRGBO(
-                                                            217, 217, 217, 1),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          'Selesai Dikembalikan',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 13,
-                                                          ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.725,
+                        margin: EdgeInsets.only(top: 10),
+                        child: loading
+                            ? Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : _searchSelesai.length != 0 ||
+                                    searchSelesaiController.text.isNotEmpty
+                                ? GridView.builder(
+                                    itemCount: _searchSelesai.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent:
+                                          MediaQuery.of(context).size.width,
+                                      mainAxisExtent: 233,
+                                      crossAxisSpacing: 15,
+                                      mainAxisSpacing: 15,
+                                    ),
+                                    itemBuilder: (context, i) {
+                                      final fasilitas = _searchSelesai[i];
+                                      return Container(
+                                        color: Colors.white,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: 54,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        fasilitas.name,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Divider(
-                                                color: Color.fromRGBO(
-                                                    0, 0, 0, 0.28),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.72,
-                                                height: 122,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      height: 100,
-                                                      child: Image.asset(
-                                                        'assets/images/samplebook.png',
-                                                        fit: BoxFit.fill,
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.5,
-                                                      height: 114,
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                      Row(
                                                         children: [
                                                           Text(
-                                                            'ID Peminjaman : ' +
-                                                                ss.id
-                                                                    .toString(),
+                                                            'Status : ',
                                                             style: TextStyle(
                                                               fontFamily:
-                                                                  'Gilroy-Light',
-                                                              fontSize: 15,
+                                                                  'Gilroy-ExtraBold',
+                                                              fontSize: 14,
                                                               color: Color
                                                                   .fromRGBO(
                                                                       76,
@@ -3747,118 +3074,100 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                             ),
                                                           ),
                                                           Text(
-                                                            'Lapangan Depan',
-                                                            maxLines: 2,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-ExtraBold',
-                                                              fontSize: 20,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Mulai : Monday, 07 September 2022',
+                                                            'Siswa',
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   'Gilroy-Light',
-                                                              fontSize: 13,
+                                                              fontSize: 14,
                                                               color: Color
                                                                   .fromRGBO(
                                                                       76,
                                                                       81,
                                                                       97,
-                                                                      0.78),
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Berakhir : Friday, 11 September 2022',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-Light',
-                                                              fontSize: 13,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      0.78),
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Jumlah Buku : 1',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-Light',
-                                                              fontSize: 13,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      0.78),
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Dikembalikan : Friday, 11 September 2022',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-Light',
-                                                              fontSize: 13,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      0.78),
+                                                                      1),
                                                             ),
                                                           ),
                                                         ],
                                                       ),
+                                                      Text(
+                                                        'Monday, 01 January 2022  16:09 WIB',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-Light',
+                                                          fontSize: 14,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Container(
+                                                    width: 50,
+                                                    height: 19,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                      color: Color.fromRGBO(
+                                                          217, 217, 217, 1),
                                                     ),
-                                                  ],
-                                                ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        'Selesai',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-Light',
+                                                          fontSize: 13,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        );
-                                      })
-                                  : GridView.builder(
-                                      itemCount: _list.length,
-                                      gridDelegate:
-                                          SliverGridDelegateWithMaxCrossAxisExtent(
-                                        maxCrossAxisExtent:
-                                            MediaQuery.of(context).size.width,
-                                        mainAxisExtent: 233,
-                                        crossAxisSpacing: 15,
-                                        mainAxisSpacing: 15,
-                                      ),
-                                      itemBuilder: (context, i) {
-                                        final s = _list[i];
-                                        return Container(
-                                          color: Colors.white,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                height: 54,
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 20),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Column(
+                                            ),
+                                            Divider(
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 0.28),
+                                            ),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: 113,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.346,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    height: 113,
+                                                    child: Image.asset(
+                                                      'assets/images/fasilitas.png',
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.55,
+                                                    height: 100,
+                                                    child: Column(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .spaceEvenly,
@@ -3867,51 +3176,13 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                               .start,
                                                       children: [
                                                         Text(
-                                                          s.name,
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-ExtraBold',
-                                                            fontSize: 16,
-                                                          ),
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Text(
-                                                              'Status : ',
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Gilroy-ExtraBold',
-                                                                fontSize: 14,
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        76,
-                                                                        81,
-                                                                        97,
-                                                                        1),
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              'Siswa',
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Gilroy-Light',
-                                                                fontSize: 14,
-                                                                color: Color
-                                                                    .fromRGBO(
-                                                                        76,
-                                                                        81,
-                                                                        97,
-                                                                        1),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Text(
-                                                          'Monday, 01 January 2022  16:09 WIB',
+                                                          'ID Peminjaman : ' +
+                                                              fasilitas.id
+                                                                  .toString(),
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
-                                                            fontSize: 14,
+                                                            fontSize: 15,
                                                             color:
                                                                 Color.fromRGBO(
                                                                     76,
@@ -3920,78 +3191,112 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                                     1),
                                                           ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      width: 132,
-                                                      height: 19,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(4),
-                                                        color: Color.fromRGBO(
-                                                            217, 217, 217, 1),
-                                                      ),
-                                                      child: Center(
-                                                        child: Text(
-                                                          'Selesai Dikembalikan',
+                                                        Text(
+                                                          'Lapangan Depan',
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy-ExtraBold',
+                                                            fontSize: 20,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          'Monday, 07 September 2022',
                                                           style: TextStyle(
                                                             fontFamily:
                                                                 'Gilroy-Light',
                                                             fontSize: 13,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    0.78),
                                                           ),
                                                         ),
-                                                      ),
+                                                        Text(
+                                                          '15:30 - 17:30 WIB',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy-Light',
+                                                            fontSize: 13,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    0.78),
+                                                          ),
+                                                        ),
+                                                        ],
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
-                                              Divider(
-                                                color: Color.fromRGBO(
-                                                    0, 0, 0, 0.28),
-                                              ),
-                                              Container(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.72,
-                                                height: 122,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                      height: 100,
-                                                      child: Image.asset(
-                                                        'assets/images/samplebook.png',
-                                                        fit: BoxFit.fill,
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    })
+                                : GridView.builder(
+                                    itemCount: _list.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                      maxCrossAxisExtent:
+                                          MediaQuery.of(context).size.width,
+                                      mainAxisExtent: 233,
+                                      crossAxisSpacing: 15,
+                                      mainAxisSpacing: 15,
+                                    ),
+                                    itemBuilder: (context, i) {
+                                      final fasilitas = _list[i];
+                                      return Container(
+                                        color: Colors.white,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: 54,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        fasilitas.name,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 16,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Container(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.5,
-                                                      height: 114,
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                      Row(
                                                         children: [
                                                           Text(
-                                                            'ID Peminjaman : ' +
-                                                                s.id.toString(),
+                                                            'Status : ',
                                                             style: TextStyle(
                                                               fontFamily:
-                                                                  'Gilroy-Light',
-                                                              fontSize: 15,
+                                                                  'Gilroy-ExtraBold',
+                                                              fontSize: 14,
                                                               color: Color
                                                                   .fromRGBO(
                                                                       76,
@@ -4001,86 +3306,173 @@ class _PeminjamanFasilitasState extends State<PeminjamanFasilitas> {
                                                             ),
                                                           ),
                                                           Text(
-                                                            'Lapangan Depan',
-                                                            maxLines: 2,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-ExtraBold',
-                                                              fontSize: 20,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Mulai : Monday, 07 September 2022',
+                                                            'Siswa',
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   'Gilroy-Light',
-                                                              fontSize: 13,
+                                                              fontSize: 14,
                                                               color: Color
                                                                   .fromRGBO(
                                                                       76,
                                                                       81,
                                                                       97,
-                                                                      0.78),
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Berakhir : Friday, 11 September 2022',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-Light',
-                                                              fontSize: 13,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      0.78),
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Jumlah Buku : 1',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-Light',
-                                                              fontSize: 13,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      0.78),
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            'Dikembalikan : Friday, 11 September 2022',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-Light',
-                                                              fontSize: 13,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      0.78),
+                                                                      1),
                                                             ),
                                                           ),
                                                         ],
                                                       ),
+                                                      Text(
+                                                        'Monday, 01 January 2022  16:09 WIB',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-Light',
+                                                          fontSize: 14,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Container(
+                                                    width: 50,
+                                                    height: 19,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                      color: Color.fromRGBO(
+                                                          217, 217, 217, 1),
                                                     ),
-                                                  ],
-                                                ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        'Selesai',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-Light',
+                                                          fontSize: 13,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ],
-                                          ),
-                                        );
-                                      }),
-                        ),
+                                            ),
+                                            Divider(
+                                              color:
+                                                  Color.fromRGBO(0, 0, 0, 0.28),
+                                            ),
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              height: 113,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.346,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    height: 113,
+                                                    child: Image.asset(
+                                                      'assets/images/fasilitas.png',
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.55,
+                                                    height: 100,
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          'ID Peminjaman : ' +
+                                                              fasilitas.id
+                                                                  .toString(),
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy-Light',
+                                                            fontSize: 15,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    1),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          'Lapangan Depan',
+                                                          maxLines: 2,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy-ExtraBold',
+                                                            fontSize: 20,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          'Monday, 07 September 2022',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy-Light',
+                                                            fontSize: 13,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    0.78),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          '15:30 - 17:30 WIB',
+                                                          style: TextStyle(
+                                                            fontFamily:
+                                                                'Gilroy-Light',
+                                                            fontSize: 13,
+                                                            color:
+                                                                Color.fromRGBO(
+                                                                    76,
+                                                                    81,
+                                                                    97,
+                                                                    0.78),
+                                                          ),
+                                                        ),
+                                                        ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }),
                       ),
                     ],
                   ),

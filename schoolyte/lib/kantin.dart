@@ -95,7 +95,7 @@ class _KantinPageState extends State<KantinPage> {
   }
 
   List<Tab> myTabs = <Tab>[
-    Tab(text: 'Menu'),
+    Tab(text: 'Stand'),
     Tab(text: 'Pesanan Saya'),
     Tab(text: 'Selesai'),
   ];
@@ -159,7 +159,7 @@ class _KantinPageState extends State<KantinPage> {
                     indicatorColor: Colors.white,
                     indicatorSize: TabBarIndicatorSize.label,
                     indicatorPadding: EdgeInsets.only(top: 0),
-                    isScrollable: false,
+                    isScrollable: true,
                     labelStyle: TextStyle(
                       fontFamily: 'Gilroy-ExtraBold',
                       fontSize: 20.w,

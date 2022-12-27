@@ -996,7 +996,7 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                                 child: Align(
                                   alignment: Alignment.center,
                                   child: Container(
-                                    width: 200.w,
+                                    width: 250.w,
                                     height: 50,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
@@ -1012,7 +1012,7 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        'On Editing Mode',
+                                        'Sedang dalam mode edit',
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-ExtraBold',
                                           fontSize: 16,
