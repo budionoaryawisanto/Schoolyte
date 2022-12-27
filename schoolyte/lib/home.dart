@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:schoolyte/jadwalGuru.dart';
+import 'package:schoolyte/laporanKeuangan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'absensiPegawai.dart';
 import 'ekstrakurikuler.dart';
@@ -32,10 +33,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController topupController = TextEditingController();
-  final TextEditingController tarikController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-  final _formKey2 = GlobalKey<FormState>();
   List<Test> _siswa = [];
   late Test profil;
   var loading = false;
@@ -619,21 +616,18 @@ class _HomePageState extends State<HomePage> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Container(
-                              width: 490.w,
-                              height: 104.h,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.push(
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ProfilPage()));
-                            },
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                                  fixedSize: Size(490.w, 104.h),
-                              backgroundColor: Colors.white,
-                            ),
+                              },
+                              child: Container(
+                                width: 490.w,
+                                height: 104.h,
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                color: Colors.white,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
@@ -745,318 +739,73 @@ class _HomePageState extends State<HomePage> {
                                       MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Container(
-                                          width: 103.w,
-                                      height:
-                                          980.h *
-                                              0.047,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Saldo',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                                  fontSize: 14.w,
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
+                                        GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LaporanKeuangan()));
+                                          },
+                                          child: Container(
+                                            width: 103.w,
+                                            height: 980.h * 0.047,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  'Saldo',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Gilroy-Light',
+                                                    fontSize: 14.w,
+                                                    color: Color.fromRGBO(
+                                                        76, 81, 97, 1),
+                                                  ),
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Container(
+                                                      child: Icon(
+                                                        Icons.wallet_outlined,
+                                                        size: 24.w,
+                                                        color: Color.fromRGBO(
+                                                            255, 199, 0, 1),
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Rp 30.000',
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Gilroy-ExtraBold',
+                                                        fontSize: 16.w,
+                                                        color: Color.fromRGBO(
+                                                            76, 81, 97, 1),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                            children: [
-                                                  Container(
-                                                child: Icon(
-                                                  Icons.wallet_outlined,
-                                                      size: 24.w,
-                                                  color: Color.fromRGBO(
-                                                      255, 199, 0, 1),
-                                                ),
-                                              ),
-                                              Text(
-                                                'Rp 30.000',
-                                                style: TextStyle(
-                                                  fontFamily:
-                                                      'Gilroy-ExtraBold',
-                                                      fontSize: 16.w,
-                                                  color: Color.fromRGBO(
-                                                      76, 81, 97, 1),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                        ),
                                     VerticalDivider(
                                       color: Color.fromRGBO(0, 0, 0, 0.18),
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        showModalBottomSheet(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                topRight: Radius.circular(15),
-                                              ),
-                                            ),
-                                            isScrollControlled: true,
-                                            context: context,
-                                            builder: (context) {
-                                              return Container(
-                                                    height: 574.h,
-                                                padding: EdgeInsets.symmetric(
-                                                      vertical: 20.h,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(15),
-                                                    topRight:
-                                                        Radius.circular(15),
-                                                  ),
-                                                ),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                          width: 66.w,
-                                                          height: 2.h,
-                                                      decoration: BoxDecoration(
-                                                        color: Color.fromRGBO(
-                                                            0, 0, 0, 0.1),
-                                                        border: Border.all(
-                                                          width: 1,
-                                                          color: Color.fromRGBO(
-                                                              0, 0, 0, 0.1),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                          width: 490.w *
-                                                              0.9,
-                                                          height: 187.h,
-                                                      margin: EdgeInsets.only(
-                                                          top: 25),
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            'Top-Up',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-ExtraBold',
-                                                                  fontSize:
-                                                                      24.w,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      1),
-                                                            ),
-                                                          ),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                'Lytepay',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Gilroy-ExtraBold',
-                                                                      fontSize:
-                                                                          16.w,
-                                                                  color: Color
-                                                                      .fromRGBO(
-                                                                          76,
-                                                                          81,
-                                                                          97,
-                                                                          1),
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                    width:
-                                                                        120.w,
-                                                                    height:
-                                                                        20.h,
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons
-                                                                          .wallet,
-                                                                          size:
-                                                                              20.w,
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              255,
-                                                                              199,
-                                                                              0,
-                                                                              1),
-                                                                    ),
-                                                                    Text(
-                                                                      'Rp 30.000',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontFamily:
-                                                                            'Gilroy-ExtraBold',
-                                                                        fontSize:
-                                                                                16.w,
-                                                                        color: Color.fromRGBO(
-                                                                            76,
-                                                                            81,
-                                                                            97,
-                                                                            1),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Text(
-                                                            'Jumlah Top-Up Saldo    :',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-Light',
-                                                                  fontSize:
-                                                                      16.w,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      1),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                                width:
-                                                                    490.w *
-                                                                0.9,
-                                                                height: 40.h,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      243,
-                                                                      243,
-                                                                      243,
-                                                                      1),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          7),
-                                                            ),
-                                                            child: Form(
-                                                              key: _formKey,
-                                                              child:
-                                                                  TextFormField(
-                                                                controller:
-                                                                    topupController,
-                                                                keyboardType:
-                                                                    TextInputType
-                                                                        .number,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Gilroy-Light',
-                                                                      fontSize:
-                                                                          16.w,
-                                                                  color: Color
-                                                                      .fromRGBO(
-                                                                          76,
-                                                                          81,
-                                                                          97,
-                                                                          1),
-                                                                ),
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                  labelText:
-                                                                      'Rp',
-                                                                  labelStyle:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-Light',
-                                                                    fontSize:
-                                                                            16.w,
-                                                                    color: Color
-                                                                        .fromRGBO(
-                                                                            76,
-                                                                            81,
-                                                                            97,
-                                                                            0.54),
-                                                                  ),
-                                                                  border: OutlineInputBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10)),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment(0.8, 0.0),
-                                                      child: Container(
-                                                            width: 106.w,
-                                                            height: 30.h,
-                                                        margin: EdgeInsets.only(
-                                                            top: 100),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                          color: Colors.black,
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            'Selesai',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-Light',
-                                                                  fontSize:
-                                                                      16.w,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            });
-                                      },
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LaporanKeuangan()));
+                                          },
                                       child: Container(
                                         width:
                                             490.w * 0.24.w,
@@ -1093,264 +842,12 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     GestureDetector(
                                       onTap: () {
-                                        showModalBottomSheet(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                topLeft: Radius.circular(15),
-                                                topRight: Radius.circular(15),
-                                              ),
-                                            ),
-                                            isScrollControlled: true,
-                                            context: context,
-                                            builder: (context) {
-                                              return Container(
-                                                    height: 574.h,
-                                                padding: EdgeInsets.symmetric(
-                                                  vertical: 20,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(15),
-                                                    topRight:
-                                                        Radius.circular(15),
-                                                  ),
-                                                ),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Container(
-                                                          width: 66.w,
-                                                          height: 2.h,
-                                                      decoration: BoxDecoration(
-                                                        color: Color.fromRGBO(
-                                                            0, 0, 0, 0.1),
-                                                        border: Border.all(
-                                                          width: 1,
-                                                          color: Color.fromRGBO(
-                                                              0, 0, 0, 0.1),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                          width: 490.w *
-                                                              0.9,
-                                                          height: 187.h,
-                                                      margin: EdgeInsets.only(
-                                                          top: 25),
-                                                      child: Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            'Tarik',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-ExtraBold',
-                                                                  fontSize:
-                                                                      24.w,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      1),
-                                                            ),
-                                                          ),
-                                                          Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                'Lytepay',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Gilroy-ExtraBold',
-                                                                      fontSize:
-                                                                          16.w,
-                                                                  color: Color
-                                                                      .fromRGBO(
-                                                                          76,
-                                                                          81,
-                                                                          97,
-                                                                          1),
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                    width:
-                                                                        120.w,
-                                                                    height:
-                                                                        20.h,
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Icon(
-                                                                      Icons
-                                                                          .wallet,
-                                                                          size:
-                                                                              20.w,
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              255,
-                                                                              199,
-                                                                              0,
-                                                                              1),
-                                                                    ),
-                                                                    Text(
-                                                                      'Rp 30.000',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontFamily:
-                                                                            'Gilroy-ExtraBold',
-                                                                        fontSize:
-                                                                                16.w,
-                                                                        color: Color.fromRGBO(
-                                                                            76,
-                                                                            81,
-                                                                            97,
-                                                                            1),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Text(
-                                                            'Jumlah Top-Up Saldo    :',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-Light',
-                                                                  fontSize:
-                                                                      16.w,
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      76,
-                                                                      81,
-                                                                      97,
-                                                                      1),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                                width:
-                                                                    490.w * 0.9,
-                                                                height: 40.h,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color
-                                                                  .fromRGBO(
-                                                                      243,
-                                                                      243,
-                                                                      243,
-                                                                      1),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          7),
-                                                            ),
-                                                            child: Form(
-                                                              key: _formKey2,
-                                                              child:
-                                                                  TextFormField(
-                                                                controller:
-                                                                    tarikController,
-                                                                keyboardType:
-                                                                    TextInputType
-                                                                        .number,
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Gilroy-Light',
-                                                                      fontSize:
-                                                                          16.w,
-                                                                  color: Color
-                                                                      .fromRGBO(
-                                                                          76,
-                                                                          81,
-                                                                          97,
-                                                                          1),
-                                                                ),
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                  labelText:
-                                                                      'Rp',
-                                                                  labelStyle:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-Light',
-                                                                    fontSize:
-                                                                            16.w,
-                                                                    color: Color
-                                                                        .fromRGBO(
-                                                                            76,
-                                                                            81,
-                                                                            97,
-                                                                            0.54),
-                                                                  ),
-                                                                  border: OutlineInputBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10)),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Align(
-                                                      alignment:
-                                                          Alignment(0.8, 0.0),
-                                                      child: Container(
-                                                            width: 106.w,
-                                                            height: 30.h,
-                                                        margin: EdgeInsets.only(
-                                                            top: 100),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(8),
-                                                          color: Colors.black,
-                                                        ),
-                                                        child: Center(
-                                                          child: Text(
-                                                            'Selesai',
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Gilroy-Light',
-                                                                  fontSize:
-                                                                      16.w,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            });
-                                      },
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LaporanKeuangan()));
+                                          },
                                       child: Container(
                                         width:
                                             490.w * 0.24.w,

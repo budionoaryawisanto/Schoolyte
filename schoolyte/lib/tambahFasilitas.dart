@@ -730,6 +730,8 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                                           margin: EdgeInsets.only(left: 10),
                                           child: Icon(
                                             Icons.delete,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
                                           ),
                                         ),
                                       ),
@@ -741,7 +743,7 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.only(top: 30),
+                          margin: EdgeInsets.only(top: 30.h),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -780,7 +782,7 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                                       children: [
                                         Icon(
                                           Icons.close,
-                                          size: 18,
+                                          size: 18.w,
                                           color: Color.fromRGBO(242, 78, 26, 1),
                                         ),
                                         Text(
@@ -952,7 +954,7 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                                                     child: Center(
                                                       child: Icon(
                                                         Icons.edit,
-                                                        size: 18,
+                                                        size: 18.w,
                                                         color: Color.fromRGBO(
                                                             76, 81, 97, 1),
                                                       ),
@@ -977,7 +979,7 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                                                     child: Center(
                                                       child: Icon(
                                                         Icons.delete,
-                                                        size: 18,
+                                                        size: 18.w,
                                                         color: Color.fromRGBO(
                                                             76, 81, 97, 1),
                                                       ),
@@ -997,7 +999,7 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                                   alignment: Alignment.center,
                                   child: Container(
                                     width: 250.w,
-                                    height: 50,
+                                    height: 50.h,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(10),
@@ -1015,7 +1017,7 @@ class _TambahFasilitasState extends State<TambahFasilitas> {
                                         'Sedang dalam mode edit',
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-ExtraBold',
-                                          fontSize: 16,
+                                          fontSize: 16.w,
                                           color: Color.fromRGBO(242, 78, 26, 1),
                                         ),
                                       ),
