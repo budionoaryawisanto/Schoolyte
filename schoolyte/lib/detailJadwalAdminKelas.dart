@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'package:schoolyte/detailJadwalAdminSiswa.dart';
+import 'package:schoolyte/jadwal.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'model.dart';
 import 'detailAbsensiAdminSiswa.dart';
@@ -17,10 +18,15 @@ class DetailJadwalAdminKelas extends StatefulWidget {
 
 class _DetailJadwalAdminKelasState extends State<DetailJadwalAdminKelas> {
   List<Test> _list = [];
-
+  var status;
+  var statusUser;
   var loading = false;
 
   Future<Null> fetchData() async {
+    final prefs = await SharedPreferences.getInstance();
+    var id = prefs.getString('id');
+    status = prefs.getString('status');
+    statusUser = prefs.getString('status user');
     setState(() {
       loading = true;
     });
@@ -352,6 +358,19 @@ class _DetailJadwalAdminKelasState extends State<DetailJadwalAdminKelas> {
       ),
     ),
   ];
+
+  navigasiKelas() {
+    if (statusUser.toLowerCase() == 'admin' ||
+        statusUser.toLowerCase() == 'pegawai tu') {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => DetailJadwalAdminSiswa()));
+    } else if (statusUser.toLowerCase() == 'dinas pendidikan') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => JadwalPage()));
+    } else {
+      return;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

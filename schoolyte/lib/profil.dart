@@ -27,6 +27,7 @@ class ProfilPage extends StatefulWidget {
 class _ProfilPageState extends State<ProfilPage> {
   List<Siswa> _siswa = [];
   List<Guru> _guru = [];
+  List<Admin> _admin = [];
   late final profil;
   var loading = false;
 
@@ -65,6 +66,25 @@ class _ProfilPageState extends State<ProfilPage> {
     }
   }
 
+Future fetchDataAdmin() async {
+    setState(() {
+      loading = true;
+    });
+    _admin.clear();
+    final response = await http.get(Uri.parse(Api.getAdmin));
+    print(response.body);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _admin.add(Admin.formJson(i));
+          loading = false;
+        }
+      });
+      await getProfil();
+    }
+  }
+
 
   var status;
 
@@ -90,6 +110,15 @@ class _ProfilPageState extends State<ProfilPage> {
           });
         }
       });
+    } else if (status.toLowerCase() == 'admin') {
+      _admin.forEach((admin) {
+        if (admin.id.toString() == id) {
+          setState(() {
+            profil = admin;
+            loading = false;
+          });
+        }
+      });
     }
   }
 
@@ -99,6 +128,7 @@ class _ProfilPageState extends State<ProfilPage> {
     super.initState();
     fetchDataSiswa();
     fetchDataGuru();
+    fetchDataAdmin();
   }
 
   _logOut() async {
@@ -817,7 +847,10 @@ class _ProfilPageState extends State<ProfilPage> {
                                     Text(
                                             status.toLowerCase() == 'guru'
                                                 ? 'NIP'
-                                                : 'NISN',
+                                                : status.toLowerCase() ==
+                                                        'siswa'
+                                                    ? 'NISN'
+                                                    : 'NIK',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-ExtraBold',
                                         fontSize: 20,
@@ -827,7 +860,10 @@ class _ProfilPageState extends State<ProfilPage> {
                                     Text(
                                             status.toLowerCase() == 'guru'
                                                 ? profil.nip
-                                                : profil.nis,
+                                                : status.toLowerCase() ==
+                                                        'siswa'
+                                                    ? profil.nis
+                                                    : profil.nik,
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
                                         fontSize: 16,
@@ -859,9 +895,9 @@ class _ProfilPageState extends State<ProfilPage> {
                                       ),
                                     ),
                                     Text(
-                                            status.toLowerCase() == 'guru'
-                                                ? '-'
-                                                : profil.kelas_id,
+                                            status.toLowerCase() == 'siswa'
+                                                ? profil.kelas_id
+                                                : '-',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
                                         fontSize: 16,

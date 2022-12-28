@@ -1,6 +1,7 @@
 class Api {
   static String getSiswa = 'https://schoolyte.my.id/public/api/siswa';
   static String getGuru = 'https://schoolyte.my.id/public/api/guru';
+  static String getAdmin = 'https://schoolyte.my.id/public/api/admin';
   static String createSiswa = 'https://sekolahkunihh.my.id/api/siswa/create';
   static String getAbsen = 'https://schoolyte.my.id/public/api/absensiswa';
   static String createAbsen =
@@ -124,6 +125,56 @@ class Guru {
     );
   }
 }
+
+class Admin {
+  final int id;
+  final String email;
+  final String pass;
+  final String nama;
+  final String alamat;
+  final String tlpn;
+  final String nik;
+  final String jenis_kelamin;
+  final String tempat_lahir;
+  final String tgl_lahir;
+  final String agama;
+  final String status;
+  final String image;
+
+  Admin(
+      {required this.id,
+      required this.email,
+      required this.pass,
+      required this.nama,
+      required this.alamat,
+      required this.tlpn,
+      required this.nik,
+      required this.jenis_kelamin,
+      required this.tempat_lahir,
+      required this.tgl_lahir,
+      required this.agama,
+      required this.status,
+      required this.image});
+
+  factory Admin.formJson(Map<String, dynamic> json) {
+    return new Admin(
+      id: json['id'],
+      email: json['email'],
+      pass: json['pass'],
+      nama: json['nama'],
+      alamat: json['alamat'],
+      tlpn: json['tlpn'],
+      nik: json['nik'],
+      jenis_kelamin: json['jenis_kelamin'],
+      tempat_lahir: json['tempat_lahir'],
+      tgl_lahir: json['tgl_lahir'],
+      agama: json['agama'],
+      status: json['status'],
+      image: json['image'],
+    );
+  }
+}
+
 
 class Absensi {
   final int id;

@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
 
   List<Siswa> _siswa = [];
   List<Guru> _guru = [];
+  List<Admin> _admin = [];
   var loading = false;
   var obscure = true;
 
@@ -58,11 +59,31 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+Future fetchDataAdmin() async {
+    setState(() {
+      loading = true;
+    });
+    _admin.clear();
+    final response = await http.get(Uri.parse(Api.getAdmin));
+    print(response.body);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _admin.add(Admin.formJson(i));
+          loading = false;
+        }
+      });
+    }
+  }
+
+
   @override
   void initState() {
     super.initState();
     fetchDataSiswa();
     fetchDataGuru();
+    fetchDataAdmin();
   }
 
   var info = '';
@@ -82,13 +103,13 @@ class _LoginPageState extends State<LoginPage> {
           prefs.setBool('slogin', true);
           prefs.setString('id', siswa.id.toString());
           prefs.setString('status', status);
+          prefs.setString('status user', siswa.status);
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => HomePage()));
         } else if (i == _siswa.length) {
           var info = 'Data yang anda masukan salah !';
         }
       }
-      ;
     } else if (status == 'Guru') {
       for (var i = 0; i <= _guru.length; i++) {
         final guru = _guru[i];
@@ -98,16 +119,33 @@ class _LoginPageState extends State<LoginPage> {
           prefs.setBool('slogin', true);
           prefs.setString('id', guru.id.toString());
           prefs.setString('status', status);
+          prefs.setString('status user', guru.status);
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => HomePage()));
         } else if (i == _guru.length) {
           return info = 'Data yang anda masukan salah !';
         }
       }
+    } else if (status == 'Admin') {
+      for (var i = 0; i <= _admin.length + 1; i++) {
+        final admin = _admin[i];
+        if (email.toLowerCase() == admin.email.toLowerCase() &&
+            password.toLowerCase() == admin.pass.toLowerCase()) {
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setBool('slogin', true);
+          prefs.setString('id', admin.id.toString());
+          prefs.setString('status', status);
+          prefs.setString('status user', admin.status);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        } else if (i == _admin.length) {
+          return info = 'Data yang anda masukan salah !';
+        }
+      }
     }
   }
 
-  var _status = ['Siswa', 'Guru', 'Pegawai', 'Ekternal'];
+  var _status = ['Siswa', 'Guru', 'Pegawai', 'Admin', 'Ekternal'];
   var status = 'Siswa';
 
   @override

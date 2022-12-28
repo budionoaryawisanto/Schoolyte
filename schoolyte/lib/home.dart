@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/jadwalGuru.dart';
 import 'package:schoolyte/laporanKeuangan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,12 +37,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Siswa> _siswa = [];
   List<Guru> _guru = [];
+  List<Admin> _admin = [];
   late final profil;
   List<Test> _list = [];
   var loadingUser = false;
   var loadingBerita = false;
+  var status;
+  var statusUser;
 
   Future fetchDataSiswa() async {
+    final prefs = await SharedPreferences.getInstance();
+    var id = prefs.getString('id');
+    status = prefs.getString('status');
+    statusUser = prefs.getString('status user');
     setState(() {
       loadingUser = true;
     });
@@ -76,11 +84,30 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  Future fetchDataAdmin() async {
+    setState(() {
+      loadingUser = true;
+    });
+    _admin.clear();
+    final response = await http.get(Uri.parse(Api.getAdmin));
+    print(response.body);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _admin.add(Admin.formJson(i));
+          loadingUser = false;
+        }
+      });
+      await getProfil();
+    }
+  }
+
   getProfil() async {
     final prefs = await SharedPreferences.getInstance();
     var id = prefs.getString('id');
     var status = prefs.getString('status');
-    if (status!.toLowerCase() == 'siswa' || status.toLowerCase() == 'osis') {
+    if (status!.toLowerCase() == 'siswa') {
       _siswa.forEach((siswa) {
         if (siswa.id.toString() == id) {
           setState(() {
@@ -89,14 +116,20 @@ class _HomePageState extends State<HomePage> {
           });
         }
       });
-    } else if (status.toLowerCase() == 'guru' ||
-        status.toLowerCase() == 'walikelas' ||
-        status.toLowerCase() == 'mapel' ||
-        status.toLowerCase() == 'kepsek') {
+    } else if (status.toLowerCase() == 'guru') {
       _guru.forEach((guru) {
         if (guru.id.toString() == id) {
           setState(() {
             profil = guru;
+            loadingUser = false;
+          });
+        }
+      });
+    } else if (status.toLowerCase() == 'admin') {
+      _admin.forEach((admin) {
+        if (admin.id.toString() == id) {
+          setState(() {
+            profil = admin;
             loadingUser = false;
           });
         }
@@ -129,6 +162,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     fetchDataSiswa();
     fetchDataGuru();
+    fetchDataAdmin();
     fetchDataBerita();
   }
 
@@ -162,6 +196,39 @@ class _HomePageState extends State<HomePage> {
       decimalDigits: decimalDigit,
     );
     return currencyFormatter.format(number);
+  }
+
+  navigasiJadwal() {
+    if (profil.status.toLowerCase() == 'siswa' ||
+        profil.status.toLowerCase() == 'osis' ||
+        profil.status.toLowerCase() == 'wali murid') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => JadwalPage()));
+    } else if (profil.status.toLowerCase() == 'admin' ||
+        profil.status.toLowerCase() == 'tata usaha' ||
+        profil.status.toLowerCase() == 'dinas pendidikan') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => JadwalAdminPage()));
+    } else if (statusUser.toLowerCase() == 'guru') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => JadwalGuruPage()));
+    } else {
+      return;
+    }
+  }
+
+  navigasiAbsensi() {
+    if (profil.status.toLowerCase() == 'siswa' ||
+        profil.status.toLowerCase() == 'wali murid') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AbsensiPage()));
+    } else if (statusUser.toLowerCase() == 'guru' ||
+        statusUser.toLowerCase() == 'pegawai') {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => AbsensiPegawaiPage()));
+    } else {
+      return;
+    }
   }
 
   @override
@@ -281,10 +348,7 @@ class _HomePageState extends State<HomePage> {
                               color: Color.fromRGBO(76, 81, 91, 1)),
                         ),
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => JadwalPage()));
+                          navigasiJadwal();
                         },
                       ),
                     ),
@@ -850,10 +914,14 @@ class _HomePageState extends State<HomePage> {
                                                     Container(
                                                       width: 120.w,
                                                       child: Text(
-                                                        convertToIdr(
-                                                            int.parse(
-                                                                profil.saldo),
-                                                            2),
+                                                        status == 'Admin' ||
+                                                                status ==
+                                                                    'Eksternal'
+                                                            ? '-'
+                                                            : convertToIdr(
+                                                                int.parse(profil
+                                                                    .saldo),
+                                                                2),
                                                         maxLines: 1,
                                                         overflow: TextOverflow
                                                             .ellipsis,
@@ -963,11 +1031,7 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      JadwalGuruPage()));
+                                          navigasiJadwal();
                                         },
                                         child: Container(
                                           width: 57.54.w,

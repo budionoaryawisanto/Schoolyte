@@ -185,7 +185,9 @@ class _KartuDigitalState extends State<KartuDigital> {
                                         Text(
                                           status.toLowerCase() == 'guru'
                                               ? 'NIP : '
-                                              : 'NISN : ',
+                                              : status.toLowerCase() == 'siswa'
+                                                  ? 'NISN : '
+                                                  : 'NIK : ',
                                           style: TextStyle(
                                             fontFamily: 'Gilroy-ExtraBold',
                                             fontSize: 12,
@@ -196,7 +198,9 @@ class _KartuDigitalState extends State<KartuDigital> {
                                         Text(
                                           status.toLowerCase() == 'guru'
                                               ? profil.nip
-                                              : profil.nis,
+                                              : status.toLowerCase() == 'siswa'
+                                                  ? profil.nis
+                                                  : profil.nik,
                                           style: TextStyle(
                                             fontFamily: 'Gilroy-Light',
                                             fontSize: 12,
@@ -270,7 +274,10 @@ class _KartuDigitalState extends State<KartuDigital> {
                                               data:
                                                   status.toLowerCase() == 'guru'
                                                       ? profil.nip
-                                                      : profil.nis,
+                                                      : status.toLowerCase() ==
+                                                              'guru'
+                                                          ? profil.nis
+                                                          : profil.nik,
                                               version: QrVersions.auto,
                                               size: 300,
                                               backgroundColor: Colors.white,
@@ -296,7 +303,9 @@ class _KartuDigitalState extends State<KartuDigital> {
                                       child: QrImage(
                                         data: status.toLowerCase() == 'guru'
                                             ? profil.nip
-                                            : profil.nis,
+                                            : status.toLowerCase() == 'siswa'
+                                                ? profil.nis
+                                                : profil.nik,
                                         version: QrVersions.auto,
                                         padding: EdgeInsets.zero,
                                       ),
