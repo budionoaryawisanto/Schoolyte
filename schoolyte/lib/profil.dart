@@ -25,51 +25,80 @@ class ProfilPage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilPage> {
-  List<Test> _siswa = [];
-  late Test profil;
+  List<Siswa> _siswa = [];
+  List<Guru> _guru = [];
+  late final profil;
   var loading = false;
 
-  Future fetchData() async {
+  Future fetchDataSiswa() async {
     setState(() {
       loading = true;
     });
     _siswa.clear();
-    final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    final response = await http.get(Uri.parse(Api.getSiswa));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _siswa.add(Test.formJson(i));
-          loading = false;
+          _siswa.add(Siswa.formJson(i));
         }
       });
-      getProfil();
+      await getProfil();
     }
   }
+
+  Future fetchDataGuru() async {
+    setState(() {
+      loading = true;
+    });
+    _guru.clear();
+    final response = await http.get(Uri.parse(Api.getGuru));
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _guru.add(Guru.formJson(i));
+        }
+      });
+      await getProfil();
+    }
+  }
+
+
+  var status;
 
   getProfil() async {
     final prefs = await SharedPreferences.getInstance();
     var id = prefs.getString('id');
-    var status = prefs.getString('status');
-    _siswa.forEach((siswa) {
-      if (siswa.id.toString() == id) {
-        profil = siswa;
-      }
-    });
-    // if (status!.toLowerCase() == 'siswa' || status.toLowerCase() == 'osis') {
-    //   _siswa.forEach((siswa) {
-    //     if (siswa.id == id) {
-    //       profil = siswa;
-    //     }
-    //   });
-    // }
+    status = prefs.getString('status');
+    if (status!.toLowerCase() == 'siswa') {
+      _siswa.forEach((siswa) {
+        if (siswa.id.toString() == id) {
+          setState(() {
+            profil = siswa;
+            loading = false;
+          });
+        }
+      });
+    } else if (status.toLowerCase() == 'guru') {
+      _guru.forEach((guru) {
+        if (guru.id.toString() == id) {
+          setState(() {
+            profil = guru;
+            loading = false;
+          });
+        }
+      });
+    }
   }
+
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    fetchDataSiswa();
+    fetchDataGuru();
   }
 
   _logOut() async {
@@ -622,7 +651,12 @@ class _ProfilPageState extends State<ProfilPage> {
               ],
             ),
           ),
-          body: Container(
+          body: loading
+              ? Center(
+                  child: CircularProgressIndicator(
+                      color: Color.fromRGBO(76, 81, 97, 1)),
+                )
+              : Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: SingleChildScrollView(
@@ -642,16 +676,16 @@ class _ProfilPageState extends State<ProfilPage> {
                               return Center(
                                 child: Material(
                                   type: MaterialType.transparency,
-                                  child:
-                                      Image.asset(
-                                    'assets/images/profil.png'),
+                                        child: Image.network(
+                                          Api.image + profil.image,
+                                        ),
                                 ),
                               );
                             });
                       },
                       child: ClipOval(
-                        child: Image.asset(
-                          'assets/images/profil.png',
+                              child: Image.network(
+                                Api.image + profil.image,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -725,7 +759,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                       ),
                                     ),
                                     Text(
-                                      profil.name,
+                                            profil.nama,
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
                                         fontSize: 16,
@@ -757,7 +791,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                       ),
                                     ),
                                     Text(
-                                      'Siswa',
+                                            profil.status,
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
                                         fontSize: 16,
@@ -781,7 +815,9 @@ class _ProfilPageState extends State<ProfilPage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'NISN',
+                                            status.toLowerCase() == 'guru'
+                                                ? 'NIP'
+                                                : 'NISN',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-ExtraBold',
                                         fontSize: 20,
@@ -789,7 +825,9 @@ class _ProfilPageState extends State<ProfilPage> {
                                       ),
                                     ),
                                     Text(
-                                      profil.phone,
+                                            status.toLowerCase() == 'guru'
+                                                ? profil.nip
+                                                : profil.nis,
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
                                         fontSize: 16,
@@ -821,7 +859,9 @@ class _ProfilPageState extends State<ProfilPage> {
                                       ),
                                     ),
                                     Text(
-                                      'XII IPA 1',
+                                            status.toLowerCase() == 'guru'
+                                                ? '-'
+                                                : profil.kelas_id,
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
                                         fontSize: 16,
@@ -853,7 +893,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                       ),
                                     ),
                                     Text(
-                                      'Surabaya, 30 December 2001',
+                                            '${profil.tempat_lahir}, ${profil.tgl_lahir}',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
                                         fontSize: 16,
@@ -885,7 +925,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                       ),
                                     ),
                                     Text(
-                                      'P',
+                                            profil.jenis_kelamin,
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
                                         fontSize: 16,
@@ -917,7 +957,7 @@ class _ProfilPageState extends State<ProfilPage> {
                                       ),
                                     ),
                                     Text(
-                                      'Islam',
+                                            profil.agama,
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
                                         fontSize: 16,

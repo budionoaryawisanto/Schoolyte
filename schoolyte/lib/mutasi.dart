@@ -11,7 +11,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:open_file/open_file.dart';
 
 class MutasiPage extends StatefulWidget {
-  Test profil;
+  Siswa profil;
   MutasiPage({super.key, required this.profil});
 
   @override
@@ -19,7 +19,7 @@ class MutasiPage extends StatefulWidget {
 }
 
 class _MutasiPageState extends State<MutasiPage> {
-  List<Test> _siswa = [];
+  List<Siswa> _siswa = [];
 
   final TextEditingController ortuController = TextEditingController();
   final TextEditingController tujuanController = TextEditingController();
@@ -32,12 +32,12 @@ class _MutasiPageState extends State<MutasiPage> {
     });
     _siswa.clear();
     final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+        await http.get(Uri.parse(Api.getSiswa));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _siswa.add(Test.formJson(i));
+          _siswa.add(Siswa.formJson(i));
           loading = false;
         }
       });
@@ -287,7 +287,7 @@ class _MutasiPageState extends State<MutasiPage> {
   }
 
   @override
-  Test profil;
+  Siswa profil;
   _MutasiPageState(this.profil);
 
   Widget build(BuildContext context) {
@@ -404,7 +404,7 @@ class _MutasiPageState extends State<MutasiPage> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              profil.name,
+                              profil.nama,
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
@@ -433,7 +433,7 @@ class _MutasiPageState extends State<MutasiPage> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              profil.phone,
+                              profil.nis,
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
@@ -491,7 +491,7 @@ class _MutasiPageState extends State<MutasiPage> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              '${profil.address.city}  24-01-2025',
+                              '${profil.tempat_lahir}, ${profil.tgl_lahir}',
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',
@@ -556,7 +556,7 @@ class _MutasiPageState extends State<MutasiPage> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              '${profil.address.street} ${profil.address.suite}',
+                              '${profil.alamat}',
                               textAlign: TextAlign.left,
                               style: TextStyle(
                                 fontFamily: 'Gilroy-Light',

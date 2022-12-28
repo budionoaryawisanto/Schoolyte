@@ -44,11 +44,11 @@ class _AbsensiPageState extends State<AbsensiPage> {
     final response = await http.get(Uri.parse(Api.getAbsen));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
+      for (Map<String, dynamic> i in data) {
+        _absensi.add(Absensi.formJson(i));
+      }
       setState(() {
-        for (Map<String, dynamic> i in data) {
-          _absensi.add(Absensi.formJson(i));
-          loading = false;
-        }
+        loading = false;
       });
     } else {
       return;

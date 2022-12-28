@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:schoolyte/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
@@ -18,7 +19,8 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey2 = GlobalKey<FormState>();
   bool visible = false;
 
-  List<Test> _siswa = [];
+  List<Siswa> _siswa = [];
+  List<Guru> _guru = [];
   var loading = false;
   var obscure = true;
 
@@ -27,14 +29,29 @@ class _LoginPageState extends State<LoginPage> {
       loading = true;
     });
     _siswa.clear();
-    final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
-    print(response.body);
+    final response = await http.get(Uri.parse(Api.getSiswa));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _siswa.add(Test.formJson(i));
+          _siswa.add(Siswa.formJson(i));
+          loading = false;
+        }
+      });
+    }
+  }
+
+  Future fetchDataGuru() async {
+    setState(() {
+      loading = true;
+    });
+    _guru.clear();
+    final response = await http.get(Uri.parse(Api.getGuru));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _guru.add(Guru.formJson(i));
           loading = false;
         }
       });
@@ -45,6 +62,7 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     fetchDataSiswa();
+    fetchDataGuru();
   }
 
   var info = '';
@@ -55,21 +73,42 @@ class _LoginPageState extends State<LoginPage> {
     String password = passwordController.text;
     if (_formKey.currentState!.validate()) {}
     if (_formKey2.currentState!.validate()) {}
-    for (var i = 0; i < _siswa.length + 1; i++) {
-      if (email == '20051214078' && password == 'aryagtg' ||
-          email.toLowerCase() == _siswa[i].email.toLowerCase() &&
-              password.toLowerCase() == _siswa[i].username.toLowerCase()) {
-        final prefs = await SharedPreferences.getInstance();
-        prefs.setBool('slogin', true);
-        prefs.setString('id', _siswa[i].id.toString());
-        // prefs.setString('status', _siswa[i].status);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
-      } else if (i == _siswa.length - 1) {
-        return info = 'Data yang Anda masukan salah !';
+    if (status == 'Siswa') {
+      for (var i = 0; i <= _guru.length; i++) {
+        final siswa = _siswa[i];
+        if (email.toLowerCase() == siswa.email.toLowerCase() &&
+            password.toLowerCase() == siswa.pass.toLowerCase()) {
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setBool('slogin', true);
+          prefs.setString('id', siswa.id.toString());
+          prefs.setString('status', status);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        } else if (i == _siswa.length) {
+          var info = 'Data yang anda masukan salah !';
+        }
+      }
+      ;
+    } else if (status == 'Guru') {
+      for (var i = 0; i <= _guru.length; i++) {
+        final guru = _guru[i];
+        if (email.toLowerCase() == guru.email.toLowerCase() &&
+            password.toLowerCase() == guru.pass.toLowerCase()) {
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setBool('slogin', true);
+          prefs.setString('id', guru.id.toString());
+          prefs.setString('status', status);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        } else if (i == _guru.length) {
+          return info = 'Data yang anda masukan salah !';
+        }
       }
     }
   }
+
+  var _status = ['Siswa', 'Guru', 'Pegawai', 'Ekternal'];
+  var status = 'Siswa';
 
   @override
   Widget build(BuildContext context) {
@@ -82,234 +121,297 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Center(
-              child: Container(
-                width: 384,
-                height: 627,
-                margin: EdgeInsets.only(bottom: 100),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: new Image.asset(
-                          "assets/images/logolanding.png",
+    return ScreenUtilInit(
+      designSize: const Size(490, 980),
+      builder: (context, child) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.white,
+          body: SafeArea(
+            child: Stack(
+              children: [
+                Center(
+                  child: Container(
+                    width: 384.w,
+                    height: 627.h,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          child: new Image.asset(
+                            "assets/images/logolanding.png",
+                          ),
                         ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 100),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: Text(
-                                'Masukkan akun anda',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-ExtraBold',
-                                  fontSize: 32,
+                        Container(
+                          margin: EdgeInsets.only(top: 60),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Text(
+                                  'Masukkan akun anda',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-ExtraBold',
+                                    fontSize: 32.w,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              child: Text(
-                                'Kamu dapat menggunakan akun yang diberikan pihak sekolah!',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 22,
+                              Container(
+                                child: Text(
+                                  'Kamu dapat menggunakan akun yang diberikan pihak sekolah!',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 22.w,
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Container(
-                        width: 384,
-                        height: 338,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 384,
-                              height: 136,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      'Email',
+                        Container(
+                          width: 384.w,
+                          height: 340.h,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 300.w,
+                                height: 50.h,
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Status Anda  :  ',
                                       style: TextStyle(
                                         fontFamily: 'Gilroy-Light',
-                                        fontSize: 20,
+                                        fontSize: 20.w,
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                    child: Form(
-                                      key: _formKey,
-                                      child: TextFormField(
-                                        controller: emailController,
-                                        decoration: new InputDecoration(
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  new BorderRadius.circular(
-                                                      10)),
-                                        ),
-                                        validator: (value) {
-                                          if (value!.isEmpty) {
-                                            return 'ID/NIS/NIP tidak boleh kosong';
-                                          } else if (info.isNotEmpty) {
-                                            return info;
-                                          }
-                                          for (var i = 0;
-                                              i < _siswa.length;
-                                              i++) {
-                                            if (value ==
-                                                _siswa[i].id.toString()) {
-                                              return null;
-                                            }
-                                          }
-                                        },
+                                    Container(
+                                      width: 130.w,
+                                      height: 30.h,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(5),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.3),
+                                            spreadRadius: 0,
+                                            blurRadius: 1.5,
+                                            offset: Offset(0, 1),
+                                          )
+                                        ],
+                                        color: Colors.white,
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              width: 384,
-                              height: 136,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    child: Text(
-                                      'Password',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsetsDirectional.only(top: 3),
-                                    child: Stack(
-                                      children: [
-                                        Form(
-                                          key: _formKey2,
-                                          child: TextFormField(
-                                            controller: passwordController,
-                                            obscureText: obscure,
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10)),
-                                            ),
-                                            validator: (value) {
-                                              if (value!.isEmpty) {
-                                                return 'Password tidak boleh kosong';
-                                              } else if (info.isNotEmpty) {
-                                                return info;
-                                              }
-                                              for (var i = 0;
-                                                  i < _siswa.length;
-                                                  i++) {
-                                                if (value.toLowerCase() ==
-                                                    _siswa[i]
-                                                        .username
-                                                        .toLowerCase()) {
-                                                  return null;
-                                                }
-                                              }
-                                            },
+                                      child: Center(
+                                        child: DropdownButton(
+                                          value: status,
+                                          elevation: 0,
+                                          underline: SizedBox(),
+                                          style: TextStyle(
+                                            fontFamily: 'Gilroy-Light',
+                                            fontSize: 18,
+                                            color:
+                                                Color.fromRGBO(76, 81, 97, 1),
                                           ),
+                                          icon: const Icon(
+                                              Icons.keyboard_arrow_down),
+                                          items: _status.map((String items) {
+                                            return DropdownMenuItem(
+                                              value: items,
+                                              child: Text(items),
+                                            );
+                                          }).toList(),
+                                          onChanged: (String? newValue) {
+                                            setState(() {
+                                              status = newValue!;
+                                            });
+                                          },
                                         ),
-                                        Align(
-                                          alignment: Alignment(0.88, 0.0),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                obscure = !obscure;
-                                              });
-                                            },
-                                            child: Container(
-                                              margin: EdgeInsets.only(top: 17),
-                                              child: Icon(
-                                                obscure
-                                                    ? Icons.visibility
-                                                    : Icons.visibility_off,
-                                                color: Color.fromRGBO(
-                                                    76, 81, 97, 1),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 384.w,
+                                height: 136.h,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        'Email',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 20.w,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      child: Form(
+                                        key: _formKey,
+                                        child: TextFormField(
+                                          controller: emailController,
+                                          decoration: new InputDecoration(
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(
+                                                        10)),
+                                          ),
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Email tidak boleh kosong';
+                                            } else if (info.isNotEmpty) {
+                                              return info;
+                                            }
+                                            for (var i = 0;
+                                                i < _siswa.length;
+                                                i++) {
+                                              if (value.toLowerCase() ==
+                                                  _siswa[i]
+                                                      .email
+                                                      .toLowerCase()) {
+                                                return null;
+                                              }
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: 384.w,
+                                height: 136.h,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        'Password',
+                                        style: TextStyle(
+                                          fontFamily: 'Gilroy-Light',
+                                          fontSize: 20.w,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin:
+                                          EdgeInsetsDirectional.only(top: 3),
+                                      child: Stack(
+                                        children: [
+                                          Form(
+                                            key: _formKey2,
+                                            child: TextFormField(
+                                              controller: passwordController,
+                                              obscureText: obscure,
+                                              decoration: InputDecoration(
+                                                border: OutlineInputBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                              ),
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return 'Password tidak boleh kosong';
+                                                } else if (info.isNotEmpty) {
+                                                  return info;
+                                                }
+                                                for (var i = 0;
+                                                    i < _siswa.length;
+                                                    i++) {
+                                                  if (value.toLowerCase() ==
+                                                      _siswa[i]
+                                                          .pass
+                                                          .toLowerCase()) {
+                                                    return null;
+                                                  }
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                          Align(
+                                            alignment: Alignment(0.88, 0.0),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  obscure = !obscure;
+                                                });
+                                              },
+                                              child: Container(
+                                                margin:
+                                                    EdgeInsets.only(top: 17.h),
+                                                child: Icon(
+                                                  obscure
+                                                      ? Icons.visibility
+                                                      : Icons.visibility_off,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          _cekLogin();
-                        },
-                        child: Container(
-                          width: 384,
-                          height: 47,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                            border: Border.all(
+                        GestureDetector(
+                          onTap: () {
+                            _cekLogin();
+                          },
+                          child: Container(
+                            width: 384.w,
+                            height: 47.h,
+                            decoration: BoxDecoration(
                               color: Colors.black,
-                              width: 1,
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Masuk",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 20,
+                            child: Center(
+                              child: Text(
+                                "Masuk",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 20.w,
+                                ),
                               ),
                             ),
                           ),
                         ),
+                      ],
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: loading,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    color: Color.fromRGBO(0, 0, 0, 0.20),
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.black,
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-            Visibility(
-              visible: loading,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                color: Color.fromRGBO(0, 0, 0, 0.20),
-                child: Center(
-                  child: CircularProgressIndicator(
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

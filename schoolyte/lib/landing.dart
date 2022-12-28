@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LandingPage extends StatefulWidget {
   @override
@@ -27,15 +28,17 @@ class _LandingPageState extends State<LandingPage> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
-
-    return new Scaffold(
+    return ScreenUtilInit(
+      designSize: const Size(490, 980),
+      builder: (context, child) {
+        return new Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
             child: Container(
-              width: 384,
-              height: 771,
+                  width: 384.w,
+                  height: 771.h,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,8 +49,8 @@ class _LandingPageState extends State<LandingPage> {
                     ),
                   ),
                   Container(
-                    width: 376,
-                    height: 212,
+                        width: 376.w,
+                        height: 212.h,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,13 +60,13 @@ class _LandingPageState extends State<LandingPage> {
                             "WELCOME",
                             style: TextStyle(
                               fontFamily: 'Gilroy-ExtraBold',
-                              fontSize: 64,
+                                  fontSize: 64.w,
                             ),
                           ),
                         ),
                         Container(
-                          width: 280,
-                          height: 59,
+                              width: 280.w,
+                              height: 59.h,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -72,7 +75,7 @@ class _LandingPageState extends State<LandingPage> {
                                   "To",
                                   style: TextStyle(
                                     fontFamily: 'Gilroy-ExtraBold',
-                                    fontSize: 48,
+                                        fontSize: 48.w,
                                   ),
                                 ),
                               ),
@@ -89,7 +92,7 @@ class _LandingPageState extends State<LandingPage> {
                                   "Schoolyte",
                                   style: TextStyle(
                                     fontFamily: 'Gilroy-Light',
-                                    fontSize: 40,
+                                        fontSize: 40.w,
                                   ),
                                 ),
                               ),
@@ -98,7 +101,7 @@ class _LandingPageState extends State<LandingPage> {
                                   "!",
                                   style: TextStyle(
                                     fontFamily: 'Gilroy-ExtraBold',
-                                    fontSize: 48,
+                                        fontSize: 48.w,
                                   ),
                                 ),
                               ),
@@ -110,7 +113,7 @@ class _LandingPageState extends State<LandingPage> {
                             "Kami akan memberikan layanan sesuai yang kalian butuhkan",
                             style: TextStyle(
                               fontFamily: 'Gilroy-Light',
-                              fontSize: 22,
+                                  fontSize: 22.w,
                             ),
                           ),
                         ),
@@ -126,8 +129,8 @@ class _LandingPageState extends State<LandingPage> {
                     child: TextButton(
                       onPressed: () => _start(),
                       child: Container(
-                        width: 384,
-                        height: 55,
+                            width: 384.w,
+                            height: 55.h,
                         decoration: BoxDecoration(
                           color: Colors.black,
                           border: Border.all(
@@ -142,7 +145,7 @@ class _LandingPageState extends State<LandingPage> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'Gilroy-Light',
-                              fontSize: 20,
+                                  fontSize: 20.w,
                               color: Colors.white,
                             ),
                           ),
@@ -156,6 +159,9 @@ class _LandingPageState extends State<LandingPage> {
           ),
         ),
       ),
+    );
+  
+      },
     );
   }
 }

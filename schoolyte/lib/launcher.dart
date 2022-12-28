@@ -43,13 +43,6 @@ class _LauncherPageState extends State<LauncherPage> {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
-            // boxShadow: <BoxShadow>[
-            //   BoxShadow(
-            //       color: Colors.grey.shade200,
-            //       offset: Offset(2, 4),
-            //       blurRadius: 5,
-            //       spreadRadius: 2)
-            // ],
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
