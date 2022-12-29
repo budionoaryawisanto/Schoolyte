@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:schoolyte/fasilitasAdmin.dart';
 import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/jadwalGuru.dart';
 import 'package:schoolyte/laporanKeuangan.dart';
+import 'package:schoolyte/raporAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'absensiPegawai.dart';
 import 'ekstrakurikuler.dart';
@@ -199,8 +201,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   navigasiJadwal() {
-    if (profil.status.toLowerCase() == 'siswa' ||
-        profil.status.toLowerCase() == 'osis' ||
+    if (status.toLowerCase() == 'siswa' ||
         profil.status.toLowerCase() == 'wali murid') {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => JadwalPage()));
@@ -209,7 +210,7 @@ class _HomePageState extends State<HomePage> {
         profil.status.toLowerCase() == 'dinas pendidikan') {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => JadwalAdminPage()));
-    } else if (statusUser.toLowerCase() == 'guru') {
+    } else if (status.toLowerCase() == 'guru') {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => JadwalGuruPage()));
     } else {
@@ -218,16 +219,51 @@ class _HomePageState extends State<HomePage> {
   }
 
   navigasiAbsensi() {
-    if (profil.status.toLowerCase() == 'siswa' ||
+    if (status.toLowerCase() == 'siswa' ||
         profil.status.toLowerCase() == 'wali murid') {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => AbsensiPage()));
-    } else if (statusUser.toLowerCase() == 'guru' ||
-        statusUser.toLowerCase() == 'pegawai') {
+    } else if (status.toLowerCase() == 'guru' ||
+        status.toLowerCase() == 'pegawai') {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => AbsensiPegawaiPage()));
     } else {
       return;
+    }
+  }
+
+  navigasiRapor() {
+    if (status.toLowerCase() == 'siswa' ||
+        profil.status.toLowerCase() == 'wali murid') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => RaporPage()));
+    } else if (status.toLowerCase() == 'guru') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => RaporAdmin()));
+    } else {
+      return;
+    }
+  }
+
+  navigasiPerpustakaan() {
+    if (statusUser.toLowerCase() == 'admin' ||
+        statusUser.toLowerCase() == 'pegawai perpus') {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => PerpustakaanPegawaiPage()));
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => PerpustakaanPage()));
+    }
+  }
+
+  navigasiFasilitas() {
+    if (status.toLowerCase() == 'admin' ||
+        statusUser.toLowerCase() == 'pegawai tu') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => FasilitasAdmin()));
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => FasilitasPage()));
     }
   }
 
@@ -367,10 +403,7 @@ class _HomePageState extends State<HomePage> {
                               color: Color.fromRGBO(76, 81, 91, 1)),
                         ),
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => RaporPage()));
+                          navigasiRapor();
                         },
                       ),
                     ),
@@ -389,10 +422,7 @@ class _HomePageState extends State<HomePage> {
                               color: Color.fromRGBO(76, 81, 91, 1)),
                         ),
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AbsensiPage()));
+                          navigasiAbsensi();
                         },
                       ),
                     ),
@@ -462,10 +492,7 @@ class _HomePageState extends State<HomePage> {
                               color: Color.fromRGBO(76, 81, 91, 1)),
                         ),
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PerpustakaanPage()));
+                          navigasiPerpustakaan();
                         },
                       ),
                     ),
@@ -484,10 +511,7 @@ class _HomePageState extends State<HomePage> {
                               color: Color.fromRGBO(76, 81, 91, 1)),
                         ),
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => FasilitasPage()));
+                          navigasiFasilitas();
                         },
                       ),
                     ),
@@ -1063,11 +1087,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      RaporPage()));
+                                          navigasiRapor();
                                         },
                                         child: Container(
                                           width: 55.56.w,
@@ -1099,11 +1119,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      AbsensiPage()));
+                                          navigasiAbsensi();
                                         },
                                         child: Container(
                                           width: 55.56.w,
@@ -1135,11 +1151,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      FasilitasPage()));
+                                          navigasiFasilitas();
                                         },
                                         child: Container(
                                           width: 58.w,
@@ -1177,11 +1189,7 @@ class _HomePageState extends State<HomePage> {
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      PerpustakaanPage()));
+                                          navigasiPerpustakaan();
                                         },
                                         child: Container(
                                           width: 71.w,

@@ -1,15 +1,14 @@
 class Api {
-  static String getSiswa = 'https://schoolyte.my.id/public/api/siswa';
-  static String getGuru = 'https://schoolyte.my.id/public/api/guru';
-  static String getAdmin = 'https://schoolyte.my.id/public/api/admin';
-  static String createSiswa = 'https://sekolahkunihh.my.id/api/siswa/create';
-  static String getAbsen = 'https://schoolyte.my.id/public/api/absensiswa';
-  static String createAbsen =
-      'https://schoolyte.my.id/public/api/absensiswa';
-  static String editAbsen = 'https://sekolahkunihh.my.id/api/update/';
-  static String image = 'https://schoolyte.my.id/public/';
-  static String getBook = 'https://schoolyte.my.id/public/api/buku';
-  static String createBook = 'https://sekolahkunihh.my.id/api/buku/create';
+  static String getSiswa = 'https://schoolyte.my.id/api/siswa';
+  static String getGuru = 'https://schoolyte.my.id/api/guru';
+  static String getAdmin = 'https://schoolyte.my.id/api/admin';
+  static String createSiswa = 'https://schoolyte.my.id/api/siswa/create';
+  static String getAbsen = 'https://schoolyte.my.id/api/absensiswa';
+  static String createAbsen = 'https://schoolyte.my.id/api/absensiswa';
+  static String editAbsen = 'https://schoolyte.my.id/api/absensiswa/update/';
+  static String image = 'https://schoolyte.my.id/';
+  static String getBook = 'https://schoolyte.my.id/api/buku';
+  static String createBook = 'https://schoolyte.my.id/api/buku/create';
 }
 
 class Siswa {
@@ -174,7 +173,6 @@ class Admin {
     );
   }
 }
-
 
 class Absensi {
   final int id;

@@ -493,11 +493,7 @@ class _DetailJadwalAdminKelasState extends State<DetailJadwalAdminKelas> {
                                         final kelas = _list[i];
                                         return GestureDetector(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        DetailJadwalAdminSiswa()));
+                                            navigasiKelas();
                                           },
                                           child: Container(
                                             margin: EdgeInsets.all(2),
@@ -557,11 +553,7 @@ class _DetailJadwalAdminKelasState extends State<DetailJadwalAdminKelas> {
                                         final kelas = _list[i];
                                         return GestureDetector(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        DetailJadwalAdminSiswa()));
+                                            navigasiKelas();
                                           },
                                           child: Container(
                                             margin: EdgeInsets.all(2),
@@ -621,11 +613,7 @@ class _DetailJadwalAdminKelasState extends State<DetailJadwalAdminKelas> {
                                         final kelas = _list[i];
                                         return GestureDetector(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        DetailJadwalAdminSiswa()));
+                                            navigasiKelas();
                                           },
                                           child: Container(
                                             margin: EdgeInsets.all(2),

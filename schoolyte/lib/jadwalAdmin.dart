@@ -636,11 +636,7 @@ class _JadwalAdminPageState extends State<JadwalAdminPage> {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DetailJadwalAdminGuru()));
+                                      navigasiGuru();
                                     },
                                     child: Container(
                                       width: 81.w,
@@ -692,11 +688,7 @@ class _JadwalAdminPageState extends State<JadwalAdminPage> {
                                   ),
                                   GestureDetector(
                                     onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DetailJadwalAdminKelas()));
+                                      navigasiSiswa();
                                     },
                                     child: Container(
                                       width: 81.w,
