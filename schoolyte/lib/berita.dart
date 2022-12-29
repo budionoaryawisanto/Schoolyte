@@ -26,23 +26,22 @@ class BeritaPage extends StatefulWidget {
 }
 
 class _BeritaPageState extends State<BeritaPage> {
-  List<Test> _berita = [];
+  List<Berita> _berita = [];
   var loading = false;
 
-  Future fetchData() async {
+  Future fetchDataBerita() async {
     setState(() {
       loading = true;
     });
     _berita.clear();
-    final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    final response = await http.get(Uri.parse(Api.getBerita));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
+      for (Map<String, dynamic> i in data) {
+        _berita.add(Berita.formJson(i));
+      }
       setState(() {
-        for (Map<String, dynamic> i in data) {
-          _berita.add(Test.formJson(i));
-          loading = false;
-        }
+        loading = false;
       });
     }
   }
@@ -50,7 +49,7 @@ class _BeritaPageState extends State<BeritaPage> {
   @override
   void initState() {
     super.initState();
-    fetchData();
+    fetchDataBerita();
   }
 
   _logOut() async {
@@ -89,12 +88,6 @@ class _BeritaPageState extends State<BeritaPage> {
     kamClick = true;
     jumClick = true;
   }
-
-  var imgList = [
-    'assets/images/berita.jpg',
-    'assets/images/infonilai.png',
-    'assets/images/infoabsen.png'
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -588,8 +581,8 @@ class _BeritaPageState extends State<BeritaPage> {
                     autoPlay: true,
                     autoPlayInterval: Duration(seconds: 2),
                   ),
-                  items: imgList.map(
-                    (i) {
+                  items: _berita.map(
+                    (berita) {
                       return Builder(
                         builder: (BuildContext context) {
                           return GestureDetector(
@@ -659,8 +652,8 @@ class _BeritaPageState extends State<BeritaPage> {
                                             borderRadius:
                                                 BorderRadius.circular(9),
                                           ),
-                                          child: new Image.asset(
-                                            i,
+                                          child: Image.network(
+                                            Api.image + berita.image,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -671,7 +664,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                               0.8,
                                           margin: EdgeInsets.only(top: 10),
                                           child: Text(
-                                            'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan SMAN 28 | DBL ID',
+                                            berita.judul,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-ExtraBold',
@@ -696,7 +689,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                           ),
                                           child: Center(
                                             child: Text(
-                                              'Harir Ataki - 12/12/2022',
+                                              '${berita.id} - ${berita.tanggal}',
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-ExtraBold',
                                                 fontSize: 16,
@@ -717,7 +710,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                           margin: EdgeInsets.only(top: 15),
                                           child: SingleChildScrollView(
                                             child: Text(
-                                              'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
+                                              berita.isi,
                                               style: TextStyle(
                                                 fontFamily: 'Gilroy-Light',
                                                 fontSize: 15,
@@ -743,8 +736,8 @@ class _BeritaPageState extends State<BeritaPage> {
                                     child: Container(
                                       width: MediaQuery.of(context).size.width,
                                       height: 224,
-                                      child: Image.asset(
-                                        i,
+                                      child: Image.network(
+                                        Api.image + berita.image,
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -773,7 +766,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                           0.75,
                                       height: 58,
                                       child: Text(
-                                        'Seventy Andalkan Trio Bigman Untuk Hancurkan Pertahanan Lawan',
+                                        berita.judul,
                                         style: TextStyle(
                                           fontFamily: 'Gilroy-ExtraBold',
                                           fontSize: 24,
@@ -900,8 +893,8 @@ class _BeritaPageState extends State<BeritaPage> {
                                               borderRadius:
                                                   BorderRadius.circular(9),
                                             ),
-                                            child: new Image.asset(
-                                              'assets/images/logoberita.png',
+                                            child: Image.network(
+                                              Api.image + berita.image,
                                               fit: BoxFit.cover,
                                             ),
                                           ),
@@ -912,7 +905,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                                 0.8,
                                             margin: EdgeInsets.only(top: 10),
                                             child: Text(
-                                              '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
+                                              berita.judul,
                                               textAlign: TextAlign.center,
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
@@ -939,7 +932,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                '${berita.name} - 12-12-2022',
+                                                '${berita.id} - ${berita.tanggal}',
                                                 style: TextStyle(
                                                   fontFamily:
                                                       'Gilroy-ExtraBold',
@@ -961,7 +954,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                             margin: EdgeInsets.only(top: 15),
                                             child: SingleChildScrollView(
                                               child: Text(
-                                                'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
+                                                berita.isi,
                                                 style: TextStyle(
                                                   fontFamily: 'Gilroy-Light',
                                                   fontSize: 15,
@@ -1007,7 +1000,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                            berita.judul,
                                             maxLines: 2,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
@@ -1018,7 +1011,7 @@ class _BeritaPageState extends State<BeritaPage> {
                                             ),
                                           ),
                                           Text(
-                                            '${berita.name} - 12-12-2022',
+                                            '${berita.id} - ${berita.tanggal}',
                                             style: TextStyle(
                                               fontFamily: 'Gilroy-Light',
                                               fontSize: 13,
@@ -1038,9 +1031,9 @@ class _BeritaPageState extends State<BeritaPage> {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(7)),
-                                      child: new Image.asset(
-                                        'assets/images/logoberita.png',
-                                        fit: BoxFit.fill,
+                                      child: Image.network(
+                                        Api.image + berita.image,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ],

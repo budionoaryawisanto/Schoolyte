@@ -30,10 +30,17 @@ class KantinPage extends StatefulWidget {
 }
 
 class _KantinPageState extends State<KantinPage> {
-
+  List<Siswa> _siswa = [];
+  List<Guru> _guru = [];
+  List<Admin> _admin = [];
   List<Test> _list = [];
   List<Test> _search = [];
+  late final profil;
+  var loadingUser = false;
   var loading = false;
+  var id;
+  var status;
+  var statusUser;
 
   Future<Null> fetchData() async {
     setState(() {
@@ -53,10 +60,104 @@ class _KantinPageState extends State<KantinPage> {
     }
   }
 
+  Future fetchDataSiswa() async {
+    final prefs = await SharedPreferences.getInstance();
+    id = prefs.getString('id');
+    status = prefs.getString('status');
+    statusUser = prefs.getString('status user');
+    setState(() {
+      loadingUser = true;
+    });
+    _siswa.clear();
+    final response = await http.get(Uri.parse(Api.getSiswa));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _siswa.add(Siswa.formJson(i));
+        }
+      });
+      await getProfil();
+    }
+  }
+
+  Future fetchDataGuru() async {
+    setState(() {
+      loadingUser = true;
+    });
+    _guru.clear();
+    final response = await http.get(Uri.parse(Api.getGuru));
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _guru.add(Guru.formJson(i));
+        }
+      });
+      await getProfil();
+    }
+  }
+
+  Future fetchDataAdmin() async {
+    setState(() {
+      loadingUser = true;
+    });
+    _admin.clear();
+    final response = await http.get(Uri.parse(Api.getAdmin));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _admin.add(Admin.formJson(i));
+        }
+      });
+      await getProfil();
+    }
+  }
+
+  getProfil() async {
+    final prefs = await SharedPreferences.getInstance();
+    id = prefs.getString('id');
+    status = prefs.getString('status');
+    statusUser = prefs.getString('status user');
+    if (status!.toLowerCase() == 'siswa') {
+      _siswa.forEach((siswa) {
+        if (siswa.id.toString() == id) {
+          setState(() {
+            profil = siswa;
+            loadingUser = false;
+          });
+        }
+      });
+    } else if (status.toLowerCase() == 'guru') {
+      _guru.forEach((guru) {
+        if (guru.id.toString() == id) {
+          setState(() {
+            profil = guru;
+            loadingUser = false;
+          });
+        }
+      });
+    } else if (status.toLowerCase() == 'admin') {
+      _admin.forEach((admin) {
+        if (admin.id.toString() == id) {
+          setState(() {
+            profil = admin;
+            loadingUser = false;
+          });
+        }
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     fetchData();
+    fetchDataSiswa();
+    fetchDataGuru();
+    fetchDataAdmin();
   }
 
   _logOut() async {
@@ -79,7 +180,6 @@ class _KantinPageState extends State<KantinPage> {
   bool kamClick = true;
   bool jumClick = true;
 
-  int saldo = 40000;
   int total = 30000;
 
   closeDrawer() {
@@ -112,6 +212,15 @@ class _KantinPageState extends State<KantinPage> {
         _search.add(e);
       }
     });
+  }
+
+  convertToIdr(dynamic number, int decimalDigit) {
+    NumberFormat currencyFormatter = NumberFormat.currency(
+      locale: 'id',
+      symbol: 'Rp ',
+      decimalDigits: decimalDigit,
+    );
+    return currencyFormatter.format(number);
   }
 
   @override
@@ -642,7 +751,7 @@ class _KantinPageState extends State<KantinPage> {
                           Container(
                             width: 490.w * 0.9,
                             height: 70.25.h,
-                            margin: EdgeInsets.only(top: 10.h),
+                            margin: EdgeInsets.only(top: 10),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               boxShadow: [
@@ -668,7 +777,7 @@ class _KantinPageState extends State<KantinPage> {
                                                 LaporanKeuangan()));
                                   },
                                   child: Container(
-                                    width: 103.w,
+                                    width: 150.w,
                                     height: 980.h * 0.047,
                                     child: Column(
                                       crossAxisAlignment:
@@ -697,13 +806,27 @@ class _KantinPageState extends State<KantinPage> {
                                                     255, 199, 0, 1),
                                               ),
                                             ),
-                                            Text(
-                                              'Rp 30.000',
-                                              style: TextStyle(
-                                                fontFamily: 'Gilroy-ExtraBold',
-                                                fontSize: 16.w,
-                                                color: Color.fromRGBO(
-                                                    76, 81, 97, 1),
+                                            Container(
+                                              width: 120.w,
+                                              child: Text(
+                                                status == 'Admin' ||
+                                                        status == 'Eksternal'
+                                                    ? '-'
+                                                    : loadingUser
+                                                        ? '--'
+                                                        : convertToIdr(
+                                                            int.parse(
+                                                                profil.saldo),
+                                                            0),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontFamily:
+                                                      'Gilroy-ExtraBold',
+                                                  fontSize: 16.w,
+                                                  color: Color.fromRGBO(
+                                                      76, 81, 97, 1),
+                                                ),
                                               ),
                                             ),
                                           ],
@@ -724,7 +847,7 @@ class _KantinPageState extends State<KantinPage> {
                                                 LaporanKeuangan()));
                                   },
                                   child: Container(
-                                    width: 490.w * 0.24.w,
+                                    width: 70.w,
                                     height: 980.h * 0.047,
                                     child: Column(
                                       crossAxisAlignment:
@@ -762,7 +885,7 @@ class _KantinPageState extends State<KantinPage> {
                                                 LaporanKeuangan()));
                                   },
                                   child: Container(
-                                    width: 490.w * 0.24.w,
+                                    width: 70.w,
                                     height: 980.h * 0.047,
                                     child: Column(
                                       crossAxisAlignment:

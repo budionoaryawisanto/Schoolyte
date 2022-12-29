@@ -5,6 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'model.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path/path.dart' as path;
+import 'package:async/async.dart';
 
 class PostingBerita extends StatefulWidget {
   @override
@@ -18,13 +21,21 @@ class _PostingBeritaState extends State<PostingBerita> {
   final _formKey2 = GlobalKey<FormState>();
 
   List<Test> _berita = [];
-
+  var id;
+  var status;
+  var statusUser;
+  var namaUser;
   var loading = false;
 
   Future fetchData() async {
     setState(() {
       loading = true;
     });
+    final prefs = await SharedPreferences.getInstance();
+    id = prefs.getString('id');
+    status = prefs.getString('status');
+    statusUser = prefs.getString('status user');
+    namaUser = prefs.getString('nama user');
     _berita.clear();
     final response =
         await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
@@ -45,6 +56,158 @@ class _PostingBeritaState extends State<PostingBerita> {
     fetchData();
   }
 
+  failed() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Container(
+              height: 357,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 177,
+                    height: 177,
+                    child: Image.asset(
+                      'assets/images/alertDialog.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Text(
+                    'Gagal',
+                    style: TextStyle(
+                      fontFamily: 'Gilroy-ExtraBold',
+                      fontSize: 32,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: 107,
+                      height: 43,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Color.fromRGBO(242, 78, 26, 1),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'OK',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Light',
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Future postingBerita() async {
+    setState(() {
+      loading = true;
+    });
+    try {
+      var stream = http.ByteStream(DelegatingStream(image!.openRead()));
+      var length = await image!.length();
+      var uri = Uri.parse(Api.createBerita);
+      var request = http.MultipartRequest("POST", uri);
+      request.fields['siswa_id'] = id;
+      request.fields['judul'] = judulController.text;
+      request.fields['isi'] = deskripsiController.text;
+      request.fields['tanggal'] = DateTime.now().toString();
+      request.files.add(http.MultipartFile("image", stream, length,
+          filename: path.basename(image!.path)));
+      var response = await request.send();
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        setState(() {
+          loading = false;
+        });
+        showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
+              return Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Container(
+                  height: 357,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 177,
+                        height: 177,
+                        child: Image.asset(
+                          'assets/images/dialog.png',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      Text(
+                        'Absen Sukses',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-ExtraBold',
+                          fontSize: 32,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PostingBerita()));
+                        },
+                        child: Container(
+                          width: 107,
+                          height: 43,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Color.fromRGBO(119, 115, 205, 1),
+                          ),
+                          child: Center(
+                            child: Text(
+                              'OK',
+                              style: TextStyle(
+                                fontFamily: 'Gilroy-Light',
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            });
+      } else {
+        failed();
+        setState(() {
+          loading = false;
+        });
+      }
+    } catch (e) {
+      debugPrint("Error $e");
+    }
+  }
+
   File? image;
   Future getImage() async {
     final ImagePicker _picker = ImagePicker();
@@ -59,11 +222,6 @@ class _PostingBeritaState extends State<PostingBerita> {
     Tab(text: 'Menunggu'),
     Tab(text: 'Dikonfirmasi'),
   ];
-
-  sendData() {
-    if (_formKey.currentState!.validate()) {}
-    if (_formKey2.currentState!.validate()) {}
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -271,7 +429,7 @@ class _PostingBeritaState extends State<PostingBerita> {
                                         ),
                                       ],
                                     ),
-                                  ),                                
+                                  ),
                                   Container(
                                     width:
                                         MediaQuery.of(context).size.width * 0.6,
@@ -424,7 +582,13 @@ class _PostingBeritaState extends State<PostingBerita> {
                                     alignment: Alignment(1.0, 0.0),
                                     child: GestureDetector(
                                       onTap: () {
-                                        sendData();
+                                        if (judulController.text == null ||
+                                            deskripsiController.text == null ||
+                                            image == null) {
+                                          failed();
+                                        } else {
+                                          postingBerita();
+                                        }
                                       },
                                       child: Container(
                                         width: 119,

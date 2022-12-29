@@ -104,6 +104,7 @@ Future fetchDataAdmin() async {
           prefs.setString('id', siswa.id.toString());
           prefs.setString('status', status);
           prefs.setString('status user', siswa.status);
+          prefs.setString('nama user', siswa.nama);
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => HomePage()));
         } else if (i == _siswa.length) {
@@ -120,6 +121,7 @@ Future fetchDataAdmin() async {
           prefs.setString('id', guru.id.toString());
           prefs.setString('status', status);
           prefs.setString('status user', guru.status);
+          prefs.setString('nama user', guru.nama);
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => HomePage()));
         } else if (i == _guru.length) {
@@ -136,6 +138,7 @@ Future fetchDataAdmin() async {
           prefs.setString('id', admin.id.toString());
           prefs.setString('status', status);
           prefs.setString('status user', admin.status);
+          prefs.setString('nama user', admin.nama);
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => HomePage()));
         } else if (i == _admin.length) {

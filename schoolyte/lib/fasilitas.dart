@@ -25,22 +25,21 @@ class FasilitasPage extends StatefulWidget {
 }
 
 class _FasilitasPageState extends State<FasilitasPage> {
-  List<Test> _list = [];
-  List<Test> _search = [];
+  List<Fasilitas> _fasilitas = [];
+  List<Fasilitas> _search = [];
   var loading = false;
 
-  Future<Null> fetchData() async {
+  Future fetchDataFasilitas() async {
     setState(() {
       loading = true;
     });
-    _list.clear();
-    final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    _fasilitas.clear();
+    final response = await http.get(Uri.parse(Api.getFasilitas));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _list.add(Test.formJson(i));
+          _fasilitas.add(Fasilitas.formJson(i));
           loading = false;
         }
       });
@@ -50,7 +49,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
   @override
   void initState() {
     super.initState();
-    fetchData();
+    fetchDataFasilitas();
   }
 
   _logOut() async {
@@ -105,10 +104,10 @@ class _FasilitasPageState extends State<FasilitasPage> {
       setState(() {});
       return;
     }
-    _list.forEach((e) {
-      if (e.name.toLowerCase().contains(text.toLowerCase()) ||
+    _fasilitas.forEach((e) {
+      if (e.nama_fasilitas.toLowerCase().contains(text.toLowerCase()) ||
           e.id.toString().contains(text) ||
-          e.username.toLowerCase().contains(text.toLowerCase())) {
+          e.jenis_fasilitas.toLowerCase().contains(text.toLowerCase())) {
         _search.add(e);
       }
     });
@@ -119,7 +118,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
   var endPeminjaman;
   var filterPeminjaman;
 
-  showDialogFunc(context, a) {
+  showDialogFunc(context, fasilitas) {
     return showModalBottomSheet<void>(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -150,9 +149,9 @@ class _FasilitasPageState extends State<FasilitasPage> {
                     height: MediaQuery.of(context).size.height * 0.23,
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                    child: new Image.asset(
-                      'assets/images/fasilitas.png',
-                      fit: BoxFit.fill,
+                    child: new Image.network(
+                      Api.image + fasilitas.image,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   Container(
@@ -160,7 +159,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                     margin: EdgeInsets.only(top: 15),
                     child: Center(
                       child: Text(
-                        'Lapangan Depan',
+                        fasilitas.nama_fasilitas,
                         style: TextStyle(
                           fontFamily: 'Gilroy-ExtraBold',
                           fontSize: 32,
@@ -174,7 +173,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                     height: MediaQuery.of(context).size.height * 0.08,
                     margin: EdgeInsets.only(top: 15),
                     child: Text(
-                      'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
+                      fasilitas.jenis_fasilitas,
                       style: TextStyle(
                         fontFamily: 'Gilroy-Light',
                         fontSize: 15,
@@ -480,390 +479,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                               255, 217, 102, 0.38)),
                                       child: Center(
                                         child: Text(
-                                          'Oleh: ' + a.name,
-                                          style: TextStyle(
-                                            fontFamily: 'Gilroy-Light',
-                                            fontSize: 10,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            },
-                          ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
-
-  showDialogFuncSearch(context, b) {
-    return showModalBottomSheet<void>(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(15),
-            topRight: Radius.circular(15),
-          ),
-        ),
-        isScrollControlled: true,
-        context: context,
-        builder: (context) {
-          return Container(
-            height: MediaQuery.of(context).size.height * 0.85,
-            padding: EdgeInsets.only(top: 30),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(15),
-                topRight: Radius.circular(15),
-              ),
-              color: Colors.white,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.23,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                    child: new Image.asset(
-                      'assets/images/fasilitas.png',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    margin: EdgeInsets.only(top: 15),
-                    child: Center(
-                      child: Text(
-                        'Lapangan Depan',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy-ExtraBold',
-                          fontSize: 32,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.08,
-                    margin: EdgeInsets.only(top: 15),
-                    child: Text(
-                      'Lapangan ini terletak pada belakang gerbang pintu masuk. Lapangan ini dapat digunakan untuk permainan futsal dan basket. Ukuran lapangan ini adalah 12m * 12m.',
-                      style: TextStyle(
-                        fontFamily: 'Gilroy-Light',
-                        fontSize: 15,
-                        color: Color.fromRGBO(76, 81, 97, 1),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.04,
-                    margin: EdgeInsets.only(top: 15),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          child: Text(
-                            'Tanggal Peminjaman',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-Light',
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          margin: EdgeInsets.only(left: 15),
-                          child: DateTimePicker(
-                            type: DateTimePickerType.date,
-                            dateMask: 'EEEE, d MMMM yyyy',
-                            initialValue: '',
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(DateTime.now().year + 1),
-                            onChanged: (val) => setState(() {
-                              tglPeminjaman = val;
-                            }),
-                            validator: (val) {
-                              return null;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.04,
-                    margin: EdgeInsets.only(top: 5),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          child: Text(
-                            'Waktu mulai Peminjaman',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-Light',
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          margin: EdgeInsets.only(left: 15),
-                          child: DateTimePicker(
-                            type: DateTimePickerType.time,
-                            onChanged: (val) => setState(() {
-                              startPeminjaman = val;
-                            }),
-                            validator: (val) {
-                              if (val!.isEmpty) {
-                                return 'Waktu mulai tidak boleh kosong';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    margin: EdgeInsets.only(top: 5),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          child: Text(
-                            'Waktu berakhir Peminjaman',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-Light',
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          margin: EdgeInsets.only(left: 15),
-                          child: DateTimePicker(
-                            type: DateTimePickerType.time,
-                            onChanged: (val) => setState(() {
-                              endPeminjaman = val;
-                            }),
-                            validator: (val) {
-                              if (val!.isEmpty) {
-                                return 'Waktu berakhir tidak boleh kosong';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.046,
-                    margin: EdgeInsets.only(
-                      top: 15,
-                      bottom: 30,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.35,
-                            height: MediaQuery.of(context).size.height * 0.04,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Color.fromRGBO(217, 217, 217, 1),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Batal',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            print(tglPeminjaman);
-                            print(startPeminjaman);
-                            print(endPeminjaman);
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.35,
-                            height: MediaQuery.of(context).size.height * 0.04,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.black,
-                            ),
-                            child: Center(
-                              child: Text(
-                                'Pinjam Fasilitas',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-Light',
-                                  fontSize: 16,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Divider(),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.12,
-                    margin: EdgeInsets.only(top: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Jadwal Peminjaman',
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-Light',
-                            fontSize: 16,
-                            color: Color.fromRGBO(119, 115, 205, 1),
-                          ),
-                        ),
-                        Text(
-                          'Lebih Nyaman & Teratur dalam Penjadwalan Peminjaman',
-                          style: TextStyle(
-                            fontFamily: 'Gilroy-ExtraBold',
-                            fontSize: 24,
-                            color: Color.fromRGBO(76, 81, 97, 1),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
-                          margin: EdgeInsets.only(top: 15),
-                          child: DateTimePicker(
-                            type: DateTimePickerType.date,
-                            dateMask: 'EEEE, d MMMM yyyy',
-                            icon: Icon(Icons.date_range_rounded),
-                            initialValue: '',
-                            firstDate: DateTime.now(),
-                            lastDate: DateTime(DateTime.now().year + 1),
-                            onChanged: (val) => setState(() {
-                              filterPeminjaman = val;
-                            }),
-                            validator: (val) {
-                              return null;
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.30,
-                    margin: EdgeInsets.only(
-                      top: 15,
-                    ),
-                    child: loading
-                        ? Center(child: CircularProgressIndicator())
-                        : GridView.builder(
-                            itemCount: 6,
-                            gridDelegate:
-                                SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent:
-                                  MediaQuery.of(context).size.width * 0.8,
-                              mainAxisExtent:
-                                  MediaQuery.of(context).size.height * 0.064,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 9,
-                            ),
-                            itemBuilder: (context, i) {
-                              return Container(
-                                margin: EdgeInsets.all(5),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Color.fromRGBO(237, 237, 237, 1),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.3),
-                                      spreadRadius: 0,
-                                      blurRadius: 1.5,
-                                      offset: Offset(0, 1),
-                                    )
-                                  ],
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            'Senin, 17 Oktober 2022',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-ExtraBold',
-                                              fontSize: 16,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          Text(
-                                            '13.30 - 15.30',
-                                            style: TextStyle(
-                                              fontFamily: 'Gilroy-Light',
-                                              fontSize: 14,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 14,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(3),
-                                          color: Color.fromRGBO(
-                                              255, 217, 102, 0.38)),
-                                      child: Center(
-                                        child: Text(
-                                          'Oleh: ' + b.name,
+                                          'Oleh: Arya',
                                           style: TextStyle(
                                             fontFamily: 'Gilroy-Light',
                                             fontSize: 10,
@@ -1488,11 +1104,11 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                             mainAxisSpacing: 20,
                                           ),
                                           itemBuilder: (context, i) {
-                                            final b = _search[i];
+                                            final fasilitas = _search[i];
                                             return GestureDetector(
                                               onTap: () {
-                                                showDialogFuncSearch(
-                                                    context, b);
+                                                showDialogFunc(
+                                                    context, fasilitas);
                                               },
                                               child: Container(
                                                 padding: EdgeInsets.symmetric(
@@ -1527,15 +1143,17 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                                               BorderRadius
                                                                   .circular(
                                                                       10)),
-                                                      child: new Image.asset(
-                                                        'assets/images/fasilitas.png',
-                                                        fit: BoxFit.fill,
+                                                      child: new Image.network(
+                                                        Api.image +
+                                                            fasilitas.image,
+                                                        fit: BoxFit.cover,
                                                       ),
                                                     ),
                                                     Container(
                                                       width: 131,
                                                       child: Text(
-                                                        'Lapangan Depan',
+                                                        fasilitas
+                                                            .nama_fasilitas,
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-ExtraBold',
@@ -1547,11 +1165,8 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                                     Container(
                                                       width: 162,
                                                       child: Text(
-                                                        b.username +
-                                                            b.name +
-                                                            b.email +
-                                                            b.website +
-                                                            b.phone,
+                                                        fasilitas
+                                                            .jenis_fasilitas,
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-Light',
@@ -1569,7 +1184,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                     )
                                   : Container(
                                       child: GridView.builder(
-                                          itemCount: _list.length,
+                                          itemCount: _fasilitas.length,
                                           padding: EdgeInsets.all(10),
                                           gridDelegate:
                                               SliverGridDelegateWithMaxCrossAxisExtent(
@@ -1579,10 +1194,11 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                             mainAxisSpacing: 20,
                                           ),
                                           itemBuilder: (context, i) {
-                                            final a = _list[i];
+                                            final fasilitas = _fasilitas[i];
                                             return GestureDetector(
                                               onTap: () {
-                                                showDialogFunc(context, a);
+                                                showDialogFunc(
+                                                    context, fasilitas);
                                               },
                                               child: Container(
                                                 padding: EdgeInsets.symmetric(
@@ -1617,15 +1233,17 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                                               BorderRadius
                                                                   .circular(
                                                                       10)),
-                                                      child: new Image.asset(
-                                                        'assets/images/fasilitas.png',
-                                                        fit: BoxFit.fill,
+                                                      child: new Image.network(
+                                                        Api.image +
+                                                            fasilitas.image,
+                                                        fit: BoxFit.cover,
                                                       ),
                                                     ),
                                                     Container(
                                                       width: 131,
                                                       child: Text(
-                                                        'Lapangan Depan',
+                                                        fasilitas
+                                                            .nama_fasilitas,
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-ExtraBold',
@@ -1637,11 +1255,8 @@ class _FasilitasPageState extends State<FasilitasPage> {
                                                     Container(
                                                       width: 162,
                                                       child: Text(
-                                                        a.username +
-                                                            a.name +
-                                                            a.email +
-                                                            a.website +
-                                                            a.phone,
+                                                        fasilitas
+                                                            .jenis_fasilitas,
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-Light',
@@ -1672,7 +1287,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                       color: Color.fromRGBO(243, 243, 243, 1),
                     ),
                     child: GridView.builder(
-                        itemCount: _list.length,
+                        itemCount: _fasilitas.length,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: MediaQuery.of(context).size.width,
                           mainAxisExtent:
@@ -1680,7 +1295,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           mainAxisSpacing: 10,
                         ),
                         itemBuilder: ((context, i) {
-                          final a = _list[i];
+                          final a = _fasilitas[i];
                           return Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -1784,7 +1399,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                       color: Color.fromRGBO(243, 243, 243, 1),
                     ),
                     child: GridView.builder(
-                        itemCount: _list.length,
+                        itemCount: _fasilitas.length,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: MediaQuery.of(context).size.width,
                           mainAxisExtent:
@@ -1792,7 +1407,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           mainAxisSpacing: 10,
                         ),
                         itemBuilder: ((context, i) {
-                          final a = _list[i];
+                          final a = _fasilitas[i];
                           return Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -1896,7 +1511,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                       color: Color.fromRGBO(243, 243, 243, 1),
                     ),
                     child: GridView.builder(
-                        itemCount: _list.length,
+                        itemCount: _fasilitas.length,
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                           maxCrossAxisExtent: MediaQuery.of(context).size.width,
                           mainAxisExtent:
@@ -1904,7 +1519,7 @@ class _FasilitasPageState extends State<FasilitasPage> {
                           mainAxisSpacing: 10,
                         ),
                         itemBuilder: ((context, i) {
-                          final a = _list[i];
+                          final a = _fasilitas[i];
                           return Container(
                             decoration: BoxDecoration(
                               color: Colors.white,

@@ -34,11 +34,67 @@ class AbsensiPage extends StatefulWidget {
 
 class _AbsensiPageState extends State<AbsensiPage> {
   List<Absensi> _absensi = [];
+  List<Absensi> _absensiUser = [];
+  List<Siswa> _siswa = [];
   var loading = false;
+  var loadingData = false;
+  var id;
+  var status;
+  var statusUser;
+  late Siswa profil;
 
-  Future fetchData() async {
+  Future fetchDataSiswa() async {
     setState(() {
       loading = true;
+    });
+    final prefs = await SharedPreferences.getInstance();
+    id = prefs.getString('id');
+    status = prefs.getString('status');
+    statusUser = prefs.getString('status user');
+    _siswa.clear();
+    final response = await http.get(Uri.parse(Api.getSiswa));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _siswa.add(Siswa.formJson(i));
+        }
+      });
+      await getProfil();
+    }
+  }
+
+  getProfil() async {
+    if (status!.toLowerCase() == 'siswa') {
+      _siswa.forEach((siswa) {
+        if (siswa.id.toString() == id) {
+          setState(() {
+            profil = siswa;
+          });
+        }
+        setState(() {
+          loading = false;
+        });
+      });
+    }
+  }
+
+  getDataUser() async {
+    _absensi.forEach((data) {
+      if (profil.id.toString() == data.siswa_id) {
+        _absensiUser.add(data);
+      }
+    });
+    if (_absensiUser != null) {
+      setState(() {
+        loadingData = false;
+      });
+    } else {}
+  }
+
+  Future fetchDataAbsensi() async {
+    setState(() {
+      loadingData = true;
     });
     _absensi.clear();
     final response = await http.get(Uri.parse(Api.getAbsen));
@@ -47,11 +103,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
       for (Map<String, dynamic> i in data) {
         _absensi.add(Absensi.formJson(i));
       }
-      setState(() {
-        loading = false;
-      });
-    } else {
-      return;
+      await getDataUser();
     }
   }
 
@@ -64,15 +116,15 @@ class _AbsensiPageState extends State<AbsensiPage> {
       var length = await image!.length();
       var uri = Uri.parse(Api.createAbsen);
       var request = http.MultipartRequest("POST", uri);
-      request.fields['siswa_id'] = '1';
-      request.fields['kelas_id'] = '1';
+      request.fields['siswa_id'] = profil.id.toString();
+      request.fields['kelas_id'] = profil.kelas_id;
       request.fields['status_absen'] = dropdownvalue;
       request.fields['tgl_absen'] = tglAbsen.toString();
       request.fields['wkt_absen'] = waktuAbsen.toString();
-
       request.files.add(http.MultipartFile("image", stream, length,
           filename: path.basename(image!.path)));
       var response = await request.send();
+      print(response.statusCode);
       if (response.statusCode == 200) {
         setState(() {
           loading = false;
@@ -138,7 +190,10 @@ class _AbsensiPageState extends State<AbsensiPage> {
               );
             });
       } else {
-        return;
+        failed();
+        setState(() {
+          loading = false;
+        });
       }
     } catch (e) {
       debugPrint("Error $e");
@@ -208,7 +263,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
   @override
   void initState() {
     super.initState();
-    fetchData();
+    fetchDataSiswa();
+    fetchDataAbsensi();
     _getCurrentLocation().then((value) {
       lat = '${value.latitude}';
       long = '${value.longitude}';
@@ -294,7 +350,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
         desiredAccuracy: LocationAccuracy.high);
   }
 
-  var status = ['Hadir', 'Izin', 'Sakit'];
+  var statusKehadiran = ['Hadir', 'Izin', 'Sakit'];
   var dropdownvalue = 'Hadir';
   final waktuAbsen = DateFormat().add_Hm().format(DateTime.now());
   var tglAbsen;
@@ -1025,7 +1081,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
                                       ),
                                       icon:
                                           const Icon(Icons.keyboard_arrow_down),
-                                      items: status.map((String items) {
+                                      items:
+                                          statusKehadiran.map((String items) {
                                         return DropdownMenuItem(
                                           value: items,
                                           child: Text(items),
@@ -1174,7 +1231,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                       color: Colors.white,
                       margin: EdgeInsets.only(top: 18),
                       padding: EdgeInsets.all(10),
-                      child: loading
+                      child: loadingData
                           ? Center(
                               child: Text(
                                 '.....',
@@ -1185,7 +1242,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                               ),
                             )
                           : GridView.builder(
-                              itemCount: _absensi.length,
+                              itemCount: _absensiUser.length,
                               padding: EdgeInsets.all(10),
                               gridDelegate:
                                   SliverGridDelegateWithMaxCrossAxisExtent(
@@ -1196,7 +1253,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                                 crossAxisSpacing: 18,
                               ),
                               itemBuilder: (context, i) {
-                                final absen = _absensi[i];
+                                final absen = _absensiUser[i];
                                 return Container(
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 20,

@@ -40,8 +40,8 @@ class _HomePageState extends State<HomePage> {
   List<Siswa> _siswa = [];
   List<Guru> _guru = [];
   List<Admin> _admin = [];
+  List<Berita> _berita = [];
   late final profil;
-  List<Test> _list = [];
   var loadingUser = false;
   var loadingBerita = false;
   var status;
@@ -92,13 +92,11 @@ class _HomePageState extends State<HomePage> {
     });
     _admin.clear();
     final response = await http.get(Uri.parse(Api.getAdmin));
-    print(response.body);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
           _admin.add(Admin.formJson(i));
-          loadingUser = false;
         }
       });
       await getProfil();
@@ -144,13 +142,12 @@ class _HomePageState extends State<HomePage> {
       loadingBerita = true;
     });
     _siswa.clear();
-    final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    final response = await http.get(Uri.parse(Api.getBerita));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _list.add(Test.formJson(i));
+          _berita.add(Berita.formJson(i));
         }
       });
       setState(() {
@@ -227,6 +224,9 @@ class _HomePageState extends State<HomePage> {
         status.toLowerCase() == 'pegawai') {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => AbsensiPegawaiPage()));
+    } else if (status.toLowerCase() == 'admin') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => AbsensiAdminPage()));
     } else {
       return;
     }
@@ -264,6 +264,16 @@ class _HomePageState extends State<HomePage> {
     } else {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => FasilitasPage()));
+    }
+  }
+
+  navigasiBerita() {
+    if (status.toLowerCase() == 'admin') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => BeritaAdminPage()));
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => BeritaPage()));
     }
   }
 
@@ -603,12 +613,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       onTap: () {
-                        setState(() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => BeritaPage()));
-                        });
+                        navigasiBerita();
                       },
                     ),
                     ListTile(
@@ -945,7 +950,7 @@ class _HomePageState extends State<HomePage> {
                                                             : convertToIdr(
                                                                 int.parse(profil
                                                                     .saldo),
-                                                                2),
+                                                                0),
                                                         maxLines: 1,
                                                         overflow: TextOverflow
                                                             .ellipsis,
@@ -1363,11 +1368,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.of(context)
-                                              .pushNamedAndRemoveUntil(
-                                                  '/berita',
-                                                  (Route<dynamic> route) =>
-                                                      false);
+                                          navigasiBerita();
                                         },
                                         child: Container(
                                           width: 490.w * 0.18,
@@ -1410,7 +1411,7 @@ class _HomePageState extends State<HomePage> {
                                                     76, 81, 97, 1)),
                                           )
                                         : GridView.builder(
-                                            itemCount: 3,
+                                            itemCount: _berita.length,
                                             gridDelegate:
                                                 SliverGridDelegateWithMaxCrossAxisExtent(
                                               maxCrossAxisExtent: 445.w,
@@ -1418,7 +1419,7 @@ class _HomePageState extends State<HomePage> {
                                               crossAxisSpacing: 15,
                                             ),
                                             itemBuilder: (context, i) {
-                                              final berita = _list[i];
+                                              final berita = _berita[i];
                                               return GestureDetector(
                                                 onTap: () {
                                                   showModalBottomSheet<void>(
@@ -1506,9 +1507,11 @@ class _HomePageState extends State<HomePage> {
                                                                         .circular(
                                                                             9),
                                                               ),
-                                                              child: new Image
-                                                                  .asset(
-                                                                'assets/images/logoberita.png',
+                                                              child:
+                                                                  Image.network(
+                                                                Api.image +
+                                                                    berita
+                                                                        .image,
                                                                 fit: BoxFit
                                                                     .cover,
                                                               ),
@@ -1520,7 +1523,7 @@ class _HomePageState extends State<HomePage> {
                                                                   .only(
                                                                       top: 10),
                                                               child: Text(
-                                                                '10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari',
+                                                                berita.judul,
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
@@ -1565,7 +1568,7 @@ class _HomePageState extends State<HomePage> {
                                                               ),
                                                               child: Center(
                                                                 child: Text(
-                                                                  '${berita.name} - 12-12-2022',
+                                                                  '${berita.id} - ${berita.tanggal}',
                                                                   style:
                                                                       TextStyle(
                                                                     fontFamily:
@@ -1589,7 +1592,7 @@ class _HomePageState extends State<HomePage> {
                                                               child:
                                                                   SingleChildScrollView(
                                                                 child: Text(
-                                                                  'Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region.\n\nDimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39.\n\nTahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy. Pertemuan dua nama sekolah besar akan jadi laga pembuka Honda DBL 2021 DKI Jakarta Series, Kamis (7/10) besok di Gelanggang Remaja Cempaka Putih, Jakarta Pusat. Adalah Tim putra SMAN 28 Jakarta kontra SMAN 70 Jakarta. Bentroknya dua sekolah ini mengingatkan kita semua pada final Honda DBL DKI Jakarta Series 2019-South Region. Dimana, kedua sekolah ini saling berjumpa waktu itu. Hanya saja, ketika itu perwakilan tim putri mereka yang saling bertemu. Srikandi SMAN 28 mampu menaklukan putri Seventy (julukan SMAN 70), di partai puncak 51-39. Tahun ini, kedua sekolah kembali saling bentrok. Namun, diwakili oleh tim putranya. Tentu ini jadi misi revans putra Seventy demi menebus kekalahan tim putri mereka, dua tahun silam. “Pasti, anak-anak semangat mengusung misi ini, kami targetkan bisa ambil game pertama,” cetus Ari Adiska pelatih tim putra Seventy.',
+                                                                  berita.isi,
                                                                   style:
                                                                       TextStyle(
                                                                     fontFamily:
@@ -1648,7 +1651,7 @@ class _HomePageState extends State<HomePage> {
                                                                   .start,
                                                           children: [
                                                             Text(
-                                                              "10 Sekolah Adiwiyata HSS Lomba cerdas cermat di Desa Rejosari",
+                                                              berita.judul,
                                                               maxLines: 2,
                                                               overflow:
                                                                   TextOverflow
@@ -1666,7 +1669,7 @@ class _HomePageState extends State<HomePage> {
                                                               ),
                                                             ),
                                                             Text(
-                                                              '${berita.name} - 12-12-2022',
+                                                              '${berita.id} - ${berita.tanggal}',
                                                               style: TextStyle(
                                                                 fontFamily:
                                                                     'Gilroy-Light',
@@ -1690,9 +1693,10 @@ class _HomePageState extends State<HomePage> {
                                                                 BorderRadius
                                                                     .circular(
                                                                         7)),
-                                                        child: new Image.asset(
-                                                          'assets/images/logoberita.png',
-                                                          fit: BoxFit.fill,
+                                                        child: Image.network(
+                                                          Api.image +
+                                                              berita.image,
+                                                          fit: BoxFit.cover,
                                                         ),
                                                       ),
                                                     ],

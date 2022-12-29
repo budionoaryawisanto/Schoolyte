@@ -4,11 +4,16 @@ class Api {
   static String getAdmin = 'https://schoolyte.my.id/api/admin';
   static String createSiswa = 'https://schoolyte.my.id/api/siswa/create';
   static String getAbsen = 'https://schoolyte.my.id/api/absensiswa';
-  static String createAbsen = 'https://schoolyte.my.id/api/absensiswa';
+  static String createAbsen = 'https://schoolyte.my.id/api/absensiswa/create';
   static String editAbsen = 'https://schoolyte.my.id/api/absensiswa/update/';
   static String image = 'https://schoolyte.my.id/';
   static String getBook = 'https://schoolyte.my.id/api/buku';
   static String createBook = 'https://schoolyte.my.id/api/buku/create';
+  static String getFasilitas = 'https://schoolyte.my.id/api/fasilitas';
+  static String createFasilitas =
+      'https://schoolyte.my.id/api/fasilitas/create';
+  static String getBerita = 'https://schoolyte.my.id/api/berita';
+  static String createBerita = 'https://schoolyte.my.id/api/berita/create';
 }
 
 class Siswa {
@@ -291,6 +296,57 @@ class Book {
       jumlah_buku: json['jumlah_buku'],
       image: json['image'],
       kategori_buku: json['kategori_buku'],
+    );
+  }
+}
+
+class Fasilitas {
+  final int id;
+  final String nama_fasilitas;
+  final String jenis_fasilitas;
+  final String image;
+
+  Fasilitas({
+    required this.id,
+    required this.nama_fasilitas,
+    required this.jenis_fasilitas,
+    required this.image,
+  });
+
+  factory Fasilitas.formJson(Map<String, dynamic> json) {
+    return new Fasilitas(
+      id: json['id'],
+      nama_fasilitas: json['nama_fasilitas'],
+      jenis_fasilitas: json['jenis_fasilitas'],
+      image: json['image'],
+    );
+  }
+}
+
+class Berita {
+  final int id;
+  final String siswa_id;
+  final String judul;
+  final String isi;
+  final String tanggal;
+  final String image;
+
+  Berita(
+      {required this.id,
+      required this.siswa_id,
+      required this.judul,
+      required this.isi,
+      required this.tanggal,
+      required this.image});
+
+  factory Berita.formJson(Map<String, dynamic> json) {
+    return new Berita(
+      id: json['id'],
+      siswa_id: json['siswa_id'],
+      judul: json['judul'],
+      isi: json['isi'],
+      tanggal: json['tanggal'],
+      image: json['image'],
     );
   }
 }

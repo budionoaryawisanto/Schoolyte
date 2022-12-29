@@ -27,10 +27,17 @@ class KoperasiPage extends StatefulWidget {
 }
 
 class _KoperasiPageState extends State<KoperasiPage> {
-
+  List<Siswa> _siswa = [];
+  List<Guru> _guru = [];
+  List<Admin> _admin = [];
   List<Test> _list = [];
   List<Test> _search = [];
+  late final profil;
+  var loadingUser = false;
   var loading = false;
+  var id;
+  var status;
+  var statusUser;
 
   Future<Null> fetchData() async {
     setState(() {
@@ -50,10 +57,104 @@ class _KoperasiPageState extends State<KoperasiPage> {
     }
   }
 
+  Future fetchDataSiswa() async {
+    final prefs = await SharedPreferences.getInstance();
+    id = prefs.getString('id');
+    status = prefs.getString('status');
+    statusUser = prefs.getString('status user');
+    setState(() {
+      loadingUser = true;
+    });
+    _siswa.clear();
+    final response = await http.get(Uri.parse(Api.getSiswa));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _siswa.add(Siswa.formJson(i));
+        }
+      });
+      await getProfil();
+    }
+  }
+
+  Future fetchDataGuru() async {
+    setState(() {
+      loadingUser = true;
+    });
+    _guru.clear();
+    final response = await http.get(Uri.parse(Api.getGuru));
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _guru.add(Guru.formJson(i));
+        }
+      });
+      await getProfil();
+    }
+  }
+
+  Future fetchDataAdmin() async {
+    setState(() {
+      loadingUser = true;
+    });
+    _admin.clear();
+    final response = await http.get(Uri.parse(Api.getAdmin));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        for (Map<String, dynamic> i in data) {
+          _admin.add(Admin.formJson(i));
+        }
+      });
+      await getProfil();
+    }
+  }
+
+  getProfil() async {
+    final prefs = await SharedPreferences.getInstance();
+    id = prefs.getString('id');
+    status = prefs.getString('status');
+    statusUser = prefs.getString('status user');
+    if (status!.toLowerCase() == 'siswa') {
+      _siswa.forEach((siswa) {
+        if (siswa.id.toString() == id) {
+          setState(() {
+            profil = siswa;
+            loadingUser = false;
+          });
+        }
+      });
+    } else if (status.toLowerCase() == 'guru') {
+      _guru.forEach((guru) {
+        if (guru.id.toString() == id) {
+          setState(() {
+            profil = guru;
+            loadingUser = false;
+          });
+        }
+      });
+    } else if (status.toLowerCase() == 'admin') {
+      _admin.forEach((admin) {
+        if (admin.id.toString() == id) {
+          setState(() {
+            profil = admin;
+            loadingUser = false;
+          });
+        }
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     fetchData();
+    fetchDataSiswa();
+    fetchDataGuru();
+    fetchDataAdmin();
   }
 
   _logOut() async {
@@ -116,6 +217,15 @@ class _KoperasiPageState extends State<KoperasiPage> {
         _search.add(e);
       }
     });
+  }
+
+  convertToIdr(dynamic number, int decimalDigit) {
+    NumberFormat currencyFormatter = NumberFormat.currency(
+      locale: 'id',
+      symbol: 'Rp ',
+      decimalDigits: decimalDigit,
+    );
+    return currencyFormatter.format(number);
   }
 
   @override
@@ -661,7 +771,8 @@ class _KoperasiPageState extends State<KoperasiPage> {
                                             LaporanKeuangan()));
                               },
                               child: Container(
-                                width: MediaQuery.of(context).size.width * 0.24,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.306,
                                 height:
                                     MediaQuery.of(context).size.height * 0.047,
                                 child: Column(
@@ -688,7 +799,13 @@ class _KoperasiPageState extends State<KoperasiPage> {
                                           ),
                                         ),
                                         Text(
-                                          'Rp.30000',
+                                          status.toLowerCase() == 'admin'
+                                              ? '-'
+                                              : loadingUser
+                                                  ? '--'
+                                                  : convertToIdr(
+                                                      int.parse(profil.saldo),
+                                                      0),
                                           style: TextStyle(
                                             fontFamily: 'Gilroy-ExtraBold',
                                             fontSize: 16,
@@ -714,7 +831,8 @@ class _KoperasiPageState extends State<KoperasiPage> {
                                             LaporanKeuangan()));
                               },
                               child: Container(
-                                width: MediaQuery.of(context).size.width * 0.24,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.142,
                                 height:
                                     MediaQuery.of(context).size.height * 0.047,
                                 child: Column(
@@ -751,7 +869,8 @@ class _KoperasiPageState extends State<KoperasiPage> {
                                             LaporanKeuangan()));
                               },
                               child: Container(
-                                width: MediaQuery.of(context).size.width * 0.24,
+                                width:
+                                    MediaQuery.of(context).size.width * 0.142,
                                 height:
                                     MediaQuery.of(context).size.height * 0.047,
                                 child: Column(
