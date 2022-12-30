@@ -30,21 +30,40 @@ class KantinPage extends StatefulWidget {
 }
 
 class _KantinPageState extends State<KantinPage> {
+  List<Stand> _stand = [];
   List<Siswa> _siswa = [];
   List<Guru> _guru = [];
   List<Admin> _admin = [];
   List<Test> _list = [];
-  List<Test> _search = [];
+  List<Stand> _search = [];
   late final profil;
-  var loadingUser = false;
   var loading = false;
+  var loadingUser = false;
+  var loadingPesanan = false;
   var id;
   var status;
   var statusUser;
 
-  Future<Null> fetchData() async {
+  Future fetchDataStand() async {
     setState(() {
       loading = true;
+    });
+    _stand.clear();
+    final response = await http.get(Uri.parse(Api.getStand));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      for (Map<String, dynamic> i in data) {
+        _stand.add(Stand.formJson(i));
+      }
+      setState(() {
+        loading = false;
+      });
+    }
+  }
+
+  Future fetchData() async {
+    setState(() {
+      loadingPesanan = true;
     });
     _list.clear();
     final response =
@@ -54,7 +73,7 @@ class _KantinPageState extends State<KantinPage> {
       setState(() {
         for (Map<String, dynamic> i in data) {
           _list.add(Test.formJson(i));
-          loading = false;
+          loadingPesanan = false;
         }
       });
     }
@@ -154,6 +173,7 @@ class _KantinPageState extends State<KantinPage> {
   @override
   void initState() {
     super.initState();
+    fetchDataStand();
     fetchData();
     fetchDataSiswa();
     fetchDataGuru();
@@ -206,9 +226,10 @@ class _KantinPageState extends State<KantinPage> {
       setState(() {});
       return;
     }
-    _list.forEach((e) {
-      if (e.name.toLowerCase().contains(text.toLowerCase()) ||
-          e.id.toString().contains(text)) {
+    _stand.forEach((e) {
+      if (e.nama_stand.toLowerCase().contains(text.toLowerCase()) ||
+          e.jenis_stand.toString().contains(text) ||
+          e.kode_stand.contains(text)) {
         _search.add(e);
       }
     });
@@ -1001,20 +1022,15 @@ class _KantinPageState extends State<KantinPage> {
                                           mainAxisSpacing: 5,
                                         ),
                                         itemBuilder: (context, i) {
-                                          final b = _search[i];
+                                          final stand = _search[i];
                                           return GestureDetector(
-                                            onTap: () async {
-                                              final prefs =
-                                                  await SharedPreferences
-                                                      .getInstance();
-                                              prefs.setString(
-                                                  'nama kantin', b.name);
+                                            onTap: () {
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           Menu(
-                                                            kantin: b,
+                                                            kantin: _list[1],
                                                           )));
                                             },
                                             child: Container(
@@ -1050,15 +1066,16 @@ class _KantinPageState extends State<KantinPage> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(5)),
-                                                    child: new Image.asset(
-                                                      'assets/images/menu.png',
+                                                    child: new Image.network(
+                                                      Api.image + stand.image,
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                   Container(
                                                     width: 114.w,
                                                     child: Text(
-                                                      'Dapur ' + b.name,
+                                                      'Dapur ' +
+                                                          stand.nama_stand,
                                                       maxLines: 2,
                                                       overflow:
                                                           TextOverflow.ellipsis,
@@ -1074,7 +1091,7 @@ class _KantinPageState extends State<KantinPage> {
                                                     width: 114.w,
                                                     child: Text(
                                                       'Kode: ' +
-                                                          b.id.toString(),
+                                                          stand.kode_stand,
                                                       style: TextStyle(
                                                         fontFamily:
                                                             'Gilroy-Light',
@@ -1087,7 +1104,7 @@ class _KantinPageState extends State<KantinPage> {
                                                   Container(
                                                     width: 114.w,
                                                     child: Text(
-                                                      'Makanan, Minuman, Gorengan, Snack',
+                                                      stand.jenis_stand,
                                                       maxLines: 2,
                                                       overflow:
                                                           TextOverflow.ellipsis,
@@ -1104,7 +1121,7 @@ class _KantinPageState extends State<KantinPage> {
                                                     width: 31.w,
                                                     height: 15.h,
                                                     decoration: BoxDecoration(
-                                                      color: b.id % 2 == 0
+                                                      color: stand.id % 2 == 0
                                                           ? Color.fromRGBO(
                                                               255, 217, 102, 1)
                                                           : Color.fromRGBO(
@@ -1115,9 +1132,7 @@ class _KantinPageState extends State<KantinPage> {
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        b.id % 2 == 0
-                                                            ? 'Buka'
-                                                            : 'Tutup',
+                                                        'Buka',
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-Light',
@@ -1133,7 +1148,7 @@ class _KantinPageState extends State<KantinPage> {
                                           );
                                         })
                                     : GridView.builder(
-                                        itemCount: _list.length,
+                                        itemCount: _stand.length,
                                         padding: EdgeInsets.all(10),
                                         gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
@@ -1143,7 +1158,7 @@ class _KantinPageState extends State<KantinPage> {
                                           mainAxisSpacing: 15.h,
                                         ),
                                         itemBuilder: (context, i) {
-                                          final a = _list[i];
+                                          final stand = _stand[i];
                                           return GestureDetector(
                                             onTap: () {
                                               Navigator.push(
@@ -1151,7 +1166,7 @@ class _KantinPageState extends State<KantinPage> {
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           Menu(
-                                                            kantin: a,
+                                                            kantin: _list[1],
                                                           )));
                                             },
                                             child: Container(
@@ -1187,15 +1202,16 @@ class _KantinPageState extends State<KantinPage> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(5)),
-                                                    child: new Image.asset(
-                                                      'assets/images/menu.png',
+                                                    child: new Image.network(
+                                                      Api.image + stand.image,
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                   Container(
                                                     width: 114.w,
                                                     child: Text(
-                                                      'Dapur ' + a.name,
+                                                      'Dapur ' +
+                                                          stand.nama_stand,
                                                       maxLines: 2,
                                                       overflow:
                                                           TextOverflow.ellipsis,
@@ -1211,7 +1227,7 @@ class _KantinPageState extends State<KantinPage> {
                                                     width: 114.w,
                                                     child: Text(
                                                       'Kode: ' +
-                                                          a.id.toString(),
+                                                          stand.kode_stand,
                                                       style: TextStyle(
                                                         fontFamily:
                                                             'Gilroy-Light',
@@ -1224,7 +1240,7 @@ class _KantinPageState extends State<KantinPage> {
                                                   Container(
                                                     width: 114.w,
                                                     child: Text(
-                                                      'Makanan, Minuman, Gorengan, Snack',
+                                                      stand.jenis_stand,
                                                       maxLines: 2,
                                                       overflow:
                                                           TextOverflow.ellipsis,
@@ -1241,7 +1257,7 @@ class _KantinPageState extends State<KantinPage> {
                                                     width: 31.w,
                                                     height: 15.h,
                                                     decoration: BoxDecoration(
-                                                      color: a.id % 2 == 0
+                                                      color: stand.id % 2 == 0
                                                           ? Color.fromRGBO(
                                                               255, 217, 102, 1)
                                                           : Color.fromRGBO(
@@ -1252,9 +1268,7 @@ class _KantinPageState extends State<KantinPage> {
                                                     ),
                                                     child: Center(
                                                       child: Text(
-                                                        a.id % 2 == 0
-                                                            ? 'Buka'
-                                                            : 'Tutup',
+                                                        'Buka',
                                                         style: TextStyle(
                                                           fontFamily:
                                                               'Gilroy-Light',

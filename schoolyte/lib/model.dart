@@ -14,6 +14,7 @@ class Api {
       'https://schoolyte.my.id/api/fasilitas/create';
   static String getBerita = 'https://schoolyte.my.id/api/berita';
   static String createBerita = 'https://schoolyte.my.id/api/berita/create';
+  static String getStand = 'https://schoolyte.my.id/api/stand';
 }
 
 class Siswa {
@@ -346,6 +347,34 @@ class Berita {
       judul: json['judul'],
       isi: json['isi'],
       tanggal: json['tanggal'],
+      image: json['image'],
+    );
+  }
+}
+
+class Stand {
+  final int id;
+  final String nama_stand;
+  final String jenis_stand;
+  final String kode_stand;
+  final String barcode_stand;
+  final String image;
+
+  Stand(
+      {required this.id,
+      required this.nama_stand,
+      required this.jenis_stand,
+      required this.kode_stand,
+      required this.barcode_stand,
+      required this.image});
+
+  factory Stand.formJson(Map<String, dynamic> json) {
+    return new Stand(
+      id: json['id'],
+      nama_stand: json['nama_stand'],
+      jenis_stand: json['jenis_stand'],
+      kode_stand: json['kode_stand'],
+      barcode_stand: json['barcode_stand'],
       image: json['image'],
     );
   }

@@ -116,6 +116,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
       var length = await image!.length();
       var uri = Uri.parse(Api.createAbsen);
       var request = http.MultipartRequest("POST", uri);
+      request.headers.addAll({"X-Requested-With": "XMLHttpRequest"});
       request.fields['siswa_id'] = profil.id.toString();
       request.fields['kelas_id'] = profil.kelas_id;
       request.fields['status_absen'] = dropdownvalue;
