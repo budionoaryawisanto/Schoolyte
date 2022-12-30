@@ -6,7 +6,7 @@ class Api {
   static String getAbsen = 'https://schoolyte.my.id/api/absensiswa';
   static String createAbsen = 'https://schoolyte.my.id/api/absensiswa/create';
   static String editAbsen = 'https://schoolyte.my.id/api/absensiswa/update/';
-  static String image = 'https://schoolyte.my.id/';
+  static String image = 'https://schoolyte.my.id/ ';
   static String getBook = 'https://schoolyte.my.id/api/buku';
   static String createBook = 'https://schoolyte.my.id/api/buku/create';
   static String getFasilitas = 'https://schoolyte.my.id/api/fasilitas';
@@ -15,6 +15,8 @@ class Api {
   static String getBerita = 'https://schoolyte.my.id/api/berita';
   static String createBerita = 'https://schoolyte.my.id/api/berita/create';
   static String getStand = 'https://schoolyte.my.id/api/stand';
+  static String createStand = 'https://schoolyte.my.id/api/stand/create';
+  static String getMenu = 'https://schoolyte.my.id/api/menu';
 }
 
 class Siswa {
@@ -375,6 +377,31 @@ class Stand {
       jenis_stand: json['jenis_stand'],
       kode_stand: json['kode_stand'],
       barcode_stand: json['barcode_stand'],
+      image: json['image'],
+    );
+  }
+}
+
+class Menu {
+  final int id;
+  final String stand_id;
+  final String nama_menu;
+  final String harga;
+  final String image;
+
+  Menu(
+      {required this.id,
+      required this.stand_id,
+      required this.nama_menu,
+      required this.harga,
+      required this.image});
+
+  factory Menu.formJson(Map<String, dynamic> json) {
+    return new Menu(
+      id: json['id'],
+      stand_id: json['stand_id'],
+      nama_menu: json['nama_menu'],
+      harga: json['harga'],
       image: json['image'],
     );
   }

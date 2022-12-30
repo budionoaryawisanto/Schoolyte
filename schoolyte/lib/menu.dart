@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:schoolyte/kantin.dart';
 import 'package:schoolyte/main.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -11,37 +12,37 @@ import 'package:schoolyte/scanner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'model.dart';
 
-class Menu extends StatefulWidget {
-  Test kantin;
-  Menu({required this.kantin});
+class DetailMenu extends StatefulWidget {
+  Stand kantin;
+  DetailMenu({required this.kantin});
   @override
-  _MenuState createState() => new _MenuState(kantin);
+  _DetailMenuState createState() => new _DetailMenuState(kantin);
 }
 
-class _MenuState extends State<Menu> {
-  List<Test> _list = [];
-
+class _DetailMenuState extends State<DetailMenu> {
+  List<Menu> _menu = [];
   var loading = false;
-  var count = 0;
+  var _count = [];
 
-  Future<Null> fetchData() async {
+  Future fetchData() async {
     setState(() {
       loading = true;
     });
-    _list.clear();
-    final response =
-        await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    _menu.clear();
+    final response = await http.get(Uri.parse(Api.getMenu));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
+      for (Map<String, dynamic> i in data) {
+        _menu.add(Menu.formJson(i));
+      }
+      _menu.forEach((menu) {
+        _count.add(0);
+      });
       setState(() {
-        for (Map<String, dynamic> i in data) {
-          _list.add(Test.formJson(i));
-          loading = false;
-        }
+        loading = false;
       });
     }
   }
-
 
   @override
   void initState() {
@@ -50,11 +51,12 @@ class _MenuState extends State<Menu> {
   }
 
   @override
-  Test kantin;
-  _MenuState(this.kantin);
+  Stand kantin;
+  _DetailMenuState(this.kantin);
 
   int saldo = 40000;
   int total = 30000;
+  var pay = false;
 
   String? _result;
 
@@ -63,6 +65,16 @@ class _MenuState extends State<Menu> {
         .pushNamedAndRemoveUntil('/scanner', (Route<dynamic> route) => false);
     _result = result as String?;
   }
+
+  convertToIdr(dynamic number, int decimalDigit) {
+    NumberFormat currencyFormatter = NumberFormat.currency(
+      locale: 'id',
+      symbol: 'Rp ',
+      decimalDigits: decimalDigit,
+    );
+    return currencyFormatter.format(number);
+  }
+
 
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -78,6 +90,41 @@ class _MenuState extends State<Menu> {
       home: SafeArea(
         child: Scaffold(
             backgroundColor: Color.fromRGBO(243, 243, 243, 1),
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(75),
+              child: AppBar(
+                backgroundColor: Colors.white,
+                title: Align(
+                  alignment: Alignment(-0.7, 0.0),
+                  child: Text(
+                    'Dapur ' +
+                        kantin.nama_stand +
+                        ', Kode : ${kantin.kode_stand}',
+                    style: TextStyle(
+                      fontFamily: 'Gilroy-ExtraBold',
+                      fontSize: 20,
+                      color: Color.fromRGBO(76, 81, 97, 1),
+                    ),
+                  ),
+                ),
+                elevation: 0.0,
+                iconTheme:
+                    IconThemeData(color: Color.fromRGBO(217, 217, 217, 1)),
+                leading: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Align(
+                    alignment: Alignment(1.0, 0.0),
+                    child: Icon(
+                      Icons.chevron_left_rounded,
+                      color: Color.fromRGBO(217, 217, 217, 1),
+                      size: 40,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             body: loading
                 ? Center(
                     child: CircularProgressIndicator(),
@@ -92,55 +139,8 @@ class _MenuState extends State<Menu> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          height: 50,
-                          margin: EdgeInsets.only(top: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Icon(
-                                  Icons.chevron_left,
-                                  color: Color.fromRGBO(76, 81, 97, 1),
-                                  size: 40,
-                                ),
-                              ),
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Dapur ' +
-                                        kantin.name +
-                                        ', Kode: ' +
-                                        kantin.id.toString(),
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-ExtraBold',
-                                      fontSize: 20,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                  Text(
-                                    'Makanan, Minuman, Gorengan, Snack',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-Light',
-                                      fontSize: 16,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.85,
+                          height: MediaQuery.of(context).size.height * 0.83,
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
@@ -152,7 +152,7 @@ class _MenuState extends State<Menu> {
                                     left: 65,
                                   ),
                                   child: Text(
-                                    'Makanan',
+                                    'Menu',
                                     style: TextStyle(
                                       fontFamily: 'Gilroy-ExtraBold',
                                       fontSize: 20,
@@ -162,7 +162,8 @@ class _MenuState extends State<Menu> {
                                 ),
                                 Container(
                                   width: MediaQuery.of(context).size.width,
-                                  height: 250,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.8,
                                   padding: EdgeInsets.symmetric(
                                     horizontal: 20,
                                     vertical: 5,
@@ -172,7 +173,7 @@ class _MenuState extends State<Menu> {
                                           child: CircularProgressIndicator(),
                                         )
                                       : GridView.builder(
-                                          itemCount: 6,
+                                          itemCount: _menu.length,
                                           gridDelegate:
                                               SliverGridDelegateWithMaxCrossAxisExtent(
                                             maxCrossAxisExtent: 217,
@@ -181,6 +182,7 @@ class _MenuState extends State<Menu> {
                                             crossAxisSpacing: 10,
                                           ),
                                           itemBuilder: (context, i) {
+                                            final menu = _menu[i];
                                             return Container(
                                               margin: EdgeInsets.all(5),
                                               decoration: BoxDecoration(
@@ -209,9 +211,9 @@ class _MenuState extends State<Menu> {
                                                           BorderRadius.circular(
                                                               5),
                                                     ),
-                                                    child: new Image.asset(
-                                                      'assets/images/mieayam.png',
-                                                      fit: BoxFit.fill,
+                                                    child: new Image.network(
+                                                      Api.image + menu.image,
+                                                      fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                   Column(
@@ -224,7 +226,7 @@ class _MenuState extends State<Menu> {
                                                         margin: EdgeInsets.only(
                                                             left: 15),
                                                         child: Text(
-                                                          'Mie Ayam',
+                                                          menu.nama_menu,
                                                           maxLines: 2,
                                                           overflow: TextOverflow
                                                               .ellipsis,
@@ -246,8 +248,11 @@ class _MenuState extends State<Menu> {
                                                         margin: EdgeInsets.only(
                                                             left: 15),
                                                         child: Text(
-                                                          'Rp.10.000',
-                                                          maxLines: 2,
+                                                          convertToIdr(
+                                                              int.parse(
+                                                                  menu.harga),
+                                                              0),
+                                                          maxLines: 1,
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                           style: TextStyle(
@@ -275,12 +280,24 @@ class _MenuState extends State<Menu> {
                                                               height: 40,
                                                               child: TextButton(
                                                                 onPressed: () {
-                                                                  setState(() {
-                                                                    if (count !=
+                                                                  if (_count[
+                                                                          i] >=
+                                                                      1) {
+                                                                    setState(
+                                                                        () {
+                                                                      _count[
+                                                                          i]--;
+                                                                    });
+                                                                    if (_count[
+                                                                            i] ==
                                                                         0) {
-                                                                      count--;
-                                                                    } else {}
-                                                                  });
+                                                                      setState(
+                                                                          () {
+                                                                        pay =
+                                                                            false;
+                                                                      });
+                                                                    }
+                                                                  }
                                                                 },
                                                                 child:
                                                                     Container(
@@ -318,7 +335,7 @@ class _MenuState extends State<Menu> {
                                                             ),
                                                             Container(
                                                               child: Text(
-                                                                count
+                                                                _count[i]
                                                                     .toString(),
                                                                 style:
                                                                     TextStyle(
@@ -334,465 +351,8 @@ class _MenuState extends State<Menu> {
                                                               child: TextButton(
                                                                 onPressed: () {
                                                                   setState(() {
-                                                                    count++;
-                                                                  });
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  width: 20,
-                                                                  height: 20,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      width: 1,
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              76,
-                                                                              81,
-                                                                              97,
-                                                                              1),
-                                                                    ),
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: Icon(
-                                                                      Icons.add,
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              76,
-                                                                              81,
-                                                                              97,
-                                                                              1),
-                                                                      size: 18,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                ),
-                                Container(
-                                  width: 150,
-                                  height: 29,
-                                  margin: EdgeInsets.only(
-                                    top: 25,
-                                    left: 65,
-                                  ),
-                                  child: Text(
-                                    'Minuman',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-ExtraBold',
-                                      fontSize: 20,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 250,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                    vertical: 5,
-                                  ),
-                                  child: loading
-                                      ? Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : GridView.builder(
-                                          itemCount: 6,
-                                          gridDelegate:
-                                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent: 217,
-                                            mainAxisExtent: 116,
-                                            mainAxisSpacing: 5,
-                                            crossAxisSpacing: 10,
-                                          ),
-                                          itemBuilder: (context, i) {
-                                            return Container(
-                                              margin: EdgeInsets.all(5),
-                                              decoration: BoxDecoration(
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black
-                                                        .withOpacity(0.3),
-                                                    spreadRadius: 0,
-                                                    blurRadius: 1.5,
-                                                    offset: Offset(0, 0),
-                                                  )
-                                                ],
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(7),
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    width: 89,
-                                                    height: 97,
-                                                    margin: EdgeInsets.only(
-                                                        left: 10),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                    ),
-                                                    child: new Image.asset(
-                                                      'assets/images/esteh.png',
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      Container(
-                                                        width: 80,
-                                                        margin: EdgeInsets.only(
-                                                            left: 15),
-                                                        child: Text(
-                                                          'Es Teh',
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-ExtraBold',
-                                                            fontSize: 13,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    76,
-                                                                    81,
-                                                                    97,
-                                                                    1),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        width: 80,
-                                                        margin: EdgeInsets.only(
-                                                            left: 15),
-                                                        child: Text(
-                                                          'Rp.3.000',
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 10,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    76,
-                                                                    81,
-                                                                    97,
-                                                                    1),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        width: 90,
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 40,
-                                                              height: 40,
-                                                              child: TextButton(
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    if (count !=
-                                                                        0) {
-                                                                      count--;
-                                                                    } else {}
-                                                                  });
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  width: 20,
-                                                                  height: 20,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      width: 1,
-                                                                      color: Colors
-                                                                          .black,
-                                                                    ),
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .remove,
-                                                                      color: Colors
-                                                                          .black,
-                                                                      size: 18,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              child: Text(
-                                                                count
-                                                                    .toString(),
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Gilroy-ExtraBold',
-                                                                  fontSize: 14,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 40,
-                                                              height: 40,
-                                                              child: TextButton(
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    count++;
-                                                                  });
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  width: 20,
-                                                                  height: 20,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      width: 1,
-                                                                      color: Colors
-                                                                          .black,
-                                                                    ),
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: Icon(
-                                                                      Icons.add,
-                                                                      color: Colors
-                                                                          .black,
-                                                                      size: 18,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                ),
-                                Container(
-                                  width: 150,
-                                  height: 29,
-                                  margin: EdgeInsets.only(
-                                    top: 25,
-                                    left: 65,
-                                  ),
-                                  child: Text(
-                                    'Jajanan',
-                                    style: TextStyle(
-                                      fontFamily: 'Gilroy-ExtraBold',
-                                      fontSize: 20,
-                                      color: Color.fromRGBO(76, 81, 97, 1),
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 250,
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 20,
-                                    vertical: 5,
-                                  ),
-                                  child: loading
-                                      ? Center(
-                                          child: CircularProgressIndicator(),
-                                        )
-                                      : GridView.builder(
-                                          itemCount: 6,
-                                          gridDelegate:
-                                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent: 217,
-                                            mainAxisExtent: 116,
-                                            mainAxisSpacing: 5,
-                                            crossAxisSpacing: 10,
-                                          ),
-                                          itemBuilder: (context, i) {
-                                            return Container(
-                                              margin: EdgeInsets.all(5),
-                                              decoration: BoxDecoration(
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black
-                                                        .withOpacity(0.3),
-                                                    spreadRadius: 0,
-                                                    blurRadius: 1.5,
-                                                    offset: Offset(0, 0),
-                                                  )
-                                                ],
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(7),
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    width: 89,
-                                                    height: 97,
-                                                    margin: EdgeInsets.only(
-                                                        left: 10),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                    ),
-                                                    child: new Image.asset(
-                                                      'assets/images/mieayam.png',
-                                                      fit: BoxFit.fill,
-                                                    ),
-                                                  ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: [
-                                                      Container(
-                                                        width: 80,
-                                                        margin: EdgeInsets.only(
-                                                            left: 15),
-                                                        child: Text(
-                                                          'Tahu Isi',
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-ExtraBold',
-                                                            fontSize: 13,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    76,
-                                                                    81,
-                                                                    97,
-                                                                    1),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        width: 80,
-                                                        margin: EdgeInsets.only(
-                                                            left: 15),
-                                                        child: Text(
-                                                          'Rp.2.000',
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 10,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    76,
-                                                                    81,
-                                                                    97,
-                                                                    1),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        width: 90,
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 40,
-                                                              height: 40,
-                                                              child: TextButton(
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    if (count !=
-                                                                        0) {
-                                                                      count--;
-                                                                    } else {}
-                                                                  });
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  width: 20,
-                                                                  height: 20,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      width: 1,
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              76,
-                                                                              81,
-                                                                              97,
-                                                                              1),
-                                                                    ),
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .remove,
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              76,
-                                                                              81,
-                                                                              97,
-                                                                              1),
-                                                                      size: 18,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              child: Text(
-                                                                count
-                                                                    .toString(),
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Gilroy-ExtraBold',
-                                                                  fontSize: 14,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 40,
-                                                              height: 40,
-                                                              child: TextButton(
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    count++;
+                                                                    _count[i]++;
+                                                                    pay = true;
                                                                   });
                                                                 },
                                                                 child:
@@ -846,7 +406,7 @@ class _MenuState extends State<Menu> {
                         Align(
                           alignment: Alignment(0.0, 1.0),
                           child: Visibility(
-                            visible: count > 0 ? true : false,
+                            visible: pay,
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.8,
                               height: 41,

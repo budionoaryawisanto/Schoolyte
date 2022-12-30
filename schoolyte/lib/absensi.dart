@@ -112,18 +112,21 @@ class _AbsensiPageState extends State<AbsensiPage> {
       loading = true;
     });
     try {
-      var stream = http.ByteStream(DelegatingStream(image!.openRead()));
+      var stream = new http.ByteStream(DelegatingStream(image!.openRead()));
+      stream.cast();
       var length = await image!.length();
       var uri = Uri.parse(Api.createAbsen);
-      var request = http.MultipartRequest("POST", uri);
-      request.headers.addAll({"X-Requested-With": "XMLHttpRequest"});
+      var request = new http.MultipartRequest("POST", uri);
+      request.headers.addAll({
+        "X-Requested-With": "XMLHttpRequest",
+        "Content-Type": "appication/json"
+      });
       request.fields['siswa_id'] = profil.id.toString();
       request.fields['kelas_id'] = profil.kelas_id;
       request.fields['status_absen'] = dropdownvalue;
       request.fields['tgl_absen'] = tglAbsen.toString();
       request.fields['wkt_absen'] = waktuAbsen.toString();
-      request.files.add(http.MultipartFile("image", stream, length,
-          filename: path.basename(image!.path)));
+      request.files.add(http.MultipartFile("image", stream, length));
       var response = await request.send();
       print(response.statusCode);
       if (response.statusCode == 200) {

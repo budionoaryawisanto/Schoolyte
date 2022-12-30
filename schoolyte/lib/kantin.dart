@@ -1029,8 +1029,8 @@ class _KantinPageState extends State<KantinPage> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          Menu(
-                                                            kantin: _list[1],
+                                                          DetailMenu(
+                                                            kantin: stand,
                                                           )));
                                             },
                                             child: Container(
@@ -1165,8 +1165,8 @@ class _KantinPageState extends State<KantinPage> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          Menu(
-                                                            kantin: _list[1],
+                                                          DetailMenu(
+                                                            kantin: stand,
                                                           )));
                                             },
                                             child: Container(
