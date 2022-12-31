@@ -17,6 +17,10 @@ class Api {
   static String getStand = 'https://schoolyte.my.id/api/stand';
   static String createStand = 'https://schoolyte.my.id/api/stand/create';
   static String getMenu = 'https://schoolyte.my.id/api/menu';
+  static String updateSaldo = 'https://schoolyte.my.id/api/pembayaran-kantin/';
+  static String getPesanan = 'https://schoolyte.my.id/api/pesan-kantin';
+  static String createPesanan =
+      'https://schoolyte.my.id/api/pesan-kantin/create';
 }
 
 class Siswa {
@@ -403,6 +407,46 @@ class Menu {
       nama_menu: json['nama_menu'],
       harga: json['harga'],
       image: json['image'],
+    );
+  }
+}
+
+class Pesanan {
+  final int id;
+  final String user_id;
+  final String stand_id;
+  final String menu_id;
+  final String no_pemesanan;
+  final String tgl_pemesanan;
+  final String jumlah;
+  final String status;
+  final String total;
+  final String nama_pemesanan;
+
+  Pesanan(
+      {required this.id,
+      required this.user_id,
+      required this.stand_id,
+      required this.menu_id,
+      required this.no_pemesanan,
+      required this.tgl_pemesanan,
+      required this.jumlah,
+      required this.status,
+      required this.total,
+      required this.nama_pemesanan});
+
+  factory Pesanan.formJson(Map<String, dynamic> json) {
+    return new Pesanan(
+      id: json['id'],
+      user_id: json['user_id'],
+      stand_id: json['stand_id'],
+      menu_id: json['menu_id'],
+      no_pemesanan: json['no_pemesanan'],
+      tgl_pemesanan: json['tgl_pemesanan'],
+      jumlah: json['jumlah'],
+      status: json['status'],
+      total: json['total'],
+      nama_pemesanan: json['nama_pemesanan'],
     );
   }
 }

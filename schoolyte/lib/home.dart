@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:schoolyte/fasilitasAdmin.dart';
 import 'package:schoolyte/jadwalAdmin.dart';
 import 'package:schoolyte/jadwalGuru.dart';
+import 'package:schoolyte/kantinAdmin.dart';
 import 'package:schoolyte/laporanKeuangan.dart';
 import 'package:schoolyte/raporAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -274,6 +275,17 @@ class _HomePageState extends State<HomePage> {
     } else {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => BeritaPage()));
+    }
+  }
+
+  navigasiKantin() {
+    if (statusUser.toLowerCase() == 'pegawai kantin' ||
+        status.toLowerCase() == 'admin') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => KantinAdmin()));
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => KantinPage()));
     }
   }
 
@@ -591,10 +603,7 @@ class _HomePageState extends State<HomePage> {
                               color: Color.fromRGBO(76, 81, 91, 1)),
                         ),
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => KantinPage()));
+                          navigasiKantin();
                         },
                       ),
                     ),
@@ -1262,11 +1271,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      KantinPage()));
+                                          navigasiKantin();
                                         },
                                         child: Container(
                                           width: 57.w,

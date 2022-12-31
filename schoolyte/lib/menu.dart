@@ -21,14 +21,18 @@ class DetailMenu extends StatefulWidget {
 
 class _DetailMenuState extends State<DetailMenu> {
   List<Menu> _menu = [];
+  List<Menu> _menuKantin = [];
   var loading = false;
   var _count = [];
+  List<Menu> menuOrder = [];
+  var jumlahItem;
 
   Future fetchData() async {
     setState(() {
       loading = true;
     });
     _menu.clear();
+    _menuKantin.clear();
     final response = await http.get(Uri.parse(Api.getMenu));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
@@ -36,7 +40,10 @@ class _DetailMenuState extends State<DetailMenu> {
         _menu.add(Menu.formJson(i));
       }
       _menu.forEach((menu) {
-        _count.add(0);
+        if (menu.stand_id == kantin.id.toString()) {
+          _count.add(0);
+          _menuKantin.add(menu);
+        }
       });
       setState(() {
         loading = false;
@@ -53,9 +60,7 @@ class _DetailMenuState extends State<DetailMenu> {
   @override
   Stand kantin;
   _DetailMenuState(this.kantin);
-
-  int saldo = 40000;
-  int total = 30000;
+  var total = 0;
   var pay = false;
 
   String? _result;
@@ -74,7 +79,6 @@ class _DetailMenuState extends State<DetailMenu> {
     );
     return currencyFormatter.format(number);
   }
-
 
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -96,15 +100,29 @@ class _DetailMenuState extends State<DetailMenu> {
                 backgroundColor: Colors.white,
                 title: Align(
                   alignment: Alignment(-0.7, 0.0),
-                  child: Text(
-                    'Dapur ' +
-                        kantin.nama_stand +
-                        ', Kode : ${kantin.kode_stand}',
-                    style: TextStyle(
-                      fontFamily: 'Gilroy-ExtraBold',
-                      fontSize: 20,
-                      color: Color.fromRGBO(76, 81, 97, 1),
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Dapur ' +
+                            kantin.nama_stand +
+                            ', Kode : ${kantin.kode_stand}',
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-ExtraBold',
+                          fontSize: 20,
+                          color: Color.fromRGBO(76, 81, 97, 1),
+                        ),
+                      ),
+                      Text(
+                        kantin.jenis_stand,
+                        style: TextStyle(
+                          fontFamily: 'Gilroy-Light',
+                          fontSize: 16,
+                          color: Color.fromRGBO(76, 81, 97, 1),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 elevation: 0.0,
@@ -172,232 +190,265 @@ class _DetailMenuState extends State<DetailMenu> {
                                       ? Center(
                                           child: CircularProgressIndicator(),
                                         )
-                                      : GridView.builder(
-                                          itemCount: _menu.length,
-                                          gridDelegate:
-                                              SliverGridDelegateWithMaxCrossAxisExtent(
-                                            maxCrossAxisExtent: 217,
-                                            mainAxisExtent: 116,
-                                            mainAxisSpacing: 5,
-                                            crossAxisSpacing: 10,
-                                          ),
-                                          itemBuilder: (context, i) {
-                                            final menu = _menu[i];
-                                            return Container(
-                                              margin: EdgeInsets.all(5),
-                                              decoration: BoxDecoration(
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black
-                                                        .withOpacity(0.3),
-                                                    spreadRadius: 0,
-                                                    blurRadius: 1.5,
-                                                    offset: Offset(0, 0),
-                                                  )
-                                                ],
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(7),
+                                      : _menuKantin.length == 0
+                                          ? Center(
+                                              child: Text(
+                                                'Menu Kosong !',
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        'Gilroy-ExtraBold',
+                                                    fontSize: 20),
                                               ),
-                                              child: Row(
-                                                children: [
-                                                  Container(
-                                                    width: 89,
-                                                    height: 97,
-                                                    margin: EdgeInsets.only(
-                                                        left: 10),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                    ),
-                                                    child: new Image.network(
-                                                      Api.image + menu.image,
-                                                      fit: BoxFit.cover,
-                                                    ),
+                                            )
+                                          : GridView.builder(
+                                              itemCount: _menuKantin.length,
+                                              gridDelegate:
+                                                  SliverGridDelegateWithMaxCrossAxisExtent(
+                                                maxCrossAxisExtent: 217,
+                                                mainAxisExtent: 116,
+                                                mainAxisSpacing: 5,
+                                                crossAxisSpacing: 10,
+                                              ),
+                                              itemBuilder: (context, i) {
+                                                final menu = _menuKantin[i];
+                                                return Container(
+                                                  margin: EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: Colors.black
+                                                            .withOpacity(0.3),
+                                                        spreadRadius: 0,
+                                                        blurRadius: 1.5,
+                                                        offset: Offset(0, 0),
+                                                      )
+                                                    ],
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            7),
                                                   ),
-                                                  Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
+                                                  child: Row(
                                                     children: [
                                                       Container(
-                                                        width: 80,
+                                                        width: 89,
+                                                        height: 97,
                                                         margin: EdgeInsets.only(
-                                                            left: 15),
-                                                        child: Text(
-                                                          menu.nama_menu,
-                                                          maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-ExtraBold',
-                                                            fontSize: 13,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    76,
-                                                                    81,
-                                                                    97,
-                                                                    1),
-                                                          ),
+                                                            left: 10),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                        ),
+                                                        child:
+                                                            new Image.network(
+                                                          Api.image +
+                                                              menu.image,
+                                                          fit: BoxFit.cover,
                                                         ),
                                                       ),
-                                                      Container(
-                                                        width: 80,
-                                                        margin: EdgeInsets.only(
-                                                            left: 15),
-                                                        child: Text(
-                                                          convertToIdr(
-                                                              int.parse(
-                                                                  menu.harga),
-                                                              0),
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-Light',
-                                                            fontSize: 10,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    76,
-                                                                    81,
-                                                                    97,
-                                                                    1),
+                                                      Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          Container(
+                                                            width: 80,
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 15),
+                                                            child: Text(
+                                                              menu.nama_menu,
+                                                              maxLines: 2,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Gilroy-ExtraBold',
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromRGBO(
+                                                                        76,
+                                                                        81,
+                                                                        97,
+                                                                        1),
+                                                              ),
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        width: 90,
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            SizedBox(
-                                                              width: 40,
-                                                              height: 40,
-                                                              child: TextButton(
-                                                                onPressed: () {
-                                                                  if (_count[
-                                                                          i] >=
-                                                                      1) {
-                                                                    setState(
+                                                          Container(
+                                                            width: 80,
+                                                            margin:
+                                                                EdgeInsets.only(
+                                                                    left: 15),
+                                                            child: Text(
+                                                              convertToIdr(
+                                                                  int.parse(menu
+                                                                      .harga),
+                                                                  0),
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Gilroy-Light',
+                                                                fontSize: 10,
+                                                                color: Color
+                                                                    .fromRGBO(
+                                                                        76,
+                                                                        81,
+                                                                        97,
+                                                                        1),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            width: 90,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                SizedBox(
+                                                                  width: 40,
+                                                                  height: 40,
+                                                                  child:
+                                                                      TextButton(
+                                                                    onPressed:
                                                                         () {
-                                                                      _count[
-                                                                          i]--;
-                                                                    });
-                                                                    if (_count[
-                                                                            i] ==
-                                                                        0) {
+                                                                      if (_count[
+                                                                              i] >=
+                                                                          1) {
+                                                                        setState(
+                                                                            () {
+                                                                          _count[
+                                                                              i]--;
+                                                                          total =
+                                                                              total - int.parse(menu.harga);
+                                                                          jumlahItem =
+                                                                              _count[i];
+                                                                        });
+                                                                      } else {
+                                                                        menuOrder
+                                                                            .clear();
+                                                                      }
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width: 20,
+                                                                      height:
+                                                                          20,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        border:
+                                                                            Border.all(
+                                                                          width:
+                                                                              1,
+                                                                          color: Color.fromRGBO(
+                                                                              76,
+                                                                              81,
+                                                                              97,
+                                                                              1),
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .remove,
+                                                                          color: Color.fromRGBO(
+                                                                              76,
+                                                                              81,
+                                                                              97,
+                                                                              1),
+                                                                          size:
+                                                                              18,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  child: Text(
+                                                                    _count[i]
+                                                                        .toString(),
+                                                                    style:
+                                                                        TextStyle(
+                                                                      fontFamily:
+                                                                          'Gilroy-ExtraBold',
+                                                                      fontSize:
+                                                                          14,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  width: 40,
+                                                                  height: 40,
+                                                                  child:
+                                                                      TextButton(
+                                                                    onPressed:
+                                                                        () {
                                                                       setState(
                                                                           () {
-                                                                        pay =
-                                                                            false;
+                                                                        _count[
+                                                                            i]++;
+                                                                        total = total +
+                                                                            int.parse(menu.harga);
+                                                                        menuOrder
+                                                                            .add(menu);
+                                                                        jumlahItem =
+                                                                            _count[i];
                                                                       });
-                                                                    }
-                                                                  }
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  width: 20,
-                                                                  height: 20,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      width: 1,
-                                                                      color: Color
-                                                                          .fromRGBO(
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width: 20,
+                                                                      height:
+                                                                          20,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        border:
+                                                                            Border.all(
+                                                                          width:
+                                                                              1,
+                                                                          color: Color.fromRGBO(
                                                                               76,
                                                                               81,
                                                                               97,
                                                                               1),
-                                                                    ),
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .remove,
-                                                                      color: Color
-                                                                          .fromRGBO(
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .add,
+                                                                          color: Color.fromRGBO(
                                                                               76,
                                                                               81,
                                                                               97,
                                                                               1),
-                                                                      size: 18,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              child: Text(
-                                                                _count[i]
-                                                                    .toString(),
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Gilroy-ExtraBold',
-                                                                  fontSize: 14,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            SizedBox(
-                                                              width: 40,
-                                                              height: 40,
-                                                              child: TextButton(
-                                                                onPressed: () {
-                                                                  setState(() {
-                                                                    _count[i]++;
-                                                                    pay = true;
-                                                                  });
-                                                                },
-                                                                child:
-                                                                    Container(
-                                                                  width: 20,
-                                                                  height: 20,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      width: 1,
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              76,
-                                                                              81,
-                                                                              97,
-                                                                              1),
-                                                                    ),
-                                                                  ),
-                                                                  child: Center(
-                                                                    child: Icon(
-                                                                      Icons.add,
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              76,
-                                                                              81,
-                                                                              97,
-                                                                              1),
-                                                                      size: 18,
+                                                                          size:
+                                                                              18,
+                                                                        ),
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ),
-                                                              ),
+                                                              ],
                                                             ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ],
                                                   ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        ),
+                                                );
+                                              },
+                                            ),
                                 ),
                               ],
                             ),
@@ -406,7 +457,7 @@ class _DetailMenuState extends State<DetailMenu> {
                         Align(
                           alignment: Alignment(0.0, 1.0),
                           child: Visibility(
-                            visible: pay,
+                            visible: total > 0 ? true : false,
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.8,
                               height: 41,
@@ -434,7 +485,7 @@ class _DetailMenuState extends State<DetailMenu> {
                                       Container(
                                         margin: EdgeInsets.only(right: 20),
                                         child: Text(
-                                          'Rp. ' + total.toString(),
+                                          convertToIdr(total, 0),
                                           style: TextStyle(
                                             fontFamily: 'Gilroy-ExtraBold',
                                             fontSize: 16,
@@ -448,7 +499,12 @@ class _DetailMenuState extends State<DetailMenu> {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Pembayaran()));
+                                                      Pembayaran(
+                                                        stand: kantin,
+                                                        menu: menuOrder,
+                                                        count: jumlahItem,
+                                                        total: total,
+                                                      )));
                                         },
                                         child: Container(
                                           width: 99,
