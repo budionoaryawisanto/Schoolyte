@@ -317,6 +317,7 @@ class _HomePageState extends State<HomePage> {
                     margin: EdgeInsetsDirectional.only(end: 10),
                     child: TextButton(
                       onPressed: () {
+                        print(Api.image + profil.image);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

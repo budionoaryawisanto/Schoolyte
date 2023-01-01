@@ -275,7 +275,7 @@ class _KartuDigitalState extends State<KartuDigital> {
                                                   status.toLowerCase() == 'guru'
                                                       ? profil.nip
                                                       : status.toLowerCase() ==
-                                                              'guru'
+                                                              'siswa'
                                                           ? profil.nis
                                                           : profil.nik,
                                               version: QrVersions.auto,

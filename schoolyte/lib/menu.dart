@@ -330,9 +330,14 @@ class _DetailMenuState extends State<DetailMenu> {
                                                                           jumlahItem =
                                                                               _count[i];
                                                                         });
-                                                                      } else {
-                                                                        menuOrder
-                                                                            .clear();
+                                                                      } else if (_count[
+                                                                              i] <=
+                                                                          1) {
+                                                                        setState(
+                                                                            () {
+                                                                          menuOrder
+                                                                              .clear();
+                                                                        });
                                                                       }
                                                                     },
                                                                     child:
@@ -393,6 +398,8 @@ class _DetailMenuState extends State<DetailMenu> {
                                                                         () {
                                                                       setState(
                                                                           () {
+                                                                        menuOrder
+                                                                            .clear();
                                                                         _count[
                                                                             i]++;
                                                                         total = total +

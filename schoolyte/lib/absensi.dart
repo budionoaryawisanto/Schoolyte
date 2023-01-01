@@ -1126,7 +1126,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                                     lastDate: DateTime.now(),
                                     selectableDayPredicate: (date) {
                                       if (date.weekday == 6 ||
-                                          date.weekday == 7) {
+                                          date.weekday == 5) {
                                         return false;
                                       }
                                       return true;

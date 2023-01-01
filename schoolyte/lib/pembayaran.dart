@@ -136,8 +136,13 @@ class _PembayaranState extends State<Pembayaran> {
     request.fields['status'] = 'belum';
     request.fields['total'] = total.toString();
     request.fields['nama_pemesanan'] = profil.nama;
+    request.fields['jumlah'] = count.toString();
+    request.fields['nama_stand'] = stand.nama_stand;
+    request.fields['nama_menu'] = menu[0].nama_menu;
+    request.fields['kode_stand'] = stand.kode_stand;
 
     var response = await request.send();
+    print(response.statusCode);
     if (response.statusCode == 200) {
       updateSaldo();
     } else {
@@ -149,24 +154,26 @@ class _PembayaranState extends State<Pembayaran> {
   }
 
   updateSaldo() async {
-    var uri = Uri.parse(Api.updateSaldo + profil.id.toString());
-    var request = new http.MultipartRequest("POST", uri);
-    request.headers.addAll({
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "appication/json"
-    });
-    request.fields['saldo'] = (int.parse(profil.saldo) - total).toString();
-    var response = await request.send();
-    if (response.statusCode == 200) {
-      setState(() {
-        loading = false;
+    if (status.toLowerCase() == 'siswa') {
+      var uri = Uri.parse(Api.updateSaldoSiswa + profil.id.toString());
+      var request = new http.MultipartRequest("POST", uri);
+      request.headers.addAll({
+        "X-Requested-With": "XMLHttpRequest",
+        "Content-Type": "appication/json"
       });
-      sucsess();
-    } else {
-      failed();
-      setState(() {
-        loading = false;
-      });
+      request.fields['saldo'] = (int.parse(profil.saldo) - total).toString();
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        setState(() {
+          loading = false;
+        });
+        sucsess();
+      } else {
+        failed();
+        setState(() {
+          loading = false;
+        });
+      }
     }
   }
 
@@ -439,7 +446,7 @@ class _PembayaranState extends State<Pembayaran> {
                                               width: 82,
                                               height: 83,
                                               child: new Image.network(
-                                                menu[i].image,
+                                                Api.image + menu[i].image,
                                                 fit: BoxFit.cover,
                                               ),
                                             ),

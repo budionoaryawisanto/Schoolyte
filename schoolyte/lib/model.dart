@@ -6,7 +6,7 @@ class Api {
   static String getAbsen = 'https://schoolyte.my.id/api/absensiswa';
   static String createAbsen = 'https://schoolyte.my.id/api/absensiswa/create';
   static String editAbsen = 'https://schoolyte.my.id/api/absensiswa/update/';
-  static String image = 'https://schoolyte.my.id/ ';
+  static String image = 'https://schoolyte.my.id/';
   static String getBook = 'https://schoolyte.my.id/api/buku';
   static String createBook = 'https://schoolyte.my.id/api/buku/create';
   static String getFasilitas = 'https://schoolyte.my.id/api/fasilitas';
@@ -17,10 +17,16 @@ class Api {
   static String getStand = 'https://schoolyte.my.id/api/stand';
   static String createStand = 'https://schoolyte.my.id/api/stand/create';
   static String getMenu = 'https://schoolyte.my.id/api/menu';
-  static String updateSaldo = 'https://schoolyte.my.id/api/pembayaran-kantin/';
+  static String updateSaldoSiswa =
+      'https://schoolyte.my.id/api/pembayaran-kantin/';
+  static String updateSaldoGuru =
+      'https://schoolyte.my.id/api/pembayaran-kantin-guru/';
   static String getPesanan = 'https://schoolyte.my.id/api/pesan-kantin';
   static String createPesanan =
       'https://schoolyte.my.id/api/pesan-kantin/create';
+  static String getRiwayat = 'https://schoolyte.my.id/api/selesai-kantin';
+  static String createRiwayat =
+      'https://schoolyte.my.id/api/selesai-kantin/create';
 }
 
 class Siswa {
@@ -418,6 +424,9 @@ class Pesanan {
   final String menu_id;
   final String no_pemesanan;
   final String tgl_pemesanan;
+  final String nama_stand;
+  final String nama_menu;
+  final String kode_stand;
   final String jumlah;
   final String status;
   final String total;
@@ -430,6 +439,9 @@ class Pesanan {
       required this.menu_id,
       required this.no_pemesanan,
       required this.tgl_pemesanan,
+      required this.nama_stand,
+      required this.nama_menu,
+      required this.kode_stand,
       required this.jumlah,
       required this.status,
       required this.total,
@@ -443,6 +455,58 @@ class Pesanan {
       menu_id: json['menu_id'],
       no_pemesanan: json['no_pemesanan'],
       tgl_pemesanan: json['tgl_pemesanan'],
+      nama_stand: json['nama_stand'],
+      nama_menu: json['nama_menu'],
+      kode_stand: json['kode_stand'],
+      jumlah: json['jumlah'],
+      status: json['status'],
+      total: json['total'],
+      nama_pemesanan: json['nama_pemesanan'],
+    );
+  }
+}
+
+class RiwayatPesanan {
+  final int id;
+  final String user_id;
+  final String stand_id;
+  final String menu_id;
+  final String no_pemesanan;
+  final String tgl_pemesanan;
+  final String nama_stand;
+  final String nama_menu;
+  final String kode_stand;
+  final String jumlah;
+  final String status;
+  final String total;
+  final String nama_pemesanan;
+
+  RiwayatPesanan(
+      {required this.id,
+      required this.user_id,
+      required this.stand_id,
+      required this.menu_id,
+      required this.no_pemesanan,
+      required this.tgl_pemesanan,
+      required this.nama_stand,
+      required this.nama_menu,
+      required this.kode_stand,
+      required this.jumlah,
+      required this.status,
+      required this.total,
+      required this.nama_pemesanan});
+
+  factory RiwayatPesanan.formJson(Map<String, dynamic> json) {
+    return new RiwayatPesanan(
+      id: json['id'],
+      user_id: json['user_id'],
+      stand_id: json['stand_id'],
+      menu_id: json['menu_id'],
+      no_pemesanan: json['no_pemesanan'],
+      tgl_pemesanan: json['tgl_pemesanan'],
+      nama_stand: json['nama_stand'],
+      nama_menu: json['nama_menu'],
+      kode_stand: json['kode_stand'],
       jumlah: json['jumlah'],
       status: json['status'],
       total: json['total'],
