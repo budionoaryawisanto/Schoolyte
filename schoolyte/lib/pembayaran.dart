@@ -122,27 +122,23 @@ class _PembayaranState extends State<Pembayaran> {
     var randomizer = new Random();
     var rNum = min + randomizer.nextInt(max - min);
     var uri = Uri.parse(Api.createPesanan);
-    var request = new http.MultipartRequest("POST", uri);
-    request.headers.addAll({
-      "X-Requested-With": "XMLHttpRequest",
-      "Content-Type": "appication/json"
+    var request = http.MultipartRequest('POST', uri);
+    request.fields.addAll({
+      'user_id': profil.id.toString(),
+      'stand_id': stand.id.toString(),
+      'menu_id': menu[0].id.toString(),
+      'no_pemesanan': rNum.toString(),
+      'tgl_pemesanan': DateFormat('yyyy-M-d').format(DateTime.now()).toString(),
+      'status': 'belum',
+      'total': total.toString(),
+      'nama_pemesanan': profil.nama,
+      'jumlah': count.toString(),
+      'nama_stand': stand.nama_stand,
+      'nama_menu': menu[0].nama_menu,
+      'kode_stand': stand.kode_stand
     });
-    request.fields['user_id'] = profil.id.toString();
-    request.fields['stand_id'] = stand.id.toString();
-    request.fields['menu_id'] = menu[0].toString();
-    request.fields['no_pemesanan'] = rNum.toString();
-    request.fields['tgl_pemesanan'] =
-        DateFormat('yyyy-M-d').format(DateTime.now()).toString();
-    request.fields['status'] = 'belum';
-    request.fields['total'] = total.toString();
-    request.fields['nama_pemesanan'] = profil.nama;
-    request.fields['jumlah'] = count.toString();
-    request.fields['nama_stand'] = stand.nama_stand;
-    request.fields['nama_menu'] = menu[0].nama_menu;
-    request.fields['kode_stand'] = stand.kode_stand;
 
-    var response = await request.send();
-    print(response.statusCode);
+http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       updateSaldo();
     } else {
@@ -155,13 +151,10 @@ class _PembayaranState extends State<Pembayaran> {
 
   updateSaldo() async {
     if (status.toLowerCase() == 'siswa') {
-      var uri = Uri.parse(Api.updateSaldoSiswa + profil.id.toString());
-      var request = new http.MultipartRequest("POST", uri);
-      request.headers.addAll({
-        "X-Requested-With": "XMLHttpRequest",
-        "Content-Type": "appication/json"
-      });
-      request.fields['saldo'] = (int.parse(profil.saldo) - total).toString();
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Api.updateSaldoSiswa + profil.id.toString()));
+      request.fields
+          .addAll({'saldo': (int.parse(profil.saldo) - total).toString()});
       var response = await request.send();
       if (response.statusCode == 200) {
         setState(() {

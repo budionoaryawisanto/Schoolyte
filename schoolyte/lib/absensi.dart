@@ -111,96 +111,89 @@ class _AbsensiPageState extends State<AbsensiPage> {
     setState(() {
       loading = true;
     });
-    try {
-      var stream = new http.ByteStream(DelegatingStream(image!.openRead()));
-      stream.cast();
-      var length = await image!.length();
-      var uri = Uri.parse(Api.createAbsen);
-      var request = new http.MultipartRequest("POST", uri);
-      request.headers.addAll({
-        "X-Requested-With": "XMLHttpRequest",
-        "Content-Type": "appication/json"
+    var stream = new http.ByteStream(DelegatingStream(image!.openRead()));
+    stream.cast();
+    var length = await image!.length();
+    var request = http.MultipartRequest('POST', Uri.parse(Api.createAbsen));
+    request.fields.addAll({
+      'siswa_id': profil.id.toString(),
+      'kelas_id': profil.kelas_id,
+      'status_absen': dropdownvalue,
+      'tgl_absen': tglAbsen.toString(),
+      'wkt_absen': waktuAbsen,
+    });
+    request.files.add(await http.MultipartFile.fromPath("image", image!.path));
+    http.StreamedResponse response = await request.send();
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      setState(() {
+        loading = false;
       });
-      request.fields['siswa_id'] = profil.id.toString();
-      request.fields['kelas_id'] = profil.kelas_id;
-      request.fields['status_absen'] = dropdownvalue;
-      request.fields['tgl_absen'] = tglAbsen.toString();
-      request.fields['wkt_absen'] = waktuAbsen.toString();
-      request.files.add(http.MultipartFile("image", stream, length));
-      var response = await request.send();
-      print(response.statusCode);
-      if (response.statusCode == 200) {
-        setState(() {
-          loading = false;
-        });
-        showDialog(
-            barrierDismissible: false,
-            context: context,
-            builder: (context) {
-              return Dialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(14),
-                ),
-                child: Container(
-                  height: 357,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 177,
-                        height: 177,
-                        child: Image.asset(
-                          'assets/images/dialog.png',
-                          fit: BoxFit.fill,
-                        ),
+      showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (context) {
+            return Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Container(
+                height: 357,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 177,
+                      height: 177,
+                      child: Image.asset(
+                        'assets/images/dialog.png',
+                        fit: BoxFit.fill,
                       ),
-                      Text(
-                        'Absen Sukses',
-                        style: TextStyle(
-                          fontFamily: 'Gilroy-ExtraBold',
-                          fontSize: 32,
-                        ),
+                    ),
+                    Text(
+                      'Absen Sukses',
+                      style: TextStyle(
+                        fontFamily: 'Gilroy-ExtraBold',
+                        fontSize: 32,
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()));
-                        },
-                        child: Container(
-                          width: 107,
-                          height: 43,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Color.fromRGBO(119, 115, 205, 1),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'OK',
-                              style: TextStyle(
-                                fontFamily: 'Gilroy-Light',
-                                fontSize: 20,
-                                color: Colors.white,
-                              ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomePage()));
+                      },
+                      child: Container(
+                        width: 107,
+                        height: 43,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Color.fromRGBO(119, 115, 205, 1),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'OK',
+                            style: TextStyle(
+                              fontFamily: 'Gilroy-Light',
+                              fontSize: 20,
+                              color: Colors.white,
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              );
-            });
-      } else {
-        failed();
-        setState(() {
-          loading = false;
-        });
-      }
-    } catch (e) {
-      debugPrint("Error $e");
+              ),
+            );
+          });
+    } else {
+      failed();
+      setState(() {
+        loading = false;
+      });
     }
   }
 

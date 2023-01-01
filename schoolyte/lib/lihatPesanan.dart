@@ -55,6 +55,7 @@ class _LihatPesananState extends State<LihatPesanan> {
       setState(() {
         loading = false;
       });
+      await fetchDataMenu();
     }
   }
 
@@ -92,6 +93,7 @@ class _LihatPesananState extends State<LihatPesanan> {
       setState(() {
         loadingPesanan = false;
       });
+      await fetchDataRiwayat();
     }
   }
 
@@ -146,6 +148,7 @@ class _LihatPesananState extends State<LihatPesanan> {
       setState(() {
         loadingMenu = false;
       });
+      await fetchDataPesanan();
     }
   }
 
@@ -239,24 +242,34 @@ class _LihatPesananState extends State<LihatPesanan> {
     }
   }
 
-
   @override
   void initState() {
     super.initState();
-    fetchDataStand();
-    fetchDataMenu();
     fetchDataSiswa();
     fetchDataGuru();
     fetchDataAdmin();
-    fetchDataPesanan();
-    fetchDataRiwayat();
+    fetchDataStand();
   }
 
-  _logOut() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool('slogin', false);
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+  updateData(Pesanan pesananUser) async {
+    setState(() {
+      loading = true;
+    });
+    var request = http.MultipartRequest(
+        'POST', Uri.parse(Api.getPesanan + pesananUser.id.toString()));
+    request.fields.addAll({'status': 'Selesai'});
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      setState(() {
+        loading = false;
+      });
+      sucsess();
+    } else {
+      failed();
+      setState(() {
+        loading = false;
+      });
+    }
   }
 
   konfirmasi() {
@@ -344,6 +357,129 @@ class _LihatPesananState extends State<LihatPesanan> {
                           ),
                         ),
                       ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  failed() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Container(
+              height: 357,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 177,
+                    height: 177,
+                    child: Image.asset(
+                      'assets/images/alertDialog.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Text(
+                    'Gagal',
+                    style: TextStyle(
+                      fontFamily: 'Gilroy-ExtraBold',
+                      fontSize: 32,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: 107,
+                      height: 43,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Color.fromRGBO(242, 78, 26, 1),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'OK',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Light',
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  sucsess() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Container(
+              height: 357,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 177,
+                    height: 177,
+                    child: Image.asset(
+                      'assets/images/dialog.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Text(
+                    'Sukses',
+                    style: TextStyle(
+                      fontFamily: 'Gilroy-ExtraBold',
+                      fontSize: 32,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LihatPesanan()));
+                    },
+                    child: Container(
+                      width: 107,
+                      height: 43,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5),
+                        color: Color.fromRGBO(119, 115, 205, 1),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'OK',
+                          style: TextStyle(
+                            fontFamily: 'Gilroy-Light',
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -441,13 +577,13 @@ class _LihatPesananState extends State<LihatPesanan> {
                         width: 490.w,
                         height: 980.h * 0.84,
                         color: Color.fromRGBO(243, 243, 243, 1),
-                        child: loadingPesanan
-                            ? Center(
-                                child: CircularProgressIndicator(
-                                    color: Color.fromRGBO(76, 81, 97, 1)),
-                              )
-                            : _pesananUser.length == 0
-                                ? Container()
+                        child: Stack(
+                          children: [
+                            loadingPesanan
+                                ? Center(
+                                    child: CircularProgressIndicator(
+                                        color: Color.fromRGBO(76, 81, 97, 1)),
+                                  )
                                 : GridView.builder(
                                     padding: EdgeInsets.symmetric(
                                       horizontal: 15.w,
@@ -742,7 +878,9 @@ class _LihatPesananState extends State<LihatPesanan> {
                                             Align(
                                               alignment: Alignment(0.97, 0.0),
                                               child: GestureDetector(
-                                                onTap: () {},
+                                                onTap: () {
+                                                  updateData(pesanan);
+                                                },
                                                 child: Container(
                                                   width: 145.w,
                                                   height: 36.h,
@@ -770,7 +908,22 @@ class _LihatPesananState extends State<LihatPesanan> {
                                           ],
                                         ),
                                       );
-                                    }))),
+                                    })),
+                            Visibility(
+                              visible: loading,
+                              child: Container(
+                                width: 490.w,
+                                height: 980.h,
+                                color: Color.fromRGBO(0, 0, 0, 0.20),
+                                child: Center(
+                                  child: CircularProgressIndicator(
+                                    color: Color.fromRGBO(119, 115, 205, 1),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
                   ),
                   SingleChildScrollView(
                     child: Container(
@@ -783,347 +936,307 @@ class _LihatPesananState extends State<LihatPesanan> {
                                   color: Color.fromRGBO(76, 81, 97, 1),
                                 ),
                               )
-                            : _riwayatUser.length == 0
-                                ? Container()
-                                : GridView.builder(
+                            : GridView.builder(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 15.w,
+                                  vertical: 20.h,
+                                ),
+                                itemCount: _riwayatUser.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 1,
+                                  mainAxisExtent: 182.h,
+                                  mainAxisSpacing: 15.w,
+                                ),
+                                itemBuilder: ((context, i) {
+                                  final riwayatPesanan = _riwayatUser[i];
+                                  final menu = _menuFilterRiwayat[i];
+                                  final stand = _standFilterRiwayat[i];
+                                  return Container(
                                     padding: EdgeInsets.symmetric(
-                                      horizontal: 15.w,
-                                      vertical: 20.h,
+                                      horizontal: 5,
+                                      vertical: 5,
                                     ),
-                                    itemCount: _riwayatUser.length,
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 1,
-                                      mainAxisExtent: 215.h,
-                                      mainAxisSpacing: 15.w,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withOpacity(0.3),
+                                          spreadRadius: 0,
+                                          blurRadius: 1.5,
+                                          offset: Offset(0, 0),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(7),
                                     ),
-                                    itemBuilder: ((context, i) {
-                                      final riwayatPesanan = _riwayatUser[i];
-                                      final menu = _menuFilterRiwayat[i];
-                                      final stand = _standFilterRiwayat[i];
-                                      return Container(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 5,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.black.withOpacity(0.3),
-                                              spreadRadius: 0,
-                                              blurRadius: 1.5,
-                                              offset: Offset(0, 0),
-                                            )
-                                          ],
-                                          borderRadius:
-                                              BorderRadius.circular(7),
-                                        ),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 437.w,
-                                              height: 32.h,
-                                              child: Column(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 437.w,
+                                          height: 48.h,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
                                                 children: [
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'No Pesanan :',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-ExtraBold',
-                                                          fontSize: 13.w,
-                                                          color: Color.fromRGBO(
-                                                              76, 81, 97, 1),
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        riwayatPesanan
-                                                            .no_pemesanan,
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 13.w,
-                                                          color: Color.fromRGBO(
-                                                              76, 81, 97, 1),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                  Text(
+                                                    'Nama Pemesan',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-Light',
+                                                      fontSize: 13.w,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 1),
+                                                    ),
                                                   ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Waktu Pemesanan',
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 13.w,
-                                                          color: Color.fromRGBO(
-                                                              76, 81, 97, 1),
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        riwayatPesanan
-                                                            .tgl_pemesanan,
-                                                        style: TextStyle(
-                                                          fontFamily:
-                                                              'Gilroy-Light',
-                                                          fontSize: 13.w,
-                                                          color: Color.fromRGBO(
-                                                              76, 81, 97, 1),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                  Text(
+                                                    riwayatPesanan
+                                                        .nama_pemesanan,
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-Light',
+                                                      fontSize: 13.w,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 1),
+                                                    ),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                            Divider(
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                            Container(
-                                              width: 437.w,
-                                              height: 99.h,
-                                              child: Row(
+                                              Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceBetween,
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
                                                 children: [
-                                                  Container(
-                                                    width: 89.w,
-                                                    height: 97.h,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                    ),
-                                                    child: Image.network(
-                                                      Api.image + stand.image,
-                                                      fit: BoxFit.cover,
+                                                  Text(
+                                                    'No Pesanan :',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-ExtraBold',
+                                                      fontSize: 13.w,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 1),
                                                     ),
                                                   ),
-                                                  Container(
-                                                    width: 329.w,
-                                                    height: 99.h,
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          'Dapur ${stand.nama_stand}, Kode : ${stand.kode_stand}',
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                'Gilroy-ExtraBold',
-                                                            fontSize: 13,
-                                                            color:
-                                                                Color.fromRGBO(
-                                                                    76,
-                                                                    81,
-                                                                    97,
-                                                                    1),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          width: 329.w,
-                                                          height: 45.h,
-                                                          child:
-                                                              GridView.builder(
-                                                            itemCount: 1,
-                                                            gridDelegate:
-                                                                SliverGridDelegateWithFixedCrossAxisCount(
-                                                                    crossAxisCount:
-                                                                        1,
-                                                                    mainAxisExtent:
-                                                                        15.h),
-                                                            itemBuilder:
-                                                                (context, i) {
-                                                              return Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    '${riwayatPesanan.jumlah}X ${menu.nama_menu}',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Gilroy-Light',
-                                                                      fontSize:
-                                                                          13,
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              76,
-                                                                              81,
-                                                                              97,
-                                                                              1),
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    convertToIdr(
-                                                                        int.parse(
-                                                                            menu.harga),
-                                                                        0),
-                                                                    style:
-                                                                        TextStyle(
-                                                                      fontFamily:
-                                                                          'Gilroy-Light',
-                                                                      fontSize:
-                                                                          13,
-                                                                      color: Color
-                                                                          .fromRGBO(
-                                                                              242,
-                                                                              78,
-                                                                              26,
-                                                                              1),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              );
-                                                            },
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          width: 329.w,
-                                                          height: 36.h,
-                                                          child: Center(
-                                                            child: Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
-                                                              children: [
-                                                                Text(
-                                                                  'Total Pembayaran',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-Light',
-                                                                    fontSize:
-                                                                        13,
-                                                                    color: Color
-                                                                        .fromRGBO(
-                                                                            76,
-                                                                            81,
-                                                                            97,
-                                                                            1),
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  convertToIdr(
-                                                                      int.parse(
-                                                                          riwayatPesanan
-                                                                              .total),
-                                                                      0),
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Gilroy-Light',
-                                                                    fontSize:
-                                                                        16,
-                                                                    color: Color
-                                                                        .fromRGBO(
-                                                                            242,
-                                                                            78,
-                                                                            26,
-                                                                            1),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
+                                                  Text(
+                                                    riwayatPesanan.no_pemesanan,
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-Light',
+                                                      fontSize: 13.w,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 1),
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                            ),
-                                            Divider(
-                                              color:
-                                                  Color.fromRGBO(76, 81, 97, 1),
-                                            ),
-                                            Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Container(
-                                                width: 135.w,
-                                                height: 24.h,
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 5),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'Waktu Pemesanan',
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-Light',
+                                                      fontSize: 13.w,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 1),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    riwayatPesanan
+                                                        .tgl_pemesanan,
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Gilroy-Light',
+                                                      fontSize: 13.w,
+                                                      color: Color.fromRGBO(
+                                                          76, 81, 97, 1),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Divider(
+                                          color: Color.fromRGBO(76, 81, 97, 1),
+                                        ),
+                                        Container(
+                                          width: 437.w,
+                                          height: 99.h,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Container(
+                                                width: 89.w,
+                                                height: 97.h,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(4),
-                                                  color: Color.fromRGBO(
-                                                      243, 243, 243, 1),
+                                                      BorderRadius.circular(5),
                                                 ),
-                                                child: Row(
+                                                child: Image.network(
+                                                  Api.image + stand.image,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 329.w,
+                                                height: 99.h,
+                                                child: Column(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    Icon(
-                                                      Icons.wallet,
-                                                      size: 18,
-                                                      color: Color.fromRGBO(
-                                                          76, 81, 97, 1),
-                                                    ),
                                                     Text(
-                                                      convertToIdr(
-                                                          int.parse(
-                                                              riwayatPesanan
-                                                                  .total),
-                                                          0),
+                                                      'Dapur ${stand.nama_stand}, Kode : ${stand.kode_stand}',
                                                       style: TextStyle(
                                                         fontFamily:
                                                             'Gilroy-ExtraBold',
-                                                        fontSize: 16,
+                                                        fontSize: 13,
                                                         color: Color.fromRGBO(
-                                                            242, 78, 26, 1),
+                                                            76, 81, 97, 1),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 329.w,
+                                                      height: 45.h,
+                                                      child: GridView.builder(
+                                                        itemCount: 1,
+                                                        gridDelegate:
+                                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                                                crossAxisCount:
+                                                                    1,
+                                                                mainAxisExtent:
+                                                                    15.h),
+                                                        itemBuilder:
+                                                            (context, i) {
+                                                          return Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                '${riwayatPesanan.jumlah}X ${menu.nama_menu}',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 13,
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          76,
+                                                                          81,
+                                                                          97,
+                                                                          1),
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                convertToIdr(
+                                                                    int.parse(menu
+                                                                        .harga),
+                                                                    0),
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Gilroy-Light',
+                                                                  fontSize: 13,
+                                                                  color: Color
+                                                                      .fromRGBO(
+                                                                          242,
+                                                                          78,
+                                                                          26,
+                                                                          1),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 329.w,
+                                                      height: 36.h,
+                                                      child: Center(
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              'Total Pembayaran',
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Gilroy-Light',
+                                                                fontSize: 13,
+                                                                color: Color
+                                                                    .fromRGBO(
+                                                                        76,
+                                                                        81,
+                                                                        97,
+                                                                        1),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              convertToIdr(
+                                                                  int.parse(
+                                                                      riwayatPesanan
+                                                                          .total),
+                                                                  0),
+                                                              style: TextStyle(
+                                                                fontFamily:
+                                                                    'Gilroy-Light',
+                                                                fontSize: 16,
+                                                                color: Color
+                                                                    .fromRGBO(
+                                                                        242,
+                                                                        78,
+                                                                        26,
+                                                                        1),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      );
-                                    }))),
+                                      ],
+                                    ),
+                                  );
+                                }))),
                   ),
                 ],
               ),

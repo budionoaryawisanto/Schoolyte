@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-Future fetchDataAdmin() async {
+  Future fetchDataAdmin() async {
     setState(() {
       loading = true;
     });
@@ -76,7 +76,6 @@ Future fetchDataAdmin() async {
       });
     }
   }
-
 
   @override
   void initState() {
@@ -129,7 +128,7 @@ Future fetchDataAdmin() async {
         }
       }
     } else if (status == 'Admin') {
-      for (var i = 0; i <= _admin.length + 1; i++) {
+      for (var i = 0; i <= _admin.length; i++) {
         final admin = _admin[i];
         if (email.toLowerCase() == admin.email.toLowerCase() &&
             password.toLowerCase() == admin.pass.toLowerCase()) {

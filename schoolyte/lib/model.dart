@@ -24,6 +24,7 @@ class Api {
   static String getPesanan = 'https://schoolyte.my.id/api/pesan-kantin';
   static String createPesanan =
       'https://schoolyte.my.id/api/pesan-kantin/create';
+  static String deletePesanan = 'https://schoolyte.my.id/api/pesan-kantin/';
   static String getRiwayat = 'https://schoolyte.my.id/api/selesai-kantin';
   static String createRiwayat =
       'https://schoolyte.my.id/api/selesai-kantin/create';
