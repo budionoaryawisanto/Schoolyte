@@ -18,11 +18,8 @@ class LihatPesanan extends StatefulWidget {
 
 class _LihatPesananState extends State<LihatPesanan> {
   List<Stand> _stand = [];
-  List<Stand> _search = [];
   List<Menu> _menu = [];
-  List<Siswa> _siswa = [];
-  List<Guru> _guru = [];
-  List<Admin> _admin = [];
+  List<Pegawai> _pegawai = [];
   List<Pesanan> _pesanan = [];
   List<Pesanan> _pesananUser = [];
   List<RiwayatPesanan> _riwayat = [];
@@ -32,7 +29,7 @@ class _LihatPesananState extends State<LihatPesanan> {
   List<Stand> _standFilterPesanan = [];
   List<Stand> _standFilterRiwayat = [];
 
-  late final profil;
+  late Pegawai profil;
   var loading = false;
   var loadingUser = false;
   var loadingPesanan = false;
@@ -75,7 +72,7 @@ class _LihatPesananState extends State<LihatPesanan> {
         _pesanan.add(Pesanan.formJson(i));
       }
       for (var y = 0; y < _pesanan.length; y++) {
-        if (_pesanan[y].kode_stand == '1') {
+        if (_pesanan[y].kode_stand == profil.stand_id) {
           _pesananUser.add(_pesanan[y]);
         }
       }
@@ -113,7 +110,7 @@ class _LihatPesananState extends State<LihatPesanan> {
         _riwayat.add(RiwayatPesanan.formJson(i));
       }
       for (var y = 0; y < _riwayat.length; y++) {
-        if (_riwayat[y].kode_stand == '1') {
+        if (_riwayat[y].kode_stand == profil.stand_id) {
           _riwayatUser.add(_riwayat[y]);
         }
       }
@@ -153,57 +150,17 @@ class _LihatPesananState extends State<LihatPesanan> {
     }
   }
 
-  Future fetchDataSiswa() async {
-    final prefs = await SharedPreferences.getInstance();
-    id = prefs.getString('id');
-    status = prefs.getString('status');
-    statusUser = prefs.getString('status user');
+  Future fetchDataPegawai() async {
     setState(() {
       loadingUser = true;
     });
-    _siswa.clear();
-    final response = await http.get(Uri.parse(Api.getSiswa));
+    _pegawai.clear();
+    final response = await http.get(Uri.parse(Api.getPegawai));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      setState(() {
-        for (Map<String, dynamic> i in data) {
-          _siswa.add(Siswa.formJson(i));
-        }
-      });
-      await getProfil();
-    }
-  }
-
-  Future fetchDataGuru() async {
-    setState(() {
-      loadingUser = true;
-    });
-    _guru.clear();
-    final response = await http.get(Uri.parse(Api.getGuru));
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      setState(() {
-        for (Map<String, dynamic> i in data) {
-          _guru.add(Guru.formJson(i));
-        }
-      });
-      await getProfil();
-    }
-  }
-
-  Future fetchDataAdmin() async {
-    setState(() {
-      loadingUser = true;
-    });
-    _admin.clear();
-    final response = await http.get(Uri.parse(Api.getAdmin));
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      setState(() {
-        for (Map<String, dynamic> i in data) {
-          _admin.add(Admin.formJson(i));
-        }
-      });
+      for (Map<String, dynamic> i in data) {
+        _pegawai.add(Pegawai.formJson(i));
+      }
       await getProfil();
     }
   }
@@ -211,31 +168,13 @@ class _LihatPesananState extends State<LihatPesanan> {
   getProfil() async {
     final prefs = await SharedPreferences.getInstance();
     id = prefs.getString('id');
-    status = prefs.getString('status');
     statusUser = prefs.getString('status user');
-    if (status!.toLowerCase() == 'siswa') {
-      _siswa.forEach((siswa) {
-        if (siswa.id.toString() == id) {
+    status = prefs.getString('status');
+    if (status == 'Pegawai') {
+      _pegawai.forEach((pegawai) {
+        if (pegawai.id.toString() == id) {
           setState(() {
-            profil = siswa;
-            loadingUser = false;
-          });
-        }
-      });
-    } else if (status.toLowerCase() == 'guru') {
-      _guru.forEach((guru) {
-        if (guru.id.toString() == id) {
-          setState(() {
-            profil = guru;
-            loadingUser = false;
-          });
-        }
-      });
-    } else if (status.toLowerCase() == 'admin') {
-      _admin.forEach((admin) {
-        if (admin.id.toString() == id) {
-          setState(() {
-            profil = admin;
+            profil = pegawai;
             loadingUser = false;
           });
         }
@@ -246,9 +185,7 @@ class _LihatPesananState extends State<LihatPesanan> {
   @override
   void initState() {
     super.initState();
-    fetchDataSiswa();
-    fetchDataGuru();
-    fetchDataAdmin();
+    fetchDataPegawai();
     fetchDataStand();
   }
 
@@ -633,7 +570,7 @@ class _LihatPesananState extends State<LihatPesanan> {
                                           children: [
                                             Container(
                                               width: 437.w,
-                                              height: 32.h,
+                                              height: 48.h,
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
@@ -641,6 +578,36 @@ class _LihatPesananState extends State<LihatPesanan> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
                                                 children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        'Nama Pemesan',
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-ExtraBold',
+                                                          fontSize: 13.w,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        pesanan.nama_pemesanan,
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Gilroy-Light',
+                                                          fontSize: 13.w,
+                                                          color: Color.fromRGBO(
+                                                              76, 81, 97, 1),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                   Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment

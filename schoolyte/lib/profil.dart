@@ -61,11 +61,9 @@ class _ProfilPageState extends State<ProfilPage> {
     print(response.statusCode);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      setState(() {
         for (Map<String, dynamic> i in data) {
           _guru.add(Guru.formJson(i));
-        }
-      });
+      }
       await getProfil();
     }
   }
@@ -81,9 +79,7 @@ class _ProfilPageState extends State<ProfilPage> {
       for (Map<String, dynamic> i in data) {
         _pegawai.add(Pegawai.formJson(i));
       }
-      setState(() {
-        loading = false;
-      });
+      await getProfil();
     }
   }
 
@@ -93,15 +89,11 @@ class _ProfilPageState extends State<ProfilPage> {
     });
     _admin.clear();
     final response = await http.get(Uri.parse(Api.getAdmin));
-    print(response.body);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      setState(() {
-        for (Map<String, dynamic> i in data) {
-          _admin.add(Admin.formJson(i));
-          loading = false;
-        }
-      });
+      for (Map<String, dynamic> i in data) {
+        _admin.add(Admin.formJson(i));
+      }
       await getProfil();
     }
   }
@@ -155,6 +147,7 @@ class _ProfilPageState extends State<ProfilPage> {
     fetchDataSiswa();
     fetchDataGuru();
     fetchDataAdmin();
+    fetchDataPegawai();
   }
 
   _logOut() async {

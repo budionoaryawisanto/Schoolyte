@@ -36,6 +36,7 @@ class _KantinPageState extends State<KantinPage> {
   List<Siswa> _siswa = [];
   List<Guru> _guru = [];
   List<Admin> _admin = [];
+  List<Pegawai> _pegawai = [];
   List<Pesanan> _pesanan = [];
   List<Pesanan> _pesananUser = [];
   List<RiwayatPesanan> _riwayat = [];
@@ -45,6 +46,7 @@ class _KantinPageState extends State<KantinPage> {
   List<Stand> _standFilterPesanan = [];
   List<Stand> _standFilterRiwayat = [];
 
+  late Pegawai pegawaiStand;
   late final profil;
   var loading = false;
   var loadingUser = false;
@@ -169,10 +171,6 @@ class _KantinPageState extends State<KantinPage> {
   }
 
   Future fetchDataSiswa() async {
-    final prefs = await SharedPreferences.getInstance();
-    id = prefs.getString('id');
-    status = prefs.getString('status');
-    statusUser = prefs.getString('status user');
     setState(() {
       loadingUser = true;
     });
@@ -206,19 +204,17 @@ class _KantinPageState extends State<KantinPage> {
     }
   }
 
-  Future fetchDataAdmin() async {
+  Future fetchDataPegawai() async {
     setState(() {
       loadingUser = true;
     });
-    _admin.clear();
-    final response = await http.get(Uri.parse(Api.getAdmin));
+    _pegawai.clear();
+    final response = await http.get(Uri.parse(Api.getPegawai));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      setState(() {
-        for (Map<String, dynamic> i in data) {
-          _admin.add(Admin.formJson(i));
-        }
-      });
+      for (Map<String, dynamic> i in data) {
+        _pegawai.add(Pegawai.formJson(i));
+      }
       await getProfil();
     }
   }
@@ -255,19 +251,64 @@ class _KantinPageState extends State<KantinPage> {
           });
         }
       });
+    } else if (status.toLowerCase() == 'pegawai') {
+      _pegawai.forEach((pegawai) {
+        if (pegawai.id.toString() == id) {
+          setState(() {
+            profil = pegawai;
+            loadingUser = false;
+          });
+        }
+      });
+    }
+  }
+
+  fetchDataUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    id = prefs.getString('id');
+    status = prefs.getString('status');
+    statusUser = prefs.getString('status user');
+    if (status == 'Siswa') {
+      await fetchDataSiswa();
+    } else if (status == 'Guru') {
+      await fetchDataGuru();
+    } else if (status == 'Pegawai') {
+      await fetchDataPegawai();
     }
   }
 
   @override
   void initState() {
     super.initState();
-    fetchDataSiswa();
-    fetchDataGuru();
-    fetchDataAdmin();
+    fetchDataUser();
+    fetchDataPegawai();
     fetchDataStand();
   }
 
-  deleteData(Pesanan pesananUser) async {
+  updateSaldoStand(Stand stand, Menu menu, Pesanan pesananUser) async {
+    for (var i = 0; i < _pegawai.length; i++) {
+      if (_pegawai[i].id.toString() == stand.pegawai_id) {
+        pegawaiStand = _pegawai[i];
+      }
+    }
+    var request = http.MultipartRequest(
+        'POST', Uri.parse(Api.updateSaldoPegawai + pegawaiStand.id.toString()));
+    request.fields.addAll({
+      'saldo': (int.parse(pegawaiStand.saldo) + int.parse(pesananUser.total))
+          .toString()
+    });
+    var response = await request.send();
+    if (response.statusCode == 200) {
+      await deleteData(stand, menu, pesananUser);
+    } else {
+      failed();
+      setState(() {
+        loading = false;
+      });
+    }
+  }
+
+  deleteData(Stand stand, Menu menu, Pesanan pesananUser) async {
     var request = http.MultipartRequest(
         'DELETE', Uri.parse(Api.deletePesanan + pesananUser.id.toString()));
     http.StreamedResponse response = await request.send();
@@ -277,6 +318,9 @@ class _KantinPageState extends State<KantinPage> {
       });
       sucsess();
     } else {
+      setState(() {
+        loading = false;
+      });
       failed();
     }
   }
@@ -303,7 +347,7 @@ class _KantinPageState extends State<KantinPage> {
     });
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
-      await deleteData(pesananUser);
+      updateSaldoStand(stand, menu, pesananUser);
     } else {
       setState(() {
         loading = false;
@@ -1945,8 +1989,8 @@ class _KantinPageState extends State<KantinPage> {
                                               child: Align(
                                                 alignment: Alignment(0.97, 0.0),
                                                 child: GestureDetector(
-                                                  onTap: () async {
-                                                    await konfirmasi(
+                                                  onTap: () {
+                                                    konfirmasi(
                                                         stand, menu, pesanan);
                                                   },
                                                   child: Container(

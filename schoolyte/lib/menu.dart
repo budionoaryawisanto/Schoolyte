@@ -252,6 +252,9 @@ class _DetailMenuState extends State<DetailMenu> {
                                                         mainAxisAlignment:
                                                             MainAxisAlignment
                                                                 .spaceEvenly,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
                                                         children: [
                                                           Container(
                                                             width: 80,
@@ -305,11 +308,14 @@ class _DetailMenuState extends State<DetailMenu> {
                                                             ),
                                                           ),
                                                           Container(
-                                                            width: 90,
+                                                            width: 100,
                                                             child: Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
-                                                                      .start,
+                                                                      .spaceEvenly,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
                                                               children: [
                                                                 SizedBox(
                                                                   width: 40,

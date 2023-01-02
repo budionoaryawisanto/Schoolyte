@@ -113,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
     if (_formKey.currentState!.validate()) {}
     if (_formKey2.currentState!.validate()) {}
     if (status == 'Siswa') {
-      for (var i = 0; i <= _guru.length; i++) {
+      for (var i = 0; i <= _siswa.length + 1; i++) {
         final siswa = _siswa[i];
         if (email.toLowerCase() == siswa.email.toLowerCase() &&
             password.toLowerCase() == siswa.pass.toLowerCase()) {
@@ -126,11 +126,11 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => HomePage()));
         } else if (i == _siswa.length) {
-          var info = 'Data yang anda masukan salah !';
+          return info = 'Data yang anda masukan salah !';
         }
       }
     } else if (status == 'Guru') {
-      for (var i = 0; i <= _guru.length; i++) {
+      for (var i = 0; i <= _guru.length + 1; i++) {
         final guru = _guru[i];
         if (email.toLowerCase() == guru.email.toLowerCase() &&
             password.toLowerCase() == guru.pass.toLowerCase()) {
@@ -147,7 +147,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
     } else if (status == 'Admin') {
-      for (var i = 0; i <= _admin.length; i++) {
+      for (var i = 0; i <= _admin.length + 1; i++) {
         final admin = _admin[i];
         if (email.toLowerCase() == admin.email.toLowerCase() &&
             password.toLowerCase() == admin.pass.toLowerCase()) {
@@ -164,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       }
     } else if (status == 'Pegawai') {
-      for (var i = 0; i <= _pegawai.length; i++) {
+      for (var i = 0; i <= _pegawai.length + 1; i++) {
         final pegawai = _pegawai[i];
         if (email.toLowerCase() == pegawai.email.toLowerCase() &&
             password.toLowerCase() == pegawai.pass.toLowerCase()) {

@@ -11,6 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'absensiPegawai.dart';
 import 'ekstrakurikuler.dart';
 import 'koperasi.dart';
+import 'login.dart';
 import 'model.dart';
 import 'package:http/http.dart' as http;
 import 'package:schoolyte/absensi.dart';
@@ -48,15 +49,16 @@ class _HomePageState extends State<HomePage> {
   var loadingBerita = false;
   var status;
   var statusUser;
+  var id;
 
   Future fetchDataSiswa() async {
-    final prefs = await SharedPreferences.getInstance();
-    var id = prefs.getString('id');
-    status = prefs.getString('status');
-    statusUser = prefs.getString('status user');
     setState(() {
       loadingUser = true;
     });
+    final prefs = await SharedPreferences.getInstance();
+    id = prefs.getString('id');
+    status = prefs.getString('status');
+    statusUser = prefs.getString('status user');
     _siswa.clear();
     final response = await http.get(Uri.parse(Api.getSiswa));
     if (response.statusCode == 200) {
@@ -76,14 +78,11 @@ class _HomePageState extends State<HomePage> {
     });
     _guru.clear();
     final response = await http.get(Uri.parse(Api.getGuru));
-    print(response.statusCode);
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      setState(() {
-        for (Map<String, dynamic> i in data) {
-          _guru.add(Guru.formJson(i));
-        }
-      });
+      for (Map<String, dynamic> i in data) {
+        _guru.add(Guru.formJson(i));
+      }
       await getProfil();
     }
   }
@@ -99,9 +98,7 @@ class _HomePageState extends State<HomePage> {
       for (Map<String, dynamic> i in data) {
         _pegawai.add(Pegawai.formJson(i));
       }
-      setState(() {
-        loadingUser = false;
-      });
+      await getProfil();
     }
   }
 
@@ -113,11 +110,9 @@ class _HomePageState extends State<HomePage> {
     final response = await http.get(Uri.parse(Api.getAdmin));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      setState(() {
-        for (Map<String, dynamic> i in data) {
-          _admin.add(Admin.formJson(i));
-        }
-      });
+      for (Map<String, dynamic> i in data) {
+        _admin.add(Admin.formJson(i));
+      }
       await getProfil();
     }
   }
@@ -197,8 +192,8 @@ class _HomePageState extends State<HomePage> {
   _logOut() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('slogin', false);
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => LoginPage()));
   }
 
   bool akademikClick = true;

@@ -27,17 +27,28 @@ class Pembayaran extends StatefulWidget {
 class _PembayaranState extends State<Pembayaran> {
   List<Siswa> _siswa = [];
   List<Guru> _guru = [];
+  List<Pegawai> _pegawai = [];
   late final profil;
   var loading = false;
   var id;
   var status;
   var statusUser;
 
-  Future fetchDataSiswa() async {
+  fetchDataUser() async {
     final prefs = await SharedPreferences.getInstance();
     id = prefs.getString('id');
     status = prefs.getString('status');
     statusUser = prefs.getString('status user');
+    if (status == 'Siswa') {
+      await fetchDataSiswa();
+    } else if (status == 'Guru') {
+      await fetchDataGuru();
+    } else if (status == 'Pegawai') {
+      await fetchDataPegawai();
+    }
+  }
+
+  Future fetchDataSiswa() async {
     setState(() {
       loading = true;
     });
@@ -45,11 +56,9 @@ class _PembayaranState extends State<Pembayaran> {
     final response = await http.get(Uri.parse(Api.getSiswa));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      setState(() {
-        for (Map<String, dynamic> i in data) {
-          _siswa.add(Siswa.formJson(i));
-        }
-      });
+      for (Map<String, dynamic> i in data) {
+        _siswa.add(Siswa.formJson(i));
+      }
       await getProfil();
     }
   }
@@ -67,6 +76,21 @@ class _PembayaranState extends State<Pembayaran> {
           _guru.add(Guru.formJson(i));
         }
       });
+      await getProfil();
+    }
+  }
+
+  Future fetchDataPegawai() async {
+    setState(() {
+      loading = true;
+    });
+    _pegawai.clear();
+    final response = await http.get(Uri.parse(Api.getPegawai));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      for (Map<String, dynamic> i in data) {
+        _pegawai.add(Pegawai.formJson(i));
+      }
       await getProfil();
     }
   }
@@ -94,14 +118,22 @@ class _PembayaranState extends State<Pembayaran> {
           });
         }
       });
+    } else if (status == 'Pegawai') {
+      _pegawai.forEach((pegawai) {
+        if (pegawai.id.toString() == id) {
+          setState(() {
+            profil = pegawai;
+            loading = false;
+          });
+        }
+      });
     }
   }
 
   @override
   void initState() {
     super.initState();
-    fetchDataSiswa();
-    fetchDataGuru();
+    fetchDataUser();
   }
 
   @override
@@ -138,7 +170,7 @@ class _PembayaranState extends State<Pembayaran> {
       'kode_stand': stand.kode_stand
     });
 
-http.StreamedResponse response = await request.send();
+    http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       updateSaldo();
     } else {
@@ -153,6 +185,40 @@ http.StreamedResponse response = await request.send();
     if (status.toLowerCase() == 'siswa') {
       var request = http.MultipartRequest(
           'POST', Uri.parse(Api.updateSaldoSiswa + profil.id.toString()));
+      request.fields
+          .addAll({'saldo': (int.parse(profil.saldo) - total).toString()});
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        setState(() {
+          loading = false;
+        });
+        sucsess();
+      } else {
+        failed();
+        setState(() {
+          loading = false;
+        });
+      }
+    } else if (status.toLowerCase() == 'guru') {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Api.updateSaldoGuru + profil.id.toString()));
+      request.fields
+          .addAll({'saldo': (int.parse(profil.saldo) - total).toString()});
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        setState(() {
+          loading = false;
+        });
+        sucsess();
+      } else {
+        failed();
+        setState(() {
+          loading = false;
+        });
+      }
+    } else if (status.toLowerCase() == 'pegawai') {
+      var request = http.MultipartRequest(
+          'POST', Uri.parse(Api.updateSaldoPegawai + profil.id.toString()));
       request.fields
           .addAll({'saldo': (int.parse(profil.saldo) - total).toString()});
       var response = await request.send();

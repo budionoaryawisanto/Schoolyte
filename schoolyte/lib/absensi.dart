@@ -74,8 +74,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
         }
       });
       setState(() {
-          loading = false;
-        });
+        loading = false;
+      });
       await getDataUser();
     }
   }
@@ -113,16 +113,18 @@ class _AbsensiPageState extends State<AbsensiPage> {
     });
     var stream = http.ByteStream(DelegatingStream(image!.openRead()));
     var length = await image!.length();
-    var uri = Uri.parse(Api.createAbsenSiswa);
-    var request = http.MultipartRequest("POST", uri);
-    request.fields['siswa_id'] = profil.id.toString();
-    request.fields['kelas_id'] = profil.kelas_id;
-    request.fields['status_absen'] = dropdownvalue;
-    request.fields['wkt_absen'] = waktuAbsen;
-    request.fields['tgl_absen'] = tglAbsen.toString();
+    var request =
+        http.MultipartRequest('POST', Uri.parse(Api.createAbsenSiswa));
+    request.fields.addAll({
+      'siswa_id': profil.id.toString(),
+      'kelas_id': profil.kelas_id,
+      'status_absen': dropdownvalue,
+      'tgl_absen': tglAbsen.toString(),
+      'wkt_absen': waktuAbsen
+    });
     request.files.add(http.MultipartFile("image", stream, length,
         filename: path.basename(image!.path)));
-    var response = await request.send();
+    http.StreamedResponse response = await request.send();
     print(response.statusCode);
     if (response.statusCode == 200) {
       setState(() {

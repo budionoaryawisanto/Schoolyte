@@ -22,6 +22,8 @@ class Api {
       'https://schoolyte.my.id/api/pembayaran-kantin/';
   static String updateSaldoGuru =
       'https://schoolyte.my.id/api/pembayaran-kantin-guru/';
+  static String updateSaldoPegawai =
+      'https://schoolyte.my.id/api/pembayaran-kantin-pegawai/';
   static String getPesanan = 'https://schoolyte.my.id/api/pesan-kantin';
   static String createPesanan =
       'https://schoolyte.my.id/api/pesan-kantin/create';
@@ -161,6 +163,7 @@ class Pegawai {
   final String agama;
   final String saldo;
   final String status;
+  final String stand_id;
   final String image;
 
   Pegawai({
@@ -177,6 +180,7 @@ class Pegawai {
     required this.agama,
     required this.saldo,
     required this.status,
+    required this.stand_id,
     required this.image,
   });
 
@@ -195,11 +199,11 @@ class Pegawai {
       agama: json['agama'],
       saldo: json['saldo'],
       status: json['status'],
+      stand_id: json['stand_id'],
       image: json['image'],
     );
   }
 }
-
 
 class Admin {
   final int id;
@@ -424,6 +428,7 @@ class Berita {
 
 class Stand {
   final int id;
+  final String pegawai_id;
   final String nama_stand;
   final String jenis_stand;
   final String kode_stand;
@@ -432,6 +437,7 @@ class Stand {
 
   Stand(
       {required this.id,
+      required this.pegawai_id,
       required this.nama_stand,
       required this.jenis_stand,
       required this.kode_stand,
@@ -441,6 +447,7 @@ class Stand {
   factory Stand.formJson(Map<String, dynamic> json) {
     return new Stand(
       id: json['id'],
+      pegawai_id: json['pegawai_id'],
       nama_stand: json['nama_stand'],
       jenis_stand: json['jenis_stand'],
       kode_stand: json['kode_stand'],
