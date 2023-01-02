@@ -27,9 +27,13 @@ class ProfilPage extends StatefulWidget {
 class _ProfilPageState extends State<ProfilPage> {
   List<Siswa> _siswa = [];
   List<Guru> _guru = [];
+  List<Pegawai> _pegawai = [];
   List<Admin> _admin = [];
   late final profil;
   var loading = false;
+  var status;
+  var statusUser;
+  var id;
 
   Future fetchDataSiswa() async {
     setState(() {
@@ -66,7 +70,24 @@ class _ProfilPageState extends State<ProfilPage> {
     }
   }
 
-Future fetchDataAdmin() async {
+  Future fetchDataPegawai() async {
+    setState(() {
+      loading = true;
+    });
+    _pegawai.clear();
+    final response = await http.get(Uri.parse(Api.getPegawai));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      for (Map<String, dynamic> i in data) {
+        _pegawai.add(Pegawai.formJson(i));
+      }
+      setState(() {
+        loading = false;
+      });
+    }
+  }
+
+  Future fetchDataAdmin() async {
     setState(() {
       loading = true;
     });
@@ -85,12 +106,9 @@ Future fetchDataAdmin() async {
     }
   }
 
-
-  var status;
-
   getProfil() async {
     final prefs = await SharedPreferences.getInstance();
-    var id = prefs.getString('id');
+    id = prefs.getString('id');
     status = prefs.getString('status');
     if (status!.toLowerCase() == 'siswa') {
       _siswa.forEach((siswa) {
@@ -119,9 +137,17 @@ Future fetchDataAdmin() async {
           });
         }
       });
+    } else if (status == 'Pegawai') {
+      _pegawai.forEach((pegawai) {
+        if (pegawai.id.toString() == id) {
+          setState(() {
+            profil = pegawai;
+            loading = false;
+          });
+        }
+      });
     }
   }
-
 
   @override
   void initState() {
@@ -687,329 +713,372 @@ Future fetchDataAdmin() async {
                       color: Color.fromRGBO(76, 81, 97, 1)),
                 )
               : Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 177,
-                    height: 177,
-                    margin: EdgeInsets.only(top: 40),
-                    child: GestureDetector(
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return Center(
-                                child: Material(
-                                  type: MaterialType.transparency,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 177,
+                          height: 177,
+                          margin: EdgeInsets.only(top: 40),
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return Center(
+                                      child: Material(
+                                        type: MaterialType.transparency,
                                         child: Image.network(
                                           Api.image + profil.image,
                                         ),
-                                ),
-                              );
-                            });
-                      },
-                      child: ClipOval(
+                                      ),
+                                    );
+                                  });
+                            },
+                            child: ClipOval(
                               child: Image.network(
                                 Api.image + profil.image,
-                          fit: BoxFit.cover,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  KartuDigital(profil: profil)));
-                    },
-                    child: Container(
-                      width: 159,
-                      height: 24,
-                      margin: EdgeInsets.only(top: 10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Lihat Kartu Digital',
-                            style: TextStyle(
-                              fontFamily: 'Gilroy-Light',
-                              fontSize: 16,
-                              color: Color.fromRGBO(76, 81, 97, 1),
-                            ),
-                          ),
-                          Icon(
-                            Icons.chevron_right_rounded,
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: 391,
-                    margin: EdgeInsets.only(top: 30),
-                    child: loading
-                        ? Center(
-                            child: CircularProgressIndicator(
-                              color: Color.fromRGBO(119, 115, 205, 1),
-                            ),
-                          )
-                        : Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        KartuDigital(profil: profil)));
+                          },
+                          child: Container(
+                            width: 159,
+                            height: 24,
+                            margin: EdgeInsets.only(top: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Lihat Kartu Digital',
+                                  style: TextStyle(
+                                    fontFamily: 'Gilroy-Light',
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(76, 81, 97, 1),
+                                  ),
                                 ),
-                                child: Row(
+                                Icon(
+                                  Icons.chevron_right_rounded,
+                                  color: Colors.black,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: 391,
+                          margin: EdgeInsets.only(top: 30),
+                          child: loading
+                              ? Center(
+                                  child: CircularProgressIndicator(
+                                    color: Color.fromRGBO(119, 115, 205, 1),
+                                  ),
+                                )
+                              : Column(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceEvenly,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      'Nama',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.86,
+                                      height: 47,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromRGBO(243, 243, 243, 0.31),
+                                        borderRadius: BorderRadius.circular(7),
                                       ),
-                                    ),
-                                    Text(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Nama',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 20,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                          Text(
                                             profil.nama,
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 16,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Status',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.86,
+                                      height: 47,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromRGBO(243, 243, 243, 0.31),
+                                        borderRadius: BorderRadius.circular(7),
                                       ),
-                                    ),
-                                    Text(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Status',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 20,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                          Text(
                                             profil.status,
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 16,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.86,
+                                      height: 47,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromRGBO(243, 243, 243, 0.31),
+                                        borderRadius: BorderRadius.circular(7),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
                                             status.toLowerCase() == 'guru'
                                                 ? 'NIP'
                                                 : status.toLowerCase() ==
                                                         'siswa'
                                                     ? 'NISN'
                                                     : 'NIK',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
-                                      ),
-                                    ),
-                                    Text(
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 20,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                          Text(
                                             status.toLowerCase() == 'guru'
                                                 ? profil.nip
                                                 : status.toLowerCase() ==
                                                         'siswa'
                                                     ? profil.nis
                                                     : profil.nik,
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 16,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Kelas',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.86,
+                                      height: 47,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromRGBO(243, 243, 243, 0.31),
+                                        borderRadius: BorderRadius.circular(7),
                                       ),
-                                    ),
-                                    Text(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Kelas',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 20,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                          Text(
                                             status.toLowerCase() == 'siswa'
                                                 ? profil.kelas_id
                                                 : '-',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 16,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'TTL',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.86,
+                                      height: 47,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromRGBO(243, 243, 243, 0.31),
+                                        borderRadius: BorderRadius.circular(7),
                                       ),
-                                    ),
-                                    Text(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'TTL',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 20,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                          Text(
                                             '${profil.tempat_lahir}, ${profil.tgl_lahir}',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 16,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Jenis Kelamin',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.86,
+                                      height: 47,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromRGBO(243, 243, 243, 0.31),
+                                        borderRadius: BorderRadius.circular(7),
                                       ),
-                                    ),
-                                    Text(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Jenis Kelamin',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 20,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                          Text(
                                             profil.jenis_kelamin,
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 16,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.86,
-                                height: 47,
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(243, 243, 243, 0.31),
-                                  borderRadius: BorderRadius.circular(7),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Agama',
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-ExtraBold',
-                                        fontSize: 20,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.86,
+                                      height: 47,
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromRGBO(243, 243, 243, 0.31),
+                                        borderRadius: BorderRadius.circular(7),
                                       ),
-                                    ),
-                                    Text(
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Agama',
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-ExtraBold',
+                                              fontSize: 20,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                          Text(
                                             profil.agama,
-                                      style: TextStyle(
-                                        fontFamily: 'Gilroy-Light',
-                                        fontSize: 16,
-                                        color: Color.fromRGBO(76, 81, 97, 1),
+                                            style: TextStyle(
+                                              fontFamily: 'Gilroy-Light',
+                                              fontSize: 16,
+                                              color:
+                                                  Color.fromRGBO(76, 81, 97, 1),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
-                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
-            ),
-          ),
+                ),
         ),
       ),
     );

@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
 
   List<Siswa> _siswa = [];
   List<Guru> _guru = [];
+  List<Pegawai> _pegawai = [];
   List<Admin> _admin = [];
   var loading = false;
   var obscure = true;
@@ -59,6 +60,23 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  Future fetchDataPegawai() async {
+    setState(() {
+      loading = true;
+    });
+    _pegawai.clear();
+    final response = await http.get(Uri.parse(Api.getPegawai));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      for (Map<String, dynamic> i in data) {
+        _pegawai.add(Pegawai.formJson(i));
+      }
+      setState(() {
+        loading = false;
+      });
+    }
+  }
+
   Future fetchDataAdmin() async {
     setState(() {
       loading = true;
@@ -82,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
     fetchDataSiswa();
     fetchDataGuru();
+    fetchDataPegawai();
     fetchDataAdmin();
   }
 
@@ -141,6 +160,23 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.push(
               context, MaterialPageRoute(builder: (context) => HomePage()));
         } else if (i == _admin.length) {
+          return info = 'Data yang anda masukan salah !';
+        }
+      }
+    } else if (status == 'Pegawai') {
+      for (var i = 0; i <= _pegawai.length; i++) {
+        final pegawai = _pegawai[i];
+        if (email.toLowerCase() == pegawai.email.toLowerCase() &&
+            password.toLowerCase() == pegawai.pass.toLowerCase()) {
+          final prefs = await SharedPreferences.getInstance();
+          prefs.setBool('slogin', true);
+          prefs.setString('id', pegawai.id.toString());
+          prefs.setString('status', status);
+          prefs.setString('status user', pegawai.status);
+          prefs.setString('nama user', pegawai.nama);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        } else if (i == _pegawai.length) {
           return info = 'Data yang anda masukan salah !';
         }
       }

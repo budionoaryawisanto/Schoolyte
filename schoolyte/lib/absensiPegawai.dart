@@ -33,7 +33,7 @@ class AbsensiPegawaiPage extends StatefulWidget {
 }
 
 class _AbsensiPegawaiPageState extends State<AbsensiPegawaiPage> {
-  List<Absensi> _absensi = [];
+  List<AbsensiSiswa> _absensi = [];
   var loading = false;
 
   Future fetchData() async {
@@ -41,12 +41,12 @@ class _AbsensiPegawaiPageState extends State<AbsensiPegawaiPage> {
       loading = true;
     });
     _absensi.clear();
-    final response = await http.get(Uri.parse(Api.getAbsen));
+    final response = await http.get(Uri.parse(Api.getAbsenSiswa));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       setState(() {
         for (Map<String, dynamic> i in data) {
-          _absensi.add(Absensi.formJson(i));
+          _absensi.add(AbsensiSiswa.formJson(i));
           loading = false;
         }
       });
@@ -62,7 +62,7 @@ class _AbsensiPegawaiPageState extends State<AbsensiPegawaiPage> {
     try {
       var stream = http.ByteStream(DelegatingStream(image!.openRead()));
       var length = await image!.length();
-      var uri = Uri.parse(Api.createAbsen);
+      var uri = Uri.parse(Api.createAbsenSiswa);
       var request = http.MultipartRequest("POST", uri);
       request.fields['siswa_id'] = '1';
       request.fields['kelas_id'] = '1';

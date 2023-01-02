@@ -33,8 +33,8 @@ class AbsensiPage extends StatefulWidget {
 }
 
 class _AbsensiPageState extends State<AbsensiPage> {
-  List<Absensi> _absensi = [];
-  List<Absensi> _absensiUser = [];
+  List<AbsensiSiswa> _absensi = [];
+  List<AbsensiSiswa> _absensiUser = [];
   List<Siswa> _siswa = [];
   var loading = false;
   var loadingData = false;
@@ -72,10 +72,11 @@ class _AbsensiPageState extends State<AbsensiPage> {
             profil = siswa;
           });
         }
-        setState(() {
+      });
+      setState(() {
           loading = false;
         });
-      });
+      await getDataUser();
     }
   }
 
@@ -97,13 +98,12 @@ class _AbsensiPageState extends State<AbsensiPage> {
       loadingData = true;
     });
     _absensi.clear();
-    final response = await http.get(Uri.parse(Api.getAbsen));
+    final response = await http.get(Uri.parse(Api.getAbsenSiswa));
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       for (Map<String, dynamic> i in data) {
-        _absensi.add(Absensi.formJson(i));
+        _absensi.add(AbsensiSiswa.formJson(i));
       }
-      await getDataUser();
     }
   }
 
@@ -111,19 +111,18 @@ class _AbsensiPageState extends State<AbsensiPage> {
     setState(() {
       loading = true;
     });
-    var stream = new http.ByteStream(DelegatingStream(image!.openRead()));
-    stream.cast();
+    var stream = http.ByteStream(DelegatingStream(image!.openRead()));
     var length = await image!.length();
-    var request = http.MultipartRequest('POST', Uri.parse(Api.createAbsen));
-    request.fields.addAll({
-      'siswa_id': profil.id.toString(),
-      'kelas_id': profil.kelas_id,
-      'status_absen': dropdownvalue,
-      'tgl_absen': tglAbsen.toString(),
-      'wkt_absen': waktuAbsen,
-    });
-    request.files.add(await http.MultipartFile.fromPath("image", image!.path));
-    http.StreamedResponse response = await request.send();
+    var uri = Uri.parse(Api.createAbsenSiswa);
+    var request = http.MultipartRequest("POST", uri);
+    request.fields['siswa_id'] = profil.id.toString();
+    request.fields['kelas_id'] = profil.kelas_id;
+    request.fields['status_absen'] = dropdownvalue;
+    request.fields['wkt_absen'] = waktuAbsen;
+    request.fields['tgl_absen'] = tglAbsen.toString();
+    request.files.add(http.MultipartFile("image", stream, length,
+        filename: path.basename(image!.path)));
+    var response = await request.send();
     print(response.statusCode);
     if (response.statusCode == 200) {
       setState(() {
@@ -1119,7 +1118,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
                                     lastDate: DateTime.now(),
                                     selectableDayPredicate: (date) {
                                       if (date.weekday == 6 ||
-                                          date.weekday == 5) {
+                                          date.weekday == 7) {
                                         return false;
                                       }
                                       return true;
@@ -1230,13 +1229,8 @@ class _AbsensiPageState extends State<AbsensiPage> {
                       padding: EdgeInsets.all(10),
                       child: loadingData
                           ? Center(
-                              child: Text(
-                                '.....',
-                                style: TextStyle(
-                                  fontFamily: 'Gilroy-ExtraBold',
-                                  fontSize: 24,
-                                ),
-                              ),
+                              child: CircularProgressIndicator(
+                                  color: Color.fromRGBO(76, 81, 97, 1)),
                             )
                           : GridView.builder(
                               itemCount: _absensiUser.length,

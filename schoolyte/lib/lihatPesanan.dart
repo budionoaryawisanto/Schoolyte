@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:schoolyte/kantinAdmin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'model.dart';
@@ -256,9 +257,9 @@ class _LihatPesananState extends State<LihatPesanan> {
       loading = true;
     });
     var request = http.MultipartRequest(
-        'POST', Uri.parse(Api.getPesanan + pesananUser.id.toString()));
+        'POST', Uri.parse(Api.updatePesanan + pesananUser.id.toString()));
     request.fields.addAll({'status': 'Selesai'});
-    var response = await request.send();
+    http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       setState(() {
         loading = false;
@@ -272,7 +273,7 @@ class _LihatPesananState extends State<LihatPesanan> {
     }
   }
 
-  konfirmasi() {
+  konfirmasi(Pesanan pesananUser) {
     showDialog(
         barrierDismissible: false,
         context: context,
@@ -336,7 +337,10 @@ class _LihatPesananState extends State<LihatPesanan> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () async {
+                            Navigator.pop(context);
+                            await updateData(pesananUser);
+                          },
                           child: Container(
                             width: 107.w,
                             height: 43.h,
@@ -558,7 +562,10 @@ class _LihatPesananState extends State<LihatPesanan> {
                   ),
                   leading: GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => KantinAdmin()));
                     },
                     child: Align(
                       alignment: Alignment(1.0, 0.0),
@@ -878,8 +885,13 @@ class _LihatPesananState extends State<LihatPesanan> {
                                             Align(
                                               alignment: Alignment(0.97, 0.0),
                                               child: GestureDetector(
-                                                onTap: () {
-                                                  updateData(pesanan);
+                                                onTap: () async {
+                                                  if (pesanan.status ==
+                                                      'Selesai') {
+                                                    return;
+                                                  } else {
+                                                    await konfirmasi(pesanan);
+                                                  }
                                                 },
                                                 child: Container(
                                                   width: 145.w,
@@ -888,8 +900,12 @@ class _LihatPesananState extends State<LihatPesanan> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             6),
-                                                    color: Color.fromRGBO(
-                                                        242, 78, 26, 1),
+                                                    color: pesanan.status ==
+                                                            'Selesai'
+                                                        ? Color.fromRGBO(
+                                                            217, 217, 217, 1)
+                                                        : Color.fromRGBO(
+                                                            242, 78, 26, 1),
                                                   ),
                                                   child: Center(
                                                     child: Text(

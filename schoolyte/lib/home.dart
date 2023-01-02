@@ -40,6 +40,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<Siswa> _siswa = [];
   List<Guru> _guru = [];
+  List<Pegawai> _pegawai = [];
   List<Admin> _admin = [];
   List<Berita> _berita = [];
   late final profil;
@@ -84,6 +85,23 @@ class _HomePageState extends State<HomePage> {
         }
       });
       await getProfil();
+    }
+  }
+
+  Future fetchDataPegawai() async {
+    setState(() {
+      loadingUser = true;
+    });
+    _pegawai.clear();
+    final response = await http.get(Uri.parse(Api.getPegawai));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      for (Map<String, dynamic> i in data) {
+        _pegawai.add(Pegawai.formJson(i));
+      }
+      setState(() {
+        loadingUser = false;
+      });
     }
   }
 
@@ -135,6 +153,15 @@ class _HomePageState extends State<HomePage> {
           });
         }
       });
+    } else if (status == 'Pegawai') {
+      _pegawai.forEach((pegawai) {
+        if (pegawai.id.toString() == id) {
+          setState(() {
+            profil = pegawai;
+            loadingUser = false;
+          });
+        }
+      });
     }
   }
 
@@ -162,6 +189,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     fetchDataSiswa();
     fetchDataGuru();
+    fetchDataPegawai();
     fetchDataAdmin();
     fetchDataBerita();
   }

@@ -435,6 +435,103 @@ class _KantinPageState extends State<KantinPage> {
         });
   }
 
+  konfirmasi(Stand stand, Menu menu, Pesanan pesananUser) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: Container(
+              height: 357.h,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 177.w,
+                    height: 177.h,
+                    child: Image.asset(
+                      'assets/images/alertDialog.png',
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  Text(
+                    'Kamu Yakin ?',
+                    style: TextStyle(
+                      fontFamily: 'Gilroy-ExtraBold',
+                      fontSize: 32.w,
+                    ),
+                  ),
+                  Container(
+                    width: 253.w,
+                    height: 43.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Container(
+                            width: 107.w,
+                            height: 43.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(
+                                width: 1,
+                                color: Color.fromRGBO(119, 115, 205, 1),
+                              ),
+                              color: Colors.white,
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Tidak',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 20.w,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () async {
+                            Navigator.pop(context);
+                            await sendData(stand, menu, pesananUser);
+                          },
+                          child: Container(
+                            width: 107.w,
+                            height: 43.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Color.fromRGBO(242, 78, 26, 1),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Ya',
+                                style: TextStyle(
+                                  fontFamily: 'Gilroy-Light',
+                                  fontSize: 20.w,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   _logOut() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('slogin', false);
@@ -1273,8 +1370,8 @@ class _KantinPageState extends State<KantinPage> {
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                           maxCrossAxisExtent: 140.w,
                                           mainAxisExtent: 275.h,
-                                          crossAxisSpacing: 5,
-                                          mainAxisSpacing: 5,
+                                          crossAxisSpacing: 10.w,
+                                          mainAxisSpacing: 15.h,
                                         ),
                                         itemBuilder: (context, i) {
                                           final stand = _search[i];
@@ -1843,13 +1940,13 @@ class _KantinPageState extends State<KantinPage> {
                                             Visibility(
                                               visible:
                                                   pesanan.status == 'Selesai'
-                                                  ? true
-                                                  : false,
+                                                      ? true
+                                                      : false,
                                               child: Align(
                                                 alignment: Alignment(0.97, 0.0),
                                                 child: GestureDetector(
                                                   onTap: () async {
-                                                    await sendData(
+                                                    await konfirmasi(
                                                         stand, menu, pesanan);
                                                   },
                                                   child: Container(
@@ -2204,10 +2301,12 @@ class _KantinPageState extends State<KantinPage> {
                                                       76, 81, 97, 1),
                                                 ),
                                                 Text(
-                                                  convertToIdr(
-                                                      int.parse(
-                                                          riwayatPesanan.total),
-                                                      0),
+                                                  '-' +
+                                                      convertToIdr(
+                                                          int.parse(
+                                                              riwayatPesanan
+                                                                  .total),
+                                                          0),
                                                   style: TextStyle(
                                                     fontFamily:
                                                         'Gilroy-ExtraBold',

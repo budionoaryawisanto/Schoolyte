@@ -1,10 +1,11 @@
 class Api {
   static String getSiswa = 'https://schoolyte.my.id/api/siswa';
   static String getGuru = 'https://schoolyte.my.id/api/guru';
+  static String getPegawai = 'https://schoolyte.my.id/api/pegawai';
   static String getAdmin = 'https://schoolyte.my.id/api/admin';
-  static String createSiswa = 'https://schoolyte.my.id/api/siswa/create';
-  static String getAbsen = 'https://schoolyte.my.id/api/absensiswa';
-  static String createAbsen = 'https://schoolyte.my.id/api/absensiswa/create';
+  static String getAbsenSiswa = 'https://schoolyte.my.id/api/absensiswa';
+  static String createAbsenSiswa =
+      'https://schoolyte.my.id/api/absensiswa/create';
   static String editAbsen = 'https://schoolyte.my.id/api/absensiswa/update/';
   static String image = 'https://schoolyte.my.id/';
   static String getBook = 'https://schoolyte.my.id/api/buku';
@@ -25,6 +26,8 @@ class Api {
   static String createPesanan =
       'https://schoolyte.my.id/api/pesan-kantin/create';
   static String deletePesanan = 'https://schoolyte.my.id/api/pesan-kantin/';
+  static String updatePesanan =
+      'https://schoolyte.my.id/api/pesan-kantin/status/';
   static String getRiwayat = 'https://schoolyte.my.id/api/selesai-kantin';
   static String createRiwayat =
       'https://schoolyte.my.id/api/selesai-kantin/create';
@@ -144,6 +147,60 @@ class Guru {
   }
 }
 
+class Pegawai {
+  final int id;
+  final String email;
+  final String pass;
+  final String nama;
+  final String alamat;
+  final String tlpn;
+  final String jenis_kelamin;
+  final String tempat_lahir;
+  final String nik;
+  final String tgl_lahir;
+  final String agama;
+  final String saldo;
+  final String status;
+  final String image;
+
+  Pegawai({
+    required this.id,
+    required this.email,
+    required this.pass,
+    required this.nama,
+    required this.alamat,
+    required this.tlpn,
+    required this.jenis_kelamin,
+    required this.tempat_lahir,
+    required this.nik,
+    required this.tgl_lahir,
+    required this.agama,
+    required this.saldo,
+    required this.status,
+    required this.image,
+  });
+
+  factory Pegawai.formJson(Map<String, dynamic> json) {
+    return new Pegawai(
+      id: json['id'],
+      email: json['email'],
+      pass: json['pass'],
+      nama: json['nama'],
+      alamat: json['alamat'],
+      tlpn: json['tlpn'],
+      jenis_kelamin: json['jenis_kelamin'],
+      tempat_lahir: json['tempat_lahir'],
+      nik: json['nik'],
+      tgl_lahir: json['tgl_lahir'],
+      agama: json['agama'],
+      saldo: json['saldo'],
+      status: json['status'],
+      image: json['image'],
+    );
+  }
+}
+
+
 class Admin {
   final int id;
   final String email;
@@ -193,7 +250,7 @@ class Admin {
   }
 }
 
-class Absensi {
+class AbsensiSiswa {
   final int id;
   final String siswa_id;
   final String kelas_id;
@@ -202,7 +259,7 @@ class Absensi {
   final String tgl_absen;
   final String wkt_absen;
 
-  Absensi(
+  AbsensiSiswa(
       {required this.id,
       required this.siswa_id,
       required this.kelas_id,
@@ -211,8 +268,8 @@ class Absensi {
       required this.tgl_absen,
       required this.wkt_absen});
 
-  factory Absensi.formJson(Map<String, dynamic> json) {
-    return new Absensi(
+  factory AbsensiSiswa.formJson(Map<String, dynamic> json) {
+    return new AbsensiSiswa(
       id: json['id'],
       siswa_id: json['siswa_id'],
       kelas_id: json['kelas_id'],
