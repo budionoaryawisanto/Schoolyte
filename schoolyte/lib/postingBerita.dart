@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:schoolyte/berita.dart';
 import 'model.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -132,7 +133,6 @@ class _PostingBeritaState extends State<PostingBerita> {
       request.files.add(http.MultipartFile("image", stream, length,
           filename: path.basename(image!.path)));
       var response = await request.send();
-      print(response.statusCode);
       if (response.statusCode == 200) {
         setState(() {
           loading = false;
@@ -160,7 +160,7 @@ class _PostingBeritaState extends State<PostingBerita> {
                         ),
                       ),
                       Text(
-                        'Absen Sukses',
+                        'Sukses',
                         style: TextStyle(
                           fontFamily: 'Gilroy-ExtraBold',
                           fontSize: 32,
@@ -261,7 +261,10 @@ class _PostingBeritaState extends State<PostingBerita> {
                       IconThemeData(color: Color.fromRGBO(217, 217, 217, 1)),
                   leading: GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BeritaPage()));
                     },
                     child: Align(
                       alignment: Alignment(1.0, 0.0),

@@ -111,6 +111,7 @@ class _AbsensiPageState extends State<AbsensiPage> {
     setState(() {
       loading = true;
     });
+
     var stream = http.ByteStream(DelegatingStream(image!.openRead()));
     var length = await image!.length();
     var request =
@@ -122,9 +123,11 @@ class _AbsensiPageState extends State<AbsensiPage> {
       'tgl_absen': tglAbsen.toString(),
       'wkt_absen': waktuAbsen
     });
-    request.files.add(http.MultipartFile("image", stream, length,
-        filename: path.basename(image!.path)));
+    request.files.add(await http.MultipartFile.fromPath('image', image!.path));
     http.StreamedResponse response = await request.send();
+    // request.files.add(http.MultipartFile("image", stream, length,
+    //     filename: path.basename(image!.path)));
+    // http.StreamedResponse response = await request.send();
     print(response.statusCode);
     if (response.statusCode == 200) {
       setState(() {

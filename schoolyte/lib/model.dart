@@ -3,10 +3,10 @@ class Api {
   static String getGuru = 'https://schoolyte.my.id/api/guru';
   static String getPegawai = 'https://schoolyte.my.id/api/pegawai';
   static String getAdmin = 'https://schoolyte.my.id/api/admin';
-  static String getAbsenSiswa = 'https://schoolyte.my.id/api/absensiswa';
+  static String getAbsenSiswa = 'https://schoolyte.my.id/api/absen-siswa';
   static String createAbsenSiswa =
-      'https://schoolyte.my.id/api/absensiswa/create';
-  static String editAbsen = 'https://schoolyte.my.id/api/absensiswa/update/';
+      'https://schoolyte.my.id/api/absen-siswa/create';
+  static String editAbsen = 'https://schoolyte.my.id/api/absen-siswa/update/';
   static String image = 'https://schoolyte.my.id/';
   static String getBook = 'https://schoolyte.my.id/api/buku';
   static String createBook = 'https://schoolyte.my.id/api/buku/create';
